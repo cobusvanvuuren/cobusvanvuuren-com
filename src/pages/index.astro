@@ -1,0 +1,419 @@
+---
+import Base from '../layouts/Base.astro';
+
+const articles = [
+  {
+    tag: 'Owner Bottleneck',
+    title: 'Why SA professional services firms lose 15–25% of billable hours annually',
+    date: 'May 2026',
+    readTime: '8 min read',
+    excerpt: 'Most firms have no idea where the time goes. The data does — and the number is always the same.',
+    slug: 'billable-hours-professional-services',
+  },
+  {
+    tag: 'Time Leaks',
+    title: 'The 5 most common time leaks in an accounting, law, or FSP practice',
+    date: 'May 2026',
+    readTime: '6 min read',
+    excerpt: 'Five patterns that show up in almost every practice audit. The first one will surprise you.',
+    slug: 'time-leaks-professional-practice',
+  },
+  {
+    tag: 'Automation',
+    title: 'What is a Business Automation Audit — and why would you pay R15,000 for one?',
+    date: 'May 2026',
+    readTime: '7 min read',
+    excerpt: 'A structured answer to the most common question I get. With the maths.',
+    slug: 'what-is-business-automation-audit',
+  },
+];
+
+const videos = [
+  {
+    title: 'Owner as Bottleneck: how to stop being the reason your practice can\'t grow',
+    duration: '12 min',
+    tag: 'Owner Bottleneck',
+  },
+  {
+    title: 'The first AI workflow every SA professional should set up — and why most start wrong',
+    duration: '8 min',
+    tag: 'Automation',
+  },
+  {
+    title: 'Why your competitors convert leads 21× faster than you — and what to do about it',
+    duration: '6 min',
+    tag: 'Sales AI',
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://cobusvanvuuren.com/#person",
+      "name": "Cobus van Vuuren",
+      "url": "https://cobusvanvuuren.com",
+      "jobTitle": "Business Automation Consultant",
+      "description": "Maps time leaks inside SA professional services firms and shows where AI changes the maths.",
+      "worksFor": { "@type": "Organization", "name": "RhinoBerry" },
+      "sameAs": ["https://www.linkedin.com/in/cobus-van-vuuren"]
+    }
+  ]
+};
+---
+
+<Base
+  title="Cobus van Vuuren — AI and Automation for SA Professional Services"
+  description="I map the time leaks inside SA professional services firms and show exactly where automation changes the maths. Articles, videos, and the Business Automation Audit."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    <style>
+      /* Hero radial glow behind heading */
+      .hero-bloom {
+        position: absolute;
+        top: 5%;
+        left: -5%;
+        width: 65%;
+        height: 90%;
+        background: radial-gradient(ellipse at 30% 40%,
+          rgba(200, 40, 44, 0.10) 0%,
+          rgba(200, 40, 44, 0.04) 35%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* Content card */
+      .content-card {
+        display: block;
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.2s ease;
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .content-card:hover {
+        border-color: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.04);
+        transform: translateY(-2px);
+      }
+
+      /* Video thumbnail placeholder */
+      .video-thumb {
+        aspect-ratio: 16 / 9;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .video-thumb::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, rgba(200,40,44,0.06) 0%, transparent 70%);
+      }
+      .play-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+      }
+      .play-icon::after {
+        content: '';
+        border-style: solid;
+        border-width: 7px 0 7px 14px;
+        border-color: transparent transparent transparent rgba(255,255,255,0.7);
+        margin-left: 3px;
+      }
+
+      /* Tag */
+      .tag {
+        display: inline-block;
+        font-family: var(--font-sans);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--color-smoke);
+        margin-bottom: 0.75rem;
+      }
+
+      /* Two-path CTA cards */
+      .path-card {
+        border-radius: 16px;
+        padding: 2.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.02);
+        transition: border-color 0.25s ease;
+      }
+      .path-card-primary {
+        border-color: rgba(200, 40, 44, 0.3);
+        background: rgba(200, 40, 44, 0.04);
+      }
+      .path-card:hover { border-color: rgba(255, 255, 255, 0.14); }
+      .path-card-primary:hover { border-color: rgba(200, 40, 44, 0.5); }
+
+      /* Section rule */
+      .section-rule {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.07), transparent);
+        margin: 5rem 0;
+      }
+
+      /* Proof numbers */
+      .proof-num {
+        font-family: var(--font-serif);
+        font-weight: 200;
+        font-style: italic;
+        line-height: 0.88;
+        background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.4) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+    </style>
+  </Fragment>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- HERO                                      -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex flex-col justify-center pt-28 pb-20 overflow-hidden">
+    <div class="hero-bloom"></div>
+
+    <div class="relative max-w-5xl mx-auto px-6 w-full">
+
+      <!-- Who -->
+      <p class="font-sans font-light text-[13px] text-smoke tracking-[0.14em] mb-8">
+        Cobus van Vuuren &nbsp;/&nbsp; Business Automation &nbsp;/&nbsp; South Africa
+      </p>
+
+      <!-- Main statement -->
+      <h1 class="font-serif font-light italic text-ivory text-[clamp(3rem,6.5vw,6rem)] leading-[1.02] tracking-[-0.02em] mb-8 max-w-4xl">
+        Most SA business owners know<br class="hidden lg:block" />
+        they need AI. Almost none know<br class="hidden lg:block" />
+        where to start.
+      </h1>
+
+      <p class="font-sans font-light text-[18px] text-[#6e6a66] leading-[1.75] max-w-lg mb-12">
+        I map the time leaks inside professional services practices —
+        and show exactly where automation changes the maths.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 mb-20">
+        <a href="https://score.cobusvanvuuren.com" class="btn-primary text-center" target="_blank" rel="noopener">
+          Take the Free AI Readiness Scorecard →
+        </a>
+        <a href="https://tidycal.com/cobus" class="btn-ghost-dark text-center" target="_blank" rel="noopener">
+          Book a Strategy Call
+        </a>
+      </div>
+
+      <!-- Inline context strip -->
+      <div class="flex flex-wrap gap-x-8 gap-y-4 text-[13px] font-sans font-light text-smoke border-t border-white/7 pt-8">
+        <span>Accountants · Attorneys · Financial Advisors</span>
+        <span class="text-white/15 hidden sm:block">|</span>
+        <span>3–20 staff</span>
+        <span class="text-white/15 hidden sm:block">|</span>
+        <span>South Africa</span>
+        <span class="text-white/15 hidden sm:block">|</span>
+        <span>R50,000 minimum savings guaranteed</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- LATEST ARTICLES                           -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6 pb-6">
+    <div class="section-rule"></div>
+
+    <div class="flex items-baseline justify-between mb-10">
+      <h2 class="font-sans font-semibold text-ivory text-xl">Latest articles</h2>
+      <a href="/articles" class="font-sans font-light text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
+        All articles →
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      {articles.map(article => (
+        <a href={`/articles/${article.slug}`} class="content-card flex flex-col">
+          <span class="tag">{article.tag}</span>
+          <h3 class="font-sans font-semibold text-ivory/90 text-[15px] leading-[1.45] mb-3 flex-1">
+            {article.title}
+          </h3>
+          <p class="font-sans font-light text-[#5e5a56] text-[13px] leading-[1.65] mb-4">
+            {article.excerpt}
+          </p>
+          <p class="font-sans font-light text-[11px] text-smoke/50 mt-auto">
+            {article.date} · {article.readTime}
+          </p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- LATEST VIDEOS                             -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6 pb-6">
+    <div class="section-rule"></div>
+
+    <div class="flex items-baseline justify-between mb-10">
+      <h2 class="font-sans font-semibold text-ivory text-xl">Latest videos</h2>
+      <a href="https://youtube.com/@cobusvanvuuren" class="font-sans font-light text-[13px] text-smoke hover:text-ivory transition-colors duration-200" target="_blank" rel="noopener">
+        YouTube →
+      </a>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      {videos.map(video => (
+        <a href="https://youtube.com/@cobusvanvuuren" class="content-card" target="_blank" rel="noopener">
+          <div class="video-thumb">
+            <div class="play-icon"></div>
+          </div>
+          <span class="tag">{video.tag}</span>
+          <h3 class="font-sans font-semibold text-ivory/90 text-[15px] leading-[1.45] mb-2">
+            {video.title}
+          </h3>
+          <p class="font-sans font-light text-[11px] text-smoke/50">{video.duration}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- THE NUMBER THAT MATTERS                   -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6">
+    <div class="section-rule"></div>
+
+    <div class="grid md:grid-cols-2 gap-10 items-center">
+
+      <div>
+        <p class="font-sans font-light text-[12px] text-smoke tracking-[0.16em] uppercase mb-6">The result that started this</p>
+        <p class="proof-num text-[clamp(5rem,12vw,9rem)] mb-4">79</p>
+        <p class="font-sans font-light text-[#5e5a56] text-base leading-relaxed">
+          Leads in month one. The client was generating 6 leads for R3,000.
+          Same budget, different system. The process doesn't lie.
+        </p>
+        <p class="font-sans font-light text-[11px] text-smoke/40 mt-4">RhinoBerry client — Digital marketing, SA</p>
+      </div>
+
+      <div class="space-y-6">
+        {[
+          { num: '24', unit: 'days', label: 'Lost per year to financial admin — average SA small business' },
+          { num: '37', unit: '%', label: 'Average attorney billable utilisation. 63% disappears to non-billable work.' },
+          { num: '21', unit: '×', label: 'More likely to convert a lead contacted within 5 minutes vs 42 hours' },
+        ].map(stat => (
+          <div class="flex items-baseline gap-4 border-b border-white/6 pb-5 last:border-0 last:pb-0">
+            <p class="font-serif font-extralight italic text-ivory text-[2.5rem] leading-none flex-shrink-0 w-20">
+              {stat.num}<span class="text-[0.55em]">{stat.unit}</span>
+            </p>
+            <p class="font-sans font-light text-[#5e5a56] text-sm leading-[1.6]">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- ABOUT                                     -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6">
+    <div class="section-rule"></div>
+
+    <div class="max-w-2xl">
+      <p class="font-sans font-light text-[12px] text-smoke tracking-[0.16em] uppercase mb-6">About</p>
+      <p class="font-serif font-light italic text-ivory text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.45] mb-6">
+        I built a business, automated it, then started helping other SA
+        professional services firms do the same.
+      </p>
+      <p class="font-sans font-light text-[#5e5a56] text-base leading-[1.80] mb-6">
+        Seven years running RhinoBerry — a digital marketing agency — meant running every manual
+        process first, then spending three years automating the parts that were eating my evenings.
+        Client intake, proposal generation, reporting, billing, content production. The audit methodology
+        is what I use on my own business. Not what I theorise about.
+      </p>
+      <p class="font-sans font-light text-[#5e5a56] text-base leading-[1.80] mb-8">
+        CVV is where I write and talk about AI for SA professional services firms.
+        RhinoBerry is where the marketing implementation happens.
+        The two are connected — the audit tells you which path makes sense.
+      </p>
+      <a href="/about" class="font-sans font-light text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
+        More about me →
+      </a>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════ -->
+  <!-- TWO PATHS CTA                             -->
+  <!-- ══════════════════════════════════════════ -->
+  <section class="max-w-5xl mx-auto px-6 pb-32">
+    <div class="section-rule"></div>
+
+    <p class="font-sans font-light text-[12px] text-smoke tracking-[0.16em] uppercase mb-10">Where to start</p>
+
+    <div class="grid md:grid-cols-2 gap-5">
+
+      <!-- Path 1: Free Scorecard -->
+      <div class="path-card path-card-primary">
+        <p class="font-sans font-medium text-crimson text-[11px] tracking-[0.14em] uppercase mb-4">Free — 5 minutes</p>
+        <h3 class="font-serif font-light italic text-ivory text-[1.75rem] leading-[1.2] mb-4">
+          AI Readiness Scorecard
+        </h3>
+        <p class="font-sans font-light text-[#6e6a66] text-sm leading-[1.70] mb-8">
+          12 questions. Score from 0–100. Find out exactly where your practice stands —
+          time leaks, automation readiness, speed-to-lead. Personalised report sent to your inbox.
+          No pitch. Genuinely useful whether you book an audit or not.
+        </p>
+        <a href="https://score.cobusvanvuuren.com" class="btn-primary block text-center w-full" target="_blank" rel="noopener">
+          Take the Scorecard →
+        </a>
+      </div>
+
+      <!-- Path 2: Strategy Call -->
+      <div class="path-card">
+        <p class="font-sans font-medium text-smoke text-[11px] tracking-[0.14em] uppercase mb-4">R2,500 · 90 minutes</p>
+        <h3 class="font-serif font-light italic text-ivory text-[1.75rem] leading-[1.2] mb-4">
+          Strategy Call
+        </h3>
+        <p class="font-sans font-light text-[#6e6a66] text-sm leading-[1.70] mb-6">
+          Skip the scorecard. Book directly. We map your specific workflows live on a Zoom call,
+          identify the highest-leverage automation opportunities, and you leave with a written
+          summary of exactly where to start. R2,500 credited against the full audit if you proceed.
+        </p>
+        <a href="https://tidycal.com/cobus" class="btn-ghost-dark block text-center w-full" target="_blank" rel="noopener">
+          Book a Strategy Call →
+        </a>
+        <p class="font-sans font-light text-[11px] text-smoke/40 text-center mt-4">
+          Looking for the full Business Automation Audit? <a href="/audit" class="text-smoke/70 hover:text-smoke underline underline-offset-2">See the audit →</a>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+</Base>

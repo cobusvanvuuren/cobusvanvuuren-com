@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# AI training crawlers — allowed
+User-agent: Anthropic-AI
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://cobusvanvuuren.com/sitemap-index.xml
