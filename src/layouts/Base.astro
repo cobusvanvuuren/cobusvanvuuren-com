@@ -21,6 +21,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
   <!-- Open Graph -->
   <meta property="og:title" content={title} />
@@ -31,16 +33,25 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
   <title>{title}</title>
 
-  <!-- Fonts: Cormorant + Inter -->
+  <!-- Fonts: Space Grotesk + Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
 
   <!-- Additional head content (schema, page-specific meta) -->
   <slot name="head" />
+
+  <!-- Google Analytics 4 — G-MR2W1D56CE -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MR2W1D56CE"></script>
+  <script is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-MR2W1D56CE');
+  </script>
 </head>
 <body class="antialiased">
 
@@ -55,14 +66,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <!-- NAV -->
   <nav class="fixed top-0 left-0 right-0 z-[9999] bg-[#0B0A09]/80 backdrop-blur-md border-b border-white/5">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="font-serif font-extralight text-[13px] tracking-[0.28em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300">
+      <a href="/" class="font-serif font-light text-[13px] tracking-[0.18em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300">
         Cobus van Vuuren
       </a>
       <div class="flex items-center gap-5">
-        <a href="/articles" class="hidden md:block font-sans text-[12px] font-light text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
-        <a href="/about"    class="hidden md:block font-sans text-[12px] font-light text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
-        <a href="https://score.cobusvanvuuren.com" class="btn-primary !py-2.5 !px-4 !text-[11px]" target="_blank" rel="noopener">
-          Free Scorecard →
+        <a href="/articles" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
+        <a href="/about"    class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
+        <a href="/score" class="btn-primary !py-2.5 !px-4 !text-[11px]">
+          Free Diagnostic →
         </a>
       </div>
     </div>
@@ -76,14 +87,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <!-- FOOTER -->
   <footer class="relative z-[1] border-t border-white/5 py-10">
     <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="font-sans text-[13px] font-light text-smoke">
+      <p class="font-sans text-[13px] font-normal text-smoke">
         © 2026 Cobus van Vuuren. Business Automation Audits for SA professional services firms.
       </p>
       <div class="flex items-center gap-6">
-        <a href="/privacy"  class="font-sans text-[12px] font-light text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
-        <a href="/terms"    class="font-sans text-[12px] font-light text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
-        <a href="https://www.linkedin.com/in/cobus-van-vuuren" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-light text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
-        <a href="mailto:cobus@cobusvanvuuren.com" class="font-sans text-[12px] font-light text-smoke hover:text-ivory transition-colors duration-200">Email</a>
+        <a href="/privacy"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
+        <a href="/terms"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
+        <a href="https://www.linkedin.com/in/cobus-van-vuuren" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
+        <a href="mailto:cobus@rhinoberry.co.za" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Email</a>
       </div>
     </div>
   </footer>

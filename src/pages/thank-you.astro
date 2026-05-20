@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Payment Confirmed — Cobus van Vuuren"
+  description="Your payment is confirmed. Cobus will be in touch within 24 hours."
+>
+  <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center">
+    <div class="max-w-lg mx-auto">
+
+      <p class="font-sans font-normal text-[11px] tracking-[0.18em] uppercase" style="color:#A67C52; mb-6">
+        Payment confirmed
+      </p>
+
+      <h1 class="font-serif font-bold text-ivory text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.025em] mb-6">
+        You're in.
+      </h1>
+
+      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-4">
+        Payment received. Cobus will be in touch within 24 hours with next steps —
+        including the intake questionnaire and how to schedule your working session.
+      </p>
+
+      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-10">
+        Check your email for a receipt. If anything looks wrong,
+        email <a href="mailto:cobus@cobusvanvuuren.com" class="text-smoke hover:text-ivory transition-colors underline underline-offset-2">cobus@cobusvanvuuren.com</a> directly.
+      </p>
+
+      <a href="/" class="font-sans font-light text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
+        ← Back to cobusvanvuuren.com
+      </a>
+
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var value = parseFloat(params.get('value')) || 9500;
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'Audit_purchased', {
+        currency: 'ZAR',
+        value: value,
+        event_category: 'Conversion'
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Strategy Call Confirmed — Cobus van Vuuren"
+  description="Your strategy call is booked. Check your email for the Zoom link."
+>
+  <section class="min-h-screen flex flex-col justify-center items-center px-6 text-center">
+    <div class="max-w-lg mx-auto">
+
+      <p class="font-sans font-normal text-[11px] tracking-[0.18em] uppercase" style="color:#A67C52; mb-6">
+        Confirmed
+      </p>
+
+      <h1 class="font-serif font-bold text-ivory text-[clamp(2rem,4vw,3rem)] leading-[1.1] tracking-[-0.025em] mb-6">
+        You're booked.
+      </h1>
+
+      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-4">
+        Check your email — the Zoom link and calendar invite are on their way.
+        If you don't see it within a few minutes, check your spam folder.
+      </p>
+
+      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-10">
+        Before we talk, it's worth doing the
+        <a href="https://score.cobusvanvuuren.com?utm_source=cobusvanvuuren&utm_medium=website&utm_campaign=confirmed-scorecard" class="text-smoke hover:text-ivory transition-colors underline underline-offset-2" target="_blank" rel="noopener">
+          AI Readiness Scorecard
+        </a>
+        if you haven't already — it'll make the call sharper.
+      </p>
+
+      <a href="/" class="font-sans font-light text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
+        ← Back to cobusvanvuuren.com
+      </a>
+
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'Strategy_Call_booked', {
+      currency: 'ZAR',
+      value: 2500,
+      event_category: 'Conversion'
+    });
+  }
+</script>

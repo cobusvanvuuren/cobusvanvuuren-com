@@ -1,0 +1,322 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Business Automation Audit — Cobus van Vuuren"
+  description="90-minute intake. 5-day turnaround. Find exactly where your SA professional services practice is losing R50,000+ per year. Guaranteed or full refund."
+>
+
+<style>
+  .audit-wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 5rem;
+  }
+
+  /* Hero */
+  .audit-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    margin-bottom: 1.5rem;
+  }
+  .audit-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+  }
+  .audit-sub {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-smoke);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    max-width: 600px;
+  }
+
+  /* Section headings */
+  .section-label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    margin-bottom: 1rem;
+  }
+  .section-h2 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin-bottom: 1.25rem;
+    line-height: 1.25;
+  }
+
+  /* What you get */
+  .benefits-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 3rem;
+  }
+  .benefits-list li {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--color-smoke);
+    line-height: 1.7;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .benefits-list li::before {
+    content: '→';
+    color: var(--color-crimson);
+    flex-shrink: 0;
+    font-weight: 600;
+    margin-top: 0.05rem;
+  }
+
+  /* ICP */
+  .icp-block {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 3rem;
+  }
+  .icp-block p {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--color-smoke);
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  /* Process steps */
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+  }
+  @media (max-width: 600px) {
+    .process-grid { grid-template-columns: 1fr; }
+  }
+  .process-step {
+    background: #0B0A09;
+    padding: 1.75rem 1.5rem;
+  }
+  .step-num {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-crimson);
+    opacity: 0.4;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+  }
+  .step-title {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .step-body {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+  }
+
+  /* Guarantee */
+  .guarantee-box {
+    background: rgba(200,40,44,0.07);
+    border: 1px solid rgba(200,40,44,0.25);
+    border-radius: 12px;
+    padding: 2rem 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+  .guarantee-box .g-label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 1rem;
+  }
+  .guarantee-box .g-text {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.45;
+    margin: 0;
+  }
+
+  /* Pricing */
+  .pricing-block {
+    margin-bottom: 3rem;
+  }
+  .price-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+  }
+  @media (max-width: 500px) {
+    .price-cards { grid-template-columns: 1fr; }
+  }
+  .price-card {
+    background: #0B0A09;
+    padding: 1.75rem 1.5rem;
+  }
+  .price-card.featured { background: rgba(200,40,44,0.06); }
+  .price-label {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    margin-bottom: 0.5rem;
+  }
+  .price-amount {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+  .price-note {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--color-smoke);
+    line-height: 1.55;
+  }
+
+  .rule { height: 1px; background: rgba(255,255,255,0.07); margin: 2.5rem 0; }
+
+  /* Bottom CTA */
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .alt-cta {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+  }
+  .alt-cta a {
+    color: var(--color-ivory);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
+
+<div class="audit-wrap">
+
+  <!-- HERO -->
+  <p class="audit-eyebrow">● Business Automation Audit</p>
+  <h1 class="audit-h1">Find exactly where your practice is leaking R50,000+ per year.</h1>
+  <p class="audit-sub">90-minute intake. 5-day turnaround. Full analysis of which processes to automate first, second, and third. Guaranteed to find R50,000 in annual savings — or you pay nothing.</p>
+
+  <!-- WHAT YOU GET -->
+  <p class="section-label">What you get</p>
+  <ul class="benefits-list">
+    <li>A mapped view of every process where you're losing principal time to non-expert work</li>
+    <li>Ranked list of automation opportunities by ROI — highest-return fixes first</li>
+    <li>Specific tool and workflow recommendations for your practice type</li>
+    <li>A prioritised 90-day implementation plan</li>
+    <li>30-minute follow-up call to review the report and answer questions</li>
+  </ul>
+
+  <!-- WHO IT'S FOR -->
+  <p class="section-label">Who it's for</p>
+  <div class="icp-block">
+    <p>SA professional services firms where the principal's expertise is the product: accountants, CA(SA)s, auditors, tax practitioners, attorneys, advocates, financial advisors (CFPs), FSPs, insurance brokers, medical specialists, dentists, physiotherapists, consulting engineers, architects, quantity surveyors, management consultants, HR consultants, and property agents. If you bill by the hour or by the matter — and your time is the product — this audit is built for your practice.</p>
+  </div>
+
+  <!-- THE PROCESS -->
+  <p class="section-label">The process</p>
+  <div class="process-grid">
+    <div class="process-step">
+      <div class="step-num">01</div>
+      <div class="step-title">Intake — 90 minutes</div>
+      <p class="step-body">Voice or structured written intake covering your workflows, team structure, tools, and recurring bottlenecks. Most principals find this valuable on its own — mapping it out loud surfaces things that have been invisible for years.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">02</div>
+      <div class="step-title">Analysis — 5 days</div>
+      <p class="step-body">Every process is audited against the AI readiness framework. Automation opportunities are ranked by ROI. Tool and workflow recommendations are scoped to your specific practice type and current stack.</p>
+    </div>
+    <div class="process-step">
+      <div class="step-num">03</div>
+      <div class="step-title">Delivery</div>
+      <p class="step-body">Written report with ranked findings and a prioritised 90-day implementation plan. Followed by a 30-minute review call. R50,000 minimum savings identified — or full refund, no questions asked.</p>
+    </div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="guarantee-box">
+    <p class="g-label">The Guarantee</p>
+    <p class="g-text">"If the audit doesn't identify at least R50,000 in annual savings specific to your practice, you receive a full refund. No questions asked."</p>
+  </div>
+
+  <!-- PRICING -->
+  <p class="section-label">Investment</p>
+  <div class="pricing-block">
+    <div class="price-cards">
+      <div class="price-card featured">
+        <p class="price-label">Early Adopter — First 10 Audits</p>
+        <p class="price-amount">R9,500</p>
+        <p class="price-note">Includes intake, analysis, full written report, and 30-min review call. R50,000 guarantee applies.</p>
+      </div>
+      <div class="price-card">
+        <p class="price-label">Standard Price</p>
+        <p class="price-amount" style="color:var(--color-smoke);opacity:0.5;">R15,000</p>
+        <p class="price-note">Normal rate after the first 10 audits are complete.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-row">
+    <a href="https://pay.cobusvanvuuren.com/audit" class="btn-primary" target="_blank" rel="noopener">
+      Claim Your Audit — R9,500 →
+    </a>
+    <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">
+      Book a Strategy Call First
+    </a>
+  </div>
+
+  <p class="alt-cta">Not ready to commit? <a href="/score">Take the free 10-minute diagnostic first</a> — it gives you a personalised picture of where your practice's leverage gaps are before you decide.</p>
+
+</div>
+
+</Base>

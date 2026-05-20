@@ -1,0 +1,174 @@
+---
+import Base from '../../layouts/Base.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'billable-hours-professional-services' } },
+    { params: { slug: 'time-leaks-professional-practice' } },
+    { params: { slug: 'what-is-business-automation-audit' } },
+  ];
+}
+
+const { slug } = Astro.params;
+
+const articles: Record<string, {
+  tag: string;
+  title: string;
+  date: string;
+  readTime: string;
+  metaDescription: string;
+  paragraphs: string[];
+}> = {
+  'billable-hours-professional-services': {
+    tag: 'Owner Bottleneck',
+    title: 'Why SA professional services firms lose 15–25% of billable hours annually',
+    date: 'May 2026',
+    readTime: '8 min read',
+    metaDescription: 'The data on where SA professional services firms lose billable time — and why the number is always 15–25%.',
+    paragraphs: [
+      'The number comes up in almost every practice audit: 15–25% of the principal\'s billable capacity goes to work that doesn\'t require their expertise. That\'s 6–10 weeks per year — roughly 24 working days — absorbed by tasks that could be handled by a system, a junior, or an AI agent. Most practice owners don\'t believe it until they see their own calendar.',
+      'The pattern is consistent across accounting firms, law practices, and FSPs. It isn\'t a size problem — it shows up in one-principal practices and in firms with 20 staff. It isn\'t a hiring problem — most of these firms have enough people. It\'s a systems problem. The principal is the default handler for anything that doesn\'t have a clear owner, a documented process, or a decision tree. And because principals are reliable, clients and staff route everything through them.',
+      'The fix isn\'t working harder or hiring another person — it\'s building three systems: one that captures and processes client information without the principal\'s involvement, one that handles routine decisions without escalation, and one that runs recurring tasks without manual intervention. None of these are complex to build. The hard part is identifying which to build first, and in what order, to get the fastest leverage. That\'s exactly what the diagnostic is designed to show.',
+    ],
+  },
+  'time-leaks-professional-practice': {
+    tag: 'Time Leaks',
+    title: 'The 5 most common time leaks in an accounting, law, or FSP practice',
+    date: 'May 2026',
+    readTime: '6 min read',
+    metaDescription: 'Five time-leak patterns found in almost every SA professional services practice audit.',
+    paragraphs: [
+      'After auditing SA professional services practices across accounting, law, and financial advisory, five patterns appear almost universally. They\'re not exotic — they\'re mundane, and that\'s exactly why they persist. No one notices them because each one seems small in isolation. Added up, they account for most of the 15–25% capacity loss that the average principal experiences.',
+      'The five leaks: (1) Lead response delay — new enquiries sit in an inbox for 2–4 hours before anyone responds, costing conversion. A simple triage system fixes this. (2) Manual reporting — monthly or quarterly reports are assembled by hand from 3–5 different systems, taking 4–8 hours each time. A data pipeline cuts this to minutes. (3) Compliance and document preparation — standard documents that require 80% the same content each time get written from scratch. Templates and AI drafting reclaim most of this time. (4) Client onboarding — every new client goes through a slightly different process depending on who handled them. Documented and automated onboarding makes this consistent and fast. (5) Billing reconciliation — matching time records, disbursements, and invoices is done manually at month-end. Time-tracking integration eliminates most of this.',
+      'The order matters. Fixing lead response has the fastest financial return — it directly affects conversion. Fixing reporting frees the most principal time. Fixing onboarding has the highest leverage for team members. Most practices try to fix everything at once. The better move is to pick the highest-value leak first, fix it completely, then move to the next. That\'s the logic behind the diagnostic.',
+    ],
+  },
+  'what-is-business-automation-audit': {
+    tag: 'Automation',
+    title: 'What is a Business Automation Audit — and why would you pay R15,000 for one?',
+    date: 'May 2026',
+    readTime: '7 min read',
+    metaDescription: 'What happens in a Business Automation Audit, what comes out of it, and why the guarantee makes the maths simple.',
+    paragraphs: [
+      'A Business Automation Audit is a structured 90-minute intake process followed by a 5-day analysis of your practice\'s workflows, systems, and bottlenecks. It produces a written report with a ranked list of automation opportunities — ordered by ROI, not by complexity or trendiness. The deliverable is specific to your practice: your team size, your practice type, your current tools, your recurring tasks. No generic frameworks. No theory.',
+      'The 90-minute intake covers four areas: where the principal\'s time actually goes (vs where it should go), what recurring tasks exist and who handles them, what decisions get escalated that shouldn\'t need to be, and what systems are already in place that aren\'t being used to their potential. Most practice owners find the intake valuable on its own — the act of mapping workflows out loud surfaces things that have been invisible for years.',
+      'The maths: the audit currently runs at R9,500 for early adopters (normal price R15,000). It comes with a guarantee: if the analysis doesn\'t identify at least R50,000 in annual savings opportunities specific to your practice, you receive a full refund. The R50,000 threshold is conservative — most audits identify R80,000–R200,000 in recoverable capacity once principal time is properly valued at billing rate. The R9,500 audit fee is effectively the cost of discovering where your practice is losing money it doesn\'t know about.',
+    ],
+  },
+};
+
+const article = articles[slug];
+---
+
+<Base
+  title={`${article.title} · Cobus van Vuuren`}
+  description={article.metaDescription}
+>
+
+<style>
+  .article-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .article-tag {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 1.25rem;
+  }
+  .article-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .article-meta {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: rgba(122,118,110,0.6);
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .article-body p {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-smoke);
+    line-height: 1.85;
+    margin-bottom: 1.75rem;
+  }
+  .coming-soon {
+    background: rgba(200,40,44,0.06);
+    border: 1px solid rgba(200,40,44,0.15);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin: 2.5rem 0;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+  }
+  .cta-block {
+    margin: 2.5rem 0;
+    padding: 2rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+  }
+  .cta-block h3 {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.35;
+    margin-bottom: 0.75rem;
+  }
+  .cta-block p {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-smoke);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-top: 1rem;
+  }
+  .back-link:hover { color: var(--color-ivory); }
+</style>
+
+<div class="article-wrap">
+  <p class="article-tag">{article.tag}</p>
+  <h1 class="article-h1">{article.title}</h1>
+  <p class="article-meta">{article.date} · {article.readTime}</p>
+
+  <div class="article-body">
+    {article.paragraphs.map(p => <p>{p}</p>)}
+  </div>
+
+  <div class="coming-soon">
+    Full article coming soon. The diagnostic below gives you a personalised version of these insights specific to your practice — in 10 minutes.
+  </div>
+
+  <div class="cta-block">
+    <h3>Find out where your practice is losing time — for free.</h3>
+    <p>The AI Readiness Diagnostic benchmarks your practice across 4 systems. 20 statements. 10 minutes. You get a score, a tier, and a specific build order — what to fix first.</p>
+    <a href="/score" class="btn-primary" style="display:inline-block;">Take the Free Diagnostic →</a>
+  </div>
+
+  <a href="/articles" class="back-link">← All articles</a>
+</div>
+
+</Base>

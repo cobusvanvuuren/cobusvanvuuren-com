@@ -3,13 +3,14 @@
 /* ─── CVV BRAND TOKENS ─────────────────────────────────────── */
 @theme {
   --color-crimson:  #C8282C;
-  --color-obsidian: #0D0D0D;
-  --color-ivory:    #F7F4EF;
-  --color-sand:     #EAE5DC;
-  --color-smoke:    #5E5A56;
+  --color-obsidian: #0B0A09;
+  --color-ivory:    #F5F0E8;
+  --color-sand:     #E8E0D0;
+  --color-smoke:    #7A766E;
+  --color-copper:   #A67C52;
 
   --font-sans:  Inter, system-ui, -apple-system, sans-serif;
-  --font-serif: Cormorant, Georgia, serif;
+  --font-serif: 'Space Grotesk', sans-serif;
 }
 
 /* ─── BASE ─────────────────────────────────────────────────── */
@@ -41,9 +42,10 @@
     color: var(--color-ivory);
     font-size: 18px;
     line-height: 1.65;
+    font-weight: 400;
   }
 
-  /* Film grain — layers over everything for depth and premium texture */
+  /* Film grain */
   body::after {
     content: '';
     position: fixed;
@@ -52,7 +54,7 @@
     height: 200%;
     z-index: 9998;
     pointer-events: none;
-    opacity: 0.038;
+    opacity: 0.028;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     animation: grain-shift 0.35s steps(1) infinite;
   }
@@ -66,19 +68,23 @@
     overflow: hidden;
   }
 
-  /* Subtle grid lines — the Matt Wolfe signature */
+  /* Diamond grid — square grid rotated 45° so squares become diamonds */
   .bg-grid {
     position: absolute;
-    inset: 0;
+    top: -60%;
+    left: -60%;
+    width: 220%;
+    height: 220%;
     background-image:
-      linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+      linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px);
     background-size: 52px 52px;
-    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+    transform: rotate(45deg);
+    mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 20%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 20%, transparent 100%);
   }
 
-  /* Blurred orb light sources */
+  /* Orbs */
   .bg-orb {
     position: absolute;
     border-radius: 50%;
@@ -87,27 +93,21 @@
   .bg-orb-crimson {
     top: 5%;
     left: 2%;
-    width: 560px;
-    height: 560px;
-    background: radial-gradient(circle, rgba(200, 40, 44, 0.09) 0%, transparent 70%);
-    filter: blur(60px);
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(200, 40, 44, 0.08) 0%, transparent 70%);
+    filter: blur(70px);
   }
   .bg-orb-warm {
-    top: 60%;
+    top: 58%;
     right: -5%;
-    width: 420px;
-    height: 420px;
-    background: radial-gradient(circle, rgba(247, 244, 239, 0.025) 0%, transparent 70%);
+    width: 380px;
+    height: 380px;
+    background: radial-gradient(circle, rgba(247, 244, 239, 0.016) 0%, transparent 70%);
     filter: blur(80px);
   }
-  .bg-orb-accent {
-    top: 35%;
-    right: 25%;
-    width: 280px;
-    height: 280px;
-    background: radial-gradient(circle, rgba(200, 40, 44, 0.04) 0%, transparent 70%);
-    filter: blur(50px);
-  }
+  /* Keep class defined so existing HTML refs don't error — just invisible */
+  .bg-orb-accent { display: none; }
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
@@ -118,7 +118,7 @@
 /* ─── COMPONENTS ───────────────────────────────────────────── */
 @layer components {
 
-  /* Eyebrow: crimson rule + uppercase label */
+  /* Eyebrow: copper rule + uppercase label */
   .eyebrow {
     display: flex;
     align-items: center;
@@ -128,9 +128,9 @@
   .eyebrow::before {
     content: '';
     display: block;
-    width: 28px;
+    width: 24px;
     height: 1px;
-    background-color: var(--color-crimson);
+    background-color: var(--color-copper);
     flex-shrink: 0;
   }
   .eyebrow-label {
@@ -139,10 +139,10 @@
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-smoke);
+    color: var(--color-copper);
   }
 
-  /* Buttons — slightly rounded, modern */
+  /* Buttons */
   .btn-primary {
     display: inline-block;
     background-color: var(--color-crimson);
@@ -156,12 +156,34 @@
     text-decoration: none;
     transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
     cursor: pointer;
-    box-shadow: 0 0 0 0 rgba(200, 40, 44, 0);
+    box-shadow: 0 0 20px rgba(200, 40, 44, 0.25);
   }
   .btn-primary:hover {
     background-color: #b02024;
-    box-shadow: 0 0 24px rgba(200, 40, 44, 0.35);
+    box-shadow: 0 0 28px rgba(200, 40, 44, 0.4);
     transform: translateY(-1px);
+  }
+
+  /* Ghost on dark backgrounds */
+  .btn-ghost-dark {
+    display: inline-block;
+    background: transparent;
+    color: #8a8682;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    padding: 14px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+    cursor: pointer;
+  }
+  .btn-ghost-dark:hover {
+    border-color: rgba(255, 255, 255, 0.28);
+    color: #c8c4c0;
+    background-color: rgba(255,255,255,0.04);
   }
 
   /* Ghost on light backgrounds */
@@ -182,32 +204,10 @@
   }
   .btn-ghost:hover { border-color: var(--color-smoke); color: #3a3836; }
 
-  /* Ghost on dark backgrounds */
-  .btn-ghost-dark {
-    display: inline-block;
-    background: transparent;
-    color: #8a8682;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    font-family: var(--font-sans);
-    font-size: 13px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
-    cursor: pointer;
-  }
-  .btn-ghost-dark:hover {
-    border-color: rgba(255, 255, 255, 0.3);
-    color: #c8c4c0;
-    background-color: rgba(255,255,255,0.04);
-  }
-
   /* Stat card: crimson top border */
   .stat-card { border-top: 2px solid var(--color-crimson); }
 
-  /* Crimson rule line (used in stats trio) */
+  /* Crimson rule line */
   .crimson-rule {
     width: 20px;
     height: 1px;

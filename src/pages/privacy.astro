@@ -1,0 +1,110 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Privacy Policy — Cobus van Vuuren"
+  description="Privacy policy for cobusvanvuuren.com. POPIA-compliant. Data collected, how it is used, and how to contact us."
+>
+
+<style>
+  .legal-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .legal-wrap h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+  .legal-date {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: rgba(122,118,110,0.6);
+    margin-bottom: 3rem;
+  }
+  .legal-wrap h2 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin: 2rem 0 0.6rem;
+  }
+  .legal-wrap p, .legal-wrap li {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-smoke);
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+  }
+  .legal-wrap ul {
+    padding-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+  .legal-wrap a {
+    color: var(--color-ivory);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-smoke);
+    text-decoration: none;
+    transition: color 0.2s;
+    display: inline-block;
+    margin-top: 2rem;
+  }
+  .back-link:hover { color: var(--color-ivory); }
+</style>
+
+<div class="legal-wrap">
+  <h1>Privacy Policy</h1>
+  <p class="legal-date">Last updated: May 2026</p>
+
+  <h2>Who we are</h2>
+  <p>This website is operated by Cobus van Vuuren, trading as RhinoBerry (Pty) Ltd, a South African business. Contact: <a href="mailto:cobus@rhinoberry.co.za">cobus@rhinoberry.co.za</a>.</p>
+
+  <h2>What data we collect</h2>
+  <p>We collect the following information:</p>
+  <ul>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Name and email address</strong> — collected when you opt in via the AI Readiness Diagnostic (at the email gate, halfway through the assessment). This is voluntary.</li>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Diagnostic responses</strong> — your answers to the 20-statement diagnostic are stored in your browser's <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> only. They are ephemeral: they are cleared when you close your browser tab and are never transmitted to a server.</li>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Usage data</strong> — Google Analytics 4 (GA4) collects anonymised usage data (page views, session duration, traffic source) in accordance with Google's privacy policy. No personally identifiable information is collected by GA4.</li>
+  </ul>
+
+  <h2>How we use your data</h2>
+  <p>Name and email collected via the diagnostic are used to:</p>
+  <ul>
+    <li>Send you your diagnostic results or a follow-up summary</li>
+    <li>Send occasional emails related to business automation for SA professional services — if you have explicitly consented</li>
+  </ul>
+  <p>We do not sell, rent, or share your personal information with third parties for their own marketing purposes.</p>
+
+  <h2>POPIA compliance</h2>
+  <p>This site operates in accordance with the Protection of Personal Information Act (POPIA), Act 4 of 2013. You have the right to access, correct, or request deletion of your personal information. To exercise these rights, contact <a href="mailto:cobus@rhinoberry.co.za">cobus@rhinoberry.co.za</a>.</p>
+
+  <h2>Email consent and unsubscribing</h2>
+  <p>By providing your email address via the diagnostic, you consent to receiving a results summary and, optionally, follow-up educational content. You can unsubscribe at any time by replying "unsubscribe" to any email, or by emailing <a href="mailto:cobus@rhinoberry.co.za">cobus@rhinoberry.co.za</a>.</p>
+
+  <h2>Cookies</h2>
+  <p>This site uses Google Analytics cookies for anonymised usage tracking. No other tracking cookies are used. The diagnostic uses <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> (not cookies) to preserve quiz state during your session.</p>
+
+  <h2>Data retention</h2>
+  <p>Email addresses and names collected via opt-in forms are retained until you request deletion. Diagnostic session data is ephemeral and not retained after your browser session ends.</p>
+
+  <h2>Jurisdiction</h2>
+  <p>This privacy policy is governed by the laws of the Republic of South Africa.</p>
+
+  <h2>Contact</h2>
+  <p><a href="mailto:cobus@rhinoberry.co.za">cobus@rhinoberry.co.za</a></p>
+
+  <a href="/" class="back-link">← Back to home</a>
+</div>
+
+</Base>

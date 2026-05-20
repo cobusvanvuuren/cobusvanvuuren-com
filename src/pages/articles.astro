@@ -1,0 +1,159 @@
+---
+import Base from '../layouts/Base.astro';
+
+const articles = [
+  {
+    tag: 'Owner Bottleneck',
+    title: 'Why SA professional services firms lose 15–25% of billable hours annually',
+    date: 'May 2026',
+    readTime: '8 min read',
+    excerpt: 'Most firms have no idea where the time goes. The data does — and the number is always the same.',
+    slug: 'billable-hours-professional-services',
+  },
+  {
+    tag: 'Time Leaks',
+    title: 'The 5 most common time leaks in an accounting, law, or FSP practice',
+    date: 'May 2026',
+    readTime: '6 min read',
+    excerpt: 'Five patterns that show up in almost every practice audit. The first one will surprise you.',
+    slug: 'time-leaks-professional-practice',
+  },
+  {
+    tag: 'Automation',
+    title: 'What is a Business Automation Audit — and why would you pay R15,000 for one?',
+    date: 'May 2026',
+    readTime: '7 min read',
+    excerpt: 'A structured answer to the most common question I get. With the maths.',
+    slug: 'what-is-business-automation-audit',
+  },
+];
+---
+
+<Base
+  title="Articles — AI and Automation for SA Professional Services · Cobus van Vuuren"
+  description="Practical articles on business automation, AI readiness, and time leverage for SA accountants, attorneys, and financial advisors."
+>
+
+<style>
+  .articles-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 8rem 1.5rem 5rem;
+  }
+  .articles-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    margin-bottom: 1.5rem;
+  }
+  .articles-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .articles-sub {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--color-smoke);
+    line-height: 1.75;
+    margin-bottom: 3rem;
+  }
+  .articles-grid {
+    display: grid;
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .article-card {
+    display: block;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .article-card:hover {
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.12);
+  }
+  .article-tag {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 0.75rem;
+  }
+  .article-title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+  }
+  .article-excerpt {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+  }
+  .article-meta {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: rgba(122,118,110,0.5);
+  }
+  .coming-soon-note {
+    background: rgba(200,40,44,0.06);
+    border: 1px solid rgba(200,40,44,0.15);
+    border-radius: 10px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+  }
+  .back-link {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-smoke);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--color-ivory); }
+</style>
+
+<div class="articles-wrap">
+  <p class="articles-eyebrow">● Articles</p>
+  <h1 class="articles-h1">AI and automation for SA professional services</h1>
+  <p class="articles-sub">Practical writing on where practices lose time, how to fix it, and what the maths actually looks like.</p>
+
+  <div class="articles-grid">
+    {articles.map(article => (
+      <a href={`/articles/${article.slug}`} class="article-card">
+        <p class="article-tag">{article.tag}</p>
+        <h2 class="article-title">{article.title}</h2>
+        <p class="article-excerpt">{article.excerpt}</p>
+        <p class="article-meta">{article.date} · {article.readTime}</p>
+      </a>
+    ))}
+  </div>
+
+  <div class="coming-soon-note">
+    Full articles publishing shortly. In the meantime, the fastest way to get a concrete picture of your practice's leverage gaps is to <a href="/score" style="color:var(--color-ivory);text-decoration:underline;text-underline-offset:3px;">take the free diagnostic</a> — it takes 10 minutes and gives you a personalised breakdown.
+  </div>
+
+  <a href="/" class="back-link">← Back to home</a>
+</div>
+
+</Base>

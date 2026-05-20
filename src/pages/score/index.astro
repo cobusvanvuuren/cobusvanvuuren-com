@@ -1,0 +1,1160 @@
+---
+import Scorecard from '../../layouts/Scorecard.astro';
+---
+
+<Scorecard
+  title="AI Readiness Diagnostic — Cobus van Vuuren"
+  description="Benchmark your practice across 4 AI systems in 10 minutes. See exactly where you're leaving leverage on the table and which system to fix first."
+>
+
+<style>
+  /* ── DIAGNOSTIC WRAPPER ── */
+  .diag {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 3rem 1.5rem 5rem;
+  }
+  .diag-inner {
+    width: 100%;
+    max-width: 680px;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    text-align: center;
+    padding-top: 3rem;
+  }
+
+  /* C-style eyebrow */
+  .diag-eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .diag-eyebrow-dot {
+    width: 24px;
+    height: 1px;
+    background: var(--color-copper);
+    flex-shrink: 0;
+    border-radius: 0;
+  }
+  .diag-eyebrow-text {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+  }
+
+  .diag-h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--color-ivory);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
+  }
+  .diag-h1 em {
+    font-style: normal;
+    color: var(--color-crimson);
+  }
+
+  .diag-sub {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--color-smoke);
+    line-height: 1.75;
+    margin-bottom: 0.75rem;
+  }
+  .diag-trust {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(94, 90, 86, 0.6);
+    letter-spacing: 0.06em;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Metric grid (E/C style) */
+  .diag-metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin-top: 3.5rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .diag-metric {
+    background: #0B0A09;
+    padding: 1.25rem 1rem;
+    text-align: center;
+  }
+  .diag-metric-num {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--color-crimson);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .diag-metric-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-smoke);
+    opacity: 0.7;
+    margin-top: 5px;
+  }
+  @media (max-width: 480px) {
+    .diag-metrics { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── QUIZ ── */
+  #quiz { display: none; }
+
+  .progress-bar-wrap {
+    width: 100%;
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--color-crimson);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-smoke);
+    margin-bottom: 0.5rem;
+  }
+  .progress-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+  .progress-step {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--color-smoke);
+    opacity: 0.6;
+  }
+
+  /* System intro card */
+  .system-intro {
+    background: rgba(200,40,44,0.06);
+    border: 1px solid rgba(200,40,44,0.18);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .system-intro h3 {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    font-style: normal;
+    color: var(--color-ivory);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+  .system-intro p {
+    font-family: var(--font-sans);
+    font-size: 0.83rem;
+    font-weight: 400;
+    color: var(--color-smoke);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Question */
+  .question-card {
+    margin-bottom: 2.5rem;
+  }
+  .question-text {
+    font-family: var(--font-serif);
+    font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.4;
+    margin-bottom: 2rem;
+    letter-spacing: -0.005em;
+  }
+
+  /* Profile choice cards */
+  .choice-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .choice-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--color-ivory);
+    text-align: left;
+    width: 100%;
+  }
+  .choice-card:hover {
+    border-color: rgba(200,40,44,0.3);
+    background: rgba(200,40,44,0.04);
+  }
+  .choice-card.selected {
+    border-color: var(--color-crimson);
+    background: rgba(200,40,44,0.08);
+  }
+  /* Diamond indicator (replaces circle radio) */
+  .choice-radio {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    flex-shrink: 0;
+    transform: rotate(45deg);
+    transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    background: transparent;
+  }
+  .choice-card:hover .choice-radio {
+    border-color: rgba(200,40,44,0.4);
+  }
+  .choice-card.selected .choice-radio {
+    border-color: var(--color-crimson);
+    background: var(--color-crimson);
+    box-shadow: 0 0 10px rgba(200,40,44,0.5);
+  }
+
+  /* Slider section */
+  .slider-wrap {
+    margin-bottom: 2.5rem;
+  }
+  .slider-value-display {
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--color-crimson);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+    text-align: center;
+  }
+  .slider-value-display span {
+    font-size: 1.25rem;
+    color: var(--color-smoke);
+    font-weight: 400;
+    margin-left: 0.25rem;
+  }
+  input[type="range"].diag-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    outline: none;
+    cursor: pointer;
+    margin-bottom: 0.75rem;
+  }
+  input[type="range"].diag-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-crimson);
+    box-shadow: 0 0 16px rgba(200,40,44,0.5);
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+  input[type="range"].diag-slider::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 24px rgba(200,40,44,0.7);
+  }
+  input[type="range"].diag-slider::-moz-range-thumb {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-crimson);
+    box-shadow: 0 0 16px rgba(200,40,44,0.5);
+    cursor: pointer;
+    border: none;
+  }
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    color: var(--color-smoke);
+    opacity: 0.6;
+  }
+
+  /* Email gate */
+  #email-gate { display: none; }
+  .gate-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .gate-h2 {
+    font-family: var(--font-serif);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+  .gate-sub {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--color-smoke);
+    margin-bottom: 1.75rem;
+    line-height: 1.6;
+  }
+  .field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .field-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  .field-wrap label {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-smoke);
+  }
+  .field-wrap input[type="text"],
+  .field-wrap input[type="email"] {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 0.7rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--color-ivory);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .field-wrap input:focus {
+    border-color: rgba(200,40,44,0.4);
+  }
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    margin: 1.25rem 0 0.75rem;
+  }
+  .consent-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    accent-color: var(--color-crimson);
+    cursor: pointer;
+  }
+  .consent-row label {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-smoke);
+    line-height: 1.5;
+    cursor: pointer;
+  }
+  .popia-note {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: rgba(94,90,86,0.65);
+    line-height: 1.55;
+    margin-top: 0.5rem;
+  }
+
+  /* Calculating */
+  #calculating { display: none; text-align: center; padding: 4rem 0; }
+  .calc-dots {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .calc-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--color-crimson);
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+  .calc-dot:nth-child(2) { animation-delay: 0.2s; }
+  .calc-dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .calc-h {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin-bottom: 0.5rem;
+  }
+  .calc-sub {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+  }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .btn-back {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--color-smoke);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .btn-back:hover { color: var(--color-ivory); }
+  .btn-back:disabled { opacity: 0.2; cursor: default; }
+
+  /* Expired notice */
+  .expired-notice {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-smoke);
+    text-align: center;
+    margin-bottom: 1rem;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 540px) {
+    .field-group { grid-template-columns: 1fr; }
+    .diag { padding: 2rem 1.25rem 4rem; }
+  }
+
+  /* ── GRAIN on crimson + dark zones ── */
+
+  /* Landing section: warm granular overlay where crimson orb bleeds into dark */
+  #landing {
+    position: relative;
+  }
+  #landing::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.055;
+    border-radius: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0.5  0 0 0 0 0.1  0 0 0 0 0.1  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    mix-blend-mode: soft-light;
+  }
+  #landing > * { position: relative; z-index: 1; }
+
+  /* CTA button: heavier grain right on the crimson surface */
+  #landing .btn-primary {
+    position: relative;
+    overflow: hidden;
+  }
+  #landing .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='60'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  /* Progress fill + system intro border: grain on the crimson progress bar */
+  .progress-bar-fill {
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.25;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='4'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* Metric grid: subtle grain on the dark cells */
+  .diag-metric {
+    position: relative;
+    overflow: hidden;
+  }
+  .diag-metric::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='80'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+
+  /* ── LANDING ENTRANCE ANIMATIONS ── */
+  @keyframes landingFadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes metricPop {
+    from { opacity: 0; transform: translateY(10px) scale(0.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @keyframes quizFadeIn {
+    from { opacity: 0; transform: translateX(8px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes landingGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,40,44,0); }
+    50%       { box-shadow: 0 0 28px 6px rgba(200,40,44,0.28); }
+  }
+
+  /* Landing elements stagger in */
+  #landing .diag-eyebrow  { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.05s forwards; }
+  #landing .diag-h1       { opacity: 0; animation: landingFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.12s forwards; }
+  #landing > ul           { opacity: 0; animation: landingFadeUp 0.55s cubic-bezier(0.22,1,0.36,1) 0.22s forwards; }
+  #landing > p            { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.28s forwards; }
+  #landing > div          { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.32s forwards; }
+  #landing .btn-primary   { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.42s forwards; }
+  #landing .diag-trust    { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.5s forwards; }
+
+  /* Metric boxes pop in with stagger */
+  #landing .diag-metrics                     { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.56s forwards; }
+  #landing .diag-metric:nth-child(1)         { animation: metricPop 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.62s both; }
+  #landing .diag-metric:nth-child(2)         { animation: metricPop 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.70s both; }
+  #landing .diag-metric:nth-child(3)         { animation: metricPop 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.78s both; }
+  #landing .diag-metric:nth-child(4)         { animation: metricPop 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.86s both; }
+
+  /* CTA button pulsing glow (starts after it fades in) */
+  #landing .btn-primary { animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.42s forwards, landingGlow 3s ease-in-out 1.8s infinite; }
+
+  /* Quiz question/screen transitions */
+  .question-card, .system-intro { animation: quizFadeIn 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+</style>
+
+<div class="diag">
+  <div class="diag-inner">
+
+    <!-- LANDING -->
+    <div id="landing">
+      <div class="diag-eyebrow">
+        <span class="diag-eyebrow-dot"></span>
+        <span class="diag-eyebrow-text">AI Readiness Diagnostic — SA Professional Services</span>
+      </div>
+
+      <h1 class="diag-h1">Find out exactly where AI is costing your practice <em>time, money, and leverage.</em></h1>
+
+      <p class="diag-sub">Most SA professional services firms lose 15–25% of billable hours annually to tasks that don't require a principal's expertise. This 10-minute diagnostic shows you exactly where — and which system to fix first.</p>
+
+      <!-- Discovery bullets -->
+      <ul style="list-style:none;padding:0;margin:0 0 1.75rem;text-align:left;display:inline-block;">
+        <li style="font-family:var(--font-sans);font-size:0.9rem;color:var(--color-smoke);line-height:1.7;padding:0.2rem 0;">
+          <span style="color:var(--color-crimson);margin-right:0.5rem;">→</span>Which of 4 AI systems is your biggest leverage leak
+        </li>
+        <li style="font-family:var(--font-sans);font-size:0.9rem;color:var(--color-smoke);line-height:1.7;padding:0.2rem 0;">
+          <span style="color:var(--color-crimson);margin-right:0.5rem;">→</span>How many hours per week your practice is leaving on the table
+        </li>
+        <li style="font-family:var(--font-sans);font-size:0.9rem;color:var(--color-smoke);line-height:1.7;padding:0.2rem 0;">
+          <span style="color:var(--color-crimson);margin-right:0.5rem;">→</span>A specific build order — what to fix first, second, third
+        </li>
+      </ul>
+
+      <!-- ICP line -->
+      <p style="font-family:var(--font-sans);font-size:0.8rem;color:rgba(122,118,110,0.7);line-height:1.7;margin-bottom:2rem;">
+        Built for SA professional services firms: accountants, attorneys, financial advisors, auditors, insurance brokers, consultants, engineers, and any practice where the principal's expertise is the product.
+      </p>
+
+      <!-- E-E-A-T signal -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;margin-bottom:2.5rem;text-align:left;">
+        <div style="background:#0B0A09;padding:1.25rem 1.5rem;">
+          <p style="font-family:var(--font-sans);font-size:0.78rem;color:var(--color-smoke);line-height:1.65;margin:0;">
+            Developed from auditing SA professional services firms.<br />
+            <strong style="color:var(--color-ivory);font-weight:500;">Cobus van Vuuren</strong> · Business Automation Consultant · RhinoBerry
+          </p>
+        </div>
+        <div style="background:#0B0A09;padding:1.25rem 1.5rem;">
+          <p style="font-family:var(--font-sans);font-size:0.78rem;color:var(--color-smoke);line-height:1.65;margin:0;">
+            If the audit doesn't find <strong style="color:var(--color-ivory);font-weight:500;">R50,000 in annual savings</strong> specific to your practice — full refund.
+          </p>
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn-primary" style="font-size:1rem;padding:15px 32px;">
+        Start the Diagnostic →
+      </button>
+      <p class="diag-trust" style="margin-top:0.75rem;">~10 minutes · Free · No pitch. Used by SA professional services principals.</p>
+
+      <div class="diag-metrics">
+        <div class="diag-metric"><div class="diag-metric-num">4</div><div class="diag-metric-label">AI systems</div></div>
+        <div class="diag-metric"><div class="diag-metric-num">20</div><div class="diag-metric-label">Statements</div></div>
+        <div class="diag-metric"><div class="diag-metric-num">/200</div><div class="diag-metric-label">Score range</div></div>
+        <div class="diag-metric"><div class="diag-metric-num">10m</div><div class="diag-metric-label">To complete</div></div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div id="quiz">
+      <div class="progress-meta">
+        <span id="system-label" class="progress-label">Your Practice</span>
+        <span id="step-count" class="progress-step">Q 1 of 20</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div id="progress-fill" class="progress-bar-fill" style="width:0%"></div>
+      </div>
+
+      <div id="system-intro" class="system-intro" style="display:none;">
+        <h3 id="intro-headline"></h3>
+        <p id="intro-body"></p>
+      </div>
+
+      <!-- Profile questions -->
+      <div id="profile-screen" class="question-card" style="display:none;">
+        <p class="question-text" id="profile-question"></p>
+        <div class="choice-grid" id="profile-choices"></div>
+        <div class="nav-row">
+          <button class="btn-back" id="btn-profile-back">← Back</button>
+          <button class="btn-primary" id="btn-profile-next" disabled style="display:none;">Next →</button>
+        </div>
+      </div>
+
+      <!-- Scored questions -->
+      <div id="scored-screen" class="question-card" style="display:none;">
+        <p class="question-text" id="scored-question"></p>
+        <div class="slider-wrap">
+          <div class="slider-value-display">
+            <span id="slider-num">5</span><span>/ 10</span>
+          </div>
+          <input
+            type="range"
+            class="diag-slider"
+            id="diag-slider"
+            min="0" max="10" value="5"
+            aria-label="Score this statement from 0 to 10"
+          />
+          <div class="slider-labels">
+            <span>0 — Not in place at all</span>
+            <span>5 — Partial / inconsistent</span>
+            <span>10 — Fully built, automatic</span>
+          </div>
+        </div>
+        <div class="nav-row">
+          <button class="btn-back" id="btn-scored-back">← Back</button>
+          <button class="btn-primary" id="btn-scored-next">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMAIL GATE -->
+    <div id="email-gate">
+      <div class="progress-meta">
+        <span class="progress-label">Halfway there</span>
+        <span class="progress-step">10 of 20 complete</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" style="width:50%"></div>
+      </div>
+      <div class="gate-card">
+        <h2 class="gate-h2">You're halfway through.</h2>
+        <p class="gate-sub">Enter your details to receive your full results and a personalised summary.</p>
+        <div class="field-group">
+          <div class="field-wrap">
+            <label for="gate-name">First name</label>
+            <input type="text" id="gate-name" placeholder="e.g. Themba" autocomplete="given-name" />
+          </div>
+          <div class="field-wrap">
+            <label for="gate-email">Work email</label>
+            <input type="email" id="gate-email" placeholder="you@practice.co.za" autocomplete="email" />
+          </div>
+        </div>
+        <div class="consent-row">
+          <input type="checkbox" id="gate-consent" />
+          <label for="gate-consent">I agree to receive my diagnostic results and occasional insights from Cobus van Vuuren. Unsubscribe anytime.</label>
+        </div>
+        <p class="popia-note">Your answers are confidential and never shared. This assessment works at the process level — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
+      </div>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-gate-back">← Back</button>
+        <button class="btn-primary" id="btn-gate-next" disabled>Continue to Part 2 →</button>
+      </div>
+    </div>
+
+    <!-- CALCULATING -->
+    <div id="calculating">
+      <div class="calc-dots">
+        <div class="calc-dot"></div>
+        <div class="calc-dot"></div>
+        <div class="calc-dot"></div>
+      </div>
+      <h2 class="calc-h">Analysing your practice...</h2>
+      <p class="calc-sub">Mapping your 4 systems against 200 benchmark points.</p>
+    </div>
+
+    <!-- NO-JS FALLBACK -->
+    <noscript>
+      <div style="text-align:center;padding:3rem 0;font-family:sans-serif;color:#8a8682;">
+        <p style="margin-bottom:1rem;">This diagnostic requires JavaScript to run.</p>
+        <a href="https://score.cobusvanvuuren.com" style="color:#C8282C;">Take the ScoreApp version instead →</a>
+      </div>
+    </noscript>
+
+  </div>
+</div>
+
+<script>
+const SYSTEMS = [
+  {
+    label: 'Intelligence Capture',
+    intro: {
+      headline: '"Your practice can\'t grow faster than its memory."',
+      body: 'Most practices carry critical context — client history, commitments, follow-ups — in the principal\'s head. When that context isn\'t captured, it leaks. Leads fall through. Clients feel forgotten. Time is wasted retrieving what should already be known.',
+    },
+    questions: [
+      'My practice captures every enquiry — calls, emails, WhatsApp — in one place, without anyone having to remember to log it.',
+      'I can pull up a client\'s full history (what was promised, what was discussed) in under 60 seconds.',
+      'Every active client has a documented profile: their situation, outstanding items, and communication preferences.',
+      'When a potential client contacts us, the same information is captured every time — regardless of who answers.',
+      'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.',
+    ],
+  },
+  {
+    label: 'Decision Speed',
+    intro: {
+      headline: '"Speed-to-lead wins the client. Speed-to-decision keeps the team running."',
+      body: 'Research shows the average professional services firm responds to new enquiries in 42 hours — with a 21× conversion lift for firms that respond in under 5 minutes. Decision Speed is about removing the principal as the bottleneck to both external responsiveness and internal operational flow.',
+    },
+    questions: [
+      'New enquiries receive a substantive response within 2 hours — without needing me personally to step in.',
+      'My team handles common client questions and requests without escalating to me.',
+      'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.',
+      'I make fewer operational decisions than a year ago. More runs on agreed processes.',
+      'Fewer than 3 situations per week require the practice to wait on my personal decision.',
+    ],
+  },
+  {
+    label: 'Process Independence',
+    intro: {
+      headline: '"Every process that only lives in your head is a liability."',
+      body: 'Professional services principals are often the only person who knows how something is done. That works — until it doesn\'t. Process Independence means turning tacit knowledge into documented, repeatable systems your team can run without you.',
+    },
+    questions: [
+      'When we repeat a process more than twice, we document it so anyone on the team can follow it.',
+      'Core recurring tasks — billing, client onboarding, compliance checks, reporting — have a documented process anyone can follow.',
+      'We can take on a new client without me personally managing every step of their onboarding.',
+      'If I was unavailable for a week, my team would know exactly what to do — without calling me.',
+      'Building documented processes in my practice feels normal, not like extra work.',
+    ],
+  },
+  {
+    label: 'Time Reclamation',
+    intro: {
+      headline: '"You can\'t leverage what you\'re still doing yourself."',
+      body: 'Research shows professional services firms lose 15–25% of billable hours annually to tasks that don\'t require the principal\'s expertise — admin, reporting, compliance paperwork, client follow-ups. Time Reclamation is about identifying those leaks and systematically closing them.',
+    },
+    questions: [
+      'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.',
+      'I regularly review whether tasks on my plate could be handled by a documented system or a team member.',
+      'I\'ve moved at least one major recurring task off my plate in the past 3 months — delegated or automated.',
+      'My practice can function for at least 3 days without my direct input.',
+      'I have a clear picture of what my practice looks like when it runs without me — and I\'m actively building toward it.',
+    ],
+  },
+];
+
+const PROFILES = [
+  {
+    question: 'What best describes your practice?',
+    options: [
+      { text: 'Professional services (accounting, legal, advisory, financial planning)', tag: 'prof-services' },
+      { text: 'Healthcare or wellness (medical, dental, physio, specialist)', tag: 'healthcare' },
+      { text: 'Real estate or property (sales, lettings, management)', tag: 'property' },
+      { text: 'Trade or construction (electrical, plumbing, HVAC, building)', tag: 'trade' },
+      { text: 'Other', tag: 'other' },
+    ],
+  },
+  {
+    question: 'How many people work in your practice, including you?',
+    options: [
+      { text: 'Just me', tag: 'solo' },
+      { text: '2–4', tag: 'micro' },
+      { text: '5–15', tag: 'sweet-spot' },
+      { text: '16–50', tag: 'mid' },
+      { text: '51+', tag: 'large' },
+    ],
+  },
+  {
+    question: 'What\'s the single biggest thing stopping your practice from running the way you envisioned when you started?',
+    options: [
+      { text: 'Too much work runs through me personally — I\'m the bottleneck', tag: 'owner-bottleneck' },
+      { text: 'Systems aren\'t in place — things fall through the cracks', tag: 'no-systems' },
+      { text: 'Too busy to properly handle the leads I already have', tag: 'lead-overflow' },
+      { text: 'All of the above', tag: 'all-of-above' },
+    ],
+  },
+];
+
+// ── STATE ────────────────────────────────────────────────────
+const STORAGE_KEY = 'cvv_diagnostic_state';
+const SESSION_TTL = 60 * 60 * 1000; // 60 minutes
+
+function loadState() {
+  try {
+    const raw = sessionStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const s = JSON.parse(raw);
+    if (Date.now() - new Date(s.startedAt).getTime() > SESSION_TTL) {
+      sessionStorage.removeItem(STORAGE_KEY);
+      return null;
+    }
+    return s;
+  } catch { return null; }
+}
+
+function saveState(s) {
+  try { sessionStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch {}
+}
+
+function freshState() {
+  return {
+    phase: 'landing', // landing | profile | scored | gate | calculating
+    profileStep: 0,   // 0–2
+    scoredStep: 0,    // 0–19 (maps to sys 0–3 q 0–4)
+    profile: {},      // { type, size, pain }
+    answers: {},      // { q0: 5, q1: 7, ... }
+    name: '',
+    email: '',
+    startedAt: new Date().toISOString(),
+  };
+}
+
+let state = loadState() || freshState();
+let expiredShown = false;
+
+// ── DOM REFS ─────────────────────────────────────────────────
+const landing      = document.getElementById('landing');
+const quiz         = document.getElementById('quiz');
+const emailGate    = document.getElementById('email-gate');
+const calculating  = document.getElementById('calculating');
+
+const systemLabel  = document.getElementById('system-label');
+const stepCount    = document.getElementById('step-count');
+const progressFill = document.getElementById('progress-fill');
+const systemIntro  = document.getElementById('system-intro');
+const introHeadline= document.getElementById('intro-headline');
+const introBody    = document.getElementById('intro-body');
+
+const profileScreen  = document.getElementById('profile-screen');
+const profileQuestion= document.getElementById('profile-question');
+const profileChoices = document.getElementById('profile-choices');
+const btnProfileBack = document.getElementById('btn-profile-back');
+const btnProfileNext = document.getElementById('btn-profile-next');
+
+const scoredScreen   = document.getElementById('scored-screen');
+const scoredQuestion = document.getElementById('scored-question');
+const sliderNum      = document.getElementById('slider-num');
+const diagSlider     = document.getElementById('diag-slider');
+const btnScoredBack  = document.getElementById('btn-scored-back');
+const btnScoredNext  = document.getElementById('btn-scored-next');
+
+const gateName    = document.getElementById('gate-name');
+const gateEmail   = document.getElementById('gate-email');
+const gateConsent = document.getElementById('gate-consent');
+const btnGateBack = document.getElementById('btn-gate-back');
+const btnGateNext = document.getElementById('btn-gate-next');
+
+// ── HELPERS ──────────────────────────────────────────────────
+function hide(...els) { els.forEach(e => { if (e) e.style.display = 'none'; }); }
+function show(el, display = 'block') { if (el) el.style.display = display; }
+
+function sysIdx(scoredStep) { return Math.floor(scoredStep / 5); }
+function qIdx(scoredStep)   { return scoredStep % 5; }
+
+function updateProgress(scoredStep) {
+  const pct = (scoredStep / 20) * 100;
+  progressFill.style.width = pct + '%';
+  stepCount.textContent = `Q ${scoredStep + 1} of 20`;
+  systemLabel.textContent = SYSTEMS[sysIdx(scoredStep)].label;
+}
+
+function renderProfileScreen(step) {
+  const p = PROFILES[step];
+  profileQuestion.textContent = p.question;
+  profileChoices.innerHTML = '';
+  btnProfileNext.disabled = true;
+
+  p.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-card';
+    btn.innerHTML = `<span class="choice-radio"></span><span>${opt.text}</span>`;
+    btn.dataset.tag = opt.tag;
+
+    const savedTag = Object.values(state.profile)[step];
+    if (savedTag === opt.tag) btn.classList.add('selected');
+
+    btn.addEventListener('click', () => {
+      profileChoices.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+      btn.classList.add('selected');
+      const keys = ['type', 'size', 'pain'];
+      state.profile[keys[step]] = opt.tag;
+      saveState(state);
+      btnProfileNext.disabled = false;
+      setTimeout(() => btnProfileNext.click(), 280);
+    });
+
+    profileChoices.appendChild(btn);
+  });
+
+  btnProfileBack.disabled = step === 0;
+  show(profileScreen);
+  hide(scoredScreen, systemIntro);
+}
+
+function renderScoredScreen(step) {
+  const si = sysIdx(step);
+  const qi = qIdx(step);
+  const sys = SYSTEMS[si];
+  const savedVal = state.answers[`q${step}`] ?? 5;
+
+  updateProgress(step);
+
+  // Show system intro on first question of each system
+  if (qi === 0) {
+    introHeadline.textContent = sys.intro.headline;
+    introBody.textContent = sys.intro.body;
+    show(systemIntro);
+    setTimeout(() => {
+      systemIntro.style.opacity = '0';
+      systemIntro.style.transition = 'opacity 0.5s';
+      setTimeout(() => { hide(systemIntro); systemIntro.style.opacity = '1'; systemIntro.style.transition = ''; }, 500);
+    }, 4000);
+  } else {
+    hide(systemIntro);
+  }
+
+  scoredQuestion.textContent = sys.questions[qi];
+  diagSlider.value = savedVal;
+  sliderNum.textContent = savedVal;
+
+  btnScoredBack.disabled = step === 0;
+  show(scoredScreen);
+  hide(profileScreen);
+}
+
+function showPhase() {
+  hide(landing, quiz, emailGate, calculating);
+
+  if (state.phase === 'landing') {
+    show(landing);
+    return;
+  }
+  if (state.phase === 'profile') {
+    show(quiz);
+    hide(scoredScreen);
+    renderProfileScreen(state.profileStep);
+    return;
+  }
+  if (state.phase === 'scored') {
+    show(quiz);
+    hide(profileScreen);
+    renderScoredScreen(state.scoredStep);
+    return;
+  }
+  if (state.phase === 'gate') {
+    show(emailGate);
+    if (state.name) gateName.value = state.name;
+    if (state.email) gateEmail.value = state.email;
+    validateGate();
+    return;
+  }
+  if (state.phase === 'calculating') {
+    show(calculating);
+    setTimeout(finishAndRedirect, 1800);
+    return;
+  }
+}
+
+function validateGate() {
+  const ok = gateName.value.trim().length > 0
+    && gateEmail.value.includes('@')
+    && gateConsent.checked;
+  btnGateNext.disabled = !ok;
+}
+
+function finishAndRedirect() {
+  const s = [0,1,2,3].map(si =>
+    [0,1,2,3,4].reduce((acc, qi) => acc + (state.answers[`q${si*5+qi}`] ?? 5), 0)
+  );
+  const total = s.reduce((a, b) => a + b, 0);
+  const bn = s.indexOf(Math.min(...s)) + 1;
+  const tier = total <= 50 ? 'reactive' : total <= 100 ? 'emerging' : total <= 150 ? 'leverage' : 'mastery';
+  const type = state.profile.type || 'other';
+
+  sessionStorage.removeItem(STORAGE_KEY);
+  window.location.href = `/score/results?score=${total}&tier=${tier}&s1=${s[0]}&s2=${s[1]}&s3=${s[2]}&s4=${s[3]}&bn=${bn}&type=${encodeURIComponent(type)}`;
+}
+
+// ── EVENT LISTENERS ──────────────────────────────────────────
+
+document.getElementById('btn-start').addEventListener('click', () => {
+  if (loadState()) {
+    state = loadState();
+    // Check if there's a real previous session to resume
+    if (state.phase !== 'landing') {
+      expiredShown = true;
+      const notice = document.createElement('p');
+      notice.className = 'expired-notice';
+      notice.textContent = 'Resuming your previous session...';
+      document.querySelector('.diag-inner').insertBefore(notice, document.querySelector('.diag-inner').firstChild);
+      setTimeout(() => notice.remove(), 2000);
+    }
+  } else {
+    state = freshState();
+    state.phase = 'profile';
+    state.profileStep = 0;
+    saveState(state);
+  }
+  if (state.phase === 'landing') {
+    state.phase = 'profile';
+    state.profileStep = 0;
+    saveState(state);
+  }
+  showPhase();
+});
+
+btnProfileNext.addEventListener('click', () => {
+  if (state.profileStep < 2) {
+    state.profileStep++;
+    saveState(state);
+    renderProfileScreen(state.profileStep);
+  } else {
+    state.phase = 'scored';
+    state.scoredStep = 0;
+    saveState(state);
+    showPhase();
+  }
+});
+
+btnProfileBack.addEventListener('click', () => {
+  if (state.profileStep > 0) {
+    state.profileStep--;
+    saveState(state);
+    renderProfileScreen(state.profileStep);
+  } else {
+    state.phase = 'landing';
+    saveState(state);
+    showPhase();
+  }
+});
+
+diagSlider.addEventListener('input', () => {
+  const val = parseInt(diagSlider.value);
+  sliderNum.textContent = val;
+  state.answers[`q${state.scoredStep}`] = val;
+  saveState(state);
+});
+
+btnScoredNext.addEventListener('click', () => {
+  const val = parseInt(diagSlider.value);
+  state.answers[`q${state.scoredStep}`] = val;
+
+  if (state.scoredStep === 9) {
+    state.phase = 'gate';
+    saveState(state);
+    showPhase();
+    return;
+  }
+  if (state.scoredStep === 19) {
+    state.phase = 'calculating';
+    saveState(state);
+    showPhase();
+    return;
+  }
+  state.scoredStep++;
+  saveState(state);
+  renderScoredScreen(state.scoredStep);
+});
+
+btnScoredBack.addEventListener('click', () => {
+  if (state.scoredStep === 0) {
+    state.phase = 'profile';
+    state.profileStep = 2;
+    saveState(state);
+    showPhase();
+  } else {
+    state.scoredStep--;
+    saveState(state);
+    renderScoredScreen(state.scoredStep);
+  }
+});
+
+btnGateNext.addEventListener('click', () => {
+  state.name = gateName.value.trim();
+  state.email = gateEmail.value.trim();
+  state.phase = 'scored';
+  state.scoredStep = 10;
+  saveState(state);
+  showPhase();
+});
+
+btnGateBack.addEventListener('click', () => {
+  state.phase = 'scored';
+  state.scoredStep = 9;
+  saveState(state);
+  showPhase();
+});
+
+gateName.addEventListener('input', validateGate);
+gateEmail.addEventListener('input', validateGate);
+gateConsent.addEventListener('change', validateGate);
+
+// ── INIT ─────────────────────────────────────────────────────
+showPhase();
+</script>
+
+</Scorecard>
