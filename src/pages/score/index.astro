@@ -592,6 +592,72 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* Quiz question/screen transitions */
   .question-card, .system-intro { animation: quizFadeIn 0.3s cubic-bezier(0.22,1,0.36,1) both; }
+
+  /* ── 4-SYSTEM VISUAL GRID ── */
+  .systems-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.38s forwards;
+  }
+  @media (max-width: 520px) { .systems-grid { grid-template-columns: 1fr; } }
+
+  .sys-cell {
+    background: #0B0A09;
+    padding: 1.5rem 1.75rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: default;
+  }
+  .sys-cell::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--color-crimson);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .sys-cell:hover { background: rgba(200,40,44,0.04); }
+  .sys-cell:hover::before { opacity: 1; }
+
+  .sys-cell-num {
+    font-family: var(--font-serif);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-copper);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+  }
+  .sys-cell-name {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+  .sys-cell-desc {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    color: var(--color-smoke);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* Stagger each cell */
+  .sys-cell:nth-child(1) { animation: metricPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.44s both; }
+  .sys-cell:nth-child(2) { animation: metricPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.50s both; }
+  .sys-cell:nth-child(3) { animation: metricPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.56s both; }
+  .sys-cell:nth-child(4) { animation: metricPop 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.62s both; }
 </style>
 
 <div class="diag">
@@ -659,6 +725,30 @@ import Scorecard from '../../layouts/Scorecard.astro';
       <p style="font-family:var(--font-sans);font-size:0.72rem;color:rgba(122,118,110,0.45);line-height:1.65;margin:0 0 2rem;text-align:left;">
         Built for SA accountants, CA(SA)s, attorneys, financial advisors, FSPs, auditors, insurance brokers, consultants, engineers, and any practice where the principal's expertise is the product.
       </p>
+
+      <!-- 4-system visual grid -->
+      <div class="systems-grid">
+        <div class="sys-cell">
+          <p class="sys-cell-num">01</p>
+          <p class="sys-cell-name">Intelligence Capture</p>
+          <p class="sys-cell-desc">Every client interaction captured automatically. Nothing lives only in your head.</p>
+        </div>
+        <div class="sys-cell">
+          <p class="sys-cell-num">02</p>
+          <p class="sys-cell-name">Decision Speed</p>
+          <p class="sys-cell-desc">42hrs → 5min lead response. 21× more likely to convert. Runs without you.</p>
+        </div>
+        <div class="sys-cell">
+          <p class="sys-cell-num">03</p>
+          <p class="sys-cell-name">Process Independence</p>
+          <p class="sys-cell-desc">Core workflows documented and delegatable. Your practice runs when you don't.</p>
+        </div>
+        <div class="sys-cell">
+          <p class="sys-cell-num">04</p>
+          <p class="sys-cell-name">Time Reclamation</p>
+          <p class="sys-cell-desc">15–25% of billable hours recovered from tasks that never needed a principal.</p>
+        </div>
+      </div>
 
       <!-- Metric grid -->
       <div class="diag-metrics">

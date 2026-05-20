@@ -1,6 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
 
+const articleImages: Record<string, string> = {
+  'billable-hours-professional-services': '/images/article-billable-hours.webp',
+  'time-leaks-professional-practice':     '/images/article-time-leaks.webp',
+  'what-is-business-automation-audit':    '/images/article-automation-audit.webp',
+};
+
 const articles = [
   {
     tag: 'Owner Bottleneck',
@@ -75,13 +81,22 @@ const articles = [
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(255,255,255,0.07);
     border-radius: 12px;
-    padding: 1.75rem 2rem;
+    overflow: hidden;
     text-decoration: none;
     transition: border-color 0.2s, background 0.2s;
   }
   .article-card:hover {
     background: rgba(255,255,255,0.05);
     border-color: rgba(255,255,255,0.12);
+  }
+  .article-card-img {
+    width: 100%;
+    aspect-ratio: 1200 / 480;
+    object-fit: cover;
+    display: block;
+  }
+  .article-card-body {
+    padding: 1.5rem 2rem;
   }
   .article-tag {
     font-family: var(--font-sans);
@@ -141,10 +156,21 @@ const articles = [
   <div class="articles-grid">
     {articles.map(article => (
       <a href={`/articles/${article.slug}`} class="article-card">
-        <p class="article-tag">{article.tag}</p>
-        <h2 class="article-title">{article.title}</h2>
-        <p class="article-excerpt">{article.excerpt}</p>
-        <p class="article-meta">{article.date} · {article.readTime}</p>
+        {articleImages[article.slug] && (
+          <img
+            src={articleImages[article.slug]}
+            alt={article.title}
+            class="article-card-img"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <div class="article-card-body">
+          <p class="article-tag">{article.tag}</p>
+          <h2 class="article-title">{article.title}</h2>
+          <p class="article-excerpt">{article.excerpt}</p>
+          <p class="article-meta">{article.date} · {article.readTime}</p>
+        </div>
       </a>
     ))}
   </div>
