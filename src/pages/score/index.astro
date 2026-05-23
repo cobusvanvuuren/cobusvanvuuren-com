@@ -211,46 +211,58 @@ import Scorecard from '../../layouts/Scorecard.astro';
   .choice-grid {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.55rem;
     margin-bottom: 2.5rem;
   }
   .choice-card {
     display: flex;
     align-items: center;
     gap: 1rem;
-    padding: 1rem 1.5rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.09);
+    padding: 1.1rem 1.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.22);
     border-radius: 12px;
     cursor: pointer;
     transition: border-color 0.18s, background 0.18s, transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s;
     font-family: var(--font-sans);
     font-size: 0.95rem;
     font-weight: 400;
-    color: var(--color-smoke);
+    color: var(--color-ivory);
     text-align: left;
     width: 100%;
     user-select: none;
   }
   .choice-card:hover {
-    border-color: rgba(200,40,44,0.45);
-    background: rgba(200,40,44,0.05);
+    border-color: rgba(200,40,44,0.6);
+    background: rgba(200,40,44,0.07);
     transform: translateX(5px);
-    color: var(--color-ivory);
     box-shadow: -3px 0 0 0 var(--color-crimson);
   }
   .choice-card.selected {
     border-color: var(--color-crimson);
-    background: rgba(200,40,44,0.09);
+    background: rgba(200,40,44,0.12);
     transform: translateX(5px);
-    color: var(--color-ivory);
     box-shadow: -3px 0 0 0 var(--color-crimson);
   }
+  /* Letter label */
+  .choice-label {
+    font-family: var(--font-serif);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: rgba(200,40,44,0.55);
+    flex-shrink: 0;
+    width: 1.1rem;
+    text-align: center;
+    transition: color 0.15s;
+    line-height: 1;
+  }
+  .choice-card:hover .choice-label,
+  .choice-card.selected .choice-label { color: var(--color-crimson); }
   /* Diamond indicator */
   .choice-radio {
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255,255,255,0.18);
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255,255,255,0.35);
     flex-shrink: 0;
     transform: rotate(45deg);
     transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
@@ -258,7 +270,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     position: relative;
   }
   .choice-card:hover .choice-radio {
-    border-color: rgba(200,40,44,0.6);
+    border-color: rgba(200,40,44,0.7);
   }
   .choice-card.selected .choice-radio {
     border-color: var(--color-crimson);
@@ -326,6 +338,36 @@ import Scorecard from '../../layouts/Scorecard.astro';
     font-size: 0.7rem;
     color: var(--color-smoke);
     opacity: 0.6;
+  }
+
+  /* Scored choice cards — yesno (3-col horizontal) and freq (stacked) */
+  #scored-choices.yesno {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+  }
+  #scored-choices.yesno .choice-card {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.5rem 0.85rem;
+    gap: 0.5rem;
+    min-height: 5rem;
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+  #scored-choices.freq {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 480px) {
+    #scored-choices.yesno { grid-template-columns: 1fr; }
+    #scored-choices.yesno .choice-card { flex-direction: row; text-align: left; justify-content: flex-start; font-size: 0.9rem; }
   }
 
   /* Email gate */
@@ -788,7 +830,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
       <!-- Scored questions -->
       <div id="scored-screen" class="question-card" style="display:none;">
         <p class="question-text" id="scored-question"></p>
-        <div class="slider-wrap">
+        <div class="slider-wrap" id="scored-slider-wrap">
           <div class="slider-value-display">
             <span id="slider-num">5</span><span>/ 10</span>
           </div>
@@ -805,6 +847,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
             <span>10 — Fully built, automatic</span>
           </div>
         </div>
+        <div id="scored-choices" style="display:none;margin-bottom:2.5rem;"></div>
         <div class="nav-row">
           <button class="btn-back" id="btn-scored-back">← Back</button>
           <button class="btn-primary" id="btn-scored-next">Next →</button>
@@ -877,11 +920,11 @@ const SYSTEMS = [
       body: 'Most practices carry critical context — client history, commitments, follow-ups — in the principal\'s head. When that context isn\'t captured, it leaks. Leads fall through. Clients feel forgotten. Time is wasted retrieving what should already be known.',
     },
     questions: [
-      'My practice captures every enquiry — calls, emails, WhatsApp — in one place, without anyone having to remember to log it.',
-      'I can pull up a client\'s full history (what was promised, what was discussed) in under 60 seconds.',
-      'Every active client has a documented profile: their situation, outstanding items, and communication preferences.',
-      'When a potential client contacts us, the same information is captured every time — regardless of who answers.',
-      'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.',
+      { text: 'My practice captures every enquiry — calls, emails, WhatsApp — in one place, without anyone having to remember to log it.', type: 'freq' },
+      { text: 'I can pull up a client\'s full history (what was promised, what was discussed) in under 60 seconds.', type: 'yesno' },
+      { text: 'Every active client has a documented profile: their situation, outstanding items, and communication preferences.', type: 'slider' },
+      { text: 'When a potential client contacts us, the same information is captured every time — regardless of who answers.', type: 'freq' },
+      { text: 'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.', type: 'slider' },
     ],
   },
   {
@@ -891,11 +934,11 @@ const SYSTEMS = [
       body: 'Research shows the average professional services firm responds to new enquiries in 42 hours — with a 21× conversion lift for firms that respond in under 5 minutes. Decision Speed is about removing the principal as the bottleneck to both external responsiveness and internal operational flow.',
     },
     questions: [
-      'New enquiries receive a substantive response within 2 hours — without needing me personally to step in.',
-      'My team handles common client questions and requests without escalating to me.',
-      'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.',
-      'I make fewer operational decisions than a year ago. More runs on agreed processes.',
-      'Fewer than 3 situations per week require the practice to wait on my personal decision.',
+      { text: 'New enquiries receive a substantive response within 2 hours — without needing me personally to step in.', type: 'yesno' },
+      { text: 'My team handles common client questions and requests without escalating to me.', type: 'freq' },
+      { text: 'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.', type: 'yesno' },
+      { text: 'I make fewer operational decisions than a year ago. More runs on agreed processes.', type: 'yesno' },
+      { text: 'Fewer than 3 situations per week require the practice to wait on my personal decision.', type: 'yesno' },
     ],
   },
   {
@@ -905,11 +948,11 @@ const SYSTEMS = [
       body: 'Professional services principals are often the only person who knows how something is done. That works — until it doesn\'t. Process Independence means turning tacit knowledge into documented, repeatable systems your team can run without you.',
     },
     questions: [
-      'When we repeat a process more than twice, we document it so anyone on the team can follow it.',
-      'Core recurring tasks — billing, client onboarding, compliance checks, reporting — have a documented process anyone can follow.',
-      'We can take on a new client without me personally managing every step of their onboarding.',
-      'If I was unavailable for a week, my team would know exactly what to do — without calling me.',
-      'Building documented processes in my practice feels normal, not like extra work.',
+      { text: 'When we repeat a process more than twice, we document it so anyone on the team can follow it.', type: 'freq' },
+      { text: 'Core recurring tasks — billing, client onboarding, compliance checks, reporting — have a documented process anyone can follow.', type: 'slider' },
+      { text: 'We can take on a new client without me personally managing every step of their onboarding.', type: 'yesno' },
+      { text: 'If I was unavailable for a week, my team would know exactly what to do — without calling me.', type: 'yesno' },
+      { text: 'Building documented processes in my practice feels normal, not like extra work.', type: 'slider' },
     ],
   },
   {
@@ -919,11 +962,11 @@ const SYSTEMS = [
       body: 'Research shows professional services firms lose 15–25% of billable hours annually to tasks that don\'t require the principal\'s expertise — admin, reporting, compliance paperwork, client follow-ups. Time Reclamation is about identifying those leaks and systematically closing them.',
     },
     questions: [
-      'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.',
-      'I regularly review whether tasks on my plate could be handled by a documented system or a team member.',
-      'I\'ve moved at least one major recurring task off my plate in the past 3 months — delegated or automated.',
-      'My practice can function for at least 3 days without my direct input.',
-      'I have a clear picture of what my practice looks like when it runs without me — and I\'m actively building toward it.',
+      { text: 'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.', type: 'yesno' },
+      { text: 'I regularly review whether tasks on my plate could be handled by a documented system or a team member.', type: 'freq' },
+      { text: 'I\'ve moved at least one major recurring task off my plate in the past 3 months — delegated or automated.', type: 'yesno' },
+      { text: 'My practice can function for at least 3 days without my direct input.', type: 'yesno' },
+      { text: 'I have a clear picture of what my practice looks like when it runs without me — and I\'m actively building toward it.', type: 'slider' },
     ],
   },
 ];
@@ -958,6 +1001,20 @@ const PROFILES = [
       { text: 'All of the above', tag: 'all-of-above' },
     ],
   },
+];
+
+const LETTERS = ['A', 'B', 'C', 'D', 'E'];
+const YESNO_OPTIONS = [
+  { text: 'Not yet', value: 0 },
+  { text: 'Getting there', value: 5 },
+  { text: 'Yes — nailed it', value: 10 },
+];
+const FREQ_OPTIONS = [
+  { text: 'Never', value: 0 },
+  { text: 'Rarely', value: 2 },
+  { text: 'Sometimes', value: 5 },
+  { text: 'Often', value: 8 },
+  { text: 'Always', value: 10 },
 ];
 
 // ── STATE ────────────────────────────────────────────────────
@@ -1034,8 +1091,10 @@ const scoredScreen   = document.getElementById('scored-screen');
 const scoredQuestion = document.getElementById('scored-question');
 const sliderNum      = document.getElementById('slider-num');
 const diagSlider     = document.getElementById('diag-slider');
-const btnScoredBack  = document.getElementById('btn-scored-back');
-const btnScoredNext  = document.getElementById('btn-scored-next');
+const btnScoredBack     = document.getElementById('btn-scored-back');
+const btnScoredNext     = document.getElementById('btn-scored-next');
+const scoredSliderWrap  = document.getElementById('scored-slider-wrap');
+const scoredChoices     = document.getElementById('scored-choices');
 
 const gateName    = document.getElementById('gate-name');
 const gateEmail   = document.getElementById('gate-email');
@@ -1063,10 +1122,10 @@ function renderProfileScreen(step) {
   profileChoices.innerHTML = '';
   btnProfileNext.disabled = true;
 
-  p.options.forEach(opt => {
+  p.options.forEach((opt, idx) => {
     const btn = document.createElement('button');
     btn.className = 'choice-card';
-    btn.innerHTML = `<span class="choice-radio"></span><span>${opt.text}</span>`;
+    btn.innerHTML = `<span class="choice-label">${LETTERS[idx]}</span><span class="choice-radio"></span><span>${opt.text}</span>`;
     btn.dataset.tag = opt.tag;
 
     const savedTag = Object.values(state.profile)[step];
@@ -1090,15 +1149,46 @@ function renderProfileScreen(step) {
   hide(scoredScreen, systemIntro);
 }
 
+function renderScoredChoices(step, type) {
+  const opts = type === 'yesno' ? YESNO_OPTIONS : FREQ_OPTIONS;
+  const savedVal = state.answers[`q${step}`];
+
+  scoredChoices.className = type;
+  scoredChoices.style.display = type === 'yesno' ? 'grid' : 'flex';
+  scoredChoices.innerHTML = '';
+  btnScoredNext.disabled = (savedVal === undefined);
+
+  opts.forEach((opt, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-card';
+    if (type === 'yesno') {
+      btn.innerHTML = `<span>${opt.text}</span>`;
+    } else {
+      btn.innerHTML = `<span class="choice-label">${LETTERS[idx]}</span><span class="choice-radio"></span><span>${opt.text}</span>`;
+    }
+    if (savedVal === opt.value) btn.classList.add('selected');
+
+    btn.addEventListener('click', () => {
+      scoredChoices.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+      btn.classList.add('selected');
+      state.answers[`q${step}`] = opt.value;
+      saveState(state);
+      btnScoredNext.disabled = false;
+      setTimeout(() => btnScoredNext.click(), 260);
+    });
+
+    scoredChoices.appendChild(btn);
+  });
+}
+
 function renderScoredScreen(step) {
   const si = sysIdx(step);
   const qi = qIdx(step);
   const sys = SYSTEMS[si];
-  const savedVal = state.answers[`q${step}`] ?? 5;
+  const q = sys.questions[qi];
 
   updateProgress(step);
 
-  // Show system intro on first question of each system
   if (qi === 0) {
     introHeadline.textContent = sys.intro.headline;
     introBody.textContent = sys.intro.body;
@@ -1112,9 +1202,19 @@ function renderScoredScreen(step) {
     hide(systemIntro);
   }
 
-  scoredQuestion.textContent = sys.questions[qi];
-  diagSlider.value = savedVal;
-  sliderNum.textContent = savedVal;
+  scoredQuestion.textContent = q.text;
+
+  if (q.type === 'slider') {
+    const savedVal = state.answers[`q${step}`] ?? 5;
+    diagSlider.value = savedVal;
+    sliderNum.textContent = savedVal;
+    scoredSliderWrap.style.display = 'block';
+    scoredChoices.style.display = 'none';
+    btnScoredNext.disabled = false;
+  } else {
+    scoredSliderWrap.style.display = 'none';
+    renderScoredChoices(step, q.type);
+  }
 
   btnScoredBack.disabled = step === 0;
   show(scoredScreen);
@@ -1247,8 +1347,11 @@ diagSlider.addEventListener('input', () => {
 });
 
 btnScoredNext.addEventListener('click', () => {
-  const val = parseInt(diagSlider.value);
-  state.answers[`q${state.scoredStep}`] = val;
+  const cq = SYSTEMS[sysIdx(state.scoredStep)].questions[qIdx(state.scoredStep)];
+  if (cq.type === 'slider') {
+    state.answers[`q${state.scoredStep}`] = parseInt(diagSlider.value);
+    saveState(state);
+  }
 
   if (state.scoredStep === 9) {
     state.phase = 'gate';
