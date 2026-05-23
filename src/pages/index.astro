@@ -185,6 +185,105 @@ const schema = {
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
+
+      /* Hero proof card (right column) */
+      .hero-proof-card {
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 1.75rem 2rem;
+        background: rgba(255,255,255,0.02);
+        position: relative;
+        overflow: hidden;
+      }
+      .hero-proof-card::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 220px;
+        height: 220px;
+        background: radial-gradient(circle, rgba(200,40,44,0.07) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .hero-proof-eyebrow {
+        font-family: var(--font-sans);
+        font-size: 10px;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-copper);
+        margin-bottom: 1.25rem;
+      }
+      .hero-proof-stat {
+        padding: 0.9rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .hero-proof-stat:last-child { border-bottom: none; padding-bottom: 0; }
+      .hero-proof-num {
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--color-crimson);
+        letter-spacing: -0.03em;
+        line-height: 1;
+        margin-bottom: 0.2rem;
+      }
+      .hero-proof-label {
+        font-family: var(--font-sans);
+        font-size: 0.76rem;
+        color: var(--color-smoke);
+        line-height: 1.5;
+      }
+      .hero-proof-source {
+        font-family: var(--font-sans);
+        font-size: 0.63rem;
+        color: rgba(122,118,110,0.45);
+        margin-top: 0.15rem;
+        letter-spacing: 0.04em;
+      }
+
+      /* About portrait placeholder */
+      .portrait-frame {
+        width: 100%;
+        max-width: 300px;
+        aspect-ratio: 3/4;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 12px;
+        background: rgba(255,255,255,0.02);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .portrait-frame::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at 50% 30%, rgba(200,40,44,0.04) 0%, transparent 70%);
+        pointer-events: none;
+      }
+      .portrait-initials {
+        font-family: var(--font-serif);
+        font-size: 5rem;
+        font-weight: 700;
+        color: rgba(255,255,255,0.06);
+        letter-spacing: -0.05em;
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+      }
+      .portrait-placeholder-text {
+        font-family: var(--font-sans);
+        font-size: 0.62rem;
+        color: rgba(122,118,110,0.35);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        position: relative;
+        z-index: 1;
+      }
     </style>
   </Fragment>
 
@@ -196,44 +295,73 @@ const schema = {
     <div class="hero-bloom"></div>
 
     <div class="relative max-w-5xl mx-auto px-6 w-full">
+      <div class="grid md:grid-cols-[1fr_360px] gap-10 lg:gap-16 items-center">
 
-      <!-- Who -->
-      <div class="eyebrow mb-10">
-        <span class="eyebrow-label">Business Automation · South Africa</span>
+        <!-- Left: headline + CTAs -->
+        <div>
+          <!-- Who -->
+          <div class="eyebrow mb-10">
+            <span class="eyebrow-label">Business Automation · South Africa</span>
+          </div>
+
+          <!-- Main statement -->
+          <h1 class="font-serif font-bold text-ivory text-[clamp(2.8rem,5.5vw,5.2rem)] leading-[1.04] tracking-[-0.03em] mb-8">
+            Most SA business owners know<br class="hidden lg:block" />
+            they need AI. Almost none know<br class="hidden lg:block" />
+            where to start.
+          </h1>
+
+          <p class="font-sans font-normal text-[17px] text-[#7A766E] leading-[1.8] max-w-lg mb-12">
+            I map the time leaks inside professional services practices —
+            and show exactly where automation changes the maths.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3 mb-16">
+            <a href="/score" class="btn-primary text-center">
+              Take the Free AI Readiness Diagnostic →
+            </a>
+            <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark text-center" target="_blank" rel="noopener" onclick="gtag('event', 'strategy_call_intent', {event_category: 'CTA', event_label: 'hero'})">
+              Book a Strategy Call
+            </a>
+          </div>
+
+          <!-- Inline context strip -->
+          <div class="flex flex-wrap gap-x-8 gap-y-4 text-[13px] font-sans font-normal text-smoke border-t border-white/7 pt-8">
+            <span>Accountants · Attorneys · Financial Advisors</span>
+            <span class="text-white/15 hidden sm:block">|</span>
+            <span>3–20 staff</span>
+            <span class="text-white/15 hidden sm:block">|</span>
+            <span>South Africa</span>
+            <span class="text-white/15 hidden sm:block">|</span>
+            <span>R50,000 minimum savings guaranteed</span>
+          </div>
+        </div>
+
+        <!-- Right: proof stats card (hidden on mobile) -->
+        <div class="hidden md:block">
+          <div class="hero-proof-card">
+            <p class="hero-proof-eyebrow">What the numbers say</p>
+            <div class="hero-proof-stat">
+              <p class="hero-proof-num">79</p>
+              <p class="hero-proof-label">leads in month one — from 6 on the same budget</p>
+              <p class="hero-proof-source">RhinoBerry client · Digital marketing, SA</p>
+            </div>
+            <div class="hero-proof-stat">
+              <p class="hero-proof-num">24 <span style="font-size:1rem;font-weight:500">days</span></p>
+              <p class="hero-proof-label">lost per year to admin in the average SA small business</p>
+            </div>
+            <div class="hero-proof-stat">
+              <p class="hero-proof-num">37<span style="font-size:1rem;font-weight:500">%</span></p>
+              <p class="hero-proof-label">average attorney billable utilisation — 63% is non-billable</p>
+            </div>
+            <div class="hero-proof-stat">
+              <p class="hero-proof-num">21<span style="font-size:1rem;font-weight:500">×</span></p>
+              <p class="hero-proof-label">more likely to convert a lead contacted within 5 minutes</p>
+            </div>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Main statement -->
-      <h1 class="font-serif font-bold text-ivory text-[clamp(2.8rem,5.5vw,5.2rem)] leading-[1.04] tracking-[-0.03em] mb-8 max-w-4xl">
-        Most SA business owners know<br class="hidden lg:block" />
-        they need AI. Almost none know<br class="hidden lg:block" />
-        where to start.
-      </h1>
-
-      <p class="font-sans font-normal text-[17px] text-[#7A766E] leading-[1.8] max-w-lg mb-12">
-        I map the time leaks inside professional services practices —
-        and show exactly where automation changes the maths.
-      </p>
-
-      <div class="flex flex-col sm:flex-row gap-3 mb-16">
-        <a href="/score" class="btn-primary text-center">
-          Take the Free AI Readiness Diagnostic →
-        </a>
-        <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark text-center" target="_blank" rel="noopener" onclick="gtag('event', 'strategy_call_intent', {event_category: 'CTA', event_label: 'hero'})">
-          Book a Strategy Call
-        </a>
-      </div>
-
-      <!-- Inline context strip -->
-      <div class="flex flex-wrap gap-x-8 gap-y-4 text-[13px] font-sans font-normal text-smoke border-t border-white/7 pt-8">
-        <span>Accountants · Attorneys · Financial Advisors</span>
-        <span class="text-white/15 hidden sm:block">|</span>
-        <span>3–20 staff</span>
-        <span class="text-white/15 hidden sm:block">|</span>
-        <span>South Africa</span>
-        <span class="text-white/15 hidden sm:block">|</span>
-        <span>R50,000 minimum savings guaranteed</span>
-      </div>
-
     </div>
   </section>
 
@@ -343,26 +471,36 @@ const schema = {
   <section class="max-w-5xl mx-auto px-6 pt-20 pb-24">
     <div class="section-rule"></div>
 
-    <div class="max-w-2xl">
-      <div class="eyebrow"><span class="eyebrow-label">About</span></div>
-      <p class="font-serif font-bold text-ivory text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.2] tracking-[-0.02em] mb-6">
-        I built a business, automated it, then started helping other SA
-        professional services firms do the same.
-      </p>
-      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-6">
-        Seven years running RhinoBerry — a digital marketing agency — meant running every manual
-        process first, then spending three years automating the parts that were eating my evenings.
-        Client intake, proposal generation, reporting, billing, content production. The audit methodology
-        is what I use on my own business. Not what I theorise about.
-      </p>
-      <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-8">
-        CVV is where I write and talk about AI for SA professional services firms.
-        RhinoBerry is where the marketing implementation happens.
-        The two are connected — the audit tells you which path makes sense.
-      </p>
-      <a href="/about" class="font-sans font-normal text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
-        More about me →
-      </a>
+    <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <!-- Text column -->
+      <div>
+        <div class="eyebrow"><span class="eyebrow-label">About</span></div>
+        <p class="font-serif font-bold text-ivory text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.2] tracking-[-0.02em] mb-6">
+          I built a business, automated it, then started helping other SA
+          professional services firms do the same.
+        </p>
+        <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-6">
+          Seven years running RhinoBerry — a digital marketing agency — meant running every manual
+          process first, then spending three years automating the parts that were eating my evenings.
+          Client intake, proposal generation, reporting, billing, content production. The audit methodology
+          is what I use on my own business. Not what I theorise about.
+        </p>
+        <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-8">
+          CVV is where I write and talk about AI for SA professional services firms.
+          RhinoBerry is where the marketing implementation happens.
+          The two are connected — the audit tells you which path makes sense.
+        </p>
+        <a href="/about" class="font-sans font-normal text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
+          More about me →
+        </a>
+      </div>
+      <!-- Portrait placeholder — replaced with photo when ready -->
+      <div class="flex justify-center md:justify-start">
+        <div class="portrait-frame">
+          <p class="portrait-initials">CV</p>
+          <p class="portrait-placeholder-text">Portrait coming soon</p>
+        </div>
+      </div>
     </div>
   </section>
 

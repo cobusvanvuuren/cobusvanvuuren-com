@@ -14,6 +14,48 @@ import Base from '../layouts/Base.astro';
     padding: 8rem 1.5rem 6rem;
   }
 
+  /* Two-column hero */
+  .audit-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 3rem;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .audit-hero { grid-template-columns: 1fr 240px; gap: 4rem; }
+  }
+  .audit-stats-card {
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.01);
+  }
+  .audit-stat-cell {
+    padding: 1.3rem 1.4rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .audit-stat-cell:last-child { border-bottom: none; }
+  .audit-stat-num {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 0.3rem;
+    color: var(--color-crimson);
+  }
+  .audit-stat-cell:not(:first-child) .audit-stat-num { color: var(--color-ivory); }
+  .audit-stat-label {
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-smoke);
+    line-height: 1.3;
+  }
+
   /* Eyebrow */
   .a-eyebrow {
     font-family: var(--font-sans);
@@ -315,26 +357,28 @@ import Base from '../layouts/Base.astro';
 
 <div class="audit-wrap">
 
-  <!-- HERO -->
-  <p class="a-eyebrow">Business Automation Audit</p>
-
-  <h1 class="a-h1">You know you need AI and better systems.<br/>This audit tells you <em>exactly what to build</em> — for your practice.</h1>
-
-  <p class="a-sub">Generic AI advice is everywhere. What's specific to your practice type, your workflow gaps, and your team size is rare. The Business Automation Audit maps every process, ranks every opportunity by ROI, and delivers a 90-day implementation plan built for you — not for a generic firm.</p>
-
-  <!-- Stats strip -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden;margin-bottom:3rem;">
-    <div style="background:#0B0A09;padding:1.5rem;text-align:center;">
-      <p style="font-family:var(--font-serif);font-size:1.9rem;font-weight:700;color:var(--color-crimson);letter-spacing:-0.02em;line-height:1;margin-bottom:0.4rem;">R50k</p>
-      <p style="font-family:var(--font-sans);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-smoke);">Minimum savings<br/>guaranteed</p>
+  <!-- HERO: two-column on md+ -->
+  <div class="audit-hero">
+    <!-- Left: text -->
+    <div>
+      <p class="a-eyebrow">Business Automation Audit</p>
+      <h1 class="a-h1">You know you need AI and better systems.<br/>This audit tells you <em>exactly what to build</em> — for your practice.</h1>
+      <p class="a-sub">Generic AI advice is everywhere. What's specific to your practice type, your workflow gaps, and your team size is rare. The Business Automation Audit maps every process, ranks every opportunity by ROI, and delivers a 90-day implementation plan built for you — not for a generic firm.</p>
     </div>
-    <div style="background:#0B0A09;padding:1.5rem;text-align:center;">
-      <p style="font-family:var(--font-serif);font-size:1.9rem;font-weight:700;color:var(--color-ivory);letter-spacing:-0.02em;line-height:1;margin-bottom:0.4rem;">90 min</p>
-      <p style="font-family:var(--font-sans);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-smoke);">Intake session</p>
-    </div>
-    <div style="background:#0B0A09;padding:1.5rem;text-align:center;">
-      <p style="font-family:var(--font-serif);font-size:1.9rem;font-weight:700;color:var(--color-ivory);letter-spacing:-0.02em;line-height:1;margin-bottom:0.4rem;">5 days</p>
-      <p style="font-family:var(--font-sans);font-size:0.72rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-smoke);">To your report</p>
+    <!-- Right: stats card -->
+    <div class="audit-stats-card">
+      <div class="audit-stat-cell">
+        <p class="audit-stat-num">R50k</p>
+        <p class="audit-stat-label">Minimum savings<br/>guaranteed</p>
+      </div>
+      <div class="audit-stat-cell">
+        <p class="audit-stat-num">90 min</p>
+        <p class="audit-stat-label">Intake session</p>
+      </div>
+      <div class="audit-stat-cell">
+        <p class="audit-stat-num">5 days</p>
+        <p class="audit-stat-label">To your report</p>
+      </div>
     </div>
   </div>
 
