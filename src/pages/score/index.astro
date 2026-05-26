@@ -7,24 +7,64 @@ import Scorecard from '../../layouts/Scorecard.astro';
   description="Benchmark your practice across 4 AI systems in 10 minutes. See exactly where you're leaving time and rand on the table — and which system to fix first."
 >
 
-<style>
+<style is:global>
   /* ── DIAGNOSTIC WRAPPER ── */
   .diag {
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 3rem 1.5rem 5rem;
-  }
-  .diag-inner {
-    width: 100%;
-    max-width: 900px;
   }
 
+  /* Full-width section bands */
+  .sect {
+    width: 100%;
+    padding: 5rem 2rem;
+  }
+  .sect-inner {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .sect-hero {
+    padding-top: 4rem;
+    padding-bottom: 4.5rem;
+  }
+  .sect-problem {
+    background: rgba(166,124,82,0.045);
+    border-top: 1px solid rgba(166,124,82,0.12);
+    border-bottom: 1px solid rgba(166,124,82,0.12);
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+  .sect-systems {
+    background: rgba(200,40,44,0.03);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .sect-discover {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .sect-trust {
+    background: rgba(166,124,82,0.06);
+    border-top: 1px solid rgba(166,124,82,0.16);
+    border-bottom: 1px solid rgba(166,124,82,0.16);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+  .sect-form {
+    background: rgba(255,255,255,0.025);
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+  .sect-metrics {
+    padding-top: 0;
+    padding-bottom: 4rem;
+  }
+
+  /* Quiz wrapper — still centered */
   #quiz {
     max-width: 660px;
     margin: 0 auto;
+    padding: 3rem 2rem 5rem;
   }
 
   /* ── LANDING ── */
@@ -503,8 +543,8 @@ import Scorecard from '../../layouts/Scorecard.astro';
     align-items: center;
     gap: 1rem;
     padding: 1.1rem 1.5rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 10px;
     cursor: pointer;
     transition: border-color 0.18s, background 0.18s, transform 0.18s cubic-bezier(0.22,1,0.36,1), box-shadow 0.18s;
@@ -517,16 +557,16 @@ import Scorecard from '../../layouts/Scorecard.astro';
     user-select: none;
   }
   .choice-card:hover {
-    border-color: rgba(200,40,44,0.4);
-    background: rgba(200,40,44,0.04);
-    transform: translateX(5px);
-    box-shadow: -3px 0 0 0 var(--color-crimson);
+    border-color: rgba(200,40,44,0.6);
+    background: rgba(200,40,44,0.07);
+    transform: translateX(6px);
+    box-shadow: -3px 0 0 0 var(--color-crimson), 0 2px 20px rgba(0,0,0,0.3);
   }
   .choice-card.selected {
     border-color: var(--color-crimson);
-    background: rgba(200,40,44,0.08);
-    transform: translateX(5px);
-    box-shadow: -3px 0 0 0 var(--color-crimson);
+    background: rgba(200,40,44,0.12);
+    transform: translateX(6px);
+    box-shadow: -3px 0 0 0 var(--color-crimson), 0 2px 20px rgba(200,40,44,0.15);
   }
 
   /* Letter badge — small square */
@@ -581,17 +621,21 @@ import Scorecard from '../../layouts/Scorecard.astro';
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 1.4rem 0.75rem;
+    padding: 1.75rem 1rem;
     gap: 0;
-    min-height: 52px;
+    min-height: 60px;
     font-family: var(--font-serif);
     font-weight: 700;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
   }
   #scored-choices.yesno .choice-card:hover,
   #scored-choices.yesno .choice-card.selected {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 16px rgba(200,40,44,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(200,40,44,0.2), 0 2px 8px rgba(0,0,0,0.4);
+    border-color: var(--color-crimson);
+    background: rgba(200,40,44,0.12);
   }
 
   /* Frequency — horizontal pills */
@@ -609,14 +653,27 @@ import Scorecard from '../../layouts/Scorecard.astro';
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 10px 14px;
-    border-radius: 20px;
+    padding: 12px 16px;
+    border-radius: 24px;
     gap: 0;
-    font-size: 0.85rem;
+    font-size: 0.88rem;
     font-family: var(--font-sans);
     color: var(--color-sand);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
     transform: none !important;
-    box-shadow: none !important;
+  }
+  #scored-choices.freq .choice-card:hover {
+    background: rgba(200,40,44,0.08);
+    border-color: rgba(200,40,44,0.5);
+    box-shadow: none;
+  }
+  #scored-choices.freq .choice-card.selected {
+    background: rgba(200,40,44,0.14);
+    border-color: var(--color-crimson);
+    color: var(--color-ivory);
+    box-shadow: 0 0 12px rgba(200,40,44,0.2);
+    transform: none !important;
   }
 
   @media (max-width: 480px) {
@@ -772,12 +829,11 @@ import Scorecard from '../../layouts/Scorecard.astro';
   #landing .diag-sub       { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.2s forwards; }
   #landing #btn-scroll-form{ opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.28s forwards, landingGlow 3s ease-in-out 1.8s infinite; }
   #landing .proof-stats    { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.36s forwards; }
-  #landing .problem-block  { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.44s forwards; }
+  #landing .sect-problem   { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.44s forwards; }
   #landing .systems-grid   { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.50s forwards; }
-  #landing .section-eyebrow-label { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.54s forwards; }
-  #landing .discover-list  { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.58s forwards; }
-  #landing .trust-block    { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.62s forwards; }
-  #landing .intake-section { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.66s forwards; }
+  #landing .sect-discover  { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.54s forwards; }
+  #landing .sect-trust     { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.62s forwards; }
+  #landing .sect-form      { opacity: 0; animation: landingFadeUp 0.45s cubic-bezier(0.22,1,0.36,1) 0.66s forwards; }
   #landing .diag-metrics   { opacity: 0; animation: landingFadeUp 0.5s cubic-bezier(0.22,1,0.36,1) 0.72s forwards; }
 
   #landing .diag-metric:nth-child(1) { animation: metricPop 0.45s cubic-bezier(0.34,1.56,0.64,1) 0.76s both; }
@@ -794,46 +850,50 @@ import Scorecard from '../../layouts/Scorecard.astro';
 </style>
 
 <div class="diag">
-  <div class="diag-inner">
 
-    <!-- LANDING -->
-    <div id="landing">
+  <!-- LANDING -->
+  <div id="landing">
 
-      <!-- 1. HERO -->
-      <div class="diag-eyebrow">
-        <span class="diag-eyebrow-dot"></span>
-        <span class="diag-eyebrow-text">AI Readiness Diagnostic — Free · 10 Minutes</span>
+    <!-- 1. HERO — full width -->
+    <section class="sect sect-hero">
+      <div class="sect-inner">
+        <div class="diag-eyebrow">
+          <span class="diag-eyebrow-dot"></span>
+          <span class="diag-eyebrow-text">AI Readiness Diagnostic — Free · 10 Minutes</span>
+        </div>
+
+        <h1 class="diag-h1">How much of your practice depends on you <em>personally</em> showing up?</h1>
+
+        <p class="diag-sub">Most SA accountants, attorneys, and financial advisors are running their practice from memory. This 10-minute diagnostic tells you exactly which systems would break first — and what it's costing you at your billing rate.</p>
+
+        <button id="btn-scroll-form" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
+          Start the Diagnostic →
+        </button>
+
+        <div class="proof-stats">
+          <div>
+            <div class="proof-stat-num">23</div>
+            <div class="proof-stat-label">Diagnostic questions</div>
+          </div>
+          <div>
+            <div class="proof-stat-num">4</div>
+            <div class="proof-stat-label">Systems scored</div>
+          </div>
+          <div>
+            <div class="proof-stat-num">10m</div>
+            <div class="proof-stat-label">Results in 10 minutes</div>
+          </div>
+          <div>
+            <div class="proof-stat-num">Free</div>
+            <div class="proof-stat-label">No cost, no pitch</div>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <h1 class="diag-h1">How much of your practice depends on you <em>personally</em> showing up?</h1>
-
-      <p class="diag-sub">Most SA accountants, attorneys, and financial advisors are running their practice from memory. This 10-minute diagnostic tells you exactly which systems would break first — and what it's costing you at your billing rate.</p>
-
-      <button id="btn-scroll-form" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
-        Start the Diagnostic →
-      </button>
-
-      <div class="proof-stats">
-        <div>
-          <div class="proof-stat-num">23</div>
-          <div class="proof-stat-label">Diagnostic questions</div>
-        </div>
-        <div>
-          <div class="proof-stat-num">4</div>
-          <div class="proof-stat-label">Systems scored</div>
-        </div>
-        <div>
-          <div class="proof-stat-num">10m</div>
-          <div class="proof-stat-label">Results in 10 minutes</div>
-        </div>
-        <div>
-          <div class="proof-stat-num">Free</div>
-          <div class="proof-stat-label">No cost, no pitch</div>
-        </div>
-      </div>
-
-      <!-- 2. PROBLEM TENSION BLOCK -->
-      <div class="problem-block">
+    <!-- 2. PROBLEM TENSION — copper-tinted band -->
+    <section class="sect sect-problem">
+      <div class="sect-inner">
         <h2 class="problem-h2">The invisible drain most practice owners don't measure</h2>
         <img
           src="/images/article-billable-hours.webp"
@@ -845,54 +905,65 @@ import Scorecard from '../../layouts/Scorecard.astro';
         <p class="problem-p">Most practices also respond to new enquiries in an average of <strong>42 hours</strong>. Firms that respond in under 5 minutes are <strong>21× more likely to convert</strong> that lead. That isn't a staffing problem. It's a systems problem — and it's costing clients you'll never know you lost.</p>
         <p class="problem-p">The problem isn't your effort. It's that without a clear diagnostic, you don't know which of your 4 AI systems is the actual bottleneck — or in what order to build them.</p>
       </div>
+    </section>
 
-      <!-- 3. 4-SYSTEM VISUAL GRID -->
-      <div class="systems-grid">
-        <div class="sys-cell">
-          <p class="sys-cell-num">01</p>
-          <p class="sys-cell-name">Intelligence Capture</p>
-          <p class="sys-cell-desc">Every client interaction captured automatically. Nothing lives only in your head.</p>
-        </div>
-        <div class="sys-cell">
-          <p class="sys-cell-num">02</p>
-          <p class="sys-cell-name">Decision Speed</p>
-          <p class="sys-cell-desc">42hrs → 5min lead response. 21× more likely to convert. Runs without you.</p>
-        </div>
-        <div class="sys-cell">
-          <p class="sys-cell-num">03</p>
-          <p class="sys-cell-name">Process Independence</p>
-          <p class="sys-cell-desc">Core workflows documented and delegatable. Your practice runs when you don't.</p>
-        </div>
-        <div class="sys-cell">
-          <p class="sys-cell-num">04</p>
-          <p class="sys-cell-name">Time Reclamation</p>
-          <p class="sys-cell-desc">15–25% of billable hours recovered from tasks that never needed a principal.</p>
+    <!-- 3. 4-SYSTEM GRID — crimson-tinted band -->
+    <section class="sect sect-systems">
+      <div class="sect-inner">
+        <p class="section-eyebrow-label" style="margin-bottom:1.5rem;">The 4 systems we score</p>
+        <div class="systems-grid">
+          <div class="sys-cell">
+            <p class="sys-cell-num">01</p>
+            <p class="sys-cell-name">Intelligence Capture</p>
+            <p class="sys-cell-desc">Every client interaction captured automatically. Nothing lives only in your head.</p>
+          </div>
+          <div class="sys-cell">
+            <p class="sys-cell-num">02</p>
+            <p class="sys-cell-name">Decision Speed</p>
+            <p class="sys-cell-desc">42hrs → 5min lead response. 21× more likely to convert. Runs without you.</p>
+          </div>
+          <div class="sys-cell">
+            <p class="sys-cell-num">03</p>
+            <p class="sys-cell-name">Process Independence</p>
+            <p class="sys-cell-desc">Core workflows documented and delegatable. Your practice runs when you don't.</p>
+          </div>
+          <div class="sys-cell">
+            <p class="sys-cell-num">04</p>
+            <p class="sys-cell-name">Time Reclamation</p>
+            <p class="sys-cell-desc">15–25% of billable hours recovered from tasks that never needed a principal.</p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <!-- 4. WHAT YOU'LL DISCOVER -->
-      <p class="section-eyebrow-label">In 10 minutes you'll know</p>
-      <ul class="discover-list">
-        <li class="discover-item">
-          <span class="discover-arrow">→</span>
-          <span>Which of your 4 AI systems is the weakest link — and why it's costing more than you think</span>
-        </li>
-        <li class="discover-item">
-          <span class="discover-arrow">→</span>
-          <span>The exact monthly cost of your current setup at your billing rate</span>
-        </li>
-        <li class="discover-item">
-          <span class="discover-arrow">→</span>
-          <span>A ranked list of where to start — by time saved and effort required</span>
-        </li>
-        <li class="discover-item">
-          <span class="discover-arrow">→</span>
-          <span>Whether you're Reactive, Emerging, Leverage, or Mastery — and what the gap looks like</span>
-        </li>
-      </ul>
+    <!-- 4. WHAT YOU'LL KNOW — clean dark band -->
+    <section class="sect sect-discover">
+      <div class="sect-inner">
+        <p class="section-eyebrow-label">In 10 minutes you'll know</p>
+        <ul class="discover-list">
+          <li class="discover-item">
+            <span class="discover-arrow">→</span>
+            <span>Which of your 4 AI systems is the weakest link — and why it's costing more than you think</span>
+          </li>
+          <li class="discover-item">
+            <span class="discover-arrow">→</span>
+            <span>The exact monthly cost of your current setup at your billing rate</span>
+          </li>
+          <li class="discover-item">
+            <span class="discover-arrow">→</span>
+            <span>A ranked list of where to start — by time saved and effort required</span>
+          </li>
+          <li class="discover-item">
+            <span class="discover-arrow">→</span>
+            <span>Whether you're Reactive, Emerging, Leverage, or Mastery — and what the gap looks like</span>
+          </li>
+        </ul>
+      </div>
+    </section>
 
-      <!-- 5. TRUST BLOCK -->
-      <div class="trust-block">
+    <!-- 5. TRUST — copper warm band -->
+    <section class="sect sect-trust">
+      <div class="sect-inner">
         <p class="trust-line">Over 50 SA professionals have taken this diagnostic.</p>
         <div class="trust-stats">
           <div>
@@ -909,9 +980,11 @@ import Scorecard from '../../layouts/Scorecard.astro';
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- 6. INTAKE FORM -->
-      <div id="intake-form-section" class="intake-section">
+    <!-- 6. INTAKE FORM — elevated dark band -->
+    <section class="sect sect-form" id="intake-form-section">
+      <div class="sect-inner">
         <div class="intake-card">
           <h2 class="intake-h2">Enter your details to start the diagnostic</h2>
           <p class="intake-sub">Your results are private. No spam. This takes 10 minutes.</p>
@@ -946,73 +1019,77 @@ import Scorecard from '../../layouts/Scorecard.astro';
           </form>
         </div>
       </div>
+    </section>
 
-      <!-- Metric grid -->
-      <div class="diag-metrics">
-        <div class="diag-metric"><div class="diag-metric-num">4</div><div class="diag-metric-label">AI systems</div></div>
-        <div class="diag-metric"><div class="diag-metric-num">20</div><div class="diag-metric-label">Statements</div></div>
-        <div class="diag-metric"><div class="diag-metric-num">/200</div><div class="diag-metric-label">Score range</div></div>
-        <div class="diag-metric"><div class="diag-metric-num">10m</div><div class="diag-metric-label">To complete</div></div>
-      </div>
-
-    </div><!-- /landing -->
-
-    <!-- QUIZ -->
-    <div id="quiz">
-      <div class="progress-meta">
-        <span id="system-label" class="progress-label">Your Practice</span>
-        <span id="step-count" class="progress-step">Q 1 of 20</span>
-      </div>
-      <div class="progress-bar-wrap">
-        <div id="progress-fill" class="progress-bar-fill" style="width:0%"></div>
-      </div>
-
-      <div id="system-intro" class="system-intro" style="display:none;">
-        <h3 id="intro-headline"></h3>
-        <p id="intro-body"></p>
-      </div>
-
-      <!-- Profile questions -->
-      <div id="profile-screen" class="question-card" style="display:none;">
-        <p class="question-text" id="profile-question"></p>
-        <div class="choice-grid" id="profile-choices"></div>
-        <div class="nav-row">
-          <button class="btn-back" id="btn-profile-back">← Back</button>
-          <button class="btn-primary" id="btn-profile-next" disabled style="display:none;">Next →</button>
+    <!-- Metric bar -->
+    <section class="sect sect-metrics">
+      <div class="sect-inner">
+        <div class="diag-metrics">
+          <div class="diag-metric"><div class="diag-metric-num">4</div><div class="diag-metric-label">AI systems</div></div>
+          <div class="diag-metric"><div class="diag-metric-num">20</div><div class="diag-metric-label">Statements</div></div>
+          <div class="diag-metric"><div class="diag-metric-num">/200</div><div class="diag-metric-label">Score range</div></div>
+          <div class="diag-metric"><div class="diag-metric-num">10m</div><div class="diag-metric-label">To complete</div></div>
         </div>
       </div>
+    </section>
 
-      <!-- Scored questions -->
-      <div id="scored-screen" class="question-card" style="display:none;">
-        <p class="question-text" id="scored-question"></p>
-        <div id="scored-choices" style="display:none;margin-bottom:2.5rem;"></div>
-        <div class="nav-row">
-          <button class="btn-back" id="btn-scored-back">← Back</button>
-          <button class="btn-primary" id="btn-scored-next">Next →</button>
-        </div>
-      </div>
-    </div><!-- /quiz -->
+  </div><!-- /landing -->
 
-    <!-- CALCULATING -->
-    <div id="calculating">
-      <div class="calc-dots">
-        <div class="calc-dot"></div>
-        <div class="calc-dot"></div>
-        <div class="calc-dot"></div>
-      </div>
-      <h2 class="calc-h">Analysing your practice...</h2>
-      <p class="calc-sub">Mapping your 4 systems against 200 benchmark points.</p>
+  <!-- QUIZ -->
+  <div id="quiz">
+    <div class="progress-meta">
+      <span id="system-label" class="progress-label">Your Practice</span>
+      <span id="step-count" class="progress-step">Q 1 of 20</span>
+    </div>
+    <div class="progress-bar-wrap">
+      <div id="progress-fill" class="progress-bar-fill" style="width:0%"></div>
     </div>
 
-    <!-- NO-JS FALLBACK -->
-    <noscript>
-      <div style="text-align:center;padding:3rem 0;font-family:sans-serif;color:#8a8682;">
-        <p style="margin-bottom:1rem;">This diagnostic requires JavaScript to run.</p>
-        <a href="https://score.cobusvanvuuren.com" style="color:#C8282C;">Take the ScoreApp version instead →</a>
-      </div>
-    </noscript>
+    <div id="system-intro" class="system-intro" style="display:none;">
+      <h3 id="intro-headline"></h3>
+      <p id="intro-body"></p>
+    </div>
 
+    <!-- Profile questions -->
+    <div id="profile-screen" class="question-card" style="display:none;">
+      <p class="question-text" id="profile-question"></p>
+      <div class="choice-grid" id="profile-choices"></div>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-profile-back">← Back</button>
+        <button class="btn-primary" id="btn-profile-next" disabled style="display:none;">Next →</button>
+      </div>
+    </div>
+
+    <!-- Scored questions -->
+    <div id="scored-screen" class="question-card" style="display:none;">
+      <p class="question-text" id="scored-question"></p>
+      <div id="scored-choices" style="display:none;margin-bottom:2.5rem;"></div>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-scored-back">← Back</button>
+        <button class="btn-primary" id="btn-scored-next">Next →</button>
+      </div>
+    </div>
+  </div><!-- /quiz -->
+
+  <!-- CALCULATING -->
+  <div id="calculating">
+    <div class="calc-dots">
+      <div class="calc-dot"></div>
+      <div class="calc-dot"></div>
+      <div class="calc-dot"></div>
+    </div>
+    <h2 class="calc-h">Analysing your practice...</h2>
+    <p class="calc-sub">Mapping your 4 systems against 200 benchmark points.</p>
   </div>
+
+  <!-- NO-JS FALLBACK -->
+  <noscript>
+    <div style="text-align:center;padding:3rem 0;font-family:sans-serif;color:#8a8682;">
+      <p style="margin-bottom:1rem;">This diagnostic requires JavaScript to run.</p>
+      <a href="https://score.cobusvanvuuren.com" style="color:#C8282C;">Take the ScoreApp version instead →</a>
+    </div>
+  </noscript>
+
 </div>
 
 <script>
