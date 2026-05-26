@@ -8,19 +8,17 @@ import Scorecard from '../../layouts/Scorecard.astro';
 >
 
 <style>
-  .results {
+  /* ── OUTER SHELL ── */
+  .results-outer {
     min-height: 100vh;
-    padding: 3rem 1.5rem 6rem;
-  }
-  .results-inner {
-    max-width: 880px;
-    margin: 0 auto;
   }
 
   /* No-results fallback */
   #no-results {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem;
     text-align: center;
-    padding: 5rem 0;
     display: none;
   }
   #no-results h2 {
@@ -37,12 +35,18 @@ import Scorecard from '../../layouts/Scorecard.astro';
     margin-bottom: 2rem;
   }
 
-  /* ── SCORE REVEAL ── */
-  .score-reveal {
+  /* ── SCORE HERO (full-width band, matches nav) ── */
+  .score-hero {
+    width: 100%;
+    background: rgba(255,255,255,0.025);
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    padding: 3.5rem 0 4rem;
+  }
+  .score-hero-inner {
+    max-width: 48rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
     text-align: center;
-    padding: 2.5rem 0 3rem;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    margin-bottom: 3rem;
   }
   .score-label {
     font-family: var(--font-sans);
@@ -87,26 +91,120 @@ import Scorecard from '../../layouts/Scorecard.astro';
     font-weight: 400;
     color: var(--color-smoke);
     line-height: 1.7;
-    max-width: 520px;
-    margin: 0 auto 1rem;
-  }
-  .cost-gap {
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    color: rgba(200,40,44,0.75);
-    font-weight: 400;
-    line-height: 1.6;
     max-width: 480px;
+    margin: 0 auto 1.5rem;
+  }
+
+  /* ── TIER LADDER ── */
+  .tier-ladder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.75rem 0 0.25rem;
+    flex-wrap: wrap;
+  }
+  .tier-step {
+    display: flex;
+    align-items: center;
+  }
+  .tier-step-name {
+    font-family: var(--font-sans);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(160,156,148,0.35);
+    padding: 0.3rem 0.5rem;
+    position: relative;
+  }
+  .tier-step-name.active {
+    color: var(--color-ivory);
+    font-weight: 700;
+  }
+  .tier-step-name.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--color-crimson);
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+  }
+  .tier-arrow {
+    color: rgba(160,156,148,0.2);
+    font-size: 0.65rem;
+    padding: 0 0.1rem;
+  }
+
+  /* ── COST GAP STATS ── */
+  .cost-gap-stats {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 2rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-wrap: wrap;
+  }
+  .cost-stat {
+    text-align: center;
+  }
+  .cost-stat-num {
+    display: block;
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-copper);
+    line-height: 1;
+  }
+  .cost-stat-label {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: rgba(160,156,148,0.7);
+    margin-top: 0.4rem;
+    max-width: 140px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── SHARE BUTTONS (inside hero) ── */
+  .hero-share {
+    display: flex;
+    gap: 0.6rem;
+    justify-content: center;
+    margin-top: 1.75rem;
+    flex-wrap: wrap;
+  }
+  .share-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 7px;
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .share-btn:hover { opacity: 0.8; }
+  .share-wa { background: rgba(37,211,102,0.1); color: #4ade80; border: 1px solid rgba(37,211,102,0.2); }
+  .share-li { background: rgba(10,102,194,0.1); color: #60a5fa; border: 1px solid rgba(10,102,194,0.2); }
+
+  /* ── RESULTS CONTENT (narrow column) ── */
+  .results-content {
+    max-width: 640px;
     margin: 0 auto;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(200,40,44,0.15);
-    border-radius: 8px;
-    background: rgba(200,40,44,0.04);
+    padding: 3rem 1.5rem 6rem;
   }
 
   /* ── 4 SYSTEM CARDS ── */
   .systems-section {
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
   }
   .section-eyebrow {
     font-family: var(--font-sans);
@@ -162,21 +260,20 @@ import Scorecard from '../../layouts/Scorecard.astro';
     border-radius: 3px;
   }
   .sys-score-bar-wrap {
-    height: 3px;
+    height: 5px;
     background: rgba(255,255,255,0.06);
-    border-radius: 3px;
+    border-radius: 5px;
     margin-bottom: 0.6rem;
     overflow: hidden;
   }
   .sys-score-bar {
     height: 100%;
-    border-radius: 3px;
+    border-radius: 5px;
     background: var(--color-smoke);
-    transition: width 0.8s ease;
   }
-  .sys-card.bottleneck .sys-score-bar {
-    background: var(--color-crimson);
-  }
+  .sys-score-bar.bar-strong    { background: #6bbf7a; }
+  .sys-score-bar.bar-developing { background: #e8a838; }
+  .sys-score-bar.bar-needs     { background: var(--color-crimson); }
   .sys-score-text {
     display: flex;
     align-items: center;
@@ -196,9 +293,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
-  .label-strong { color: #6bbf7a; }
+  .label-strong     { color: #6bbf7a; }
   .label-developing { color: #e8a838; }
-  .label-needs { color: var(--color-crimson); }
+  .label-needs      { color: var(--color-crimson); }
   .sys-feedback {
     font-family: var(--font-sans);
     font-size: 0.78rem;
@@ -211,41 +308,43 @@ import Scorecard from '../../layouts/Scorecard.astro';
   .bottleneck-block {
     background: rgba(200,40,44,0.05);
     border: 1px solid rgba(200,40,44,0.2);
-    border-left: 3px solid var(--color-crimson);
+    border-top: 3px solid var(--color-crimson);
     border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 3rem;
+    padding: 2rem;
+    margin-bottom: 3.5rem;
   }
   .bottleneck-block .bn-label {
     font-family: var(--font-sans);
-    font-size: 0.7rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--color-crimson);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
   }
   .bottleneck-block .bn-name {
     font-family: var(--font-serif);
-    font-size: 1.3rem;
+    font-size: 1.75rem;
     font-weight: 700;
     color: var(--color-ivory);
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
+    margin-bottom: 1rem;
+    line-height: 1.15;
   }
   .bottleneck-block .bn-body {
     font-family: var(--font-sans);
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     color: var(--color-smoke);
-    line-height: 1.65;
-    margin-bottom: 0.75rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
   }
-  .bottleneck-block .bn-pitch {
+  .bottleneck-block .bn-pivot {
     font-family: var(--font-sans);
-    font-size: 0.82rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: var(--color-ivory);
-    font-style: italic;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    line-height: 1.5;
   }
 
   /* ── POPIA NOTE ── */
@@ -263,24 +362,18 @@ import Scorecard from '../../layouts/Scorecard.astro';
   /* ── CTA BLOCKS ── */
   .cta-block {
     border-radius: 16px;
-    padding: 2rem;
+    padding: 2.5rem;
     margin-bottom: 2rem;
   }
-  .cta-block.reactive {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
-  }
-  .cta-block.emerging {
+  .cta-block.reactive,
+  .cta-block.emerging,
+  .cta-block.mastery {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.07);
   }
   .cta-block.leverage {
     background: rgba(200,40,44,0.04);
     border: 1px solid rgba(200,40,44,0.15);
-  }
-  .cta-block.mastery {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.07);
   }
   .cta-h2 {
     font-family: var(--font-serif);
@@ -297,6 +390,17 @@ import Scorecard from '../../layouts/Scorecard.astro';
     color: var(--color-smoke);
     line-height: 1.65;
     margin-bottom: 1.25rem;
+  }
+  .seq-callout {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    font-style: italic;
+    border-left: 3px solid var(--color-copper);
+    padding: 0.4rem 1rem 0.4rem 1.25rem;
+    margin: 0.25rem 0 1.5rem;
+    line-height: 1.45;
   }
 
   /* Foundation tips */
@@ -393,47 +497,11 @@ import Scorecard from '../../layouts/Scorecard.astro';
     color: rgba(94,90,86,0.5);
   }
 
-  /* Share section */
-  .share-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255,255,255,0.06);
-    text-align: center;
-  }
-  .share-label {
-    font-family: var(--font-sans);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-smoke);
-    margin-bottom: 1rem;
-  }
-  .share-btns {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.6rem 1.1rem;
-    border-radius: 8px;
-    font-family: var(--font-sans);
-    font-size: 0.8rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: opacity 0.15s;
-  }
-  .share-btn:hover { opacity: 0.8; }
-  .share-wa { background: #25D366; color: #fff; }
-  .share-li { background: #0A66C2; color: #fff; }
-
   @media (max-width: 560px) {
-    .system-cards { grid-template-columns: 1fr; }
-    .results { padding: 2rem 1.25rem 5rem; }
+    .system-cards   { grid-template-columns: 1fr; }
+    .results-content { padding: 2.5rem 1.25rem 5rem; }
+    .score-hero      { padding: 2.5rem 0 3rem; }
+    .cost-gap-stats  { gap: 2rem; }
   }
 
   /* ── ANIMATIONS ── */
@@ -449,9 +517,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
     0%, 100% { box-shadow: 0 0 0 0 rgba(200,40,44,0); }
     50%       { box-shadow: 0 0 24px 4px rgba(200,40,44,0.35); }
   }
-  @keyframes barReveal {
-    from { width: 0% !important; }
-  }
 
   .anim-fade-up {
     opacity: 0;
@@ -462,62 +527,59 @@ import Scorecard from '../../layouts/Scorecard.astro';
     animation: scaleIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  /* Stagger delays for system cards */
   .sys-card:nth-child(1) { animation-delay: 0.05s; }
   .sys-card:nth-child(2) { animation-delay: 0.12s; }
   .sys-card:nth-child(3) { animation-delay: 0.19s; }
   .sys-card:nth-child(4) { animation-delay: 0.26s; }
 
-  /* CTA primary button pulse */
   .cta-block .btn-primary {
     animation: pulseGlow 2.8s ease-in-out infinite;
     animation-delay: 1.5s;
   }
-
-  /* Spacing improvements */
-  .score-reveal { padding: 3rem 0 3.5rem; }
-  .systems-section { margin-bottom: 3.5rem; }
-  .bottleneck-block { margin-bottom: 3.5rem; padding: 2rem; }
-  #cta-block { margin-bottom: 1rem; }
-  .cta-block { padding: 2.5rem; }
 </style>
 
-<div class="results">
-  <div class="results-inner">
+<div class="results-outer">
 
-    <!-- NO RESULTS (fallback) -->
-    <div id="no-results">
-      <h2>No results found.</h2>
-      <p>It looks like you haven't completed the diagnostic yet.</p>
-      <a href="/score" class="btn-primary">Take the Diagnostic →</a>
-    </div>
+  <!-- NO RESULTS (fallback) -->
+  <div id="no-results">
+    <h2>No results found.</h2>
+    <p>It looks like you haven't completed the diagnostic yet.</p>
+    <a href="/score" class="btn-primary">Take the Diagnostic →</a>
+  </div>
 
-    <!-- RESULTS (shown by JS) -->
-    <div id="results-content" style="display:none;">
+  <!-- RESULTS (shown by JS) -->
+  <div id="results-content" style="display:none;">
 
-      <!-- SCORE REVEAL -->
-      <div class="score-reveal anim-fade-up" style="animation-delay:0s;">
+    <!-- SCORE HERO — full-width band, aligns with nav -->
+    <div class="score-hero anim-fade-up" style="animation-delay:0s;">
+      <div class="score-hero-inner">
         <p class="score-label">Your AI Readiness Score</p>
         <div>
           <span class="score-number" id="score-num">0</span><span class="score-denom">/ 200</span>
         </div>
+        <div id="tier-ladder"></div>
         <div><span class="tier-badge" id="tier-badge">REACTIVE</span></div>
         <p class="tier-desc" id="tier-desc"></p>
-        <p class="cost-gap" id="cost-gap"></p>
+        <div class="cost-gap-stats" id="cost-gap"></div>
+        <div class="hero-share" id="share-btns"></div>
       </div>
+    </div>
+
+    <!-- CONTENT SECTIONS — narrow column -->
+    <div class="results-content">
 
       <!-- 4 SYSTEM CARDS -->
-      <div class="systems-section">
+      <div class="systems-section anim-fade-up" style="animation-delay:0.15s;">
         <p class="section-eyebrow">Your 4 systems</p>
         <div class="system-cards" id="system-cards"></div>
       </div>
 
       <!-- BOTTLENECK BLOCK -->
-      <div class="bottleneck-block anim-fade-up" id="bottleneck-block" style="animation-delay:0.35s;">
-        <p class="bn-label">Your bottleneck</p>
+      <div class="bottleneck-block anim-fade-up" id="bottleneck-block" style="animation-delay:0.3s;">
+        <p class="bn-label">Your primary bottleneck</p>
         <h3 class="bn-name" id="bn-name"></h3>
         <p class="bn-body" id="bn-body"></p>
-        <p class="bn-pitch">This is what a Business Automation Audit addresses first.</p>
+        <p class="bn-pivot">This is what a Business Automation Audit addresses first.</p>
       </div>
 
       <!-- POPIA NOTE (prof-services only) -->
@@ -528,19 +590,15 @@ import Scorecard from '../../layouts/Scorecard.astro';
       <!-- TIER CTA BLOCK -->
       <div id="cta-block"></div>
 
-      <!-- SHARE -->
-      <div class="share-section">
-        <p class="share-label">Share your results</p>
-        <div class="share-btns" id="share-btns"></div>
-      </div>
-
     </div>
-
   </div>
+
 </div>
 
 <script>
-const SYSTEM_NAMES = ['Intelligence Capture', 'Decision Speed', 'Process Independence', 'Time Reclamation'];
+const SYSTEM_NAMES  = ['Intelligence Capture', 'Decision Speed', 'Process Independence', 'Time Reclamation'];
+const TIERS_ORDER   = ['reactive', 'emerging', 'leverage', 'mastery'];
+const TIERS_LABELS  = ['Reactive', 'Emerging', 'Leverage', 'Mastery'];
 
 const TIER_DATA = {
   reactive: {
@@ -553,7 +611,7 @@ const TIER_DATA = {
   },
   leverage: {
     badge: 'LEVERAGE',
-    desc: 'Real systems in 2–3 areas. You\'ve reclaimed bandwidth and your team is starting to operate more independently. The gaps are specific now — and closing them is a focused build, not a full overhaul.',
+    desc: "Real systems in 2–3 areas. You've reclaimed bandwidth and your team is starting to operate more independently. The gaps are specific now — and closing them is a focused build, not a full overhaul.",
   },
   mastery: {
     badge: 'MASTERY',
@@ -562,9 +620,9 @@ const TIER_DATA = {
 };
 
 const BOTTLENECK_BODIES = [
-  'Your practice is losing context. Client history, commitments, and follow-ups are living in people\'s heads instead of a system. When information isn\'t captured automatically, it leaks — and leaked information is leaked revenue. This is the foundation every other system depends on.',
-  'Your practice is slower than it needs to be because decisions — especially responses to new enquiries — are waiting on you. The 42-hour average response time for SA professional services firms isn\'t a resource problem. It\'s a systems problem. And it\'s costing you clients.',
-  'Too much of how your practice works lives only in your head. Every time you explain a process, every time your team asks a question you\'ve answered before — that\'s a system waiting to be documented. Until it is, you\'re the manual override.',
+  "Your practice is losing context. Client history, commitments, and follow-ups are living in people's heads instead of a system. When information isn't captured automatically, it leaks — and leaked information is leaked revenue. This is the foundation every other system depends on.",
+  "Your practice is slower than it needs to be because decisions — especially responses to new enquiries — are waiting on you. The 42-hour average response time for SA professional services firms isn't a resource problem. It's a systems problem. And it's costing you clients.",
+  "Too much of how your practice works lives only in your head. Every time you explain a process, every time your team asks a question you've answered before — that's a system waiting to be documented. Until it is, you're the manual override.",
   "You're still doing work that doesn't require your expertise. Admin, compliance paperwork, client follow-ups, reporting — these aren't where your professional value sits. Reclaiming those hours is the fastest path to either more revenue or more freedom — whichever you want first.",
 ];
 
@@ -572,7 +630,7 @@ const SYS_FEEDBACK = {
   strong:     ['This system is working. Maintain it and build on it.',
                'Lead response infrastructure is strong. Keep the standard high.',
                'Your processes are documented and running. Strong foundation.',
-               'You\'re working on the right things. Keep the standard.'],
+               "You're working on the right things. Keep the standard."],
   developing: ['Context capture is patchy. Some enquiries and commitments are still falling through.',
                'Response times are inconsistent. Decisions still wait on you too often.',
                'Some processes are documented. Others still depend on you personally.',
@@ -580,17 +638,17 @@ const SYS_FEEDBACK = {
   needs:      ['Critical context is living in heads, not systems. This is your fastest-return fix.',
                'New enquiries wait hours — sometimes days — for a response. This is costing you clients.',
                'Almost everything runs through you. Documenting one core process this week is the starting point.',
-               'Too much of your week is spent on work that shouldn\'t require your expertise.'],
+               "Too much of your week is spent on work that shouldn't require your expertise."],
 };
 
-function getSysLabel(score, sysIdx) {
-  if (score >= 40) return { cls: 'label-strong', text: 'Strong', fbIdx: 0 };
-  if (score >= 25) return { cls: 'label-developing', text: 'Developing', fbIdx: 1 };
-  return { cls: 'label-needs', text: 'Needs attention', fbIdx: 2 };
+function getSysLabel(score) {
+  if (score >= 40) return { cls: 'label-strong',    text: 'Strong',          fbIdx: 0 };
+  if (score >= 25) return { cls: 'label-developing', text: 'Developing',      fbIdx: 1 };
+  return               { cls: 'label-needs',      text: 'Needs attention',  fbIdx: 2 };
 }
 
 function buildCTA(tier, score) {
-  const paystack = 'https://pay.cobusvanvuuren.com/audit'; // placeholder — Cobus to update
+  const paystack = 'https://pay.cobusvanvuuren.com/audit';
 
   if (tier === 'reactive') {
     return `
@@ -606,7 +664,7 @@ function buildCTA(tier, score) {
         <div class="btn-row">
           <a href="https://cobusvanvuuren.com" class="btn-primary">Get Weekly Insights →</a>
         </div>
-        <div class="linkedin-follow-block" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
+        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
           <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Not ready for an audit yet? Follow along on LinkedIn — I post weekly AI readiness insights for SA professional services.</p>
           <a href="https://linkedin.com/in/cobusvanvuuren" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
@@ -617,12 +675,13 @@ function buildCTA(tier, score) {
     return `
       <div class="cta-block emerging">
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
-        <p class="cta-body">The gap between Emerging and Leverage isn't effort — it's sequence. Most practices at this level try to fix everything at once. The bottleneck identified above is where to start. Fixing it first means everything else compounds.</p>
-        <p class="cta-body">Want someone to map out exactly what to build for your specific practice — in the right order?</p>
+        <p class="cta-body">Most practices at this level try to fix everything at once.</p>
+        <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
+        <p class="cta-body">The bottleneck identified above is where to start. Fixing it first means everything else compounds. Want someone to map out exactly what to build for your specific practice — in the right order?</p>
         <div class="btn-row">
-          <a href="https://call.rhinoberry.com/meeting" class="btn-primary">Book a free 15-min call →</a>
+          <a href="https://call.rhinoberry.com/meeting" class="btn-primary">Book a 15-min diagnostic review →</a>
         </div>
-        <div class="linkedin-follow-block" style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
+        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
           <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Not ready for an audit yet? Follow along on LinkedIn — I post weekly AI readiness insights for SA professional services.</p>
           <a href="https://linkedin.com/in/cobusvanvuuren" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
@@ -649,12 +708,10 @@ function buildCTA(tier, score) {
       </div>`;
   }
 
-  // mastery
   return `
     <div class="cta-block mastery">
       <h2 class="cta-h2">Your practice is already in the top tier. Here's how to compound it.</h2>
       <p class="cta-body">Mastery-level practices don't need a diagnostic — they need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
-      <!-- VIDEO EMBED SLOT: Cobus — paste video URL or embed code below -->
       <div class="video-slot" id="video-embed">
         Video coming soon — check back after launch.
       </div>
@@ -666,28 +723,28 @@ function buildCTA(tier, score) {
 }
 
 function buildShareBtns(score, tier) {
-  const msg = encodeURIComponent(`I just benchmarked my practice on the AI Readiness Diagnostic for SA professional services — scored ${score}/200. Find out where your practice stands: cobusvanvuuren.com/scorecard`);
-  const url = encodeURIComponent('https://cobusvanvuuren.com/scorecard');
+  const msg    = encodeURIComponent(`I just benchmarked my practice on the AI Readiness Diagnostic for SA professional services — scored ${score}/200. Find out where your practice stands: cobusvanvuuren.com/scorecard`);
+  const url    = encodeURIComponent('https://cobusvanvuuren.com/scorecard');
   const liText = encodeURIComponent(`I just completed the AI Readiness Diagnostic — scored ${score}/200 across 4 AI systems. If you run a practice in accounting, law, or financial advisory, this is worth 10 minutes:`);
 
   return `
     <a href="https://wa.me/?text=${msg}" target="_blank" rel="noopener" class="share-btn share-wa">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.554 4.109 1.521 5.843L0 24l6.353-1.487A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.366l-.36-.213-3.72.871.937-3.63-.236-.374A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
-      WhatsApp
+      Share on WhatsApp
     </a>
     <a href="https://www.linkedin.com/sharing/share-offsite/?url=${url}&summary=${liText}" target="_blank" rel="noopener" class="share-btn share-li">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      LinkedIn
+      Share on LinkedIn
     </a>`;
 }
 
-// ── RENDER ────────────────────────────────────────────────────
+// ── RENDER ──────────────────────────────────────────────────────
 function render() {
   const params = new URLSearchParams(window.location.search);
   const score  = parseInt(params.get('score') ?? '0');
   const tier   = params.get('tier') ?? '';
   const s      = [1,2,3,4].map(i => parseInt(params.get(`s${i}`) ?? '0'));
-  const bn     = parseInt(params.get('bn') ?? '1') - 1; // 0-indexed
+  const bn     = parseInt(params.get('bn') ?? '1') - 1; // URL param is 1-indexed
   const type   = params.get('type') ?? 'other';
 
   if (!params.has('score') || !tier) {
@@ -698,35 +755,53 @@ function render() {
   document.getElementById('results-content').style.display = 'block';
 
   // Score counter animation
-  const scoreEl = document.getElementById('score-num');
-  const duration = 1100;
+  const scoreEl   = document.getElementById('score-num');
+  const duration  = 1100;
   const startTime = performance.now();
   function countUp(ts) {
     const progress = Math.min((ts - startTime) / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
+    const eased    = 1 - Math.pow(1 - progress, 3);
     scoreEl.textContent = Math.round(eased * score);
     if (progress < 1) requestAnimationFrame(countUp);
   }
   requestAnimationFrame(countUp);
 
-  // Tier badge + desc with entrance
+  // Tier badge + description
   const td = TIER_DATA[tier] || TIER_DATA.reactive;
   document.getElementById('tier-badge').textContent = td.badge;
   document.getElementById('tier-desc').textContent  = td.desc;
 
-  // Cost of gap
-  const hoursWasted  = ((200 - score) / 10).toFixed(1);
-  const monthlyLoss  = Math.round((200 - score) / 10 * 1500 * 4);
-  document.getElementById('cost-gap').textContent =
-    `At your level, the average SA professional services practice leaves ${hoursWasted} hours per week on the table. At a conservative R1,500/hour billing rate, that's R${monthlyLoss.toLocaleString()} per month.`;
+  // Tier ladder
+  const ladderEl    = document.getElementById('tier-ladder');
+  ladderEl.className = 'tier-ladder';
+  ladderEl.innerHTML = TIERS_ORDER.map((t, i) => {
+    const isActive = t === tier;
+    const arrow    = i < TIERS_ORDER.length - 1 ? '<span class="tier-arrow">›</span>' : '';
+    return `<div class="tier-step"><span class="tier-step-name${isActive ? ' active' : ''}">${TIERS_LABELS[i]}</span>${arrow}</div>`;
+  }).join('');
+
+  // Cost of gap — two hero stat blocks
+  const hoursWasted = ((200 - score) / 10).toFixed(1);
+  const monthlyLoss = Math.round((200 - score) / 10 * 1500 * 4);
+  document.getElementById('cost-gap').innerHTML = `
+    <div class="cost-stat">
+      <span class="cost-stat-num">${hoursWasted} hrs</span>
+      <span class="cost-stat-label">per week left on the table</span>
+    </div>
+    <div class="cost-stat">
+      <span class="cost-stat-num">R${monthlyLoss.toLocaleString()}</span>
+      <span class="cost-stat-label">per month in unrealised billing</span>
+    </div>
+  `;
 
   // System cards
   const cardsEl = document.getElementById('system-cards');
   s.forEach((syScore, i) => {
-    const isBn  = i === bn;
-    const lbl   = getSysLabel(syScore, i);
-    const fb    = SYS_FEEDBACK[lbl.fbIdx === 0 ? 'strong' : lbl.fbIdx === 1 ? 'developing' : 'needs'][i];
-    const pct   = (syScore / 50) * 100;
+    const isBn   = i === bn;
+    const lbl    = getSysLabel(syScore);
+    const fb     = SYS_FEEDBACK[lbl.fbIdx === 0 ? 'strong' : lbl.fbIdx === 1 ? 'developing' : 'needs'][i];
+    const pct    = (syScore / 50) * 100;
+    const barCls = lbl.fbIdx === 0 ? 'bar-strong' : lbl.fbIdx === 1 ? 'bar-developing' : 'bar-needs';
 
     const card = document.createElement('div');
     card.className = `sys-card anim-scale-in${isBn ? ' bottleneck' : ''}`;
@@ -736,7 +811,7 @@ function render() {
         ${isBn ? '<span class="bottleneck-tag">Bottleneck</span>' : ''}
       </div>
       <div class="sys-score-bar-wrap">
-        <div class="sys-score-bar" style="width:0%" data-pct="${pct}"></div>
+        <div class="sys-score-bar ${barCls}" style="width:0%" data-pct="${pct}"></div>
       </div>
       <div class="sys-score-text">
         <span class="sys-score-fraction">${syScore} <span style="font-size:0.75em;color:var(--color-smoke)">/ 50</span></span>
@@ -747,7 +822,7 @@ function render() {
     cardsEl.appendChild(card);
   });
 
-  // Animate bars in with stagger
+  // Animate progress bars in with stagger
   setTimeout(() => {
     cardsEl.querySelectorAll('.sys-score-bar').forEach((bar, i) => {
       setTimeout(() => {
@@ -758,8 +833,8 @@ function render() {
   }, 400);
 
   // Bottleneck block
-  document.getElementById('bn-name').textContent  = SYSTEM_NAMES[bn];
-  document.getElementById('bn-body').textContent  = BOTTLENECK_BODIES[bn];
+  document.getElementById('bn-name').textContent = SYSTEM_NAMES[bn];
+  document.getElementById('bn-body').textContent = BOTTLENECK_BODIES[bn];
 
   // POPIA note
   if (type === 'prof-services') {
@@ -769,7 +844,7 @@ function render() {
   // Tier CTA
   document.getElementById('cta-block').innerHTML = buildCTA(tier, score);
 
-  // Share buttons
+  // Share buttons (inside hero)
   document.getElementById('share-btns').innerHTML = buildShareBtns(score, tier);
 }
 
