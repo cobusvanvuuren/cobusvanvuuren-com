@@ -603,7 +603,7 @@ const TIERS_LABELS  = ['Reactive', 'Emerging', 'Leverage', 'Mastery'];
 const TIER_DATA = {
   reactive: {
     badge: 'REACTIVE',
-    desc: 'Your practice is running on your personal bandwidth — and that caps your income, your time, and your growth. This is where most SA professional services firms start. The good news: the leverage is there, waiting to be unlocked.',
+    desc: 'Your business is running on your personal bandwidth — and that caps your income, your time, and your growth. This is where most SA professional services firms start. The good news: the leverage is there, waiting to be unlocked.',
   },
   emerging: {
     badge: 'EMERGING',
@@ -615,14 +615,14 @@ const TIER_DATA = {
   },
   mastery: {
     badge: 'MASTERY',
-    desc: "AI is woven into your operating system. Your practice runs on clarity. You make fewer decisions, do less low-leverage work, and your revenue isn't capped by your personal hours.",
+    desc: "AI is woven into your operating system. Your business runs on clarity. You make fewer decisions, do less low-leverage work, and your revenue isn't capped by your personal hours.",
   },
 };
 
 const BOTTLENECK_BODIES = [
-  "Your practice is losing context. Client history, commitments, and follow-ups are living in people's heads instead of a system. When information isn't captured automatically, it leaks — and leaked information is leaked revenue. This is the foundation every other system depends on.",
-  "Your practice is slower than it needs to be because decisions — especially responses to new enquiries — are waiting on you. The 42-hour average response time for SA professional services firms isn't a resource problem. It's a systems problem. And it's costing you clients.",
-  "Too much of how your practice works lives only in your head. Every time you explain a process, every time your team asks a question you've answered before — that's a system waiting to be documented. Until it is, you're the manual override.",
+  "Your business is losing context. Client history, commitments, and follow-ups are living in people's heads instead of a system. When information isn't captured automatically, it leaks — and leaked information is leaked revenue. This is the foundation every other system depends on.",
+  "Your business is slower than it needs to be because decisions — especially responses to new enquiries — are waiting on you. The 42-hour average response time for SA professional services firms isn't a resource problem. It's a systems problem. And it's costing you clients.",
+  "Too much of how your business works lives only in your head. Every time you explain a process, every time your team asks a question you've answered before — that's a system waiting to be documented. Until it is, you're the manual override.",
   "You're still doing work that doesn't require your expertise. Admin, compliance paperwork, client follow-ups, reporting — these aren't where your professional value sits. Reclaiming those hours is the fastest path to either more revenue or more freedom — whichever you want first.",
 ];
 
@@ -654,7 +654,7 @@ function buildCTA(tier, score) {
     return `
       <div class="cta-block reactive">
         <h2 class="cta-h2">The foundation isn't built yet — and that's exactly where the leverage is hiding.</h2>
-        <p class="cta-body">Most practices at this stage try to bolt AI onto chaos. The move that creates the most lasting leverage is simpler: start with these three foundation steps.</p>
+        <p class="cta-body">Most businesses at this stage try to bolt AI onto chaos. The move that creates the most lasting leverage is simpler: start with these three foundation steps.</p>
         <ul class="tips-list">
           <li class="tip-item"><span class="tip-num">1</span><span class="tip-text">Get your client contact list into one place before any automation. A messy list makes every system downstream worse.</span></li>
           <li class="tip-item"><span class="tip-num">2</span><span class="tip-text">Document one recurring task this week — any task you do more than twice a month. Take a voice note, have AI transcribe it. That's your first system.</span></li>
@@ -675,7 +675,7 @@ function buildCTA(tier, score) {
     return `
       <div class="cta-block emerging">
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
-        <p class="cta-body">Most practices at this level try to fix everything at once.</p>
+        <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
         <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
         <p class="cta-body">The bottleneck identified above is where to start. Fixing it first means everything else compounds. Want someone to map out exactly what to build for your specific practice — in the right order?</p>
         <div class="btn-row">
@@ -692,10 +692,10 @@ function buildCTA(tier, score) {
     return `
       <div class="cta-block leverage">
         <h2 class="cta-h2">Real systems in 2–3 areas. The gaps are specific — and fixable.</h2>
-        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover where your practice is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your practice, you pay nothing. The risk is ours."</div>
+        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your business, you pay nothing. The risk is ours."</div>
         <div class="guarantee-box">
           <p class="guar-label">Guaranteed Results</p>
-          <p class="guar-text">If the audit doesn't identify at least R50,000 in annual savings opportunities specific to your practice, you receive a full refund. No questions asked.</p>
+          <p class="guar-text">If the audit doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund. No questions asked.</p>
         </div>
         <div class="btn-row">
           <a href="${paystack}" class="btn-primary">Claim Your Business Automation Audit — R5,497 →</a>
@@ -710,8 +710,8 @@ function buildCTA(tier, score) {
 
   return `
     <div class="cta-block mastery">
-      <h2 class="cta-h2">Your practice is already in the top tier. Here's how to compound it.</h2>
-      <p class="cta-body">Mastery-level practices don't need a diagnostic — they need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
+      <h2 class="cta-h2">Your business is already in the top tier. Here's how to compound it.</h2>
+      <p class="cta-body">Mastery-level businesses don't need a diagnostic — they need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
       <div class="video-slot" id="video-embed">
         Video coming soon — check back after launch.
       </div>
@@ -723,7 +723,7 @@ function buildCTA(tier, score) {
 }
 
 function buildShareBtns(score, tier) {
-  const msg    = encodeURIComponent(`I just benchmarked my practice on the AI Readiness Diagnostic for SA professional services — scored ${score}/200. Find out where your practice stands: cobusvanvuuren.com/scorecard`);
+  const msg    = encodeURIComponent(`I just benchmarked my practice on the AI Readiness Diagnostic for SA professional services — scored ${score}/200. Find out where your business stands: cobusvanvuuren.com/scorecard`);
   const url    = encodeURIComponent('https://cobusvanvuuren.com/scorecard');
   const liText = encodeURIComponent(`I just completed the AI Readiness Diagnostic — scored ${score}/200 across 4 AI systems. If you run a practice in accounting, law, or financial advisory, this is worth 10 minutes:`);
 
