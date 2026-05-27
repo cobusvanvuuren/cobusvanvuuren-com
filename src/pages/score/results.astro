@@ -3,8 +3,8 @@ import Scorecard from '../../layouts/Scorecard.astro';
 ---
 
 <Scorecard
-  title="Your AI Readiness Results — Cobus van Vuuren"
-  description="Your AI Readiness Diagnostic results. See your score across 4 systems, identify your bottleneck, and learn which system to build first."
+  title="Your Business Systems Score — Cobus van Vuuren"
+  description="Your Business Systems Diagnostic results. See your score across 4 systems, find your bottleneck, and get specific actions to take today."
 >
 
 <style>
@@ -40,7 +40,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     width: 100%;
     background: rgba(255,255,255,0.025);
     border-bottom: 1px solid rgba(255,255,255,0.07);
-    padding: 3.5rem 0 4rem;
+    padding: 4.5rem 0 5.5rem;
   }
   .score-hero-inner {
     max-width: 48rem;
@@ -83,7 +83,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     text-transform: uppercase;
     padding: 0.4rem 1rem;
     border-radius: 4px;
-    margin: 1rem 0 1.25rem;
+    margin: 1.25rem 0 1.5rem;
   }
   .tier-desc {
     font-family: var(--font-sans);
@@ -92,7 +92,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     color: var(--color-smoke);
     line-height: 1.7;
     max-width: 480px;
-    margin: 0 auto 1.5rem;
+    margin: 0 auto 2rem;
   }
 
   /* ── TIER LADDER ── */
@@ -171,40 +171,93 @@ import Scorecard from '../../layouts/Scorecard.astro';
     margin-right: auto;
   }
 
-  /* ── SHARE BUTTONS (inside hero) ── */
-  .hero-share {
-    display: flex;
-    gap: 0.6rem;
-    justify-content: center;
-    margin-top: 1.75rem;
-    flex-wrap: wrap;
+  /* ── ACTIONABLE INSIGHTS SECTION ── */
+  .insights-section {
+    margin-bottom: 4.5rem;
   }
-  .share-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 7px;
+  .insights-lead {
     font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: opacity 0.15s;
+    font-size: 0.9rem;
+    color: var(--color-smoke);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+    max-width: 520px;
   }
-  .share-btn:hover { opacity: 0.8; }
-  .share-wa { background: rgba(37,211,102,0.1); color: #4ade80; border: 1px solid rgba(37,211,102,0.2); }
-  .share-li { background: rgba(10,102,194,0.1); color: #60a5fa; border: 1px solid rgba(10,102,194,0.2); }
+  .insight-card {
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+    padding: 1.25rem 1.25rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    margin-bottom: 0.85rem;
+    background: rgba(255,255,255,0.015);
+    transition: border-color 0.2s;
+  }
+  .insight-card:hover { border-color: rgba(255,255,255,0.1); }
+  .insight-num {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(200,40,44,0.12);
+    border: 1px solid rgba(200,40,44,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--color-crimson);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .insight-body { flex: 1; }
+  .insight-title {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-ivory);
+    margin-bottom: 0.3rem;
+    line-height: 1.4;
+  }
+  .insight-detail {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-smoke);
+    line-height: 1.6;
+  }
+
+  /* ── NARRATIVE BRIDGE ── */
+  .narrative-bridge {
+    margin-bottom: 2.5rem;
+    padding: 1.5rem 1.75rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    border-left: 3px solid var(--color-copper);
+    border-radius: 0 10px 10px 0;
+    background: rgba(255,255,255,0.015);
+  }
+  .narrative-bridge p {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-smoke);
+    line-height: 1.7;
+    margin: 0;
+  }
+  .narrative-bridge strong {
+    color: var(--color-ivory);
+    font-weight: 600;
+  }
 
   /* ── RESULTS CONTENT (narrow column) ── */
   .results-content {
     max-width: 640px;
     margin: 0 auto;
-    padding: 3rem 1.5rem 6rem;
+    padding: 4rem 1.5rem 7rem;
   }
 
   /* ── 4 SYSTEM CARDS ── */
   .systems-section {
-    margin-bottom: 3.5rem;
+    margin-bottom: 4.5rem;
   }
   .section-eyebrow {
     font-family: var(--font-sans);
@@ -218,13 +271,13 @@ import Scorecard from '../../layouts/Scorecard.astro';
   .system-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
+    gap: 1.25rem;
   }
   .sys-card {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 12px;
-    padding: 1.25rem;
+    padding: 1.5rem;
     transition: border-color 0.2s;
   }
   .sys-card.bottleneck {
@@ -310,8 +363,8 @@ import Scorecard from '../../layouts/Scorecard.astro';
     border: 1px solid rgba(200,40,44,0.2);
     border-top: 3px solid var(--color-crimson);
     border-radius: 12px;
-    padding: 2rem;
-    margin-bottom: 3.5rem;
+    padding: 2.25rem;
+    margin-bottom: 4.5rem;
   }
   .bottleneck-block .bn-label {
     font-family: var(--font-sans);
@@ -498,10 +551,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
 
   @media (max-width: 560px) {
-    .system-cards   { grid-template-columns: 1fr; }
-    .results-content { padding: 2.5rem 1.25rem 5rem; }
-    .score-hero      { padding: 2.5rem 0 3rem; }
+    .system-cards    { grid-template-columns: 1fr; }
+    .results-content { padding: 3rem 1.25rem 5rem; }
+    .score-hero      { padding: 3rem 0 4rem; }
     .cost-gap-stats  { gap: 2rem; }
+    .insight-card    { padding: 1rem; }
+    .narrative-bridge { padding: 1.25rem 1.25rem; }
   }
 
   /* ── ANIMATIONS ── */
@@ -553,7 +608,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     <!-- SCORE HERO — full-width band, aligns with nav -->
     <div class="score-hero anim-fade-up" style="animation-delay:0s;">
       <div class="score-hero-inner">
-        <p class="score-label">Your AI Readiness Score</p>
+        <p class="score-label">Your Business Systems Score</p>
         <div>
           <span class="score-number" id="score-num">0</span><span class="score-denom">/ 200</span>
         </div>
@@ -561,7 +616,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
         <div><span class="tier-badge" id="tier-badge">REACTIVE</span></div>
         <p class="tier-desc" id="tier-desc"></p>
         <div class="cost-gap-stats" id="cost-gap"></div>
-        <div class="hero-share" id="share-btns"></div>
       </div>
     </div>
 
@@ -586,6 +640,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
       <p class="popia-results" id="popia-note" style="display:none;">
         Note for professional services firms: the audit operates at the workflow level, not the data level. No client files, no financial records, no POPIA exposure.
       </p>
+
+      <!-- ACTIONABLE INSIGHTS -->
+      <div class="insights-section anim-fade-up" id="insights-block" style="animation-delay:0.4s;"></div>
+
+      <!-- NARRATIVE BRIDGE -->
+      <div class="narrative-bridge anim-fade-up" id="narrative-bridge" style="animation-delay:0.5s;display:none;"></div>
 
       <!-- TIER CTA BLOCK -->
       <div id="cta-block"></div>
@@ -660,13 +720,13 @@ function buildCTA(tier, score) {
           <li class="tip-item"><span class="tip-num">2</span><span class="tip-text">Document one recurring task this week — any task you do more than twice a month. Take a voice note, have AI transcribe it. That's your first system.</span></li>
           <li class="tip-item"><span class="tip-num">3</span><span class="tip-text">Measure your response time to new enquiries for one week. Write it down. That number alone will show you your highest-leverage starting point.</span></li>
         </ul>
-        <p class="cta-body">Want weekly AI-for-practice insights delivered to your inbox?</p>
+        <p class="cta-body">Want weekly business systems insights delivered to your inbox?</p>
         <div class="btn-row">
           <a href="https://cobusvanvuuren.com" class="btn-primary">Get Weekly Insights →</a>
         </div>
         <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
-          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Not ready for an audit yet? Follow along on LinkedIn — I post weekly AI readiness insights for SA professional services.</p>
-          <a href="https://linkedin.com/in/cobusvanvuuren" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
+          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn — I share what I'm learning building better business systems for SA owner-operators.</p>
+          <a href="https://www.linkedin.com/in/cobusvanvuuren/" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
       </div>`;
   }
@@ -677,13 +737,13 @@ function buildCTA(tier, score) {
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
         <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
         <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
-        <p class="cta-body">The bottleneck identified above is where to start. Fixing it first means everything else compounds. Want someone to map out exactly what to build for your specific practice — in the right order?</p>
+        <p class="cta-body">The bottleneck identified above is where to start. Fixing it first means everything else compounds. Want someone to map out exactly what to build for your specific business — in the right order?</p>
         <div class="btn-row">
           <a href="https://call.rhinoberry.com/meeting" class="btn-primary">Book a 15-min diagnostic review →</a>
         </div>
         <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
-          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Not ready for an audit yet? Follow along on LinkedIn — I post weekly AI readiness insights for SA professional services.</p>
-          <a href="https://linkedin.com/in/cobusvanvuuren" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
+          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn — I share what I'm learning building better business systems for SA owner-operators.</p>
+          <a href="https://www.linkedin.com/in/cobusvanvuuren/" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
       </div>`;
   }
@@ -722,20 +782,69 @@ function buildCTA(tier, score) {
     </div>`;
 }
 
-function buildShareBtns(score, tier) {
-  const msg    = encodeURIComponent(`I just benchmarked my practice on the AI Readiness Diagnostic for SA professional services — scored ${score}/200. Find out where your business stands: cobusvanvuuren.com/scorecard`);
-  const url    = encodeURIComponent('https://cobusvanvuuren.com/scorecard');
-  const liText = encodeURIComponent(`I just completed the AI Readiness Diagnostic — scored ${score}/200 across 4 AI systems. If you run a practice in accounting, law, or financial advisory, this is worth 10 minutes:`);
+function buildInsights(tier, bn) {
+  const sysNames = ['Intelligence Capture', 'Decision Speed', 'Process Independence', 'Time Reclamation'];
+  const bn0 = SYSTEM_NAMES[bn];
 
-  return `
-    <a href="https://wa.me/?text=${msg}" target="_blank" rel="noopener" class="share-btn share-wa">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.121.554 4.109 1.521 5.843L0 24l6.353-1.487A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.007-1.366l-.36-.213-3.72.871.937-3.63-.236-.374A9.818 9.818 0 0112 2.182c5.42 0 9.818 4.398 9.818 9.818 0 5.421-4.398 9.818-9.818 9.818z"/></svg>
-      Share on WhatsApp
-    </a>
-    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${url}&summary=${liText}" target="_blank" rel="noopener" class="share-btn share-li">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      Share on LinkedIn
-    </a>`;
+  const data = {
+    reactive: {
+      headline: 'Here is where to start first',
+      lead: 'One focused fix creates more leverage than ten scattered improvements. Your ' + bn0 + ' system is the entry point — because fixing it first makes everything else easier to build on.',
+      actions: [
+        { title: 'This week: get your ' + bn0 + ' data into one place', detail: 'Before any automation can work, the raw information needs to be in a system — not split across emails, WhatsApp threads, and your memory. Even a spreadsheet beats nothing.' },
+        { title: 'Time one task you repeat more than twice a month', detail: 'Set a timer. Write down how long it actually takes. That number is your baseline — and it will immediately show you your fastest-return automation opportunity.' },
+        { title: 'Find the one question your team asks you most often', detail: 'That recurring question is a process waiting to be documented. Answer it in a voice note this week. An AI can transcribe it in five minutes. That is your first system.' },
+      ]
+    },
+    emerging: {
+      headline: 'You are 60% there — here is what the next 40% looks like',
+      lead: 'The gap between Emerging and Leverage is not effort — it is sequence. Your ' + bn0 + ' system is still creating friction. Fix the connection points first, then the coverage.',
+      actions: [
+        { title: 'Identify one manual step in your ' + bn0 + ' system', detail: 'Find the step that still requires you personally — an approval, a response, a decision. That is your highest-leverage automation target right now.' },
+        { title: 'Connect your two best-working systems', detail: 'You have isolated pockets of process. Pick the two that are most developed and find the handoff point between them. Automating that single handoff compounds everything downstream.' },
+        { title: 'Set a 2-week deadline for one process handoff', detail: 'Pick one task your team currently asks you about. Document the decision logic and hand it off completely within 14 days. Measure whether the quality holds.' },
+      ]
+    },
+    leverage: {
+      headline: 'You are ahead of most SA businesses — here is the ceiling you are about to hit',
+      lead: 'Real systems in 2-3 areas. The gaps are specific now — and closing them is a focused build, not a full overhaul. Your ' + bn0 + ' system is where the remaining drag is concentrated.',
+      actions: [
+        { title: 'Audit your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency — highest-frequency goes first.' },
+        { title: 'Find one metric you are not tracking that would prove the system is working', detail: 'At this level, what gets measured gets improved. If you cannot quantify whether your ' + bn0 + ' system is performing, you cannot optimise it.' },
+        { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the audit finds — and what the guarantee covers.' },
+      ]
+    },
+    mastery: {
+      headline: 'Here is how systems at this level stay optimised',
+      lead: 'You are operating at a level most SA businesses never reach. The risk at Mastery is not under-automation — it is drift. Systems that are not actively maintained start to decay.',
+      actions: [
+        { title: 'Run a quarterly review of all active automations', detail: 'Schedule 90 minutes every quarter to audit what is running. Check for drift: processes that have changed but whose automations have not kept up. Prune anything that has become noise.' },
+        { title: 'Identify one human bottleneck to systematise before year-end', detail: 'Even at Mastery, there is always one high-frequency task that still runs through a person. Find it. Systematising it is the highest-leverage move available to you right now.' },
+        { title: 'Build a measurement framework for your ' + bn0 + ' system', detail: 'Define 2-3 KPIs that tell you in real time whether the system is performing. If you cannot see it, you cannot improve it — and drift is invisible until it costs you a client.' },
+      ]
+    }
+  };
+
+  const d = data[tier] || data.reactive;
+  let html = '<p class="section-eyebrow">What to do with this</p>';
+  html += '<h3 style="font-family:var(--font-serif);font-size:clamp(1.25rem,3vw,1.6rem);font-weight:700;color:var(--color-ivory);line-height:1.2;margin:0 0 1rem;letter-spacing:-0.01em">' + d.headline + '</h3>';
+  html += '<p class="insights-lead">' + d.lead + '</p>';
+
+  for (let i = 0; i < d.actions.length; i++) {
+    const a = d.actions[i];
+    html += '<div class="insight-card"><div class="insight-num">' + (i + 1) + '</div><div class="insight-body"><p class="insight-title">' + a.title + '</p><p class="insight-detail">' + a.detail + '</p></div></div>';
+  }
+  return html;
+}
+
+function buildNarrativeBridge(tier) {
+  const bridges = {
+    reactive: '<p>You now have more clarity on your business than most SA owners ever get from a single exercise. <strong>Here is what some of them do next:</strong> they follow along for a few weeks, implement the three steps above, and when they can see the difference a system makes — they book the audit. There is no pressure to do that today.</p>',
+    emerging: '<p>You now know exactly where the drag is. <strong>Here is what most Emerging-tier business owners do next:</strong> they book a 15-minute call to talk through the sequence — which system to fix first, in what order, and how to do it without disrupting what is already working.</p>',
+    leverage: '<p>You have done the hard part — you have real systems. <strong>Here is what Leverage-tier businesses typically do next:</strong> they run the audit to close the specific gaps, because at your level the ROI calculation is obvious. The audit finds the remaining friction and prices it.</p>',
+    mastery:  '<p>You already know what good looks like. <strong>Here is what Mastery-tier businesses typically want next:</strong> an implementation partner who can build the specific systems that move their highest-ROI processes from manual to automatic — and who knows how to do it without breaking what is already working.</p>'
+  };
+  return bridges[tier] || bridges.reactive;
 }
 
 // ── RENDER ──────────────────────────────────────────────────────
@@ -841,11 +950,16 @@ function render() {
     document.getElementById('popia-note').style.display = 'block';
   }
 
+  // Actionable insights
+  document.getElementById('insights-block').innerHTML = buildInsights(tier, bn);
+
+  // Narrative bridge
+  const bridgeEl = document.getElementById('narrative-bridge');
+  bridgeEl.innerHTML = buildNarrativeBridge(tier);
+  bridgeEl.style.display = 'block';
+
   // Tier CTA
   document.getElementById('cta-block').innerHTML = buildCTA(tier, score);
-
-  // Share buttons (inside hero)
-  document.getElementById('share-btns').innerHTML = buildShareBtns(score, tier);
 }
 
 render();
