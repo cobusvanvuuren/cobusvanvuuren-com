@@ -1450,13 +1450,16 @@ function finishAndRedirect() {
   const tier  = total <= 50 ? 'reactive' : total <= 100 ? 'emerging' : total <= 150 ? 'leverage' : 'mastery';
   const type  = state.profile.type || 'other';
 
-  navigator.sendBeacon('https://spn.rhinoberry.com/webhook/cvv-lead-capture',
-    new Blob([JSON.stringify({
+  fetch('https://spn.rhinoberry.com/webhook/cvv-lead-capture', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
       name: state.name || '', email: state.email || '',
       phone: state.phone || '', website: state.website || '',
       score: total, tier, type,
-    })], { type: 'application/json' })
-  );
+    }),
+    keepalive: true,
+  }).catch(() => {});
 
   sessionStorage.removeItem(STORAGE_KEY);
   window.location.href = `/score/results?score=${total}&tier=${tier}&s1=${s[0]}&s2=${s[1]}&s3=${s[2]}&s4=${s[3]}&bn=${bn}&type=${encodeURIComponent(type)}`;
