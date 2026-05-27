@@ -1457,6 +1457,7 @@ function finishAndRedirect() {
       name: state.name || '', email: state.email || '',
       phone: state.phone || '', website: state.website || '',
       score: total, tier, type,
+      s1: s[0], s2: s[1], s3: s[2], s4: s[3], bn,
     }),
     keepalive: true,
   }).catch(() => {});
