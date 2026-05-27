@@ -281,9 +281,9 @@ const schema = {
           Almost none know where to start.
         </h1>
 
-        <p class="font-sans font-normal text-[16px] text-[#7A766E] leading-[1.8] max-w-xl mb-10">
-          I map the time leaks inside professional services practices —
-          and show exactly where automation changes the maths.
+        <p class="font-sans font-normal text-[16px] text-[#B0ABA4] leading-[1.8] max-w-xl mb-10">
+          I help SA business owners find where they're losing time and revenue —
+          and build the systems to stop it. No generic AI advice. Specific findings, specific fixes.
         </p>
 
         <div class="flex flex-col sm:flex-row gap-3 mb-12">
@@ -304,23 +304,19 @@ const schema = {
           <span>R50,000 minimum savings guaranteed</span>
         </div>
 
-        <!-- Proof strip: 4 numbers -->
+        <!-- Proof strip: 3 numbers -->
         <div class="proof-strip">
           <div>
-            <span class="proof-strip-num">79</span>
-            <p class="proof-strip-label">leads month one — same R3k budget</p>
-          </div>
-          <div>
             <span class="proof-strip-num">24<span style="font-size:0.62em;font-weight:500"> days</span></span>
-            <p class="proof-strip-label">lost to admin per year — avg SA SME</p>
+            <p class="proof-strip-label">lost to admin per year — avg SA business owner</p>
           </div>
           <div>
             <span class="proof-strip-num">37<span style="font-size:0.62em;font-weight:500">%</span></span>
-            <p class="proof-strip-label">avg attorney billable utilisation</p>
+            <p class="proof-strip-label">avg attorney billable utilisation — 63% disappears</p>
           </div>
           <div>
             <span class="proof-strip-num">21<span style="font-size:0.62em;font-weight:500">×</span></span>
-            <p class="proof-strip-label">more likely to convert — 5 min vs 42 hrs</p>
+            <p class="proof-strip-label">more likely to convert — 5 min vs 42 hrs response</p>
           </div>
         </div>
 
@@ -349,7 +345,7 @@ const schema = {
           <h3 class="font-sans font-semibold text-ivory/90 text-[15px] leading-[1.45] mb-3 flex-1">
             {article.title}
           </h3>
-          <p class="font-sans font-normal text-[#7A766E] text-[13px] leading-[1.65] mb-4">
+          <p class="font-sans font-normal text-[#B0ABA4] text-[13px] leading-[1.65] mb-4">
             {article.excerpt}
           </p>
           <p class="font-sans font-normal text-[11px] text-smoke/50 mt-auto">
@@ -364,38 +360,24 @@ const schema = {
 
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- THE NUMBER THAT MATTERS                   -->
+  <!-- STATS STRIP                               -->
   <!-- ══════════════════════════════════════════ -->
   <section class="max-w-6xl mx-auto px-6 pt-20 pb-24">
     <div class="section-rule"></div>
 
-    <div class="grid md:grid-cols-2 gap-10 items-center">
-
-      <div>
-        <div class="eyebrow"><span class="eyebrow-label">The result that started this</span></div>
-        <p class="proof-num text-[clamp(5rem,12vw,9rem)] mb-4">79</p>
-        <p class="font-sans font-normal text-[#7A766E] text-base leading-relaxed">
-          Leads in month one. The client was generating 6 leads for R3,000.
-          Same budget, different system. The process doesn't lie.
-        </p>
-        <p class="font-sans font-normal text-[11px] text-smoke/40 mt-4">RhinoBerry client — Digital marketing, SA</p>
-      </div>
-
-      <div class="space-y-6">
-        {[
-          { num: '24', unit: 'days', label: 'Lost per year to financial admin — average SA small business' },
-          { num: '37', unit: '%', label: 'Average attorney billable utilisation. 63% disappears to non-billable work.' },
-          { num: '21', unit: '×', label: 'More likely to convert a lead contacted within 5 minutes vs 42 hours' },
-        ].map(stat => (
-          <div class="flex items-baseline gap-4 border-b border-white/6 pb-5 last:border-0 last:pb-0">
-            <p class="font-serif font-bold text-ivory text-[2.5rem] leading-none flex-shrink-0 w-20">
-              {stat.num}<span class="text-[0.55em]">{stat.unit}</span>
-            </p>
-            <p class="font-sans font-normal text-[#7A766E] text-sm leading-[1.6]">{stat.label}</p>
-          </div>
-        ))}
-      </div>
-
+    <div class="grid md:grid-cols-3 gap-8">
+      {[
+        { num: '24', unit: ' days', label: 'Lost per year to admin — average SA business owner, at billing rate' },
+        { num: '37', unit: '%', label: 'Average attorney billable utilisation. 63% disappears to work that shouldn\'t need them.' },
+        { num: '21', unit: '×', label: 'More likely to convert a lead contacted within 5 minutes vs the SA average of 42 hours.' },
+      ].map(stat => (
+        <div class="border-t border-white/8 pt-6">
+          <p class="font-serif font-bold text-ivory text-[3rem] leading-none mb-3">
+            {stat.num}<span class="text-[0.55em]">{stat.unit}</span>
+          </p>
+          <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.65]">{stat.label}</p>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -414,16 +396,16 @@ const schema = {
           I built a business, automated it, then started helping other SA
           professional services firms do the same.
         </p>
-        <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-6">
+        <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-6">
           Seven years running RhinoBerry — a digital marketing agency — meant running every manual
           process first, then spending three years automating the parts that were eating my evenings.
           Client intake, proposal generation, reporting, billing, content production. The audit methodology
           is what I use on my own business. Not what I theorise about.
         </p>
-        <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-8">
-          CVV is where I write and talk about AI for SA professional services firms.
-          RhinoBerry is where the marketing implementation happens.
-          The two are connected — the audit tells you which path makes sense.
+        <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-8">
+          CVV is where I share what I'm learning about building better business systems —
+          growth, automation, and the patterns that actually work for SA owner-operators.
+          RhinoBerry is where the marketing implementation lives. The two are connected.
         </p>
         <a href="/about" class="font-sans font-normal text-[13px] text-smoke hover:text-ivory transition-colors duration-200">
           More about me →
@@ -459,9 +441,9 @@ const schema = {
         <h3 class="font-serif font-bold text-ivory text-[1.75rem] leading-[1.2] mb-4">
           AI Readiness Scorecard
         </h3>
-        <p class="font-sans font-normal text-[#7A766E] text-sm leading-[1.70] mb-8">
-          12 questions. Score from 0–100. Find out exactly where your practice stands —
-          time leaks, automation readiness, speed-to-lead. Personalised report sent to your inbox.
+        <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-8">
+          20 questions. Score from 0–200. Find out exactly where your business stands —
+          time leaks, automation gaps, speed-to-lead. Personalised results on screen immediately.
           No pitch. Genuinely useful whether you book an audit or not.
         </p>
         <a href="/score" class="btn-primary block text-center w-full">
@@ -475,7 +457,7 @@ const schema = {
         <h3 class="font-serif font-bold text-ivory text-[1.75rem] leading-[1.2] mb-4">
           Strategy Call
         </h3>
-        <p class="font-sans font-normal text-[#7A766E] text-sm leading-[1.70] mb-6">
+        <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-6">
           Skip the scorecard. Book directly. We map your specific workflows live on a Zoom call,
           identify the highest-leverage automation opportunities, and you leave with a written
           summary of exactly where to start. R2,500 credited against the full audit if you proceed.
