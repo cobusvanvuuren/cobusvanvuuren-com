@@ -85,28 +85,7 @@ const schema = {
         pointer-events: none;
       }
 
-      /* Hero photo — sits in full-height right panel, anchored to bottom */
-      .hero-photo {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        height: 90%;
-        width: auto;
-        max-width: none;
-        display: block;
-        /* Fade left edge and top edge into background */
-        -webkit-mask-image:
-          linear-gradient(to right, transparent 0%, black 22%),
-          linear-gradient(to bottom, transparent 0%, black 18%);
-        mask-image:
-          linear-gradient(to right, transparent 0%, black 22%),
-          linear-gradient(to bottom, transparent 0%, black 18%);
-        -webkit-mask-composite: source-in;
-        mask-composite: intersect;
-      }
-
-      /* Proof strip — 4 stats below the hero CTAs */
+/* Proof strip — 4 stats below the hero CTAs */
       .proof-strip {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -289,22 +268,20 @@ const schema = {
   <section class="relative min-h-screen overflow-hidden">
     <div class="hero-bloom"></div>
 
-    <!-- Full-width flex: text left | photo right (bleeds to edge) -->
-    <div class="relative flex min-h-screen">
-
-      <!-- Left: text content, padded, vertically centred -->
-      <div class="flex-1 flex flex-col justify-center pt-28 pb-20 px-8 sm:px-12 lg:px-16 xl:px-24 max-w-3xl">
+    <!-- Full-width centered text — no portrait in hero -->
+    <div class="relative flex items-center min-h-screen">
+      <div class="w-full max-w-4xl mx-auto flex flex-col justify-center pt-28 pb-20 px-8 sm:px-12 lg:px-16">
 
         <div class="eyebrow mb-8">
           <span class="eyebrow-label">Business Automation · South Africa</span>
         </div>
 
-        <h1 class="font-serif font-bold text-ivory text-[clamp(2rem,3vw,3.2rem)] leading-[1.08] tracking-[-0.03em] mb-6">
+        <h1 class="font-serif font-bold text-ivory text-[clamp(2.2rem,4vw,3.6rem)] leading-[1.06] tracking-[-0.03em] mb-6 max-w-3xl">
           Most SA business owners know they need AI.
           Almost none know where to start.
         </h1>
 
-        <p class="font-sans font-normal text-[16px] text-[#7A766E] leading-[1.8] max-w-sm mb-10">
+        <p class="font-sans font-normal text-[16px] text-[#7A766E] leading-[1.8] max-w-xl mb-10">
           I map the time leaks inside professional services practices —
           and show exactly where automation changes the maths.
         </p>
@@ -348,18 +325,6 @@ const schema = {
         </div>
 
       </div>
-
-      <!-- Right: photo panel — full height, bleeds to viewport edge (hidden on mobile) -->
-      <div class="hidden md:block relative w-[45%] lg:w-[42%] flex-shrink-0">
-        <img
-          src="/images/cobus-hero.webp"
-          alt="Cobus van Vuuren — Business Automation Consultant"
-          class="hero-photo"
-          width="530"
-          height="615"
-        />
-      </div>
-
     </div>
   </section>
 
@@ -464,11 +429,14 @@ const schema = {
           More about me →
         </a>
       </div>
-      <!-- Portrait placeholder — replaced with photo when ready -->
+      <!-- Portrait — small, bottom of page -->
       <div class="flex justify-center md:justify-start">
         <div class="portrait-frame">
-          <p class="portrait-initials">CV</p>
-          <p class="portrait-placeholder-text">Portrait coming soon</p>
+          <img
+            src="/images/cobus-hero.webp"
+            alt="Cobus van Vuuren"
+            style="width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 10px;"
+          />
         </div>
       </div>
     </div>
