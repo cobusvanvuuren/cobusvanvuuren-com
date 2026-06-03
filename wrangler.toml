@@ -1,0 +1,8 @@
+name = "cobusvanvuuren"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "dist"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "cvv-leads"
+database_id = "61740ce2-d050-45b5-8f9e-cb758a19059f"
