@@ -240,4 +240,51 @@
   details > summary::-webkit-details-marker { display: none; }
   .faq-icon { transition: transform 0.2s ease; display: inline-block; }
   details[open] .faq-icon { transform: rotate(45deg); }
+
+  /* ── SCROLL REVEAL ─────────────────────────────────────── */
+  [data-anim] {
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-anim="fade-up"]             { opacity: 0; transform: translateY(24px); }
+  [data-anim="fade-up"].in-view     { opacity: 1; transform: none; }
+  [data-anim="scale-in"]            { opacity: 0; transform: scale(0.95); }
+  [data-anim="scale-in"].in-view    { opacity: 1; transform: none; }
+  [data-anim="blur-in"]             { opacity: 0; filter: blur(6px); transform: translateY(10px); }
+  [data-anim="blur-in"].in-view     { opacity: 1; filter: blur(0); transform: none; }
+  [data-anim-delay="1"]  { transition-delay: 0.08s; }
+  [data-anim-delay="2"]  { transition-delay: 0.16s; }
+  [data-anim-delay="3"]  { transition-delay: 0.24s; }
+  [data-anim-delay="4"]  { transition-delay: 0.32s; }
+  [data-anim-delay="5"]  { transition-delay: 0.40s; }
+
+  /* ── HEADING SHIMMER (one-pass on load) ─────────────────── */
+  @keyframes shimmerPass {
+    0%   { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+  .shimmer-h1 {
+    background: linear-gradient(90deg,
+      var(--color-ivory) 28%,
+      rgba(255,255,255,0.82) 46%,
+      rgba(255,255,255,0.55) 50%,
+      rgba(255,255,255,0.82) 54%,
+      var(--color-ivory) 72%
+    );
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmerPass 1.6s ease-out 0.25s 1 both;
+  }
+
+  /* ── ORB BREATHE ────────────────────────────────────────── */
+  @keyframes orbBreathe {
+    0%, 100% { transform: scale(1) translate(0, 0); }
+    40%       { transform: scale(1.07) translate(14px, -10px); }
+    70%       { transform: scale(0.96) translate(-7px, 8px); }
+  }
+  .bg-orb-crimson { animation: orbBreathe 14s ease-in-out infinite; }
+  .bg-orb-warm    { animation: orbBreathe 18s ease-in-out infinite; animation-delay: -6s; }
 }

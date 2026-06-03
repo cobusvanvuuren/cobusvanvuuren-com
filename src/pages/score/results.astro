@@ -173,7 +173,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* ── ACTIONABLE INSIGHTS SECTION ── */
   .insights-section {
-    margin-bottom: 4.5rem;
+    margin-bottom: 5.5rem;
   }
   .insights-lead {
     font-family: var(--font-sans);
@@ -229,7 +229,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* ── NARRATIVE BRIDGE ── */
   .narrative-bridge {
-    margin-bottom: 2.5rem;
+    margin-bottom: 5rem;
     padding: 1.5rem 1.75rem;
     border: 1px solid rgba(255,255,255,0.06);
     border-left: 3px solid var(--color-copper);
@@ -257,7 +257,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* ── 4 SYSTEM CARDS ── */
   .systems-section {
-    margin-bottom: 4.5rem;
+    margin-bottom: 5.5rem;
   }
   .section-eyebrow {
     font-family: var(--font-sans);
@@ -272,12 +272,14 @@ import Scorecard from '../../layouts/Scorecard.astro';
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1.25rem;
+    row-gap: 1.5rem;
+    align-items: stretch;
   }
   .sys-card {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 12px;
-    padding: 1.5rem;
+    padding: 1.75rem;
     transition: border-color 0.2s;
   }
   .sys-card.bottleneck {
@@ -364,7 +366,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     border-top: 3px solid var(--color-crimson);
     border-radius: 12px;
     padding: 2.25rem;
-    margin-bottom: 4.5rem;
+    margin-bottom: 5.5rem;
   }
   .bottleneck-block .bn-label {
     font-family: var(--font-sans);
@@ -537,6 +539,150 @@ import Scorecard from '../../layouts/Scorecard.astro';
     align-items: center;
     margin-top: 0.5rem;
   }
+  @media (max-width: 500px) {
+    .btn-row { flex-direction: column; align-items: stretch; }
+    .btn-row > * { width: 100%; text-align: center !important; }
+  }
+
+  /* ── IMPROVEMENT POTENTIAL CALLOUT ── */
+  .improvement-potential {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1.25rem;
+    border: 1px solid rgba(166,124,82,0.2);
+    border-radius: 10px;
+    background: rgba(166,124,82,0.05);
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: rgba(160,156,148,0.8);
+    line-height: 1.6;
+    text-align: left;
+  }
+  .improvement-potential strong { color: var(--color-ivory); font-weight: 600; }
+
+  /* ── TESTIMONIALS BLOCK ── */
+  .testimonials-section {
+    margin-bottom: 3.5rem;
+  }
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.25rem 1.25rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .testimonial-stars {
+    color: var(--color-copper);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .testimonial-quote {
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: rgba(160,156,148,0.85);
+    line-height: 1.6;
+    flex: 1;
+    font-style: italic;
+  }
+  .testimonial-author {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--color-smoke);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 600px) {
+    .testimonials-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── INLINE AUDIT SELL BLOCK ── */
+  .audit-sell-block {
+    background: rgba(200,40,44,0.04);
+    border: 1px solid rgba(200,40,44,0.18);
+    border-top: 3px solid var(--color-crimson);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  .audit-sell-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 0.6rem;
+  }
+  .audit-sell-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .audit-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.75rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  .audit-features li {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    color: var(--color-sand);
+    line-height: 1.5;
+  }
+  .audit-features li::before {
+    content: '✓';
+    color: var(--color-crimson);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .audit-sell-price {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-smoke);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .audit-sell-price strong {
+    color: var(--color-ivory);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+  .audit-popia {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: rgba(94,90,86,0.6);
+    line-height: 1.55;
+    margin-top: 1.25rem;
+  }
+  .audit-more-link {
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.82rem;
+    color: var(--color-smoke);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .audit-more-link:hover { color: var(--color-ivory); }
 
   /* Video embed */
   .video-slot {
@@ -616,6 +762,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
         <div><span class="tier-badge" id="tier-badge">REACTIVE</span></div>
         <p class="tier-desc" id="tier-desc"></p>
         <div class="cost-gap-stats" id="cost-gap"></div>
+        <div class="improvement-potential" id="improvement-potential" style="display:none;max-width:420px;margin:1.5rem auto 0;"></div>
       </div>
     </div>
 
@@ -646,6 +793,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
       <!-- NARRATIVE BRIDGE -->
       <div class="narrative-bridge anim-fade-up" id="narrative-bridge" style="animation-delay:0.5s;display:none;"></div>
+
+      <!-- TESTIMONIALS (shown for leverage/emerging tiers) -->
+      <div id="testimonials-block" style="display:none;"></div>
 
       <!-- TIER CTA BLOCK -->
       <div id="cta-block"></div>
@@ -707,9 +857,25 @@ function getSysLabel(score) {
   return               { cls: 'label-needs',      text: 'Needs attention',  fbIdx: 2 };
 }
 
-function buildCTA(tier, score) {
-  const paystack = 'https://pay.cobusvanvuuren.com/audit';
+const AUDIT_SELL_HTML = `
+  <div class="audit-sell-block" data-anim="scale-in">
+    <p class="audit-sell-eyebrow">Claim Your Audit</p>
+    <h2 class="audit-sell-h2">Here's exactly what the audit delivers</h2>
+    <ul class="audit-features">
+      <li>90-minute intake — walk us through your week. No prep needed.</li>
+      <li>Written report delivered in 5 business days.</li>
+      <li>R50,000 minimum annual savings identified — or full refund.</li>
+    </ul>
+    <p class="audit-sell-price"><strong>R5,497</strong> — once-off, no retainer</p>
+    <div class="btn-row">
+      <a href="https://pay.cobusvanvuuren.com/audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-page'})">Claim Your Audit →</a>
+      <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first →</a>
+    </div>
+    <a href="/audit" class="audit-more-link">Read more about the Business Automation Audit →</a>
+    <p class="audit-popia">The audit operates at the workflow level only — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
+  </div>`;
 
+function buildCTA(tier, score) {
   if (tier === 'reactive') {
     return `
       <div class="cta-block reactive">
@@ -737,35 +903,18 @@ function buildCTA(tier, score) {
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
         <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
         <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
-        <p class="cta-body">The bottleneck identified above is where to start. Fixing it first means everything else compounds. Want someone to map out exactly what to build for your specific business — in the right order?</p>
-        <div class="btn-row">
-          <a href="https://call.rhinoberry.com/meeting" class="btn-primary">Book a 15-min diagnostic review →</a>
-        </div>
-        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
-          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn — I share what I'm learning building better business systems for SA owner-operators.</p>
-          <a href="https://www.linkedin.com/in/cobusvanvuuren/" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
-        </div>
-      </div>`;
+        <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds. Ready to map exactly what to build — in the right order?</p>
+      </div>
+      ${AUDIT_SELL_HTML}`;
   }
 
   if (tier === 'leverage') {
     return `
-      <div class="cta-block leverage">
+      <div class="cta-block leverage" style="margin-bottom:1.5rem;">
         <h2 class="cta-h2">Real systems in 2–3 areas. The gaps are specific — and fixable.</h2>
-        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your business, you pay nothing. The risk is ours."</div>
-        <div class="guarantee-box">
-          <p class="guar-label">Guaranteed Results</p>
-          <p class="guar-text">If the audit doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund. No questions asked.</p>
-        </div>
-        <div class="btn-row">
-          <a href="${paystack}" class="btn-primary">Claim Your Business Automation Audit — R5,497 →</a>
-          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark">Not sure yet? Book a free 15-min call first</a>
-        </div>
-        <p style="margin-top:0.75rem;font-family:var(--font-sans);font-size:0.8rem;color:var(--color-smoke);">
-          Want to understand what's in the audit first?
-          <a href="/audit" style="color:var(--color-ivory);text-decoration:underline;text-underline-offset:3px;">Read more about the Business Automation Audit →</a>
-        </p>
-      </div>`;
+        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your business, you pay nothing. The risk is ours."</div>
+      </div>
+      ${AUDIT_SELL_HTML}`;
   }
 
   return `
@@ -903,6 +1052,19 @@ function render() {
     </div>
   `;
 
+  // Improvement potential — what could be saved if weakest system reaches 25/50 (mid-leverage)
+  const weakestScore = Math.min(...s);
+  if (weakestScore < 25) {
+    const potentialGain = 25 - weakestScore;
+    const hoursGained = (potentialGain / 5).toFixed(1);
+    const annualValue = Math.round(potentialGain / 5 * 4 * 1500 * 12);
+    const potEl = document.getElementById('improvement-potential');
+    if (potEl) {
+      potEl.innerHTML = `If you improve your weakest system to <strong>Leverage</strong> level, you recover an estimated <strong>${hoursGained} hrs/week</strong> — worth <strong>R${annualValue.toLocaleString()}/year</strong> at an R1,500/hr billing rate.`;
+      potEl.style.display = 'block';
+    }
+  }
+
   // System cards
   const cardsEl = document.getElementById('system-cards');
   s.forEach((syScore, i) => {
@@ -957,6 +1119,35 @@ function render() {
   const bridgeEl = document.getElementById('narrative-bridge');
   bridgeEl.innerHTML = buildNarrativeBridge(tier);
   bridgeEl.style.display = 'block';
+
+  // Testimonials — shown for leverage and emerging tiers (highest purchase intent)
+  if (tier === 'leverage' || tier === 'emerging') {
+    const testimonialsEl = document.getElementById('testimonials-block');
+    if (testimonialsEl) {
+      testimonialsEl.style.display = 'block';
+      testimonialsEl.innerHTML = `
+        <div class="testimonials-section" data-anim="fade-up">
+          <p class="section-eyebrow">What SA business owners say about working with Cobus</p>
+          <div class="testimonials-grid">
+            <div class="testimonial-card">
+              <span class="testimonial-stars">★★★★★</span>
+              <p class="testimonial-quote">"In as little as a week, business has started to improve. Will definitely be hearing from Cobus again."</p>
+              <p class="testimonial-author">Luke Hoar — Business owner</p>
+            </div>
+            <div class="testimonial-card">
+              <span class="testimonial-stars">★★★★★</span>
+              <p class="testimonial-quote">"Invaluable insight, experience and willingness to assist — he provided much needed clarity to help us grow."</p>
+              <p class="testimonial-author">Yugo Roofing — Johannesburg</p>
+            </div>
+            <div class="testimonial-card">
+              <span class="testimonial-stars">★★★★★</span>
+              <p class="testimonial-quote">"Before making contact with Cobus I had no clear plan. He helped us achieve results that surpassed what we thought possible."</p>
+              <p class="testimonial-author">Arnold de Wet — Swift Solar Pool Repairs</p>
+            </div>
+          </div>
+        </div>`;
+    }
+  }
 
   // Tier CTA
   document.getElementById('cta-block').innerHTML = buildCTA(tier, score);

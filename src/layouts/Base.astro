@@ -86,6 +86,60 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <slot />
   </main>
 
+  <!-- SITEWIDE INTERACTIONS -->
+  <script is:inline>
+  (function () {
+    // Scroll reveal
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.10, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('[data-anim]').forEach(function (el) { obs.observe(el); });
+
+    // Magnetic buttons (desktop only)
+    if (window.matchMedia('(pointer: fine)').matches) {
+      document.querySelectorAll('.btn-primary, .btn-ghost-dark').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var x = ((e.clientX - r.left) / r.width - 0.5) * 9;
+          var y = ((e.clientY - r.top) / r.height - 0.5) * 6;
+          btn.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+          btn.style.transition = 'transform 0.1s ease';
+        });
+        btn.addEventListener('mouseleave', function () {
+          btn.style.transform = '';
+          btn.style.transition = 'transform 0.45s ease, background-color 0.2s ease, box-shadow 0.2s ease';
+        });
+      });
+    }
+
+    // Number counters (elements with data-count attribute)
+    var countObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        var target = parseFloat(el.dataset.count);
+        var isFloat = !!el.dataset.countFloat;
+        var dur = 1100;
+        var start = performance.now();
+        function tick(now) {
+          var t = Math.min((now - start) / dur, 1);
+          var eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = isFloat ? (eased * target).toFixed(1) : Math.round(eased * target);
+          if (t < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+        countObs.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('[data-count]').forEach(function (el) { countObs.observe(el); });
+  })();
+  </script>
+
   <!-- FOOTER -->
   <footer class="relative z-[1] border-t border-white/5 py-10">
     <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">

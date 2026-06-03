@@ -196,9 +196,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
   .hm-cell:not(:first-child) .hm-num { color: var(--color-ivory); }
   .hm-label {
     font-family: var(--font-sans);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
     color: var(--color-smoke);
     line-height: 1.35;
@@ -239,7 +239,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .problem-p {
     font-family: var(--font-sans);
-    font-size: 0.93rem;
+    font-size: 1rem;
     color: var(--color-smoke);
     line-height: 1.8;
     margin-bottom: 1rem;
@@ -302,7 +302,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .discover-text {
     font-family: var(--font-sans);
-    font-size: 0.88rem;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-ivory);
     line-height: 1.6;
@@ -319,10 +319,11 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .trust-line {
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 1rem;
     color: var(--color-smoke);
     margin-bottom: 1.25rem;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
+    line-height: 1.7;
   }
   .trust-stats {
     display: flex;
@@ -556,30 +557,27 @@ import Scorecard from '../../layouts/Scorecard.astro';
     opacity: 0.6;
   }
 
-  /* System intro card */
-  .system-intro {
-    background: rgba(200,40,44,0.06);
-    border: 1px solid rgba(200,40,44,0.18);
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 2rem;
-  }
-  .system-intro h3 {
-    font-family: var(--font-serif);
-    font-size: 1.05rem;
-    font-weight: 600;
-    font-style: normal;
-    color: var(--color-ivory);
-    margin-bottom: 0.5rem;
-    line-height: 1.3;
-  }
-  .system-intro p {
+  /* System intro card — hidden (replaced by stat bar below) */
+  .system-intro { display: none !important; }
+
+  /* System stat bar — bottom of quiz, copper-tinted, auto-dismisses */
+  #system-stat-bar {
+    border-top: 1px solid rgba(166,124,82,0.28);
+    background: rgba(166,124,82,0.06);
+    border-radius: 0 0 10px 10px;
+    padding: 0.65rem 1.25rem;
+    margin-top: 1.5rem;
     font-family: var(--font-sans);
-    font-size: 0.83rem;
-    font-weight: 400;
-    color: var(--color-smoke);
-    line-height: 1.65;
-    margin: 0;
+    font-size: 0.82rem;
+    color: var(--color-copper);
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+  }
+  #system-stat-bar.stat-visible {
+    opacity: 1;
   }
 
   /* Question */
@@ -719,7 +717,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     padding: 12px 16px;
     border-radius: 24px;
     gap: 0;
-    font-size: 0.88rem;
+    font-size: 1rem;
     font-family: var(--font-sans);
     color: var(--color-sand);
     background: rgba(255,255,255,0.06);
@@ -739,6 +737,56 @@ import Scorecard from '../../layouts/Scorecard.astro';
     transform: none !important;
   }
 
+  /* Scale — 5 numbered tiles in a row */
+  #scored-choices.scale {
+    display: flex;
+    flex-direction: row;
+    gap: 0.55rem;
+    margin-bottom: 2.5rem;
+  }
+  #scored-choices.scale .choice-card {
+    flex: 1 1 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 1.1rem 0.5rem 0.75rem;
+    border-radius: 10px;
+    gap: 0.25rem;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.18);
+    transform: none !important;
+  }
+  #scored-choices.scale .choice-card .scale-num {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1;
+    display: block;
+  }
+  #scored-choices.scale .choice-card .scale-sub {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    color: var(--color-smoke);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    display: block;
+    min-height: 0.85rem;
+    line-height: 1.3;
+  }
+  #scored-choices.scale .choice-card:hover {
+    background: rgba(200,40,44,0.08);
+    border-color: rgba(200,40,44,0.5);
+    box-shadow: none;
+  }
+  #scored-choices.scale .choice-card.selected {
+    background: rgba(200,40,44,0.14);
+    border-color: var(--color-crimson);
+    box-shadow: 0 0 12px rgba(200,40,44,0.2);
+  }
+  #scored-choices.scale .choice-card.selected .scale-num { color: var(--color-crimson); }
+
   @media (max-width: 480px) {
     #scored-choices.yesno { grid-template-columns: 1fr; }
     #scored-choices.yesno .choice-card {
@@ -750,6 +798,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     }
     #scored-choices.freq { flex-wrap: wrap; }
     #scored-choices.freq .choice-card { min-width: 60px; font-size: 0.78rem; padding: 8px 10px; }
+    #scored-choices.scale .choice-card .scale-sub { font-size: 0.58rem; }
   }
 
   /* Nav buttons */
@@ -957,7 +1006,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     </section>
 
     <!-- 2. PROBLEM TENSION — copper-tinted band -->
-    <section class="sect sect-problem">
+    <section class="sect sect-problem" data-anim="fade-up">
       <div class="sect-inner">
         <h2 class="problem-h2">The invisible drain most business owners don't measure</h2>
         <p class="problem-p">The average SA professional services firm loses <strong>15–25% of billable hours</strong> annually to admin, compliance paperwork, and client follow-ups that don't require a principal's expertise. At R1,500/hour, that's <strong>R18,000–R30,000 per month</strong> leaving quietly — not in one visible leak, but across dozens of tasks you've stopped noticing.</p>
@@ -996,7 +1045,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     </section>
 
     <!-- 4. WHAT YOU'LL KNOW — 2×2 grid -->
-    <section class="sect sect-discover">
+    <section class="sect sect-discover" data-anim="fade-up">
       <div class="sect-inner">
         <p class="section-eyebrow-label" style="margin-bottom:1.5rem;">In 10 minutes you'll know</p>
         <div class="discover-grid">
@@ -1031,7 +1080,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     </section>
 
     <!-- 5. TRUST — copper warm band -->
-    <section class="sect sect-trust">
+    <section class="sect sect-trust" data-anim="fade-up">
       <div class="sect-inner">
         <p class="trust-line">Only 55% of SA professional services firms have any AI system implemented — the rest are still running on memory and manual follow-up. This diagnostic tells you where your business sits, and what to fix first.</p>
         <div class="trust-stats">
@@ -1052,7 +1101,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     </section>
 
     <!-- 6. INTAKE FORM — elevated dark band -->
-    <section class="sect sect-form" id="intake-form-section">
+    <section class="sect sect-form" id="intake-form-section" data-anim="fade-up">
       <div class="sect-inner">
         <div class="intake-card">
           <h2 class="intake-h2">Enter your details to start the diagnostic</h2>
@@ -1075,7 +1124,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
               </div>
               <div class="field-wrap">
                 <label for="intake-website">Business website</label>
-                <input type="url" id="intake-website" placeholder="www.yourbusiness.co.za" autocomplete="url" />
+                <input type="url" id="intake-website" placeholder="www.yourbusiness.co.za" autocomplete="url" required />
               </div>
             </div>
             <div class="consent-row">
@@ -1095,6 +1144,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   <!-- QUIZ -->
   <div id="quiz">
+    <div id="system-stat-bar"></div>
     <div class="progress-meta">
       <span id="system-label" class="progress-label">Your Business</span>
       <span id="step-count" class="progress-step">Q 1 of 20</span>
@@ -1163,7 +1213,7 @@ const SYSTEMS = [
       { text: 'I can pull up a client\'s full history (what was promised, what was discussed) in under 60 seconds.', type: 'yesno' },
       { text: 'Every active client has a documented profile: their situation, outstanding items, and communication preferences.', type: 'yesno' },
       { text: 'When a potential client contacts us, the same information is captured every time — regardless of who answers.', type: 'freq' },
-      { text: 'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.', type: 'yesno' },
+      { text: 'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.', type: 'scale' },
     ],
   },
   {
@@ -1175,7 +1225,7 @@ const SYSTEMS = [
     questions: [
       { text: 'New enquiries receive a substantive response within 2 hours — without needing me personally to step in.', type: 'yesno' },
       { text: 'My team handles common client questions and requests without escalating to me.', type: 'freq' },
-      { text: 'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.', type: 'yesno' },
+      { text: 'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.', type: 'scale' },
       { text: 'I make fewer operational decisions than a year ago. More runs on agreed processes.', type: 'yesno' },
       { text: 'Fewer than 3 situations per week require the business to wait on my personal decision.', type: 'yesno' },
     ],
@@ -1191,7 +1241,7 @@ const SYSTEMS = [
       { text: 'Core recurring tasks — billing, client onboarding, compliance checks, reporting — have a documented process anyone can follow.', type: 'yesno' },
       { text: 'We can take on a new client without me personally managing every step of their onboarding.', type: 'yesno' },
       { text: 'If I was unavailable for a week, my team would know exactly what to do — without calling me.', type: 'yesno' },
-      { text: 'Building documented processes in my business feels normal, not like extra work.', type: 'yesno' },
+      { text: 'Building documented processes in my business feels normal, not like extra work.', type: 'scale' },
     ],
   },
   {
@@ -1201,7 +1251,7 @@ const SYSTEMS = [
       body: 'Research shows professional services firms lose 15–25% of billable hours annually to tasks that don\'t require the principal\'s expertise — admin, reporting, compliance paperwork, client follow-ups. Time Reclamation is about identifying those leaks and systematically closing them.',
     },
     questions: [
-      { text: 'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.', type: 'yesno' },
+      { text: 'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.', type: 'scale' },
       { text: 'I regularly review whether tasks on my plate could be handled by a documented system or a team member.', type: 'freq' },
       { text: 'I\'ve moved at least one major recurring task off my plate in the past 3 months — delegated or automated.', type: 'yesno' },
       { text: 'My business can function for at least 3 days without my direct input.', type: 'yesno' },
@@ -1254,6 +1304,19 @@ const FREQ_OPTIONS = [
   { text: 'Sometimes', value: 5 },
   { text: 'Often', value: 8 },
   { text: 'Always', value: 10 },
+];
+const SCALE_OPTIONS = [
+  { text: '1', sub: 'Not at all',  value: 0 },
+  { text: '2', sub: '',            value: 2 },
+  { text: '3', sub: 'Partially',   value: 5 },
+  { text: '4', sub: '',            value: 8 },
+  { text: '5', sub: 'Completely',  value: 10 },
+];
+const SYSTEM_STATS = [
+  'Businesses with automated enquiry capture close 2× more new clients on average.',
+  'Responding in under 5 min = 21× more conversions — vs the SA average of 42 hours.',
+  '85% of owner-bottleneck businesses have zero documented core processes.',
+  '15–25% of billable hours are lost annually to admin that doesn\'t need the principal.',
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
@@ -1379,11 +1442,15 @@ function renderProfileScreen(step) {
 }
 
 function renderScoredChoices(step, type) {
-  const opts = type === 'yesno' ? YESNO_OPTIONS : FREQ_OPTIONS;
+  const opts = type === 'yesno' ? YESNO_OPTIONS : type === 'scale' ? SCALE_OPTIONS : FREQ_OPTIONS;
   const savedVal = state.answers[`q${step}`];
 
   scoredChoices.className = type;
-  scoredChoices.style.display = type === 'yesno' ? 'grid' : 'flex';
+  if (type === 'yesno') {
+    scoredChoices.style.display = 'grid';
+  } else {
+    scoredChoices.style.display = 'flex';
+  }
   scoredChoices.innerHTML = '';
 
   btnScoredNext.style.display = (savedVal !== undefined) ? 'inline-block' : 'none';
@@ -1391,7 +1458,11 @@ function renderScoredChoices(step, type) {
   opts.forEach((opt) => {
     const btn = document.createElement('button');
     btn.className = 'choice-card';
-    btn.innerHTML = `<span>${opt.text}</span>`;
+    if (type === 'scale') {
+      btn.innerHTML = `<span class="scale-num">${opt.text}</span><span class="scale-sub">${opt.sub || ''}</span>`;
+    } else {
+      btn.innerHTML = `<span>${opt.text}</span>`;
+    }
     if (savedVal === opt.value) btn.classList.add('selected');
 
     btn.addEventListener('click', () => {
@@ -1411,19 +1482,25 @@ function renderScoredScreen(step) {
   const q = SYSTEMS[sysIdx(step)].questions[qIdx(step)];
   updateProgress(step);
 
-  if (qIdx(step) === 0) {
-    const sys = SYSTEMS[sysIdx(step)];
-    introHeadline.textContent = sys.intro.headline;
-    introBody.textContent = sys.intro.body;
-    show(systemIntro);
-    setTimeout(() => {
-      systemIntro.style.opacity = '0';
-      systemIntro.style.transition = 'opacity 0.5s';
-      setTimeout(() => { hide(systemIntro); systemIntro.style.opacity = '1'; systemIntro.style.transition = ''; }, 500);
-    }, 4000);
-  } else {
-    hide(systemIntro);
+  // Show system stat bar at bottom of quiz on first question of each system
+  const statBar = document.getElementById('system-stat-bar');
+  if (statBar) {
+    if (qIdx(step) === 0) {
+      statBar.textContent = SYSTEM_STATS[sysIdx(step)];
+      statBar.classList.remove('stat-visible');
+      void statBar.offsetWidth; // force reflow
+      statBar.classList.add('stat-visible');
+      clearTimeout(statBar._timer);
+      statBar._timer = setTimeout(() => {
+        statBar.style.transition = 'opacity 0.8s ease';
+        statBar.classList.remove('stat-visible');
+        setTimeout(() => { statBar.style.transition = ''; }, 900);
+      }, 6000);
+    } else {
+      statBar.classList.remove('stat-visible');
+    }
   }
+  hide(systemIntro);
 
   scoredQuestion.textContent = q.text;
   renderScoredChoices(step, q.type);
@@ -1486,6 +1563,12 @@ document.getElementById('intake-form').addEventListener('submit', (e) => {
   }
   if (!phoneVal) {
     errEl.textContent = 'Please enter your phone number.';
+    errEl.style.display = 'block';
+    return;
+  }
+  const websiteVal = document.getElementById('intake-website').value.trim();
+  if (!websiteVal) {
+    errEl.textContent = 'Please enter your business website URL.';
     errEl.style.display = 'block';
     return;
   }
