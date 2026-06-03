@@ -1450,7 +1450,7 @@ function finishAndRedirect() {
   const tier  = total <= 50 ? 'reactive' : total <= 100 ? 'emerging' : total <= 150 ? 'leverage' : 'mastery';
   const type  = state.profile.type || 'other';
 
-  fetch('https://spn.rhinoberry.com/webhook/cvv-lead-capture', {
+  fetch('/api/lead-capture', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -1505,7 +1505,7 @@ document.getElementById('intake-form').addEventListener('submit', (e) => {
   state.profileStep = 0;
   saveState(state);
 
-  fetch('https://spn.rhinoberry.com/webhook/cvv-lead-capture', {
+  fetch('/api/lead-capture', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({

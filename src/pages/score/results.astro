@@ -963,6 +963,19 @@ function render() {
 }
 
 render();
+
+// GA4 generate_lead event
+(function () {
+  const p = new URLSearchParams(window.location.search);
+  if (!p.has('score') || !p.get('tier')) return;
+  if (typeof window.dataLayer !== 'undefined') {
+    window.dataLayer.push({
+      event: 'generate_lead',
+      score: parseInt(p.get('score') || '0'),
+      tier: p.get('tier'),
+    });
+  }
+})();
 </script>
 
 </Scorecard>
