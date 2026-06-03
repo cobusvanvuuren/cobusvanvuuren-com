@@ -1535,6 +1535,7 @@ function finishAndRedirect() {
       phone: state.phone || '', website: state.website || '',
       score: total, tier, type,
       s1: s[0], s2: s[1], s3: s[2], s4: s[3], bn,
+      answers: state.answers || {},
     }),
     keepalive: true,
   }).catch(() => {});
@@ -1597,6 +1598,10 @@ document.getElementById('intake-form').addEventListener('submit', (e) => {
       score: null, tier: null, type: null,
     }),
   }).catch(() => {});
+
+  if (typeof window.dataLayer !== 'undefined') {
+    window.dataLayer.push({ event: 'assessment_started' });
+  }
 
   hide(landing);
   show(quiz);

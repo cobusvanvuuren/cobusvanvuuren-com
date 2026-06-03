@@ -38,13 +38,16 @@ import Base from '../layouts/Base.astro';
 <script is:inline>
   (function () {
     var params = new URLSearchParams(window.location.search);
-    var value = parseFloat(params.get('value')) || 9500;
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'Audit_purchased', {
-        currency: 'ZAR',
+    var value = parseFloat(params.get('value')) || 5497;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'purchase',
+      ecommerce: {
+        transaction_id: params.get('ref') || '',
         value: value,
-        event_category: 'Conversion'
-      });
-    }
+        currency: 'ZAR',
+        items: [{ item_name: 'Business Automation Audit', price: value, quantity: 1 }]
+      }
+    });
   })();
 </script>

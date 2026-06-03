@@ -49,7 +49,7 @@ export async function onRequestPost(context) {
     return json({ ok: false, error: 'Invalid JSON' }, 400);
   }
 
-  const { name, email, phone, website, score, tier, type, s1, s2, s3, s4, bn } = body;
+  const { name, email, phone, website, score, tier, type, s1, s2, s3, s4, bn, answers } = body;
 
   if (!name || !email) {
     return json({ ok: false, error: 'name and email required' }, 400);
@@ -63,20 +63,23 @@ export async function onRequestPost(context) {
     if (isCompletion) {
       await env.DB.prepare(`
         INSERT INTO cvv_leads
-          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, captured_at, completed_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, answers, captured_at, completed_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(email) DO UPDATE SET
           score = excluded.score, tier = excluded.tier,
           s1 = excluded.s1, s2 = excluded.s2,
           s3 = excluded.s3, s4 = excluded.s4,
           bottleneck = excluded.bottleneck,
           business_type = excluded.business_type,
+          answers = excluded.answers,
           completed_at = excluded.completed_at
       `).bind(
         name, email, phone || null, website || null,
         score, tier,
         s1 ?? null, s2 ?? null, s3 ?? null, s4 ?? null,
-        bn ?? null, type || null, now, now
+        bn ?? null, type || null,
+        answers ? JSON.stringify(answers) : null,
+        now, now
       ).run();
     } else {
       await env.DB.prepare(`
@@ -217,7 +220,8 @@ function buildLeadEmail({ name, score, tier, tierLabel, s1, s2, s3, s4, bn, bott
 
 <tr><td style="border-top:1px solid #1e1c1a;padding-top:20px;">
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 3px;">Cobus van Vuuren &middot; cobusvanvuuren.com</p>
-  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">You received this because you completed the AI Readiness Diagnostic.</p>
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 3px;">You received this because you completed the AI Readiness Diagnostic.</p>
+          <p style="font-family:Arial,sans-serif;font-size:10px;color:#2A2520;margin:0;">Powered by <a href="https://rhinoberry.co.za" style="color:#2A2520;text-decoration:none;">RhinoBerry</a></p>
 </td></tr>
 
 </table></td></tr></table>
