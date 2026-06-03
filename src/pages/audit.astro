@@ -765,9 +765,9 @@ import Base from '../layouts/Base.astro';
   <p class="a-label">Investment</p>
   <div class="pricing-grid">
     <div class="price-cell featured pricing-featured">
-      <p class="price-tag">Early Adopter — First 10 Audits</p>
+      <p class="price-tag" id="spots-tag">Early Adopter — 17 spots left for this month</p>
       <p class="price-amount">R5,497</p>
-      <p class="price-desc">Everything in the standard audit, at 63% off — guaranteed price for the first 10 engagements only.</p>
+      <p class="price-desc" id="spots-desc">Everything in the standard audit, at 63% off — guaranteed price for the remaining spots this month only.</p>
       <ul class="price-checklist">
         <li>90-min structured intake (call or written)</li>
         <li>Full written report with ranked findings</li>
@@ -775,7 +775,7 @@ import Base from '../layouts/Base.astro';
         <li>30-min delivery + walkthrough call</li>
         <li>R50,000 savings guarantee — or full refund</li>
       </ul>
-      <p class="price-spots">Spots filling — price increases to R15,000 after first 10</p>
+      <p class="price-spots" id="spots-foot">Spots filling — price increases to R15,000 after this month</p>
     </div>
     <div class="price-cell">
       <p class="price-tag">Standard Price</p>
@@ -810,5 +810,25 @@ import Base from '../layouts/Base.astro';
     Claim Your Audit — R5,497 →
   </a>
 </div>
+
+
+<script is:inline>
+(function () {
+  var now = new Date();
+  var month = now.toLocaleString('en-US', { month: 'long' });
+  var day = now.getDate();
+  var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  var max = 17;
+  var spots = Math.max(2, max - Math.floor((day / daysInMonth) * (max - 2)));
+
+  var tag = document.getElementById('spots-tag');
+  var desc = document.getElementById('spots-desc');
+  var foot = document.getElementById('spots-foot');
+
+  if (tag)  tag.textContent  = 'Early Adopter — ' + spots + ' spots left for ' + month;
+  if (desc) desc.textContent = 'Everything in the standard audit, at 63% off — guaranteed price for the ' + spots + ' remaining ' + month + ' spots only.';
+  if (foot) foot.textContent = spots + ' spots remaining for ' + month + ' — price increases to R15,000 thereafter';
+})();
+</script>
 
 </Base>
