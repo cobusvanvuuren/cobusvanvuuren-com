@@ -697,12 +697,119 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
 
   @media (max-width: 560px) {
-    .system-cards    { grid-template-columns: 1fr; }
-    .results-content { padding: 3rem 1.25rem 5rem; }
-    .score-hero      { padding: 3rem 0 4rem; }
-    .cost-gap-stats  { gap: 2rem; }
-    .insight-card    { padding: 1rem; }
-    .narrative-bridge { padding: 1.25rem 1.25rem; }
+    .system-cards      { grid-template-columns: 1fr; }
+    .results-content   { padding: 2.5rem 1.25rem 3rem; }
+    .score-hero        { padding: 2.5rem 0 3rem; }
+    .cost-gap-stats    { gap: 1.5rem; }
+    .insight-card      { padding: 1rem; }
+    .narrative-bridge  { padding: 1.25rem 1.25rem; margin-bottom: 2rem; }
+    .insights-section  { margin-bottom: 2.5rem; }
+    .systems-section   { margin-bottom: 2.5rem; }
+    .bottleneck-block  { margin-bottom: 2.5rem; }
+  }
+
+  /* ── FULL-WIDTH AUDIT BOTTOM SECTION ── */
+  .audit-bottom-section {
+    background: linear-gradient(135deg, rgba(200,40,44,0.08) 0%, rgba(11,10,9,0) 55%);
+    border-top: 3px solid rgba(200,40,44,0.35);
+    padding: 5rem 1.5rem 6rem;
+  }
+  .audit-bottom-inner {
+    max-width: 38rem;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .audit-bottom-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 1.25rem;
+  }
+  .audit-bottom-h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-ivory);
+    line-height: 1.12;
+    letter-spacing: -0.025em;
+    margin-bottom: 1.25rem;
+  }
+  .audit-bottom-sub {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: rgba(176,171,164,0.9);
+    line-height: 1.8;
+    max-width: 34rem;
+    margin: 0 auto 2rem;
+  }
+  .audit-bottom-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    text-align: left;
+    max-width: 26rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .audit-bottom-list li {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: var(--color-sand);
+    line-height: 1.5;
+  }
+  .audit-bottom-list li::before {
+    content: '→';
+    color: var(--color-crimson);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .audit-bottom-guarantee {
+    border-top: 2px solid var(--color-crimson);
+    background: rgba(200,40,44,0.04);
+    border-radius: 0 0 12px 12px;
+    padding: 1.25rem 1.5rem;
+    margin: 0 auto 2rem;
+    max-width: 34rem;
+    text-align: left;
+  }
+  .audit-bottom-guarantee .guar-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-crimson);
+    margin-bottom: 0.4rem;
+  }
+  .audit-bottom-guarantee .guar-text {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--color-ivory);
+    line-height: 1.6;
+  }
+  .audit-bottom-price {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    color: var(--color-smoke);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.01em;
+  }
+  .audit-bottom-price strong {
+    color: var(--color-ivory);
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+  @media (max-width: 560px) {
+    .audit-bottom-section { padding: 3.5rem 1.25rem 4rem; }
   }
 
   /* ── ANIMATIONS ── */
@@ -754,7 +861,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     <!-- SCORE HERO — full-width band, aligns with nav -->
     <div class="score-hero anim-fade-up" style="animation-delay:0s;">
       <div class="score-hero-inner">
-        <p class="score-label">Your Business Systems Score</p>
+        <p class="score-label" id="score-label">Your Business Systems Score</p>
         <div>
           <span class="score-number" id="score-num">0</span><span class="score-denom">/ 200</span>
         </div>
@@ -800,8 +907,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
       <!-- TIER CTA BLOCK -->
       <div id="cta-block"></div>
 
-    </div>
-  </div>
+    </div><!-- end .results-content -->
+
+    <!-- FULL-WIDTH AUDIT SECTION (populated by JS) -->
+    <div id="audit-bottom-section"></div>
+
+  </div><!-- end #results-content -->
 
 </div>
 
@@ -904,17 +1015,15 @@ function buildCTA(tier, score) {
         <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
         <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
         <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds. Ready to map exactly what to build — in the right order?</p>
-      </div>
-      ${AUDIT_SELL_HTML}`;
+      </div>`;
   }
 
   if (tier === 'leverage') {
     return `
-      <div class="cta-block leverage" style="margin-bottom:1.5rem;">
+      <div class="cta-block leverage">
         <h2 class="cta-h2">Real systems in 2–3 areas. The gaps are specific — and fixable.</h2>
         <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your business, you pay nothing. The risk is ours."</div>
-      </div>
-      ${AUDIT_SELL_HTML}`;
+      </div>`;
   }
 
   return `
@@ -996,14 +1105,60 @@ function buildNarrativeBridge(tier) {
   return bridges[tier] || bridges.reactive;
 }
 
+function buildAuditBottomSection(tier, name, monthlyLoss) {
+  if (tier === 'mastery') return '';
+
+  const namePrefix = name ? `${name}, ` : '';
+  const monthlyStr = 'R' + monthlyLoss.toLocaleString();
+
+  const headlines = {
+    leverage: `${namePrefix}here's the cost of your remaining gap.`,
+    emerging: `${namePrefix}here's what closing the sequence gap is worth.`,
+    reactive: `${namePrefix}here's where the leverage is hiding.`,
+  };
+  const subs = {
+    leverage: `You're leaving an estimated ${monthlyStr}/month on the table in unrealised billing. The Business Automation Audit maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
+    emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Audit maps the exact sequence — what to wire together first — so the systems you've already built start compounding instead of sitting in isolation.`,
+    reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing. The Business Automation Audit maps exactly where those hours are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
+  };
+
+  const h = headlines[tier] || headlines.reactive;
+  const s = subs[tier]     || subs.reactive;
+
+  return `
+    <div class="audit-bottom-section">
+      <div class="audit-bottom-inner">
+        <p class="audit-bottom-eyebrow">Business Automation Audit</p>
+        <h2 class="audit-bottom-h2">${h.charAt(0).toUpperCase() + h.slice(1)}</h2>
+        <p class="audit-bottom-sub">${s}</p>
+        <ul class="audit-bottom-list">
+          <li>90-minute intake. No prep needed — just walk us through your week.</li>
+          <li>Written report delivered in 5 business days.</li>
+          <li>R50,000 minimum savings identified — or full refund.</li>
+        </ul>
+        <div class="audit-bottom-guarantee">
+          <p class="guar-eyebrow">Guaranteed Results</p>
+          <p class="guar-text">If we don't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours, not yours.</p>
+        </div>
+        <p class="audit-bottom-price"><strong>R5,497</strong> — once-off, no retainer</p>
+        <div class="btn-row" style="justify-content:center;">
+          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Audit →</a>
+          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first</a>
+        </div>
+      </div>
+    </div>`;
+}
+
 // ── RENDER ──────────────────────────────────────────────────────
 function render() {
-  const params = new URLSearchParams(window.location.search);
-  const score  = parseInt(params.get('score') ?? '0');
-  const tier   = params.get('tier') ?? '';
-  const s      = [1,2,3,4].map(i => parseInt(params.get(`s${i}`) ?? '0'));
-  const bn     = parseInt(params.get('bn') ?? '1') - 1; // URL param is 1-indexed
-  const type   = params.get('type') ?? 'other';
+  const params   = new URLSearchParams(window.location.search);
+  const score    = parseInt(params.get('score') ?? '0');
+  const tier     = params.get('tier') ?? '';
+  const s        = [1,2,3,4].map(i => parseInt(params.get(`s${i}`) ?? '0'));
+  const bn       = parseInt(params.get('bn') ?? '1') - 1; // URL param is 1-indexed
+  const type     = params.get('type') ?? 'other';
+  const nameRaw  = params.get('name') ?? '';
+  const name     = nameRaw ? decodeURIComponent(nameRaw).replace(/[<>"'&]/g, '').split(' ')[0] : '';
 
   if (!params.has('score') || !tier) {
     document.getElementById('no-results').style.display = 'block';
@@ -1023,6 +1178,11 @@ function render() {
     if (progress < 1) requestAnimationFrame(countUp);
   }
   requestAnimationFrame(countUp);
+
+  // Score label — personalised if name is available
+  document.getElementById('score-label').textContent = name
+    ? `${name}, here is your score`
+    : 'Your Business Systems Score';
 
   // Tier badge + description
   const td = TIER_DATA[tier] || TIER_DATA.reactive;
@@ -1151,6 +1311,10 @@ function render() {
 
   // Tier CTA
   document.getElementById('cta-block').innerHTML = buildCTA(tier, score);
+
+  // Full-width audit section at page bottom
+  document.getElementById('audit-bottom-section').innerHTML =
+    buildAuditBottomSection(tier, name, monthlyLoss);
 }
 
 render();
