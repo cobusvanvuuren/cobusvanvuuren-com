@@ -1541,7 +1541,7 @@ function finishAndRedirect() {
   }).catch(() => {});
 
   sessionStorage.removeItem(STORAGE_KEY);
-  window.location.href = `/score/results?score=${total}&tier=${tier}&s1=${s[0]}&s2=${s[1]}&s3=${s[2]}&s4=${s[3]}&bn=${bn}&type=${encodeURIComponent(type)}&name=${encodeURIComponent(nameVal)}`;
+  window.location.href = `/score/results?score=${total}&tier=${tier}&s1=${s[0]}&s2=${s[1]}&s3=${s[2]}&s4=${s[3]}&bn=${bn}&type=${encodeURIComponent(type)}&name=${encodeURIComponent(state.name || '')}`;
 }
 
 // ── EVENT LISTENERS ───────────────────────────────────────────

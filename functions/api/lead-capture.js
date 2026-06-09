@@ -16,14 +16,18 @@ const TIER_MESSAGES = {
   reactive: {
     headline: 'Your business is running on manual everything.',
     body: 'The good news: the leverage is huge once you start building. You have four clear systems to address, and the wins come fast in the first 90 days.',
-    cta: 'Book a Free 15-Minute Call',
-    ctaUrl: 'https://call.rhinoberry.com/meeting',
+    cta: 'Book Your Automation Audit',
+    ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Book a Free 15-Minute Call',
+    secondaryCtaUrl: 'https://call.rhinoberry.com/meeting',
   },
   emerging: {
     headline: "You've started — but the systems aren't talking to each other yet.",
     body: "You have pieces in place but they're working in isolation. The next step is integration — getting your systems to work as one unit instead of four separate tools.",
-    cta: 'Book a Free 15-Minute Call',
-    ctaUrl: 'https://call.rhinoberry.com/meeting',
+    cta: 'Book Your Automation Audit',
+    ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Book a Free 15-Minute Call',
+    secondaryCtaUrl: 'https://call.rhinoberry.com/meeting',
   },
   leverage: {
     headline: 'Real systems in 2–3 areas. One clear bottleneck holding the rest back.',
@@ -278,6 +282,11 @@ ${costBox}
 <tr><td style="text-align:center;">
   <a href="${msg.ctaUrl}" style="display:inline-block;background:#C8282C;color:#F7F4EF;font-family:Arial,sans-serif;font-size:14px;font-weight:700;text-decoration:none;padding:16px 32px;border-radius:6px;">${msg.cta} &rarr;</a>
 </td></tr>
+${msg.secondaryCta ? `
+<tr><td style="height:16px;"></td></tr>
+<tr><td style="text-align:center;">
+  <a href="${msg.secondaryCtaUrl}" style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;text-decoration:underline;">${msg.secondaryCta} &rarr;</a>
+</td></tr>` : ''}
 
 <tr><td style="height:40px;"></td></tr>
 
