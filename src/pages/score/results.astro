@@ -100,8 +100,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0.75rem 0 0.25rem;
+    margin: 1rem 0 0.5rem;
     flex-wrap: wrap;
+    gap: 0.25rem;
   }
   .tier-step {
     display: flex;
@@ -109,12 +110,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .tier-step-name {
     font-family: var(--font-sans);
-    font-size: 0.62rem;
+    font-size: 0.68rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: rgba(160,156,148,0.35);
-    padding: 0.3rem 0.5rem;
+    padding: 0.35rem 0.8rem;
     position: relative;
   }
   .tier-step-name.active {
@@ -132,9 +133,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
     left: 0;
   }
   .tier-arrow {
-    color: rgba(160,156,148,0.2);
-    font-size: 0.65rem;
-    padding: 0 0.1rem;
+    color: rgba(160,156,148,0.4);
+    font-size: 0.75rem;
+    padding: 0 0.3rem;
   }
 
   /* ── COST GAP STATS ── */
@@ -174,6 +175,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   /* ── ACTIONABLE INSIGHTS SECTION ── */
   .insights-section {
     margin-bottom: 5.5rem;
+    padding-top: 2rem;
   }
   .insights-lead {
     font-family: var(--font-sans);
@@ -187,10 +189,10 @@ import Scorecard from '../../layouts/Scorecard.astro';
     display: flex;
     gap: 1.25rem;
     align-items: flex-start;
-    padding: 1.25rem 1.25rem;
+    padding: 1.5rem;
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 10px;
-    margin-bottom: 0.85rem;
+    margin-bottom: 1.25rem;
     background: rgba(255,255,255,0.015);
     transition: border-color 0.2s;
   }
@@ -229,7 +231,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* ── NARRATIVE BRIDGE ── */
   .narrative-bridge {
-    margin-bottom: 5rem;
+    margin-bottom: 2.5rem;
     padding: 1.5rem 1.75rem;
     border: 1px solid rgba(255,255,255,0.06);
     border-left: 3px solid var(--color-copper);
@@ -257,7 +259,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
   /* ── 4 SYSTEM CARDS ── */
   .systems-section {
-    margin-bottom: 5.5rem;
+    margin-bottom: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
   .section-eyebrow {
     font-family: var(--font-sans);
@@ -271,15 +275,15 @@ import Scorecard from '../../layouts/Scorecard.astro';
   .system-cards {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    row-gap: 1.5rem;
+    gap: 1.5rem;
+    row-gap: 2rem;
     align-items: stretch;
   }
   .sys-card {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.06);
     border-radius: 12px;
-    padding: 1.75rem;
+    padding: 2rem;
     transition: border-color 0.2s;
   }
   .sys-card.bottleneck {
@@ -547,13 +551,14 @@ import Scorecard from '../../layouts/Scorecard.astro';
   /* ── IMPROVEMENT POTENTIAL CALLOUT ── */
   .improvement-potential {
     margin-top: 1.5rem;
-    padding: 0.9rem 1.25rem;
-    border: 1px solid rgba(166,124,82,0.2);
-    border-radius: 10px;
-    background: rgba(166,124,82,0.05);
+    padding: 1.1rem 1.5rem;
+    border: 1px solid rgba(166,124,82,0.4);
+    border-left: 3px solid var(--color-copper);
+    border-radius: 0 10px 10px 0;
+    background: rgba(166,124,82,0.10);
     font-family: var(--font-sans);
-    font-size: 0.88rem;
-    color: rgba(160,156,148,0.8);
+    font-size: 0.92rem;
+    color: var(--color-sand);
     line-height: 1.6;
     text-align: left;
   }
@@ -697,14 +702,14 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
 
   @media (max-width: 560px) {
-    .system-cards      { grid-template-columns: 1fr; }
+    .system-cards      { grid-template-columns: 1fr; gap: 1.25rem; row-gap: 1.5rem; }
     .results-content   { padding: 2.5rem 1.25rem 3rem; }
     .score-hero        { padding: 2.5rem 0 3rem; }
     .cost-gap-stats    { gap: 1.5rem; }
-    .insight-card      { padding: 1rem; }
-    .narrative-bridge  { padding: 1.25rem 1.25rem; margin-bottom: 2rem; }
-    .insights-section  { margin-bottom: 2.5rem; }
-    .systems-section   { margin-bottom: 2.5rem; }
+    .insight-card      { padding: 1.1rem; margin-bottom: 1rem; }
+    .narrative-bridge  { padding: 1.25rem 1.25rem; margin-bottom: 1.5rem; }
+    .insights-section  { margin-bottom: 2.5rem; padding-top: 1.25rem; }
+    .systems-section   { margin-bottom: 2.5rem; padding-top: 1.25rem; }
     .bottleneck-block  { margin-bottom: 2.5rem; }
   }
 
@@ -986,7 +991,7 @@ const AUDIT_SELL_HTML = `
     <p class="audit-popia">The audit operates at the workflow level only — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
   </div>`;
 
-function buildCTA(tier, score) {
+function buildCTA(tier, score, name) {
   if (tier === 'reactive') {
     return `
       <div class="cta-block reactive">
@@ -1021,8 +1026,24 @@ function buildCTA(tier, score) {
   if (tier === 'leverage') {
     return `
       <div class="cta-block leverage">
-        <h2 class="cta-h2">Real systems in 2–3 areas. The gaps are specific — and fixable.</h2>
-        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings opportunities specific to your business, you pay nothing. The risk is ours."</div>
+        <p style="font-family:var(--font-sans);font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-crimson);margin-bottom:0.75rem;">Business Automation Audit</p>
+        <h2 class="cta-h2">${name ? name + ', here' : 'Here'}'s the cost of your remaining gap.</h2>
+        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours."</div>
+        <ul class="audit-features">
+          <li>90-minute intake — walk us through your week. No prep needed.</li>
+          <li>Written report delivered in 5 business days.</li>
+          <li>R50,000 minimum annual savings identified — or full refund.</li>
+        </ul>
+        <div class="guarantee-box">
+          <p class="guar-label">Guaranteed Results</p>
+          <p class="guar-text">If we don't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours, not yours.</p>
+        </div>
+        <p style="font-family:var(--font-serif);font-size:1rem;color:var(--color-smoke);margin-bottom:1.5rem;"><strong style="color:var(--color-ivory);font-size:1.35rem;">R5,497</strong> — once-off, no retainer</p>
+        <div class="btn-row">
+          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-leverage-cta'})">Claim Your Audit →</a>
+          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first</a>
+        </div>
+        <a href="/score" style="display:block;margin-top:0.75rem;font-family:var(--font-sans);font-size:0.82rem;color:var(--color-smoke);text-decoration:none;">Not sure yet? Start with the free 10-minute diagnostic first →</a>
       </div>`;
   }
 
@@ -1084,8 +1105,9 @@ function buildInsights(tier, bn) {
   };
 
   const d = data[tier] || data.reactive;
-  let html = '<p class="section-eyebrow">What to do with this</p>';
-  html += '<h3 style="font-family:var(--font-serif);font-size:clamp(1.25rem,3vw,1.6rem);font-weight:700;color:var(--color-ivory);line-height:1.2;margin:0 0 1rem;letter-spacing:-0.01em">' + d.headline + '</h3>';
+  let html = '<hr style="border:none;border-top:1px solid rgba(255,255,255,0.06);margin:0 0 2rem;">';
+  html += '<p class="section-eyebrow">What to do with this</p>';
+  html += '<h3 style="font-family:var(--font-serif);font-size:clamp(1.25rem,3vw,1.6rem);font-weight:700;color:var(--color-ivory);line-height:1.2;margin:0.5rem 0 1.5rem;letter-spacing:-0.01em">' + d.headline + '</h3>';
   html += '<p class="insights-lead">' + d.lead + '</p>';
 
   for (let i = 0; i < d.actions.length; i++) {
@@ -1310,7 +1332,7 @@ function render() {
   }
 
   // Tier CTA
-  document.getElementById('cta-block').innerHTML = buildCTA(tier, score);
+  document.getElementById('cta-block').innerHTML = buildCTA(tier, score, name);
 
   // Full-width audit section at page bottom
   document.getElementById('audit-bottom-section').innerHTML =

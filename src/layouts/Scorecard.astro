@@ -64,8 +64,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <!-- Minimal trust bar — wordmark only, no nav escape during diagnostic -->
   <div class="fixed top-0 left-0 right-0 z-[9999] bg-[#0B0A09]/80 backdrop-blur-md border-b border-white/5">
     <div class="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.06em;color:rgba(247,244,239,0.9);text-decoration:none;transition:color 0.2s;">
+      <a href="/" style="font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.06em;color:rgba(247,244,239,0.9);text-decoration:none;transition:color 0.2s;display:flex;align-items:center;gap:8px;">
         Cobus van Vuuren
+        <span class="nav-cursor" aria-hidden="true"></span>
       </a>
       <span style="font-family:'Inter',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:#A67C52;display:flex;align-items:center;gap:8px;">
         <span style="width:20px;height:1px;background:#A67C52;display:inline-block;"></span>

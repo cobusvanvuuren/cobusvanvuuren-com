@@ -68,8 +68,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <!-- NAV -->
   <nav class="fixed top-0 left-0 right-0 z-[9999] bg-[#0B0A09]/80 backdrop-blur-md border-b border-white/5">
     <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="/" class="font-serif font-normal text-[13px] tracking-[0.18em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300">
+      <a href="/" class="font-serif font-normal text-[13px] tracking-[0.18em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300 flex items-center gap-2">
         Cobus van Vuuren
+        <span class="nav-cursor" aria-hidden="true"></span>
       </a>
       <div class="flex items-center gap-5">
         <a href="/articles" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
