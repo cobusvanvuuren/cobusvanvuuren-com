@@ -892,12 +892,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
         <p class="bn-label">Your primary bottleneck</p>
         <h3 class="bn-name" id="bn-name"></h3>
         <p class="bn-body" id="bn-body"></p>
-        <p class="bn-pivot">This is what a Business Automation Audit addresses first.</p>
+        <p class="bn-pivot">This is what a Business Automation Assessment addresses first.</p>
       </div>
 
       <!-- POPIA NOTE (prof-services only) -->
       <p class="popia-results" id="popia-note" style="display:none;">
-        Note for professional services firms: the audit operates at the workflow level, not the data level. No client files, no financial records, no POPIA exposure.
+        Note for professional services firms: the assessment operates at the workflow level, not the data level. No client files, no financial records, no POPIA exposure.
       </p>
 
       <!-- ACTIONABLE INSIGHTS -->
@@ -975,8 +975,8 @@ function getSysLabel(score) {
 
 const AUDIT_SELL_HTML = `
   <div class="audit-sell-block" data-anim="scale-in">
-    <p class="audit-sell-eyebrow">Claim Your Audit</p>
-    <h2 class="audit-sell-h2">Here's exactly what the audit delivers</h2>
+    <p class="audit-sell-eyebrow">Claim Your Assessment</p>
+    <h2 class="audit-sell-h2">Here's exactly what the assessment delivers</h2>
     <ul class="audit-features">
       <li>90-minute intake — walk us through your week. No prep needed.</li>
       <li>Written report delivered in 5 business days.</li>
@@ -984,11 +984,10 @@ const AUDIT_SELL_HTML = `
     </ul>
     <p class="audit-sell-price"><strong>R5,497</strong> — once-off, no retainer</p>
     <div class="btn-row">
-      <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-page'})">Claim Your Audit →</a>
-      <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first →</a>
+      <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-page'})">Claim Your Assessment →</a>
     </div>
-    <a href="/audit" class="audit-more-link">Read more about the Business Automation Audit →</a>
-    <p class="audit-popia">The audit operates at the workflow level only — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
+    <a href="/audit" class="audit-more-link">Read more about the Business Automation Assessment →</a>
+    <p class="audit-popia">The assessment operates at the workflow level only — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
   </div>`;
 
 function buildCTA(tier, score, name) {
@@ -1026,9 +1025,9 @@ function buildCTA(tier, score, name) {
   if (tier === 'leverage') {
     return `
       <div class="cta-block leverage">
-        <p style="font-family:var(--font-sans);font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-crimson);margin-bottom:0.75rem;">Business Automation Audit</p>
+        <p style="font-family:var(--font-sans);font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-crimson);margin-bottom:0.75rem;">Business Automation Assessment</p>
         <h2 class="cta-h2">${name ? name + ', here' : 'Here'}'s the cost of your remaining gap.</h2>
-        <div class="reframe-block">"The audit doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours."</div>
+        <div class="reframe-block">"The assessment doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours."</div>
         <ul class="audit-features">
           <li>90-minute intake — walk us through your week. No prep needed.</li>
           <li>Written report delivered in 5 business days.</li>
@@ -1040,8 +1039,7 @@ function buildCTA(tier, score, name) {
         </div>
         <p style="font-family:var(--font-serif);font-size:1rem;color:var(--color-smoke);margin-bottom:1.5rem;"><strong style="color:var(--color-ivory);font-size:1.35rem;">R5,497</strong> — once-off, no retainer</p>
         <div class="btn-row">
-          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-leverage-cta'})">Claim Your Audit →</a>
-          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first</a>
+          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-leverage-cta'})">Claim Your Assessment →</a>
         </div>
         <a href="/score" style="display:block;margin-top:0.75rem;font-family:var(--font-sans);font-size:0.82rem;color:var(--color-smoke);text-decoration:none;">Not sure yet? Start with the free 10-minute diagnostic first →</a>
       </div>`;
@@ -1055,7 +1053,7 @@ function buildCTA(tier, score, name) {
         Video coming soon — check back after launch.
       </div>
       <div class="btn-row">
-        <a href="https://call.rhinoberry.com/meeting" class="btn-primary">Book a call to discuss Implementation →</a>
+        <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-mastery-cta'})">Claim Your Assessment →</a>
         <a href="https://wa.me/27600553283" class="btn-ghost-dark" target="_blank" rel="noopener">Chat on WhatsApp first →</a>
       </div>
     </div>`;
@@ -1090,7 +1088,7 @@ function buildInsights(tier, bn) {
       actions: [
         { title: 'Audit your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency — highest-frequency goes first.' },
         { title: 'Find one metric you are not tracking that would prove the system is working', detail: 'At this level, what gets measured gets improved. If you cannot quantify whether your ' + bn0 + ' system is performing, you cannot optimise it.' },
-        { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the audit finds — and what the guarantee covers.' },
+        { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the assessment finds — and what the guarantee covers.' },
       ]
     },
     mastery: {
@@ -1119,9 +1117,9 @@ function buildInsights(tier, bn) {
 
 function buildNarrativeBridge(tier) {
   const bridges = {
-    reactive: '<p>You now have more clarity on your business than most SA owners ever get from a single exercise. <strong>Here is what some of them do next:</strong> they follow along for a few weeks, implement the three steps above, and when they can see the difference a system makes — they book the audit. There is no pressure to do that today.</p>',
-    emerging: '<p>You now know exactly where the drag is. <strong>Here is what most Emerging-tier business owners do next:</strong> they book a 15-minute call to talk through the sequence — which system to fix first, in what order, and how to do it without disrupting what is already working.</p>',
-    leverage: '<p>You have done the hard part — you have real systems. <strong>Here is what Leverage-tier businesses typically do next:</strong> they run the audit to close the specific gaps, because at your level the ROI calculation is obvious. The audit finds the remaining friction and prices it.</p>',
+    reactive: '<p>You now have more clarity on your business than most SA owners ever get from a single exercise. <strong>Here is what some of them do next:</strong> they follow along for a few weeks, implement the three steps above, and when they can see the difference a system makes — they book the assessment. There is no pressure to do that today.</p>',
+    emerging: '<p>You now know exactly where the drag is. <strong>Here is what most Emerging-tier business owners do next:</strong> they claim the assessment to get the exact sequence — which system to fix first, in what order, and how to do it without disrupting what is already working.</p>',
+    leverage: '<p>You have done the hard part — you have real systems. <strong>Here is what Leverage-tier businesses typically do next:</strong> they run the assessment to close the specific gaps, because at your level the ROI calculation is obvious. The assessment finds the remaining friction and prices it.</p>',
     mastery:  '<p>You already know what good looks like. <strong>Here is what Mastery-tier businesses typically want next:</strong> an implementation partner who can build the specific systems that move their highest-ROI processes from manual to automatic — and who knows how to do it without breaking what is already working.</p>'
   };
   return bridges[tier] || bridges.reactive;
@@ -1139,9 +1137,9 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
     reactive: `${namePrefix}here's where the leverage is hiding.`,
   };
   const subs = {
-    leverage: `You're leaving an estimated ${monthlyStr}/month on the table in unrealised billing. The Business Automation Audit maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
-    emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Audit maps the exact sequence — what to wire together first — so the systems you've already built start compounding instead of sitting in isolation.`,
-    reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing. The Business Automation Audit maps exactly where those hours are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
+    leverage: `You're leaving an estimated ${monthlyStr}/month on the table in unrealised billing. The Business Automation Assessment maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
+    emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Assessment maps the exact sequence — what to wire together first — so the systems you've already built start compounding instead of sitting in isolation.`,
+    reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing. The Business Automation Assessment maps exactly where those hours are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
   };
 
   const h = headlines[tier] || headlines.reactive;
@@ -1150,7 +1148,7 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
   return `
     <div class="audit-bottom-section">
       <div class="audit-bottom-inner">
-        <p class="audit-bottom-eyebrow">Business Automation Audit</p>
+        <p class="audit-bottom-eyebrow">Business Automation Assessment</p>
         <h2 class="audit-bottom-h2">${h.charAt(0).toUpperCase() + h.slice(1)}</h2>
         <p class="audit-bottom-sub">${s}</p>
         <ul class="audit-bottom-list">
@@ -1164,8 +1162,7 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
         </div>
         <p class="audit-bottom-price"><strong>R5,497</strong> — once-off, no retainer</p>
         <div class="btn-row" style="justify-content:center;">
-          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Audit →</a>
-          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">Book a 20-min call first</a>
+          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Assessment →</a>
         </div>
       </div>
     </div>`;

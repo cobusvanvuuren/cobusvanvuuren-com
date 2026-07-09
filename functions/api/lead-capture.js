@@ -16,30 +16,26 @@ const TIER_MESSAGES = {
   reactive: {
     headline: 'Your business is running on manual everything.',
     body: 'The good news: the leverage is huge once you start building. You have four clear systems to address, and the wins come fast in the first 90 days.',
-    cta: 'Book Your Automation Audit',
+    cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
-    secondaryCta: 'Book a Free 15-Minute Call',
-    secondaryCtaUrl: 'https://call.rhinoberry.com/meeting',
   },
   emerging: {
     headline: "You've started — but the systems aren't talking to each other yet.",
     body: "You have pieces in place but they're working in isolation. The next step is integration — getting your systems to work as one unit instead of four separate tools.",
-    cta: 'Book Your Automation Audit',
+    cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
-    secondaryCta: 'Book a Free 15-Minute Call',
-    secondaryCtaUrl: 'https://call.rhinoberry.com/meeting',
   },
   leverage: {
     headline: 'Real systems in 2–3 areas. One clear bottleneck holding the rest back.',
     body: null, // built dynamically using bottleneckName
-    cta: 'Book a Business Automation Audit',
-    ctaUrl: 'https://cobusvanvuuren.com/#audit',
+    cta: 'Claim Your Assessment',
+    ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
   mastery: {
     headline: 'AI is woven into your operating system.',
     body: "You're in the top tier. The next move is a partnership to push further — AI-native processes that most firms won't reach for another 3 years.",
-    cta: 'Book a Partnership Call',
-    ctaUrl: 'https://call.rhinoberry.com/meeting',
+    cta: 'Claim Your Assessment',
+    ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
 };
 
@@ -82,7 +78,7 @@ export async function onRequestPost(context) {
     return json({ ok: false, error: 'Invalid JSON' }, 400);
   }
 
-  const { name, email, phone, website, score, tier, type, s1, s2, s3, s4, bn, answers } = body;
+  const { name, email, phone, website, score, tier, type, s1, s2, s3, s4, bn, answers, extra1, extra2 } = body;
 
   if (!name || !email) {
     return json({ ok: false, error: 'name and email required' }, 400);
@@ -111,7 +107,7 @@ export async function onRequestPost(context) {
         score, tier,
         s1 ?? null, s2 ?? null, s3 ?? null, s4 ?? null,
         bn ?? null, type || null,
-        answers ? JSON.stringify(answers) : null,
+        answers ? JSON.stringify({ ...answers, extra1: extra1 || '', extra2: extra2 || '' }) : null,
         now, now
       ).run();
     } else {
@@ -153,7 +149,7 @@ export async function onRequestPost(context) {
         from: 'CVV Diagnostic <cobus@cobusvanvuuren.com>',
         to: 'hi@rhinoberry.com',
         subject: `New CVV Lead — ${name} scored ${score}/200 (${tierLabel})`,
-        html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers }),
+        html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }),
       }),
     ]);
   }
@@ -239,7 +235,7 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
       <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(annualCost)}</td>
     </tr>
   </table>
-  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R1,500/hour, the audit pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
+  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R1,500/hour, the assessment pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R1,500/hr SA professional services rate.</p>
 </td></tr>` : '';
 
@@ -300,7 +296,7 @@ ${msg.secondaryCta ? `
 </body></html>`;
 }
 
-function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers }) {
+function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }) {
   const systems = [
     { name: 'Intelligence Capture', score: s1 },
     { name: 'Decision Speed', score: s2 },
@@ -358,7 +354,32 @@ function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, 
 
   <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;margin:0 0 4px;">Full Q&amp;A</p>
   <table width="100%" cellpadding="0" cellspacing="0">${qaHtml}</table>
+  ${extraContextHtml({ extra1, extra2 })}
 </td></tr>
 </table>
 </body></html>`;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/\n/g, '<br/>');
+}
+
+function extraContextHtml({ extra1, extra2 }) {
+  const rows = [
+    { label: "What's the one thing about your business that, if it changed, would make the biggest difference to you?", value: extra1 },
+    { label: 'What else do we need to know about your business or situation?', value: extra2 },
+  ].filter(r => r.value && r.value.trim());
+
+  if (!rows.length) return '';
+
+  const items = rows.map(r => `
+    <p style="font-size:12px;color:#7A766E;margin:12px 0 4px;">${escapeHtml(r.label)}</p>
+    <p style="font-size:13px;color:#F7F4EF;margin:0 0 4px;">${escapeHtml(r.value.trim())}</p>
+  `).join('');
+
+  return `
+  <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;margin:24px 0 4px;border-top:1px solid #1e1c1a;padding-top:16px;">Additional context</p>
+  ${items}`;
 }

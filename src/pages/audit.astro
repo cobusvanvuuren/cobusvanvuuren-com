@@ -3,8 +3,8 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base
-  title="Business Automation Audit — Cobus van Vuuren"
-  description="Stop guessing which AI system to build first. The Business Automation Audit maps every process in your SA professional services practice, ranks automation opportunities by ROI, and delivers a 90-day plan. R50,000 in savings identified — or full refund."
+  title="Business Automation Assessment — Cobus van Vuuren"
+  description="Stop guessing which AI system to build first. The Business Automation Assessment maps every process in your SA professional services practice, ranks automation opportunities by ROI, and delivers a 90-day plan. R50,000 in savings identified — or full refund."
 >
 
 <style>
@@ -496,6 +496,65 @@ import Base from '../layouts/Base.astro';
     margin-top: 1rem;
   }
 
+  /* ─── SOCIAL PROOF — TRUSTPILOT ────────────────────────────── */
+  .testimonial-section {
+    padding: 1rem 0 3.5rem;
+  }
+  .testimonial-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+  .testimonial-link {
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    color: var(--color-smoke);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .testimonial-link:hover { color: var(--color-ivory); border-color: rgba(255,255,255,0.4); }
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  @media (min-width: 700px) {
+    .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.01);
+    padding: 1.75rem;
+  }
+  .testimonial-stars {
+    color: #00b67a;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.9rem;
+  }
+  .testimonial-quote {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--color-smoke);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .testimonial-source {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(247,244,239,0.4);
+  }
+
   /* ─── CTA BAND — full-bleed ───────────────────────────────── */
   .cta-band {
     padding: 5rem 1.5rem;
@@ -565,9 +624,9 @@ import Base from '../layouts/Base.astro';
 <section class="audit-hero">
   <div class="hero-bloom"></div>
   <div class="inner-wide" style="position:relative;z-index:1;">
-    <p class="a-eyebrow">Business Automation Audit</p>
-    <h1 class="a-h1">You know you need better systems.<br/>This audit tells you <em>exactly what to build</em> — for your business.</h1>
-    <p class="a-sub">Generic AI advice is everywhere. What's specific to your business type, your workflow gaps, and your team size is rare. The Business Automation Audit maps every process, ranks every opportunity by ROI, and delivers a 90-day plan built for you — not a generic firm.</p>
+    <p class="a-eyebrow">Business Automation Assessment</p>
+    <h1 class="a-h1">You know you need better systems.<br/>This assessment tells you <em>exactly what to build</em> — for your business.</h1>
+    <p class="a-sub">Generic AI advice is everywhere. What's specific to your business type, your workflow gaps, and your team size is rare. The Business Automation Assessment maps every process, ranks every opportunity by ROI, and delivers a 90-day plan built for you — not a generic firm.</p>
 
     <div class="hero-stats">
       <div class="hero-stat">
@@ -586,10 +645,7 @@ import Base from '../layouts/Base.astro';
 
     <div class="hero-cta">
       <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener">
-        Claim Your Audit — R5,497 →
-      </a>
-      <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener">
-        Book a free 20-min call first
+        Claim Your Assessment — R5,497 →
       </a>
     </div>
   </div>
@@ -600,7 +656,7 @@ import Base from '../layouts/Base.astro';
   <div class="problem-block">
     <p>You've probably looked at AI tools. Maybe tried a few. And you walked away with the same feeling: <strong>where do I actually start with my specific business?</strong></p>
     <p>The problem isn't a lack of options. It's that nobody has mapped YOUR workflows, ranked YOUR bottlenecks, and told you exactly what to build in what order. So you keep experimenting. And the time and money keeps leaking.</p>
-    <p>That's what this audit fixes.</p>
+    <p>That's what this assessment fixes.</p>
   </div>
 </div>
 
@@ -615,7 +671,7 @@ import Base from '../layouts/Base.astro';
     </div>
     <p class="g-label">The Guarantee</p>
     <h2 class="g-headline">Find R50,000 in annual savings — or pay nothing.</h2>
-    <p class="g-body">If the audit doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund within 5 business days. No questions asked. The risk is ours — not yours.</p>
+    <p class="g-body">If the assessment doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund within 5 business days. No questions asked. The risk is ours — not yours.</p>
   </div>
 </div>
 
@@ -720,7 +776,7 @@ import Base from '../layouts/Base.astro';
         Do I need to be technical or already using AI tools?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">No. The audit is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems — in fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech assessment.</div>
+      <div class="faq-body">No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems — in fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive.</div>
     </details>
     <details class="faq-item">
       <summary>
@@ -734,14 +790,14 @@ import Base from '../layouts/Base.astro';
         What if I'm already using some AI tools?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">Even better. The audit will tell you whether what you have is the right fit, whether you're using it fully, and what gaps remain. Most businesses that have tried AI are using 20% of what's possible. The audit maps the other 80%.</div>
+      <div class="faq-body">Even better. The assessment will tell you whether what you have is the right fit, whether you're using it fully, and what gaps remain. Most businesses that have tried AI are using 20% of what's possible. The assessment maps the other 80%.</div>
     </details>
     <details class="faq-item">
       <summary>
         What happens after the report — do you implement it for me?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">The audit is a standalone deliverable — a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call.</div>
+      <div class="faq-body">The assessment is a standalone deliverable — a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call.</div>
     </details>
     <details class="faq-item">
       <summary>
@@ -755,7 +811,7 @@ import Base from '../layouts/Base.astro';
         What if you don't find R50,000 in savings?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real — if the audit doesn't deliver identifiable value at least 5× the cost, you pay nothing. In practice, the average professional services firm has <strong>well over R200,000</strong> in recoverable annual leakage once workflows are mapped properly.</div>
+      <div class="faq-body">You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real — if the assessment doesn't deliver identifiable value at least 5× the cost, you pay nothing. In practice, the average professional services firm has <strong>well over R200,000</strong> in recoverable annual leakage once workflows are mapped properly.</div>
     </details>
   </div>
 
@@ -767,7 +823,7 @@ import Base from '../layouts/Base.astro';
     <div class="price-cell featured pricing-featured">
       <p class="price-tag" id="spots-tag">Early Adopter — 17 spots left for this month</p>
       <p class="price-amount">R5,497</p>
-      <p class="price-desc" id="spots-desc">Everything in the standard audit, at 63% off — guaranteed price for the remaining spots this month only.</p>
+      <p class="price-desc" id="spots-desc">Everything in the standard assessment, at 63% off — guaranteed price for the remaining spots this month only.</p>
       <ul class="price-checklist">
         <li>90-min structured intake (call or written)</li>
         <li>Full written report with ranked findings</li>
@@ -784,6 +840,35 @@ import Base from '../layouts/Base.astro';
     </div>
   </div>
 
+  <div class="testimonial-section">
+    <div class="testimonial-header">
+      <p class="a-label" style="margin-bottom:0;">What clients say</p>
+      <a href="https://www.trustpilot.com/review/rhinoberry.com" target="_blank" rel="noopener" class="testimonial-link">Read verified reviews on Trustpilot →</a>
+    </div>
+    <div class="testimonial-grid">
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-quote">"Cobus was very helpful and patient with answering all my questions. He gave me practical advise to market my specific product within the current circumstances. He has amazing insight in website and marketing strategies and share his knowledge and experience without hesitation. Thank you Cobus, I really appreciate your kind assistance."</p>
+        <p class="testimonial-source">Verified Trustpilot review</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-quote">"Cobus was amazing! With his invaluable insight, experience and willingness to assist, he provided much needed clarity to help me to grow! Thank you Cobus"</p>
+        <p class="testimonial-source">Verified Trustpilot review</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-quote">"Cobus open my mind and he understood that my business is not making money for now, but he gave me ideas that can help my small business. Thank you Cobus🙏🙏"</p>
+        <p class="testimonial-source">Verified Trustpilot review</p>
+      </div>
+      <div class="testimonial-card">
+        <p class="testimonial-stars">★★★★★</p>
+        <p class="testimonial-quote">"Cobus was amazing! With his invaluable insight, experience and willingness to assist, he provided much needed clarity to help us to grow! We look forward to working with him in future!"</p>
+        <p class="testimonial-source">Verified Trustpilot review</p>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <!-- CTA BAND — full-bleed -->
@@ -792,14 +877,8 @@ import Base from '../layouts/Base.astro';
     <h2>Ready to find your business's leverage gaps?</h2>
     <div class="cta-stack">
       <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener" style="min-width:260px;text-align:center;">
-        Claim Your Audit — R5,497 →
+        Claim Your Assessment — R5,497 →
       </a>
-      <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark" target="_blank" rel="noopener" style="min-width:260px;text-align:center;">
-        Book a free 20-min call first
-      </a>
-      <p class="a-link">
-        Not ready to commit? <a href="/score">Take the free 10-minute diagnostic</a> — see your gaps before you decide.
-      </p>
     </div>
   </div>
 </div>
@@ -807,7 +886,7 @@ import Base from '../layouts/Base.astro';
 <!-- STICKY MOBILE CTA BAR -->
 <div class="sticky-cta-bar">
   <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;">
-    Claim Your Audit — R5,497 →
+    Claim Your Assessment — R5,497 →
   </a>
 </div>
 
@@ -826,7 +905,7 @@ import Base from '../layouts/Base.astro';
   var foot = document.getElementById('spots-foot');
 
   if (tag)  tag.textContent  = 'Early Adopter — ' + spots + ' spots left for ' + month;
-  if (desc) desc.textContent = 'Everything in the standard audit, at 63% off — guaranteed price for the ' + spots + ' remaining ' + month + ' spots only.';
+  if (desc) desc.textContent = 'Everything in the standard assessment, at 63% off — guaranteed price for the ' + spots + ' remaining ' + month + ' spots only.';
   if (foot) foot.textContent = spots + ' spots remaining for ' + month + ' — price increases to R15,000 thereafter';
 })();
 </script>

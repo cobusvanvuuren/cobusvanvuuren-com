@@ -592,6 +592,40 @@ import Scorecard from '../../layouts/Scorecard.astro';
     letter-spacing: -0.005em;
   }
 
+  /* Optional extra questions */
+  .question-optional-badge {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-copper);
+    background: rgba(166,124,82,0.12);
+    border: 1px solid rgba(166,124,82,0.3);
+    border-radius: 4px;
+    padding: 0.2rem 0.55rem;
+    margin-bottom: 0.9rem;
+  }
+  .extra-textarea {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--color-ivory);
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    margin-bottom: 2.5rem;
+  }
+  .extra-textarea::placeholder { color: var(--color-smoke); opacity: 0.6; }
+  .extra-textarea:focus { border-color: rgba(200,40,44,0.4); }
+
   /* Profile choice cards */
   .choice-grid {
     display: flex;
@@ -977,7 +1011,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
             <p class="diag-sub">Most SA accountants, attorneys, and financial advisors are running their business from memory. This 10-minute diagnostic tells you exactly which systems would break first — and what it's costing you at your billing rate.</p>
 
             <button id="btn-scroll-form" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
-              Start the Diagnostic →
+              Start the FREE Diagnostic →
             </button>
             <p class="risk-micro">Free · Private · No pitch · Takes 10 minutes</p>
           </div>
@@ -1177,6 +1211,17 @@ import Scorecard from '../../layouts/Scorecard.astro';
         <button class="btn-primary" id="btn-scored-next">Next →</button>
       </div>
     </div>
+
+    <!-- Optional extra questions -->
+    <div id="extra-screen" class="question-card" style="display:none;">
+      <span class="question-optional-badge">Optional</span>
+      <p class="question-text" id="extra-question"></p>
+      <textarea class="extra-textarea" id="extra-textarea" placeholder="Type your answer here — or skip if it's not relevant."></textarea>
+      <div class="nav-row">
+        <button class="btn-back" id="btn-extra-back">← Back</button>
+        <button class="btn-primary" id="btn-extra-next">Next →</button>
+      </div>
+    </div>
   </div><!-- /quiz -->
 
   <!-- CALCULATING -->
@@ -1292,6 +1337,11 @@ const PROFILES = [
   },
 ];
 
+const EXTRA_QUESTIONS = [
+  { key: 'extra1', text: "What's the one thing about your business that, if it changed, would make the biggest difference to you?" },
+  { key: 'extra2', text: 'What else do we need to know about your business or situation?' },
+];
+
 const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 const YESNO_OPTIONS = [
   { text: 'Not yet', value: 0 },
@@ -1357,8 +1407,10 @@ function freshState() {
     phase: 'landing',
     profileStep: 0,
     scoredStep: 0,
+    extraStep: 0,
     profile: {},
     answers: {},
+    extra: {},
     name: '',
     email: '',
     phone: '',
@@ -1389,6 +1441,11 @@ const scoredQuestion= document.getElementById('scored-question');
 const btnScoredBack = document.getElementById('btn-scored-back');
 const btnScoredNext = document.getElementById('btn-scored-next');
 const scoredChoices = document.getElementById('scored-choices');
+const extraScreen   = document.getElementById('extra-screen');
+const extraQuestion = document.getElementById('extra-question');
+const extraTextarea = document.getElementById('extra-textarea');
+const btnExtraBack  = document.getElementById('btn-extra-back');
+const btnExtraNext  = document.getElementById('btn-extra-next');
 
 // ── HELPERS ───────────────────────────────────────────────────
 function hide(...els) { els.forEach(e => { if (e) e.style.display = 'none'; }); }
@@ -1438,7 +1495,7 @@ function renderProfileScreen(step) {
 
   btnProfileBack.disabled = step === 0;
   show(profileScreen);
-  hide(scoredScreen, systemIntro);
+  hide(scoredScreen, systemIntro, extraScreen);
 }
 
 function renderScoredChoices(step, type) {
@@ -1507,14 +1564,31 @@ function renderScoredScreen(step) {
 
   btnScoredBack.disabled = step === 0;
   show(scoredScreen);
-  hide(profileScreen);
+  hide(profileScreen, extraScreen);
+}
+
+function renderExtraScreen(step) {
+  const q = EXTRA_QUESTIONS[step];
+  extraQuestion.textContent = q.text;
+  extraTextarea.value = state.extra[q.key] || '';
+
+  systemLabel.textContent = 'Almost done';
+  stepCount.textContent = 'Optional';
+  progressFill.style.width = '100%';
+  hide(systemIntro);
+
+  btnExtraBack.disabled = false;
+  show(extraScreen);
+  hide(profileScreen, scoredScreen);
+  extraTextarea.focus();
 }
 
 function showPhase() {
   hide(landing, quiz, calculating);
   if (state.phase === 'landing') { show(landing); return; }
-  if (state.phase === 'profile') { show(quiz); hide(scoredScreen); renderProfileScreen(state.profileStep); return; }
-  if (state.phase === 'scored')  { show(quiz); hide(profileScreen); renderScoredScreen(state.scoredStep); return; }
+  if (state.phase === 'profile') { show(quiz); hide(scoredScreen, extraScreen); renderProfileScreen(state.profileStep); return; }
+  if (state.phase === 'scored')  { show(quiz); hide(profileScreen, extraScreen); renderScoredScreen(state.scoredStep); return; }
+  if (state.phase === 'extra')   { show(quiz); hide(profileScreen, scoredScreen); renderExtraScreen(state.extraStep); return; }
   if (state.phase === 'calculating') { show(calculating); setTimeout(finishAndRedirect, 1800); return; }
 }
 
@@ -1536,6 +1610,7 @@ function finishAndRedirect() {
       score: total, tier, type,
       s1: s[0], s2: s[1], s3: s[2], s4: s[3], bn,
       answers: state.answers || {},
+      extra1: state.extra?.extra1 || '', extra2: state.extra?.extra2 || '',
     }),
     keepalive: true,
   }).catch(() => {});
@@ -1635,7 +1710,8 @@ btnProfileBack.addEventListener('click', () => {
 
 btnScoredNext.addEventListener('click', () => {
   if (state.scoredStep === 19) {
-    state.phase = 'calculating';
+    state.phase = 'extra';
+    state.extraStep = 0;
     saveState(state);
     showPhase();
     return;
@@ -1643,6 +1719,35 @@ btnScoredNext.addEventListener('click', () => {
   state.scoredStep++;
   saveState(state);
   renderScoredScreen(state.scoredStep);
+});
+
+btnExtraNext.addEventListener('click', () => {
+  state.extra[EXTRA_QUESTIONS[state.extraStep].key] = extraTextarea.value.trim();
+  saveState(state);
+  if (state.extraStep === EXTRA_QUESTIONS.length - 1) {
+    state.phase = 'calculating';
+    saveState(state);
+    showPhase();
+    return;
+  }
+  state.extraStep++;
+  saveState(state);
+  renderExtraScreen(state.extraStep);
+});
+
+btnExtraBack.addEventListener('click', () => {
+  state.extra[EXTRA_QUESTIONS[state.extraStep].key] = extraTextarea.value.trim();
+  saveState(state);
+  if (state.extraStep === 0) {
+    state.phase = 'scored';
+    state.scoredStep = 19;
+    saveState(state);
+    showPhase();
+  } else {
+    state.extraStep--;
+    saveState(state);
+    renderExtraScreen(state.extraStep);
+  }
 });
 
 btnScoredBack.addEventListener('click', () => {

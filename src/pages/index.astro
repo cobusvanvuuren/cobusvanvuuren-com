@@ -20,7 +20,7 @@ const articles = [
   },
   {
     tag: 'Automation',
-    title: 'What is a Business Automation Audit — and why would you pay R15,000 for one?',
+    title: 'What is a Business Automation Assessment — and why would you pay R15,000 for one?',
     date: 'May 2026',
     readTime: '7 min read',
     excerpt: 'A structured answer to the most common question I get. With the maths.',
@@ -65,7 +65,7 @@ const schema = {
 
 <Base
   title="Cobus van Vuuren — AI and Automation for SA Professional Services"
-  description="I map the time leaks inside SA professional services firms and show exactly where automation changes the maths. Articles, videos, and the Business Automation Audit."
+  description="I map the time leaks inside SA professional services firms and show exactly where automation changes the maths. Articles, videos, and the Business Automation Assessment."
 >
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
@@ -305,8 +305,8 @@ const schema = {
           <a href="/score" class="btn-primary text-center">
             Take the Free AI Readiness Diagnostic →
           </a>
-          <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark text-center" target="_blank" rel="noopener" onclick="gtag('event', 'strategy_call_intent', {event_category: 'CTA', event_label: 'hero'})">
-            Book a Strategy Call
+          <a href="/audit" class="btn-ghost-dark text-center" onclick="gtag&&gtag('event', 'audit_cta_click', {event_category: 'CTA', event_label: 'hero'})">
+            See the Business Assessment →
           </a>
         </div>
 
@@ -414,7 +414,7 @@ const schema = {
         <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-6">
           Seven years running RhinoBerry — a digital marketing agency — meant running every manual
           process first, then spending three years automating the parts that were eating my evenings.
-          Client intake, proposal generation, reporting, billing, content production. The audit methodology
+          Client intake, proposal generation, reporting, billing, content production. The assessment methodology
           is what I use on my own business. Not what I theorise about.
         </p>
         <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-8">
@@ -459,30 +459,27 @@ const schema = {
         <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-8">
           20 questions. Score from 0–200. Find out exactly where your business stands —
           time leaks, automation gaps, speed-to-lead. Personalised results on screen immediately.
-          No pitch. Genuinely useful whether you book an audit or not.
+          No pitch. Genuinely useful whether you claim an assessment or not.
         </p>
         <a href="/score" class="btn-primary block text-center w-full">
           Take the Diagnostic →
         </a>
       </div>
 
-      <!-- Path 2: Strategy Call -->
+      <!-- Path 2: Business Automation Assessment -->
       <div class="path-card">
-        <p class="font-sans font-medium text-smoke text-[11px] tracking-[0.14em] uppercase mb-4">R2,500 · 90 minutes</p>
+        <p class="font-sans font-medium text-smoke text-[11px] tracking-[0.14em] uppercase mb-4">R5,497 · Once-off</p>
         <h3 class="font-serif font-bold text-ivory text-[1.75rem] leading-[1.2] mb-4">
-          Strategy Call
+          Business Automation Assessment
         </h3>
         <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-6">
-          Skip the scorecard. Book directly. We map your specific workflows live on a Zoom call,
-          identify the highest-leverage automation opportunities, and you leave with a written
-          summary of exactly where to start. R2,500 credited against the full audit if you proceed.
+          Skip the scorecard. Go straight to the full engagement. A 90-minute intake maps every
+          process in your business, ranks every automation opportunity by ROI, and delivers a
+          prioritised 90-day plan. R50,000 minimum savings identified — or full refund.
         </p>
-        <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark block text-center w-full" target="_blank" rel="noopener" onclick="gtag('event', 'strategy_call_intent', {event_category: 'CTA', event_label: 'path-card'})">
-          Book a Strategy Call →
+        <a href="/audit" class="btn-ghost-dark block text-center w-full">
+          See the Business Assessment →
         </a>
-        <p class="font-sans font-normal text-[11px] text-smoke/40 text-center mt-4">
-          Looking for the full Business Automation Audit? <a href="/audit" class="text-smoke/70 hover:text-smoke underline underline-offset-2">See the audit →</a>
-        </p>
       </div>
 
     </div>
@@ -558,13 +555,13 @@ const schema = {
     </style>
 
     <div class="max-w-2xl mx-auto text-center">
-      <p class="font-sans font-medium text-crimson text-[11px] tracking-[0.18em] uppercase mb-5">Business Automation Audit</p>
+      <p class="font-sans font-medium text-crimson text-[11px] tracking-[0.18em] uppercase mb-5">Business Automation Assessment</p>
       <h2 class="font-serif font-bold text-ivory text-[clamp(1.9rem,3.5vw,2.8rem)] leading-[1.12] tracking-[-0.025em] mb-5">
         You already know something's wrong.<br/>Here's what it's costing you.
       </h2>
       <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] max-w-xl mx-auto mb-8">
         Every hour your business spends on work that doesn't require your expertise is billing you for nothing.
-        The Business Automation Audit maps exactly where those hours are, prices them at your billing rate,
+        The Business Automation Assessment maps exactly where those hours are, prices them at your billing rate,
         and delivers a ranked, costed 90-day plan to fix it.
       </p>
 
@@ -583,10 +580,7 @@ const schema = {
 
       <div class="flex flex-col sm:flex-row gap-3 justify-center mb-4">
         <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary text-center" onclick="gtag('event', 'audit_cta_click', {event_category: 'CTA', event_label: 'homepage-bottom'})">
-          Claim Your Audit →
-        </a>
-        <a href="https://call.rhinoberry.com/meeting" class="btn-ghost-dark text-center" target="_blank" rel="noopener" onclick="gtag('event', 'strategy_call_intent', {event_category: 'CTA', event_label: 'homepage-bottom'})">
-          Book a 20-min call first
+          Claim Your Assessment →
         </a>
       </div>
       <p class="font-sans font-normal text-[12px] text-smoke/50 text-center">
