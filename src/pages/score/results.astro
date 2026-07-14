@@ -512,6 +512,14 @@ import Scorecard from '../../layouts/Scorecard.astro';
     .btn-row { flex-direction: column; align-items: stretch; }
     .btn-row > * { width: 100%; text-align: center !important; }
   }
+  .guarantee-note {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-smoke);
+    margin-top: 0.75rem;
+  }
 
   /* ── IMPROVEMENT POTENTIAL CALLOUT ── */
   .improvement-potential {
@@ -904,6 +912,7 @@ function buildCTA(tier, score, name) {
         <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-mastery-cta'})">Claim Your Assessment →</a>
         <a href="https://wa.me/27600553283" class="btn-ghost-dark" target="_blank" rel="noopener">Chat on WhatsApp first →</a>
       </div>
+      <p class="guarantee-note">Money Back Guaranteed. No Questions Asked.</p>
     </div>`;
 }
 
@@ -934,7 +943,7 @@ function buildInsights(tier, bn) {
       headline: 'You are ahead of most SA businesses — here is the ceiling you are about to hit',
       lead: 'Real systems in 2-3 areas. The gaps are specific now — and closing them is a focused build, not a full overhaul. Your ' + bn0 + ' system is where the remaining drag is concentrated.',
       actions: [
-        { title: 'Audit your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency — highest-frequency goes first.' },
+        { title: 'Review your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency — highest-frequency goes first.' },
         { title: 'Find one metric you are not tracking that would prove the system is working', detail: 'At this level, what gets measured gets improved. If you cannot quantify whether your ' + bn0 + ' system is performing, you cannot optimise it.' },
         { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the assessment finds — and what the guarantee covers.' },
       ]
@@ -943,7 +952,7 @@ function buildInsights(tier, bn) {
       headline: 'Here is how systems at this level stay optimised',
       lead: 'You are operating at a level most SA businesses never reach. The risk at Mastery is not under-automation — it is drift. Systems that are not actively maintained start to decay.',
       actions: [
-        { title: 'Run a quarterly review of all active automations', detail: 'Schedule 90 minutes every quarter to audit what is running. Check for drift: processes that have changed but whose automations have not kept up. Prune anything that has become noise.' },
+        { title: 'Run a quarterly review of all active automations', detail: 'Schedule 90 minutes every quarter to review what is running. Check for drift: processes that have changed but whose automations have not kept up. Prune anything that has become noise.' },
         { title: 'Identify one human bottleneck to systematise before year-end', detail: 'Even at Mastery, there is always one high-frequency task that still runs through a person. Find it. Systematising it is the highest-leverage move available to you right now.' },
         { title: 'Build a measurement framework for your ' + bn0 + ' system', detail: 'Define 2-3 KPIs that tell you in real time whether the system is performing. If you cannot see it, you cannot improve it — and drift is invisible until it costs you a client.' },
       ]
@@ -1012,6 +1021,7 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
         <div class="btn-row" style="justify-content:center;">
           <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Assessment →</a>
         </div>
+        <p class="guarantee-note" style="text-align:center;">Money Back Guaranteed. No Questions Asked.</p>
       </div>
     </div>`;
 }
@@ -1153,7 +1163,7 @@ function render() {
     if (testimonialsEl) {
       testimonialsEl.style.display = 'block';
       testimonialsEl.innerHTML = `
-        <div class="testimonials-section" data-anim="fade-up">
+        <div class="testimonials-section anim-fade-up" style="animation-delay:0.55s;">
           <p class="section-eyebrow">What SA business owners say about working with Cobus</p>
           <div class="testimonials-grid">
             <div class="testimonial-card">
