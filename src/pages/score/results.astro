@@ -7,8 +7,13 @@ import Scorecard from '../../layouts/Scorecard.astro';
   description="Your Business Systems Diagnostic results. See your score across 4 systems, find your bottleneck, and get specific actions to take today."
 >
 
-<style>
-  /* ── OUTER SHELL ── */
+<style is:global>
+  /* ── OUTER SHELL ──
+     This block is unscoped on purpose: almost all of this page's DOM is built
+     client-side (innerHTML/createElement in the <script> below) from URL query
+     params, and Astro's default scoped-CSS only stamps its scoping attribute
+     onto elements present in the static template at build time — dynamically
+     created elements never get it, so scoped rules silently fail to match them. */
   .results-outer {
     min-height: 100vh;
   }
@@ -100,9 +105,10 @@ import Scorecard from '../../layouts/Scorecard.astro';
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 1rem 0 0.5rem;
+    margin: 1.25rem 0 0.5rem;
     flex-wrap: wrap;
-    gap: 0.25rem;
+    row-gap: 0.5rem;
+    gap: 0.1rem;
   }
   .tier-step {
     display: flex;
@@ -110,32 +116,30 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .tier-step-name {
     font-family: var(--font-sans);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(160,156,148,0.35);
-    padding: 0.35rem 0.8rem;
+    color: rgba(160,156,148,0.62);
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
     position: relative;
   }
   .tier-step-name.active {
     color: var(--color-ivory);
     font-weight: 700;
-  }
-  .tier-step-name.active::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: var(--color-crimson);
-    position: absolute;
-    bottom: -3px;
-    left: 0;
+    background: rgba(200,40,44,0.14);
+    border: 1px solid rgba(200,40,44,0.4);
   }
   .tier-arrow {
-    color: rgba(160,156,148,0.4);
-    font-size: 0.75rem;
-    padding: 0 0.3rem;
+    color: rgba(160,156,148,0.3);
+    font-size: 0.72rem;
+    padding: 0 0.15rem;
+  }
+  @media (max-width: 480px) {
+    .tier-ladder     { gap: 0.05rem; row-gap: 0.4rem; }
+    .tier-step-name  { font-size: 0.68rem; padding: 0.32rem 0.6rem; letter-spacing: 0.05em; }
+    .tier-arrow      { padding: 0 0.05rem; }
   }
 
   /* ── COST GAP STATS ── */
@@ -198,33 +202,31 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .insight-card:hover { border-color: rgba(255,255,255,0.1); }
   .insight-num {
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: rgba(200,40,44,0.12);
-    border: 1px solid rgba(200,40,44,0.25);
+    background: var(--color-crimson);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-sans);
-    font-size: 0.7rem;
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
     font-weight: 700;
-    color: var(--color-crimson);
+    color: #fff;
     flex-shrink: 0;
-    margin-top: 1px;
   }
-  .insight-body { flex: 1; }
+  .insight-body { flex: 1; min-width: 0; }
   .insight-title {
     font-family: var(--font-sans);
-    font-size: 0.88rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
     color: var(--color-ivory);
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.35rem;
     line-height: 1.4;
   }
   .insight-detail {
     font-family: var(--font-sans);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--color-smoke);
     line-height: 1.6;
   }
@@ -292,17 +294,21 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .sys-card-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 0.75rem;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
   }
   .sys-name {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     color: var(--color-ivory);
+    line-height: 1.25;
   }
   .sys-card.bottleneck .sys-name {
     color: var(--color-crimson);
@@ -430,10 +436,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.07);
   }
-  .cta-block.leverage {
-    background: rgba(200,40,44,0.04);
-    border: 1px solid rgba(200,40,44,0.15);
-  }
   .cta-h2 {
     font-family: var(--font-serif);
     font-size: clamp(1.35rem, 3vw, 1.75rem);
@@ -496,43 +498,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
     font-size: 0.88rem;
     color: var(--color-smoke);
     line-height: 1.55;
-  }
-
-  /* Kill-objection reframe */
-  .reframe-block {
-    background: rgba(255,255,255,0.03);
-    border-radius: 10px;
-    padding: 1.1rem 1.25rem;
-    margin-bottom: 1.25rem;
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    color: var(--color-ivory);
-    line-height: 1.65;
-    font-style: italic;
-  }
-
-  /* Guarantee box */
-  .guarantee-box {
-    border-top: 2px solid var(--color-crimson);
-    background: rgba(255,255,255,0.02);
-    border-radius: 0 0 10px 10px;
-    padding: 1.1rem 1.25rem;
-    margin-bottom: 1.5rem;
-  }
-  .guarantee-box .guar-label {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-crimson);
-    margin-bottom: 0.35rem;
-  }
-  .guarantee-box .guar-text {
-    font-family: var(--font-sans);
-    font-size: 0.85rem;
-    color: var(--color-ivory);
-    line-height: 1.6;
   }
 
   /* Button row */
@@ -608,87 +573,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
     .testimonials-grid { grid-template-columns: 1fr; }
   }
 
-  /* ── INLINE AUDIT SELL BLOCK ── */
-  .audit-sell-block {
-    background: rgba(200,40,44,0.04);
-    border: 1px solid rgba(200,40,44,0.18);
-    border-top: 3px solid var(--color-crimson);
-    border-radius: 16px;
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-  }
-  .audit-sell-eyebrow {
-    font-family: var(--font-sans);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--color-crimson);
-    margin-bottom: 0.6rem;
-  }
-  .audit-sell-h2 {
-    font-family: var(--font-serif);
-    font-size: clamp(1.3rem, 3vw, 1.7rem);
-    font-weight: 700;
-    color: var(--color-ivory);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.01em;
-  }
-  .audit-features {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 1.75rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-  .audit-features li {
-    display: flex;
-    gap: 0.7rem;
-    align-items: flex-start;
-    font-family: var(--font-sans);
-    font-size: 0.92rem;
-    color: var(--color-sand);
-    line-height: 1.5;
-  }
-  .audit-features li::before {
-    content: '✓';
-    color: var(--color-crimson);
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .audit-sell-price {
-    font-family: var(--font-serif);
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-smoke);
-    margin-bottom: 1.5rem;
-    letter-spacing: -0.01em;
-  }
-  .audit-sell-price strong {
-    color: var(--color-ivory);
-    font-size: 1.35rem;
-    font-weight: 700;
-  }
-  .audit-popia {
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    color: rgba(94,90,86,0.6);
-    line-height: 1.55;
-    margin-top: 1.25rem;
-  }
-  .audit-more-link {
-    display: block;
-    margin-top: 0.75rem;
-    font-family: var(--font-sans);
-    font-size: 0.82rem;
-    color: var(--color-smoke);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .audit-more-link:hover { color: var(--color-ivory); }
-
   /* Video embed */
   .video-slot {
     border: 1px dashed rgba(255,255,255,0.12);
@@ -735,7 +619,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .audit-bottom-h2 {
     font-family: var(--font-serif);
-    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-size: clamp(1.9rem, 3.5vw, 2.8rem);
     font-weight: 700;
     color: var(--color-ivory);
     line-height: 1.12;
@@ -744,10 +628,10 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .audit-bottom-sub {
     font-family: var(--font-sans);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: rgba(176,171,164,0.9);
     line-height: 1.8;
-    max-width: 34rem;
+    max-width: 36rem;
     margin: 0 auto 2rem;
   }
   .audit-bottom-list {
@@ -755,19 +639,19 @@ import Scorecard from '../../layouts/Scorecard.astro';
     padding: 0;
     margin: 0 0 2rem;
     text-align: left;
-    max-width: 26rem;
+    max-width: 28rem;
     margin-left: auto;
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.85rem;
   }
   .audit-bottom-list li {
     display: flex;
     gap: 0.65rem;
     align-items: flex-start;
     font-family: var(--font-sans);
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: var(--color-sand);
     line-height: 1.5;
   }
@@ -783,7 +667,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     border-radius: 0 0 12px 12px;
     padding: 1.25rem 1.5rem;
     margin: 0 auto 2rem;
-    max-width: 34rem;
+    max-width: 35rem;
     text-align: left;
   }
   .audit-bottom-guarantee .guar-eyebrow {
@@ -973,23 +857,6 @@ function getSysLabel(score) {
   return               { cls: 'label-needs',      text: 'Needs attention',  fbIdx: 2 };
 }
 
-const AUDIT_SELL_HTML = `
-  <div class="audit-sell-block" data-anim="scale-in">
-    <p class="audit-sell-eyebrow">Claim Your Assessment</p>
-    <h2 class="audit-sell-h2">Here's exactly what the assessment delivers</h2>
-    <ul class="audit-features">
-      <li>90-minute intake — walk us through your week. No prep needed.</li>
-      <li>Written report delivered in 5 business days.</li>
-      <li>R50,000 minimum annual savings identified — or full refund.</li>
-    </ul>
-    <p class="audit-sell-price"><strong>R5,497</strong> — once-off, no retainer</p>
-    <div class="btn-row">
-      <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-page'})">Claim Your Assessment →</a>
-    </div>
-    <a href="/audit" class="audit-more-link">Read more about the Business Automation Assessment →</a>
-    <p class="audit-popia">The assessment operates at the workflow level only — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
-  </div>`;
-
 function buildCTA(tier, score, name) {
   if (tier === 'reactive') {
     return `
@@ -1023,26 +890,7 @@ function buildCTA(tier, score, name) {
   }
 
   if (tier === 'leverage') {
-    return `
-      <div class="cta-block leverage">
-        <p style="font-family:var(--font-sans);font-size:0.65rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--color-crimson);margin-bottom:0.75rem;">Business Automation Assessment</p>
-        <h2 class="cta-h2">${name ? name + ', here' : 'Here'}'s the cost of your remaining gap.</h2>
-        <div class="reframe-block">"The assessment doesn't cost R5,497 — it finds R50,000. The fee is what you pay to discover exactly where your business is losing money it doesn't know about. If we can't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours."</div>
-        <ul class="audit-features">
-          <li>90-minute intake — walk us through your week. No prep needed.</li>
-          <li>Written report delivered in 5 business days.</li>
-          <li>R50,000 minimum annual savings identified — or full refund.</li>
-        </ul>
-        <div class="guarantee-box">
-          <p class="guar-label">Guaranteed Results</p>
-          <p class="guar-text">If we don't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours, not yours.</p>
-        </div>
-        <p style="font-family:var(--font-serif);font-size:1rem;color:var(--color-smoke);margin-bottom:1.5rem;"><strong style="color:var(--color-ivory);font-size:1.35rem;">R5,497</strong> — once-off, no retainer</p>
-        <div class="btn-row">
-          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-leverage-cta'})">Claim Your Assessment →</a>
-        </div>
-        <a href="/score" style="display:block;margin-top:0.75rem;font-family:var(--font-sans);font-size:0.82rem;color:var(--color-smoke);text-decoration:none;">Not sure yet? Start with the free 10-minute diagnostic first →</a>
-      </div>`;
+    return '';
   }
 
   return `
