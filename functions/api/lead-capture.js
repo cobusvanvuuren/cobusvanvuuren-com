@@ -140,13 +140,13 @@ export async function onRequestPost(context) {
 
     await Promise.allSettled([
       sendEmail(env.RESEND_API_KEY, {
-        from: 'Cobus van Vuuren <cobus@cobusvanvuuren.com>',
+        from: 'Cobus van Vuuren <ask@cobusvanvuuren.com>',
         to: email,
         subject: `Your AI Readiness Score: ${score}/200`,
         html: buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg: { ...msg, body: bodyText }, greeting }),
       }),
       sendEmail(env.RESEND_API_KEY, {
-        from: 'CVV Diagnostic <cobus@cobusvanvuuren.com>',
+        from: 'CVV Diagnostic <ask@cobusvanvuuren.com>',
         to: 'hi@rhinoberry.com',
         subject: `New CVV Lead — ${name} scored ${score}/200 (${tierLabel})`,
         html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }),
@@ -289,7 +289,7 @@ ${msg.secondaryCta ? `
 <tr><td style="border-top:1px solid #1e1c1a;padding-top:20px;">
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 4px;">Cobus van Vuuren &middot; cobusvanvuuren.com</p>
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 4px;">You received this because you completed the AI Readiness Diagnostic.</p>
-  <p style="font-family:Arial,sans-serif;font-size:10px;color:#2A2520;margin:0;">Powered by <a href="https://rhinoberry.co.za" style="color:#2A2520;text-decoration:none;">RhinoBerry</a> &middot; <a href="mailto:cobus@cobusvanvuuren.com?subject=Unsubscribe&body=Please remove ${email} from your list." style="color:#2A2520;text-decoration:none;">Unsubscribe</a></p>
+  <p style="font-family:Arial,sans-serif;font-size:10px;color:#2A2520;margin:0;">Powered by <a href="https://rhinoberry.co.za" style="color:#2A2520;text-decoration:none;">RhinoBerry</a> &middot; <a href="mailto:ask@cobusvanvuuren.com?subject=Unsubscribe&body=Please remove ${email} from your list." style="color:#2A2520;text-decoration:none;">Unsubscribe</a></p>
 </td></tr>
 
 </table></td></tr></table>
