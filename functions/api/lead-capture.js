@@ -147,7 +147,7 @@ export async function onRequestPost(context) {
       }),
       sendEmail(env.RESEND_API_KEY, {
         from: 'CVV Diagnostic <ask@cobusvanvuuren.com>',
-        to: 'hi@rhinoberry.com',
+        to: 'cobus@rhinoberry.co.za',
         subject: `New CVV Lead — ${name} scored ${score}/200 (${tierLabel})`,
         html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }),
       }),
