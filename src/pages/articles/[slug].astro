@@ -587,13 +587,6 @@ const article = articles[slug];
     padding-bottom: 2rem;
     border-bottom: 1px solid rgba(255,255,255,0.07);
   }
-  .article-body p {
-    font-family: var(--font-sans);
-    font-size: 1rem;
-    color: var(--color-smoke);
-    line-height: 1.85;
-    margin-bottom: 1.75rem;
-  }
   .coming-soon {
     background: rgba(200,40,44,0.06);
     border: 1px solid rgba(200,40,44,0.15);
@@ -624,6 +617,13 @@ const article = articles[slug];
     Article body content is injected via set:html (raw HTML strings), so those
     elements never receive that attribute — hence these rules must be global.
   */
+  .article-body p {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: var(--color-smoke);
+    line-height: 1.85;
+    margin-bottom: 1.75rem;
+  }
   .article-body strong {
     color: var(--color-ivory);
     font-weight: 600;
