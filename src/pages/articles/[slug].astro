@@ -540,12 +540,43 @@ const articles: Record<string, {
 };
 
 const article = articles[slug];
+
+const monthMap: Record<string, string> = {
+  January: '01', February: '02', March: '03', April: '04', May: '05', June: '06',
+  July: '07', August: '08', September: '09', October: '10', November: '11', December: '12',
+};
+const [monthName, year] = article.date.split(' ');
+const isoDate = `${year}-${monthMap[monthName] ?? '01'}-01`;
+const articleUrl = `https://cobusvanvuuren.com/articles/${slug}/`;
+const articleImageUrl = `https://cobusvanvuuren.com${articleImages[slug] ?? '/images/og-default.jpg'}`;
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": article.title,
+  "description": article.metaDescription,
+  "image": articleImageUrl,
+  "datePublished": isoDate,
+  "dateModified": isoDate,
+  "mainEntityOfPage": { "@type": "WebPage", "@id": articleUrl },
+  "author": {
+    "@type": "Person",
+    "@id": "https://cobusvanvuuren.com/#person",
+    "name": "Cobus van Vuuren",
+    "url": "https://cobusvanvuuren.com"
+  },
+  "publisher": { "@id": "https://cobusvanvuuren.com/#organization" }
+};
 ---
 
 <Base
   title={`${article.title} · Cobus van Vuuren`}
   description={article.metaDescription}
 >
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</Fragment>
 
 <style>
   .article-wrap {

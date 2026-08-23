@@ -1,11 +1,70 @@
 ---
 import Base from '../layouts/Base.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need to be technical or already using AI tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems — in fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How disruptive is the intake session to my schedule?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "90 minutes, once. You can do it by voice call or written form — whichever suits how you think. After that, there's nothing required from you until the delivery call. Most principals find the intake itself is worth the time — it forces you to map your business in a way you've never done formally."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I'm already using some AI tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Even better. The assessment will tell you whether what you have is the right fit, whether you're using it fully, and what gaps remain. Most businesses that have tried AI are using 20% of what's possible. The assessment maps the other 80%."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens after the report — do you implement it for me?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The assessment is a standalone deliverable — a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this specific to South African businesses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — the pricing, tools, and context are calibrated for SA professional services. That means ZAR-priced software, local compliance requirements, and realistic automation options for team sizes common in SA firms. Generic AI advice ignores all of this."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if you don't find R50,000 in savings?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real — if the assessment doesn't deliver identifiable value at least 5x the cost, you pay nothing. In practice, the average professional services firm has well over R200,000 in recoverable annual leakage once workflows are mapped properly."
+      }
+    }
+  ]
+};
 ---
 
 <Base
   title="Business Automation Assessment — Cobus van Vuuren"
   description="Stop guessing which AI system to build first. The Business Automation Assessment maps every process in your SA professional services practice, ranks automation opportunities by ROI, and delivers a 90-day plan. R50,000 in savings identified — or full refund."
 >
+
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+</Fragment>
 
 <style>
   /* ─── SHARED INNER WIDTH ───────────────────────────────────── */

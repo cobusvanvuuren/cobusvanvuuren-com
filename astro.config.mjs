@@ -15,5 +15,14 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [mdx(), sitemap()]
+  integrations: [
+    mdx(),
+    sitemap({
+      filter: (page) =>
+        !page.includes('/score/results') &&
+        !page.includes('/thank-you') &&
+        !page.includes('/strategy-call-confirmed') &&
+        !page.includes('/scorecard'),
+    }),
+  ]
 });

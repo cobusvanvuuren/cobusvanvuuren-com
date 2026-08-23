@@ -5,12 +5,14 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Cobus van Vuuren — Business Automation Assessments for SA Professional Services',
   description = 'Business Automation Assessments for South African accountants, attorneys, and financial advisors. 90-minute intake, five-day turnaround, R50,000 minimum savings guaranteed or full refund.',
   image = '/images/og-default.jpg',
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -23,6 +25,7 @@ const ogImageURL = new URL(image, Astro.site);
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex,follow" />}
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -86,9 +89,9 @@ const ogImageURL = new URL(image, Astro.site);
         <span class="nav-cursor" aria-hidden="true"></span>
       </a>
       <div class="flex items-center gap-5">
-        <a href="/articles" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
-        <a href="/about"    class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
-        <a href="/score" class="btn-primary !py-2.5 !px-4 !text-[11px]">
+        <a href="/articles/" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
+        <a href="/about/"    class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
+        <a href="/score/" class="btn-primary !py-2.5 !px-4 !text-[11px]">
           Free Diagnostic →
         </a>
       </div>
@@ -166,8 +169,8 @@ const ogImageURL = new URL(image, Astro.site);
         </p>
       </div>
       <div class="flex items-center gap-6">
-        <a href="/privacy"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
-        <a href="/terms"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
+        <a href="/privacy/"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
+        <a href="/terms/"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
         <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
         <a href="mailto:cobus@rhinoberry.com" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Email</a>
       </div>

@@ -1,0 +1,58 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base
+  title="Page Not Found — Cobus van Vuuren"
+  description="This page doesn't exist. Head back to the homepage or take the free AI Readiness Diagnostic."
+>
+
+<style>
+  .notfound-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 10rem 1.5rem 6rem;
+    text-align: center;
+  }
+  .notfound-code {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-crimson, #c14d3a);
+    margin-bottom: 1rem;
+  }
+  .notfound-title {
+    font-family: var(--font-serif, serif);
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 400;
+    color: var(--color-ivory, #f4f1ea);
+    margin-bottom: 1.5rem;
+  }
+  .notfound-text {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--color-smoke, #a8a29a);
+    margin-bottom: 2.5rem;
+  }
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
+
+<div class="notfound-wrap">
+  <div class="notfound-code">404 — Not Found</div>
+  <h1 class="notfound-title">That page doesn't exist.</h1>
+  <p class="notfound-text">The link might be broken, or the page has moved. Here's where to go instead.</p>
+  <div class="cta-row">
+    <a href="/" class="btn-primary">Back to Homepage →</a>
+    <a href="/score" class="btn-ghost-dark">Take the Free Diagnostic →</a>
+  </div>
+</div>
+
+</Base>
