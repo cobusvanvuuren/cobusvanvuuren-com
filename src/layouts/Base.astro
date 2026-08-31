@@ -26,6 +26,30 @@ const ogImageURL = new URL(image, Astro.site);
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex,follow" />}
+
+  <!-- Meta Pixel — loaded directly and immediately (not deferred to GTM's idle callback below).
+       Fixes a confirmed 6.5s delay: GTM's Facebook Pixel tag only fired PageView after
+       requestIdleCallback + fbevents.js round-trip, which meant Meta-ad traffic bouncing
+       before ~6.5s (very plausible on mobile in-app browsers) never registered as a Landing
+       Page View. This snippet fires PageView within ~1-2s of DOMContentLoaded instead.
+       GTM (GTM-KDZJDQR) may still have its own Facebook Pixel PageView tag configured — that
+       one should be removed/paused in the GTM container to avoid a duplicate PageView per
+       visit; harmless to leave for now (Meta doesn't penalize it), just worth cleaning up. -->
+  <script is:inline>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '152246882234280');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=152246882234280&ev=PageView&noscript=1"
+  /></noscript>
   <link rel="canonical" href={canonicalURL} />
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
