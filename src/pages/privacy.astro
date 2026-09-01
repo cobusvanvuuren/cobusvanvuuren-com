@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 ---
 
 <Base
-  title="Privacy Policy — Cobus van Vuuren"
+  title="Privacy Policy | Cobus van Vuuren"
   description="Privacy policy for cobusvanvuuren.com. POPIA-compliant. Data collected, how it is used, and how to contact us."
 >
 
@@ -73,16 +73,17 @@ import Base from '../layouts/Base.astro';
   <h2>What data we collect</h2>
   <p>We collect the following information:</p>
   <ul>
-    <li><strong style="color:var(--color-ivory);font-weight:500;">Name and email address</strong> — collected when you opt in via the AI Readiness Diagnostic (at the email gate, halfway through the assessment). This is voluntary.</li>
-    <li><strong style="color:var(--color-ivory);font-weight:500;">Diagnostic responses</strong> — your answers to the 20-statement diagnostic are stored in your browser's <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> only. They are ephemeral: they are cleared when you close your browser tab and are never transmitted to a server.</li>
-    <li><strong style="color:var(--color-ivory);font-weight:500;">Usage data</strong> — Google Analytics 4 (GA4) collects anonymised usage data (page views, session duration, traffic source) in accordance with Google's privacy policy. No personally identifiable information is collected by GA4.</li>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Name, email address, phone number, and business website</strong>, collected via the intake form before you start the AI Readiness Diagnostic. This is voluntary.</li>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Diagnostic responses</strong>, your answers to the 20-statement diagnostic, your score, and your results are held in your browser's <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> while you're taking the diagnostic (so you can leave and resume), and are also sent to our server and stored in our database when you complete it, so we can email you your results and keep a record of your submission. Optional free-text answers you provide are stored the same way.</li>
+    <li><strong style="color:var(--color-ivory);font-weight:500;">Usage data</strong>, Google Analytics 4 (GA4) collects anonymised usage data (page views, session duration, traffic source) in accordance with Google's privacy policy. No personally identifiable information is collected by GA4.</li>
   </ul>
 
   <h2>How we use your data</h2>
-  <p>Name and email collected via the diagnostic are used to:</p>
+  <p>The information collected via the diagnostic is used to:</p>
   <ul>
-    <li>Send you your diagnostic results or a follow-up summary</li>
-    <li>Send occasional emails related to business automation for SA professional services — if you have explicitly consented</li>
+    <li>Send you your diagnostic results and a summary of what they mean</li>
+    <li>Notify Cobus of your submission so he can follow up where relevant</li>
+    <li>Send occasional emails related to business automation for SA professional services, if you have explicitly consented</li>
   </ul>
   <p>We do not sell, rent, or share your personal information with third parties for their own marketing purposes.</p>
 
@@ -96,7 +97,7 @@ import Base from '../layouts/Base.astro';
   <p>This site uses Google Analytics cookies for anonymised usage tracking. No other tracking cookies are used. The diagnostic uses <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> (not cookies) to preserve quiz state during your session.</p>
 
   <h2>Data retention</h2>
-  <p>Email addresses and names collected via opt-in forms are retained until you request deletion. Diagnostic session data is ephemeral and not retained after your browser session ends.</p>
+  <p>Name, email, phone, website, and diagnostic results submitted on completion are retained in our database until you request deletion. The in-progress quiz state held in your browser's <code style="font-family:monospace;font-size:0.85em;">sessionStorage</code> (so you can resume a diagnostic you haven't finished) is cleared automatically after one hour of inactivity or when you close your browser tab. Any diagnostic you complete is retained on our server as described above, not just in your browser.</p>
 
   <h2>Jurisdiction</h2>
   <p>This privacy policy is governed by the laws of the Republic of South Africa.</p>

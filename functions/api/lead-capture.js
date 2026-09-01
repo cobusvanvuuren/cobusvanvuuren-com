@@ -20,20 +20,20 @@ const TIER_MESSAGES = {
     ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
   emerging: {
-    headline: "You've started — but the systems aren't talking to each other yet.",
-    body: "You have pieces in place but they're working in isolation. The next step is integration — getting your systems to work as one unit instead of four separate tools.",
+    headline: "You've started, but the systems aren't talking to each other yet.",
+    body: "You have pieces in place but they're working in isolation. The next step is integration: getting your systems to work as one unit instead of four separate tools.",
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
   leverage: {
-    headline: 'Real systems in 2–3 areas. One clear bottleneck holding the rest back.',
+    headline: 'Real systems in 2 to 3 areas. One clear bottleneck holding the rest back.',
     body: null, // built dynamically using bottleneckName
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
   mastery: {
     headline: 'AI is woven into your operating system.',
-    body: "You're in the top tier. The next move is a partnership to push further — AI-native processes that most firms won't reach for another 3 years.",
+    body: "You're in the top tier. The next move is a partnership to push further: AI-native processes that most firms won't reach for another 3 years.",
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
   },
@@ -47,7 +47,7 @@ const QUESTIONS = [
   { key: 'q4',  sys: 1, text: 'Mental bandwidth not consumed by remembering client context',         type: 'scale' },
   { key: 'q5',  sys: 2, text: 'New enquiries get substantive response within 2 hours without me',   type: 'yesno' },
   { key: 'q6',  sys: 2, text: 'Team handles common questions without escalating to me',              type: 'freq'  },
-  { key: 'q7',  sys: 2, text: 'Documented criteria for common decisions — team rarely asks me',     type: 'scale' },
+  { key: 'q7',  sys: 2, text: 'Documented criteria for common decisions, team rarely asks me',     type: 'scale' },
   { key: 'q8',  sys: 2, text: 'Fewer operational decisions than a year ago',                         type: 'yesno' },
   { key: 'q9',  sys: 2, text: 'Fewer than 3 situations per week require my personal decision',      type: 'yesno' },
   { key: 'q10', sys: 3, text: 'Repeated processes get documented so anyone can follow',              type: 'freq'  },
@@ -59,14 +59,41 @@ const QUESTIONS = [
   { key: 'q16', sys: 4, text: 'Regularly review whether tasks could be delegated or automated',     type: 'freq'  },
   { key: 'q17', sys: 4, text: 'Moved at least one major recurring task off plate in past 3 months', type: 'yesno' },
   { key: 'q18', sys: 4, text: 'Business can function 3 days without my direct input',               type: 'yesno' },
-  { key: 'q19', sys: 4, text: 'Clear picture of business running without me — actively building',   type: 'yesno' },
+  { key: 'q19', sys: 4, text: 'Clear picture of business running without me, actively building',   type: 'yesno' },
 ];
 
 const ANSWER_LABELS = {
-  yesno: { 0: 'Not yet', 5: 'Getting there', 10: 'Yes — nailed it' },
+  yesno: { 0: 'Not yet', 5: 'Getting there', 10: 'Yes, nailed it' },
   freq:  { 0: 'Never', 2: 'Rarely', 5: 'Sometimes', 8: 'Often', 10: 'Always' },
-  scale: { 0: '1 — Not at all', 2: '2', 5: '3 — Partially', 8: '4', 10: '5 — Completely' },
+  scale: { 0: '1 (Not at all)', 2: '2', 5: '3 (Partially)', 8: '4', 10: '5 (Completely)' },
 };
+
+// Live price: keep in sync with the assessment price in audit.astro and terms.astro
+const ASSESSMENT_PRICE_ZAR = 5497;
+const VALID_TIERS = new Set(['reactive', 'emerging', 'leverage', 'mastery']);
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function isPlainObject(v) {
+  return typeof v === 'object' && v !== null && !Array.isArray(v);
+}
+
+// Validates a request field is a string, trims it, caps its length, and (by
+// default) strips control characters: defends the Resend subject/header
+// fields and D1 columns against non-string payloads and header injection.
+function cleanString(v, maxLen, { stripControl = true } = {}) {
+  if (typeof v !== 'string') return null;
+  let s = stripControl ? v.replace(/[\r\n\t\x00-\x1F\x7F]/g, ' ') : v;
+  s = s.trim();
+  if (!s) return null;
+  return s.length > maxLen ? s.slice(0, maxLen) : s;
+}
+
+function clampInt(v, min, max) {
+  if (typeof v !== 'number' || !Number.isFinite(v)) return null;
+  const n = Math.round(v);
+  if (n < min || n > max) return null;
+  return n;
+}
 
 export async function onRequestPost(context) {
   const { request, env } = context;
@@ -78,16 +105,46 @@ export async function onRequestPost(context) {
     return json({ ok: false, error: 'Invalid JSON' }, 400);
   }
 
-  const { name, email, phone, website, score, tier, type, s1, s2, s3, s4, bn, answers, extra1, extra2 } = body;
+  if (!isPlainObject(body)) {
+    return json({ ok: false, error: 'Invalid JSON' }, 400);
+  }
 
-  if (!name || !email) {
-    return json({ ok: false, error: 'name and email required' }, 400);
+  const name  = cleanString(body.name, 150);
+  const email = cleanString(body.email, 320);
+
+  if (!name || !email || !EMAIL_RE.test(email)) {
+    return json({ ok: false, error: 'name and a valid email are required' }, 400);
+  }
+
+  const phone   = cleanString(body.phone, 60);
+  const website = cleanString(body.website, 300);
+  const type    = cleanString(body.type, 60);
+  const extra1  = cleanString(body.extra1, 2000, { stripControl: false }) || '';
+  const extra2  = cleanString(body.extra2, 2000, { stripControl: false }) || '';
+
+  const hasScore = body.score !== null && body.score !== undefined;
+  let score = null, tier = null, s1 = null, s2 = null, s3 = null, s4 = null, bn = null, answers = null;
+
+  if (hasScore) {
+    score = clampInt(body.score, 0, 200);
+    s1 = clampInt(body.s1, 0, 50);
+    s2 = clampInt(body.s2, 0, 50);
+    s3 = clampInt(body.s3, 0, 50);
+    s4 = clampInt(body.s4, 0, 50);
+    bn = clampInt(body.bn, 1, 4);
+    tier = typeof body.tier === 'string' && VALID_TIERS.has(body.tier) ? body.tier : null;
+    answers = isPlainObject(body.answers) ? body.answers : null;
+
+    if (score === null || tier === null || s1 === null || s2 === null || s3 === null || s4 === null || bn === null) {
+      return json({ ok: false, error: 'Invalid diagnostic result payload' }, 400);
+    }
   }
 
   const now = new Date().toISOString();
-  const isCompletion = score !== null && score !== undefined;
+  const isCompletion = hasScore;
 
   // ── D1 write ──────────────────────────────────────────────
+  let dbWriteFailed = false;
   try {
     if (isCompletion) {
       await env.DB.prepare(`
@@ -119,11 +176,12 @@ export async function onRequestPost(context) {
     }
   } catch (err) {
     console.error('D1 error:', err);
+    dbWriteFailed = true;
   }
 
   // ── Emails on completion only ──────────────────────────────
   if (isCompletion) {
-    const bottleneckName = SYSTEM_NAMES[(bn ?? 1) - 1];
+    const bottleneckName = SYSTEM_NAMES[bn - 1];
     const tierLabel = TIER_LABELS[tier] || tier;
     const msg = TIER_MESSAGES[tier] || TIER_MESSAGES.reactive;
     const bodyText = tier === 'leverage'
@@ -148,13 +206,16 @@ export async function onRequestPost(context) {
       sendEmail(env.RESEND_API_KEY, {
         from: 'CVV Diagnostic <ask@cobusvanvuuren.com>',
         to: 'cobus@rhinoberry.co.za',
-        subject: `New CVV Lead — ${name} scored ${score}/200 (${tierLabel})`,
+        subject: `New CVV Lead: ${name} scored ${score}/200 (${tierLabel})`,
         html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }),
       }),
     ]);
   }
 
-  return json({ ok: true }, 200);
+  // Surface storage failures instead of always reporting { ok: true }. The
+  // client fire-and-forgets this response, so this only affects server-side
+  // visibility (Cloudflare Functions logs), not the user's flow.
+  return json({ ok: !dbWriteFailed }, dbWriteFailed ? 500 : 200);
 }
 
 // ── helpers ───────────────────────────────────────────────────
@@ -192,7 +253,7 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
   const daysPerYear  = Math.round(hoursPerWeek * 52 / 8);
   const monthlyCost  = Math.round(hoursPerWeek * 1500 * 4.33);
   const annualCost   = monthlyCost * 12;
-  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(9500 / (hoursPerWeek * 1500 / 5)) : null;
+  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(ASSESSMENT_PRICE_ZAR / (hoursPerWeek * 1500 / 5)) : null;
   const fmt = n => n.toLocaleString('en-ZA');
 
   const systems = [
@@ -239,6 +300,11 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R1,500/hr SA professional services rate.</p>
 </td></tr>` : '';
 
+  // encodeURIComponent, not escapeHtml, because these values populate a
+  // mailto: query string, not HTML body text; it also neutralises any
+  // header-injection-style characters (&, ?, %0A) in the email address.
+  const unsubscribeHref = `mailto:ask@cobusvanvuuren.com?subject=${encodeURIComponent('Unsubscribe')}&body=${encodeURIComponent(`Please remove ${email} from your list.`)}`;
+
   return `<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#0B0A09;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#0B0A09;">
@@ -259,7 +325,7 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
 <tr><td style="height:28px;"></td></tr>
 
 <tr><td>
-  <p style="font-family:Arial,sans-serif;font-size:18px;color:#F7F4EF;margin:0 0 12px;">${greeting}</p>
+  <p style="font-family:Arial,sans-serif;font-size:18px;color:#F7F4EF;margin:0 0 12px;">${escapeHtml(greeting)}</p>
   <p style="font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#F7F4EF;margin:0 0 16px;">${msg.headline}</p>
   <p style="font-family:Arial,sans-serif;font-size:18px;color:#7A766E;line-height:1.9;margin:0 0 8px;">${msg.body}</p>
 </td></tr>
@@ -289,7 +355,7 @@ ${msg.secondaryCta ? `
 <tr><td style="border-top:1px solid #1e1c1a;padding-top:20px;">
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 4px;">Cobus van Vuuren &middot; cobusvanvuuren.com</p>
   <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0 0 4px;">You received this because you completed the AI Readiness Diagnostic.</p>
-  <p style="font-family:Arial,sans-serif;font-size:10px;color:#2A2520;margin:0;">Powered by <a href="https://rhinoberry.co.za" style="color:#2A2520;text-decoration:none;">RhinoBerry</a> &middot; <a href="mailto:ask@cobusvanvuuren.com?subject=Unsubscribe&body=Please remove ${email} from your list." style="color:#2A2520;text-decoration:none;">Unsubscribe</a></p>
+  <p style="font-family:Arial,sans-serif;font-size:10px;color:#2A2520;margin:0;">Powered by <a href="https://rhinoberry.co.za" style="color:#2A2520;text-decoration:none;">RhinoBerry</a> &middot; <a href="${unsubscribeHref}" style="color:#2A2520;text-decoration:none;">Unsubscribe</a></p>
 </td></tr>
 
 </table></td></tr></table>
@@ -321,8 +387,13 @@ function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, 
       qaHtml += `<tr><td colspan="3" style="padding:14px 0 4px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;border-top:1px solid #1e1c1a;">${SYS_NAMES[sysNum - 1]}</td></tr>`;
       for (const q of sysQs) {
         const raw = answers[q.key];
-        const label = raw !== undefined ? (ANSWER_LABELS[q.type][raw] ?? String(raw)) : '—';
-        const pts = raw ?? 0;
+        const validLabels = ANSWER_LABELS[q.type];
+        // Only render values that are one of the fixed labels this question
+        // type actually offers. Anything else (wrong type, out-of-range,
+        // attacker-supplied) is dropped rather than echoed into the email.
+        const hasValidAnswer = typeof raw === 'number' && Object.prototype.hasOwnProperty.call(validLabels, raw);
+        const label = hasValidAnswer ? validLabels[raw] : '-';
+        const pts = hasValidAnswer ? raw : 0;
         const isLow = pts <= 2;
         qaHtml += `<tr>
           <td style="padding:5px 8px 5px 0;font-family:Arial,sans-serif;font-size:12px;color:#7A766E;vertical-align:top;width:68%;">${q.text}</td>
@@ -340,11 +411,11 @@ function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, 
   <p style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#A67C52;margin:0 0 20px;">New CVV Lead</p>
 
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
-    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;width:80px;">Name</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;font-weight:700;">${name}</td></tr>
-    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Email</td><td style="padding:6px 0;font-size:13px;"><a href="mailto:${email}" style="color:#C8282C;">${email}</a></td></tr>
-    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Phone</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${phone || '&mdash;'}</td></tr>
-    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Website</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${website || '&mdash;'}</td></tr>
-    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Type</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${type || '&mdash;'}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;width:80px;">Name</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;font-weight:700;">${escapeHtml(name)}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Email</td><td style="padding:6px 0;font-size:13px;"><a href="mailto:${escapeHtml(email)}" style="color:#C8282C;">${escapeHtml(email)}</a></td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Phone</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${phone ? escapeHtml(phone) : '&mdash;'}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Website</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${website ? escapeHtml(website) : '&mdash;'}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Type</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${type ? escapeHtml(type) : '&mdash;'}</td></tr>
   </table>
 
   <p style="font-size:48px;font-weight:700;color:#F7F4EF;margin:0 0 4px;line-height:1;">${score}<span style="font-size:22px;color:#7A766E;">/200</span></p>

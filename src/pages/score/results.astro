@@ -3,7 +3,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 ---
 
 <Scorecard
-  title="Your Business Systems Score — Cobus van Vuuren"
+  title="Your Business Systems Score | Cobus van Vuuren"
   description="Your Business Systems Diagnostic results. See your score across 4 systems, find your bottleneck, and get specific actions to take today."
   noindex={true}
 >
@@ -13,7 +13,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
      This block is unscoped on purpose: almost all of this page's DOM is built
      client-side (innerHTML/createElement in the <script> below) from URL query
      params, and Astro's default scoped-CSS only stamps its scoping attribute
-     onto elements present in the static template at build time — dynamically
+     onto elements present in the static template at build time. Dynamically
      created elements never get it, so scoped rules silently fail to match them. */
   .results-outer {
     min-height: 100vh;
@@ -756,7 +756,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   <!-- RESULTS (shown by JS) -->
   <div id="results-content" style="display:none;">
 
-    <!-- SCORE HERO — full-width band, aligns with nav -->
+    <!-- SCORE HERO: full-width band, aligns with nav -->
     <div class="score-hero anim-fade-up" style="animation-delay:0s;">
       <div class="score-hero-inner">
         <p class="score-label" id="score-label">Your Business Systems Score</p>
@@ -771,7 +771,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
       </div>
     </div>
 
-    <!-- CONTENT SECTIONS — narrow column -->
+    <!-- CONTENT SECTIONS: narrow column -->
     <div class="results-content">
 
       <!-- 4 SYSTEM CARDS -->
@@ -822,15 +822,15 @@ const TIERS_LABELS  = ['Reactive', 'Emerging', 'Leverage', 'Mastery'];
 const TIER_DATA = {
   reactive: {
     badge: 'REACTIVE',
-    desc: 'Your business is running on your personal bandwidth — and that caps your income, your time, and your growth. This is where most SA professional services firms start. The good news: the leverage is there, waiting to be unlocked.',
+    desc: 'Your business is running on your personal bandwidth, and that caps your income, your time, and your growth. This is where most SA professional services firms start. The good news: the leverage is there, waiting to be unlocked.',
   },
   emerging: {
     badge: 'EMERGING',
-    desc: "You've started to build systems — but they're not wired together yet. You have islands of process and still too much running through you personally. The infrastructure is partially there. You need a clear build order.",
+    desc: "You've started to build systems, but they're not wired together yet. You have islands of process and still too much running through you personally. The infrastructure is partially there. You need a clear build order.",
   },
   leverage: {
     badge: 'LEVERAGE',
-    desc: "Real systems in 2–3 areas. You've reclaimed bandwidth and your team is starting to operate more independently. The gaps are specific now — and closing them is a focused build, not a full overhaul.",
+    desc: "Real systems in 2 to 3 areas. You've reclaimed bandwidth and your team is starting to operate more independently. The gaps are specific now, and closing them is a focused build, not a full overhaul.",
   },
   mastery: {
     badge: 'MASTERY',
@@ -839,10 +839,10 @@ const TIER_DATA = {
 };
 
 const BOTTLENECK_BODIES = [
-  "Your business is losing context. Client history, commitments, and follow-ups are living in people's heads instead of a system. When information isn't captured automatically, it leaks — and leaked information is leaked revenue. This is the foundation every other system depends on.",
-  "Your business is slower than it needs to be because decisions — especially responses to new enquiries — are waiting on you. The 42-hour average response time for SA professional services firms isn't a resource problem. It's a systems problem. And it's costing you clients.",
-  "Too much of how your business works lives only in your head. Every time you explain a process, every time your team asks a question you've answered before — that's a system waiting to be documented. Until it is, you're the manual override.",
-  "You're still doing work that doesn't require your expertise. Admin, compliance paperwork, client follow-ups, reporting — these aren't where your professional value sits. Reclaiming those hours is the fastest path to either more revenue or more freedom — whichever you want first.",
+  "Your business is losing context. Client history, commitments, and follow-ups are living in people's heads instead of a system. When information isn't captured automatically, it leaks, and leaked information is leaked revenue. This is the foundation every other system depends on.",
+  "Your business is slower than it needs to be because decisions, especially responses to new enquiries, are waiting on you. The 42-hour average response time for SA professional services firms isn't a resource problem. It's a systems problem. And it's costing you clients.",
+  "Too much of how your business works lives only in your head. Every time you explain a process, every time your team asks a question you've answered before: that's a system waiting to be documented. Until it is, you're the manual override.",
+  "You're still doing work that doesn't require your expertise. Admin, compliance paperwork, client follow-ups, reporting: these aren't where your professional value sits. Reclaiming those hours is the fastest path to either more revenue or more freedom, whichever you want first.",
 ];
 
 const SYS_FEEDBACK = {
@@ -855,7 +855,7 @@ const SYS_FEEDBACK = {
                'Some processes are documented. Others still depend on you personally.',
                'You\'ve started delegating but still do too much low-leverage work yourself.'],
   needs:      ['Critical context is living in heads, not systems. This is your fastest-return fix.',
-               'New enquiries wait hours — sometimes days — for a response. This is costing you clients.',
+               'New enquiries wait hours, sometimes days, for a response. This is costing you clients.',
                'Almost everything runs through you. Documenting one core process this week is the starting point.',
                "Too much of your week is spent on work that shouldn't require your expertise."],
 };
@@ -870,11 +870,11 @@ function buildCTA(tier, score, name) {
   if (tier === 'reactive') {
     return `
       <div class="cta-block reactive">
-        <h2 class="cta-h2">The foundation isn't built yet — and that's exactly where the leverage is hiding.</h2>
+        <h2 class="cta-h2">The foundation isn't built yet, and that's exactly where the leverage is hiding.</h2>
         <p class="cta-body">Most businesses at this stage try to bolt AI onto chaos. The move that creates the most lasting leverage is simpler: start with these three foundation steps.</p>
         <ul class="tips-list">
           <li class="tip-item"><span class="tip-num">1</span><span class="tip-text">Get your client contact list into one place before any automation. A messy list makes every system downstream worse.</span></li>
-          <li class="tip-item"><span class="tip-num">2</span><span class="tip-text">Document one recurring task this week — any task you do more than twice a month. Take a voice note, have AI transcribe it. That's your first system.</span></li>
+          <li class="tip-item"><span class="tip-num">2</span><span class="tip-text">Document one recurring task this week: any task you do more than twice a month. Take a voice note, have AI transcribe it. That's your first system.</span></li>
           <li class="tip-item"><span class="tip-num">3</span><span class="tip-text">Measure your response time to new enquiries for one week. Write it down. That number alone will show you your highest-leverage starting point.</span></li>
         </ul>
         <p class="cta-body">Want weekly business systems insights delivered to your inbox?</p>
@@ -882,7 +882,7 @@ function buildCTA(tier, score, name) {
           <a href="https://cobusvanvuuren.com" class="btn-primary">Get Weekly Insights →</a>
         </div>
         <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
-          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn — I share what I'm learning building better business systems for SA owner-operators.</p>
+          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn. I share what I'm learning building better business systems for SA owner-operators.</p>
           <a href="https://www.linkedin.com/in/cobusvanvuuren/" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
       </div>`;
@@ -893,8 +893,8 @@ function buildCTA(tier, score, name) {
       <div class="cta-block emerging">
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
         <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
-        <p class="seq-callout">The gap between Emerging and Leverage isn't effort — it's sequence.</p>
-        <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds. Ready to map exactly what to build — in the right order?</p>
+        <p class="seq-callout">The gap between Emerging and Leverage isn't effort, it's sequence.</p>
+        <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds. Ready to map exactly what to build, in the right order?</p>
       </div>`;
   }
 
@@ -905,9 +905,9 @@ function buildCTA(tier, score, name) {
   return `
     <div class="cta-block mastery">
       <h2 class="cta-h2">Your business is already in the top tier. Here's how to compound it.</h2>
-      <p class="cta-body">Mastery-level businesses don't need a diagnostic — they need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
+      <p class="cta-body">Mastery-level businesses don't need a diagnostic. They need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
       <div class="video-slot" id="video-embed">
-        Video coming soon — check back after launch.
+        Video coming soon. Check back after launch.
       </div>
       <div class="btn-row">
         <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-mastery-cta'})">Claim Your Assessment →</a>
@@ -924,38 +924,38 @@ function buildInsights(tier, bn) {
   const data = {
     reactive: {
       headline: 'Here is where to start first',
-      lead: 'One focused fix creates more leverage than ten scattered improvements. Your ' + bn0 + ' system is the entry point — because fixing it first makes everything else easier to build on.',
+      lead: 'One focused fix creates more leverage than ten scattered improvements. Your ' + bn0 + ' system is the entry point, because fixing it first makes everything else easier to build on.',
       actions: [
-        { title: 'This week: get your ' + bn0 + ' data into one place', detail: 'Before any automation can work, the raw information needs to be in a system — not split across emails, WhatsApp threads, and your memory. Even a spreadsheet beats nothing.' },
-        { title: 'Time one task you repeat more than twice a month', detail: 'Set a timer. Write down how long it actually takes. That number is your baseline — and it will immediately show you your fastest-return automation opportunity.' },
+        { title: 'This week: get your ' + bn0 + ' data into one place', detail: 'Before any automation can work, the raw information needs to be in a system, not split across emails, WhatsApp threads, and your memory. Even a spreadsheet beats nothing.' },
+        { title: 'Time one task you repeat more than twice a month', detail: 'Set a timer. Write down how long it actually takes. That number is your baseline, and it will immediately show you your fastest-return automation opportunity.' },
         { title: 'Find the one question your team asks you most often', detail: 'That recurring question is a process waiting to be documented. Answer it in a voice note this week. An AI can transcribe it in five minutes. That is your first system.' },
       ]
     },
     emerging: {
-      headline: 'You are 60% there — here is what the next 40% looks like',
-      lead: 'The gap between Emerging and Leverage is not effort — it is sequence. Your ' + bn0 + ' system is still creating friction. Fix the connection points first, then the coverage.',
+      headline: 'You are 60% there. Here is what the next 40% looks like',
+      lead: 'The gap between Emerging and Leverage is not effort, it is sequence. Your ' + bn0 + ' system is still creating friction. Fix the connection points first, then the coverage.',
       actions: [
-        { title: 'Identify one manual step in your ' + bn0 + ' system', detail: 'Find the step that still requires you personally — an approval, a response, a decision. That is your highest-leverage automation target right now.' },
+        { title: 'Identify one manual step in your ' + bn0 + ' system', detail: 'Find the step that still requires you personally: an approval, a response, a decision. That is your highest-leverage automation target right now.' },
         { title: 'Connect your two best-working systems', detail: 'You have isolated pockets of process. Pick the two that are most developed and find the handoff point between them. Automating that single handoff compounds everything downstream.' },
         { title: 'Set a 2-week deadline for one process handoff', detail: 'Pick one task your team currently asks you about. Document the decision logic and hand it off completely within 14 days. Measure whether the quality holds.' },
       ]
     },
     leverage: {
-      headline: 'You are ahead of most SA businesses — here is the ceiling you are about to hit',
-      lead: 'Real systems in 2-3 areas. The gaps are specific now — and closing them is a focused build, not a full overhaul. Your ' + bn0 + ' system is where the remaining drag is concentrated.',
+      headline: 'You are ahead of most SA businesses. Here is the ceiling you are about to hit',
+      lead: 'Real systems in 2-3 areas. The gaps are specific now, and closing them is a focused build, not a full overhaul. Your ' + bn0 + ' system is where the remaining drag is concentrated.',
       actions: [
-        { title: 'Review your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency — highest-frequency goes first.' },
+        { title: 'Review your ' + bn0 + ' system for steps still needing human sign-off', detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency, highest-frequency goes first.' },
         { title: 'Find one metric you are not tracking that would prove the system is working', detail: 'At this level, what gets measured gets improved. If you cannot quantify whether your ' + bn0 + ' system is performing, you cannot optimise it.' },
-        { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the assessment finds — and what the guarantee covers.' },
+        { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the assessment finds, and what the guarantee covers.' },
       ]
     },
     mastery: {
       headline: 'Here is how systems at this level stay optimised',
-      lead: 'You are operating at a level most SA businesses never reach. The risk at Mastery is not under-automation — it is drift. Systems that are not actively maintained start to decay.',
+      lead: 'You are operating at a level most SA businesses never reach. The risk at Mastery is not under-automation, it is drift. Systems that are not actively maintained start to decay.',
       actions: [
         { title: 'Run a quarterly review of all active automations', detail: 'Schedule 90 minutes every quarter to review what is running. Check for drift: processes that have changed but whose automations have not kept up. Prune anything that has become noise.' },
         { title: 'Identify one human bottleneck to systematise before year-end', detail: 'Even at Mastery, there is always one high-frequency task that still runs through a person. Find it. Systematising it is the highest-leverage move available to you right now.' },
-        { title: 'Build a measurement framework for your ' + bn0 + ' system', detail: 'Define 2-3 KPIs that tell you in real time whether the system is performing. If you cannot see it, you cannot improve it — and drift is invisible until it costs you a client.' },
+        { title: 'Build a measurement framework for your ' + bn0 + ' system', detail: 'Define 2-3 KPIs that tell you in real time whether the system is performing. If you cannot see it, you cannot improve it, and drift is invisible until it costs you a client.' },
       ]
     }
   };
@@ -975,10 +975,10 @@ function buildInsights(tier, bn) {
 
 function buildNarrativeBridge(tier) {
   const bridges = {
-    reactive: '<p>You now have more clarity on your business than most SA owners ever get from a single exercise. <strong>Here is what some of them do next:</strong> they follow along for a few weeks, implement the three steps above, and when they can see the difference a system makes — they book the assessment. There is no pressure to do that today.</p>',
-    emerging: '<p>You now know exactly where the drag is. <strong>Here is what most Emerging-tier business owners do next:</strong> they claim the assessment to get the exact sequence — which system to fix first, in what order, and how to do it without disrupting what is already working.</p>',
-    leverage: '<p>You have done the hard part — you have real systems. <strong>Here is what Leverage-tier businesses typically do next:</strong> they run the assessment to close the specific gaps, because at your level the ROI calculation is obvious. The assessment finds the remaining friction and prices it.</p>',
-    mastery:  '<p>You already know what good looks like. <strong>Here is what Mastery-tier businesses typically want next:</strong> an implementation partner who can build the specific systems that move their highest-ROI processes from manual to automatic — and who knows how to do it without breaking what is already working.</p>'
+    reactive: '<p>You now have more clarity on your business than most SA owners ever get from a single exercise. <strong>Here is what some of them do next:</strong> they follow along for a few weeks, implement the three steps above, and when they can see the difference a system makes, they book the assessment. There is no pressure to do that today.</p>',
+    emerging: '<p>You now know exactly where the drag is. <strong>Here is what most Emerging-tier business owners do next:</strong> they claim the assessment to get the exact sequence: which system to fix first, in what order, and how to do it without disrupting what is already working.</p>',
+    leverage: '<p>You have done the hard part. You have real systems. <strong>Here is what Leverage-tier businesses typically do next:</strong> they run the assessment to close the specific gaps, because at your level the ROI calculation is obvious. The assessment finds the remaining friction and prices it.</p>',
+    mastery:  '<p>You already know what good looks like. <strong>Here is what Mastery-tier businesses typically want next:</strong> an implementation partner who can build the specific systems that move their highest-ROI processes from manual to automatic, and who knows how to do it without breaking what is already working.</p>'
   };
   return bridges[tier] || bridges.reactive;
 }
@@ -996,7 +996,7 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
   };
   const subs = {
     leverage: `You're leaving an estimated ${monthlyStr}/month on the table in unrealised billing. The Business Automation Assessment maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
-    emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Assessment maps the exact sequence — what to wire together first — so the systems you've already built start compounding instead of sitting in isolation.`,
+    emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Assessment maps the exact sequence, what to wire together first, so the systems you've already built start compounding instead of sitting in isolation.`,
     reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing. The Business Automation Assessment maps exactly where those hours are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
   };
 
@@ -1010,15 +1010,15 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
         <h2 class="audit-bottom-h2">${h.charAt(0).toUpperCase() + h.slice(1)}</h2>
         <p class="audit-bottom-sub">${s}</p>
         <ul class="audit-bottom-list">
-          <li>90-minute intake. No prep needed — just walk us through your week.</li>
+          <li>90-minute intake. No prep needed. Just walk us through your week.</li>
           <li>Written report delivered in 5 business days.</li>
-          <li>R50,000 minimum savings identified — or full refund.</li>
+          <li>R50,000 minimum savings identified, or full refund.</li>
         </ul>
         <div class="audit-bottom-guarantee">
           <p class="guar-eyebrow">Guaranteed Results</p>
           <p class="guar-text">If we don't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours, not yours.</p>
         </div>
-        <p class="audit-bottom-price"><strong>R5,497</strong> — once-off, no retainer</p>
+        <p class="audit-bottom-price"><strong>R5,497</strong>, once-off, no retainer</p>
         <div class="btn-row" style="justify-content:center;">
           <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Assessment →</a>
         </div>
@@ -1035,8 +1035,11 @@ function render() {
   const s        = [1,2,3,4].map(i => parseInt(params.get(`s${i}`) ?? '0'));
   const bn       = parseInt(params.get('bn') ?? '1') - 1; // URL param is 1-indexed
   const type     = params.get('type') ?? 'other';
+  // URLSearchParams.get() already URL-decodes the value. Decoding it again
+  // here would throw on a literal '%' in the name (e.g. a stray percent sign)
+  // and abort rendering the whole results page.
   const nameRaw  = params.get('name') ?? '';
-  const name     = nameRaw ? decodeURIComponent(nameRaw).replace(/[<>"'&]/g, '').split(' ')[0] : '';
+  const name     = nameRaw ? nameRaw.replace(/[<>"'&]/g, '').split(' ')[0] : '';
 
   if (!params.has('score') || !tier) {
     document.getElementById('no-results').style.display = 'block';
@@ -1057,7 +1060,7 @@ function render() {
   }
   requestAnimationFrame(countUp);
 
-  // Score label — personalised if name is available
+  // Score label: personalised if name is available
   document.getElementById('score-label').textContent = name
     ? `${name}, here is your score`
     : 'Your Business Systems Score';
@@ -1076,7 +1079,7 @@ function render() {
     return `<div class="tier-step"><span class="tier-step-name${isActive ? ' active' : ''}">${TIERS_LABELS[i]}</span>${arrow}</div>`;
   }).join('');
 
-  // Cost of gap — two hero stat blocks
+  // Cost of gap: two hero stat blocks
   const hoursWasted = ((200 - score) / 10).toFixed(1);
   const monthlyLoss = Math.round((200 - score) / 10 * 1500 * 4);
   document.getElementById('cost-gap').innerHTML = `
@@ -1090,7 +1093,7 @@ function render() {
     </div>
   `;
 
-  // Improvement potential — what could be saved if weakest system reaches 25/50 (mid-leverage)
+  // Improvement potential: what could be saved if weakest system reaches 25/50 (mid-leverage)
   const weakestScore = Math.min(...s);
   if (weakestScore < 25) {
     const potentialGain = 25 - weakestScore;
@@ -1098,7 +1101,7 @@ function render() {
     const annualValue = Math.round(potentialGain / 5 * 4 * 1500 * 12);
     const potEl = document.getElementById('improvement-potential');
     if (potEl) {
-      potEl.innerHTML = `If you improve your weakest system to <strong>Leverage</strong> level, you recover an estimated <strong>${hoursGained} hrs/week</strong> — worth <strong>R${annualValue.toLocaleString()}/year</strong> at an R1,500/hr billing rate.`;
+      potEl.innerHTML = `If you improve your weakest system to <strong>Leverage</strong> level, you recover an estimated <strong>${hoursGained} hrs/week</strong>, worth <strong>R${annualValue.toLocaleString()}/year</strong> at an R1,500/hr billing rate.`;
       potEl.style.display = 'block';
     }
   }
@@ -1158,7 +1161,7 @@ function render() {
   bridgeEl.innerHTML = buildNarrativeBridge(tier);
   bridgeEl.style.display = 'block';
 
-  // Testimonials — shown for leverage and emerging tiers (highest purchase intent)
+  // Testimonials: shown for leverage and emerging tiers (highest purchase intent)
   if (tier === 'leverage' || tier === 'emerging') {
     const testimonialsEl = document.getElementById('testimonials-block');
     if (testimonialsEl) {
@@ -1170,17 +1173,17 @@ function render() {
             <div class="testimonial-card">
               <span class="testimonial-stars">★★★★★</span>
               <p class="testimonial-quote">"In as little as a week, business has started to improve. Will definitely be hearing from Cobus again."</p>
-              <p class="testimonial-author">Luke Hoar — Business owner</p>
+              <p class="testimonial-author">Luke Hoar, business owner</p>
             </div>
             <div class="testimonial-card">
               <span class="testimonial-stars">★★★★★</span>
-              <p class="testimonial-quote">"Invaluable insight, experience and willingness to assist — he provided much needed clarity to help us grow."</p>
-              <p class="testimonial-author">Yugo Roofing — Johannesburg</p>
+              <p class="testimonial-quote">"Invaluable insight, experience and willingness to assist. He provided much needed clarity to help us grow."</p>
+              <p class="testimonial-author">Yugo Roofing, Johannesburg</p>
             </div>
             <div class="testimonial-card">
               <span class="testimonial-stars">★★★★★</span>
               <p class="testimonial-quote">"Before making contact with Cobus I had no clear plan. He helped us achieve results that surpassed what we thought possible."</p>
-              <p class="testimonial-author">Arnold de Wet — Swift Solar Pool Repairs</p>
+              <p class="testimonial-author">Arnold de Wet, Swift Solar Pool Repairs</p>
             </div>
           </div>
         </div>`;

@@ -10,7 +10,7 @@ const faqSchema = {
       "name": "Do I need to be technical or already using AI tools?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems — in fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive."
+        "text": "No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems. In fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive."
       }
     },
     {
@@ -18,7 +18,7 @@ const faqSchema = {
       "name": "How disruptive is the intake session to my schedule?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "90 minutes, once. You can do it by voice call or written form — whichever suits how you think. After that, there's nothing required from you until the delivery call. Most principals find the intake itself is worth the time — it forces you to map your business in a way you've never done formally."
+        "text": "90 minutes, once. You can do it by voice call or written form, whichever suits how you think. After that, there's nothing required from you until the delivery call. Most principals find the intake itself is worth the time. It forces you to map your business in a way you've never done formally."
       }
     },
     {
@@ -31,10 +31,10 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      "name": "What happens after the report — do you implement it for me?",
+      "name": "What happens after the report, do you implement it for me?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The assessment is a standalone deliverable — a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call."
+        "text": "The assessment is a standalone deliverable: a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call."
       }
     },
     {
@@ -42,7 +42,7 @@ const faqSchema = {
       "name": "Is this specific to South African businesses?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes — the pricing, tools, and context are calibrated for SA professional services. That means ZAR-priced software, local compliance requirements, and realistic automation options for team sizes common in SA firms. Generic AI advice ignores all of this."
+        "text": "Yes. The pricing, tools, and context are calibrated for SA professional services. That means ZAR-priced software, local compliance requirements, and realistic automation options for team sizes common in SA firms. Generic AI advice ignores all of this."
       }
     },
     {
@@ -50,7 +50,7 @@ const faqSchema = {
       "name": "What if you don't find R50,000 in savings?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real — if the assessment doesn't deliver identifiable value at least 5x the cost, you pay nothing. In practice, the average professional services firm has well over R200,000 in recoverable annual leakage once workflows are mapped properly."
+        "text": "You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real: if the assessment doesn't deliver identifiable value at least 5x the cost, you pay nothing. In practice, the average professional services firm has well over R200,000 in recoverable annual leakage once workflows are mapped properly."
       }
     }
   ]
@@ -58,8 +58,8 @@ const faqSchema = {
 ---
 
 <Base
-  title="Business Automation Assessment — Cobus van Vuuren"
-  description="Stop guessing which AI system to build first. The Business Automation Assessment maps every process in your SA professional services practice, ranks automation opportunities by ROI, and delivers a 90-day plan. R50,000 in savings identified — or full refund."
+  title="Business Automation Assessment | Cobus van Vuuren"
+  description="Stop guessing which AI system to build first. The Business Automation Assessment maps every process in your SA professional services practice, ranks automation opportunities by ROI, and delivers a 90-day plan. R50,000 in savings identified, or full refund."
 >
 
 <Fragment slot="head">
@@ -79,7 +79,7 @@ const faqSchema = {
     padding: 0 1.5rem;
   }
 
-  /* ─── HERO — full-bleed, centred ──────────────────────────── */
+  /* ─── HERO: full-bleed, centred ──────────────────────────── */
   .audit-hero {
     padding: 8rem 1.5rem 5rem;
     text-align: center;
@@ -137,7 +137,7 @@ const faqSchema = {
     margin: 0 auto 3rem;
   }
 
-  /* Stats strip — 3 cols with dividers */
+  /* Stats strip: 3 cols with dividers */
   .hero-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -215,7 +215,7 @@ const faqSchema = {
     font-weight: 500;
   }
 
-  /* ─── GUARANTEE — full-bleed ──────────────────────────────── */
+  /* ─── GUARANTEE: full-bleed ──────────────────────────────── */
   .guarantee-band {
     background: rgba(200,40,44,0.07);
     border-top: 1px solid rgba(200,40,44,0.3);
@@ -474,7 +474,7 @@ const faqSchema = {
   /* ─── PRICING ─────────────────────────────────────────────── */
   .pricing-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1px;
     background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.06);
@@ -482,14 +482,12 @@ const faqSchema = {
     overflow: hidden;
     margin-bottom: 2.5rem;
   }
-  @media (max-width: 500px) { .pricing-grid { grid-template-columns: 1fr; } }
   .price-cell {
     background: #0B0A09;
     padding: 2rem;
   }
   .price-cell.featured {
     background: rgba(200,40,44,0.05);
-    padding-top: 3rem; /* room for .pricing-featured banner */
   }
   .price-tag {
     font-family: var(--font-sans);
@@ -509,12 +507,6 @@ const faqSchema = {
     line-height: 1;
     margin-bottom: 0.6rem;
   }
-  .price-cell:not(.featured) .price-amount {
-    font-size: 2.8rem;
-    color: rgba(247,244,239,0.3);
-    text-decoration: line-through;
-    text-decoration-color: rgba(247,244,239,0.18);
-  }
   .price-desc {
     font-family: var(--font-sans);
     font-size: 0.82rem;
@@ -528,6 +520,13 @@ const faqSchema = {
     margin: 0;
     display: grid;
     gap: 0.45rem;
+  }
+  /* Single full-width pricing cell: two columns keeps the card compact on desktop. */
+  @media (min-width: 700px) {
+    .price-checklist {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 2.5rem;
+    }
   }
   .price-checklist li {
     font-family: var(--font-sans);
@@ -546,7 +545,7 @@ const faqSchema = {
     flex-shrink: 0;
     margin-top: 0.05rem;
   }
-  .price-spots {
+  .price-guarantee {
     font-family: var(--font-sans);
     font-size: 0.75rem;
     color: rgba(200,40,44,0.8);
@@ -555,7 +554,7 @@ const faqSchema = {
     margin-top: 1rem;
   }
 
-  /* ─── SOCIAL PROOF — TRUSTPILOT ────────────────────────────── */
+  /* ─── SOCIAL PROOF: TRUSTPILOT ────────────────────────────── */
   .testimonial-section {
     padding: 1rem 0 3.5rem;
   }
@@ -614,7 +613,7 @@ const faqSchema = {
     color: rgba(247,244,239,0.4);
   }
 
-  /* ─── CTA BAND — full-bleed ───────────────────────────────── */
+  /* ─── CTA BAND: full-bleed ───────────────────────────────── */
   .cta-band {
     padding: 5rem 1.5rem;
     text-align: center;
@@ -687,13 +686,13 @@ const faqSchema = {
   }
 </style>
 
-<!-- HERO — full-bleed, centred -->
+<!-- HERO: full-bleed, centred -->
 <section class="audit-hero">
   <div class="hero-bloom"></div>
   <div class="inner-wide" style="position:relative;z-index:1;">
     <p class="a-eyebrow">Business Automation Assessment</p>
-    <h1 class="a-h1">You know you need better systems.<br/>This assessment tells you <em>exactly what to build</em> — for your business.</h1>
-    <p class="a-sub">Generic AI advice is everywhere. What's specific to your business type, your workflow gaps, and your team size is rare. The Business Automation Assessment maps every process, ranks every opportunity by ROI, and delivers a 90-day plan built for you — not a generic firm.</p>
+    <h1 class="a-h1">You know you need better systems.<br/>This assessment tells you <em>exactly what to build</em>, for your business.</h1>
+    <p class="a-sub">Generic AI advice is everywhere. What's specific to your business type, your workflow gaps, and your team size is rare. The Business Automation Assessment maps every process, ranks every opportunity by ROI, and delivers a 90-day plan built for you, not a generic firm.</p>
 
     <div class="hero-stats">
       <div class="hero-stat">
@@ -712,14 +711,14 @@ const faqSchema = {
 
     <div class="hero-cta">
       <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'audit-hero'})">
-        Claim Your Assessment — R5,497 →
+        Claim Your Assessment · R5,497 →
       </a>
       <p class="guarantee-note">Money Back Guaranteed. No Questions Asked.</p>
     </div>
   </div>
 </section>
 
-<!-- PROBLEM — PAS agitation -->
+<!-- PROBLEM: PAS agitation -->
 <div class="inner">
   <div class="problem-block">
     <p>You've probably looked at AI tools. Maybe tried a few. And you walked away with the same feeling: <strong>where do I actually start with my specific business?</strong></p>
@@ -728,7 +727,7 @@ const faqSchema = {
   </div>
 </div>
 
-<!-- GUARANTEE — full-bleed, maximum weight -->
+<!-- GUARANTEE: full-bleed, maximum weight -->
 <div class="guarantee-band">
   <div class="inner-wide" style="position:relative;z-index:1;">
     <div class="g-icon">
@@ -738,8 +737,8 @@ const faqSchema = {
       </svg>
     </div>
     <p class="g-label">The Guarantee</p>
-    <h2 class="g-headline">Find R50,000 in annual savings — or pay nothing.</h2>
-    <p class="g-body">If the assessment doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund within 5 business days. No questions asked. The risk is ours — not yours.</p>
+    <h2 class="g-headline">Find R50,000 in annual savings, or pay nothing.</h2>
+    <p class="g-body">If the assessment doesn't identify at least R50,000 in annual savings opportunities specific to your business, you receive a full refund within 5 business days. No questions asked. The risk is ours, not yours.</p>
   </div>
 </div>
 
@@ -750,22 +749,22 @@ const faqSchema = {
     <div class="d-card">
       <span class="d-num">01</span>
       <span class="d-title">A complete process map</span>
-      <p class="d-desc">Every workflow where you're losing principal time to non-expert work — documented and ranked by cost.</p>
+      <p class="d-desc">Every workflow where you're losing principal time to non-expert work, documented and ranked by cost.</p>
     </div>
     <div class="d-card">
       <span class="d-num">02</span>
       <span class="d-title">Ranked automation opportunities</span>
-      <p class="d-desc">Every gap ordered by ROI — highest-return fixes first. No guessing. No generic frameworks.</p>
+      <p class="d-desc">Every gap ordered by ROI, highest-return fixes first. No guessing. No generic frameworks.</p>
     </div>
     <div class="d-card">
       <span class="d-num">03</span>
       <span class="d-title">Specific tool and workflow recommendations</span>
-      <p class="d-desc">Built for your business type, your team size, and the tools you already use. Not theory — actual systems.</p>
+      <p class="d-desc">Built for your business type, your team size, and the tools you already use. Not theory. Actual systems.</p>
     </div>
     <div class="d-card">
       <span class="d-num">04</span>
       <span class="d-title">A prioritised 90-day implementation plan</span>
-      <p class="d-desc">What to build first, second, and third — with the reason behind the sequence.</p>
+      <p class="d-desc">What to build first, second, and third, with the reason behind the sequence.</p>
     </div>
     <div class="d-card">
       <span class="d-num">05</span>
@@ -791,7 +790,7 @@ const faqSchema = {
     <span class="icp-pill">Property agents</span>
   </div>
   <div class="icp-callout">
-    <p><strong>Any business where the principal's expertise is the product and the principal is the bottleneck.</strong> If your clients are paying for your judgment, and you can't scale without hiring a clone of yourself — this is built for you.</p>
+    <p><strong>Any business where the principal's expertise is the product and the principal is the bottleneck.</strong> If your clients are paying for your judgment, and you can't scale without hiring a clone of yourself, this is built for you.</p>
   </div>
 
   <div class="a-rule"></div>
@@ -807,7 +806,7 @@ const faqSchema = {
       <div class="step-content">
         <span class="step-time">90 minutes</span>
         <h3>Intake</h3>
-        <p>A structured conversation covering your workflows, team, tools, and recurring bottlenecks. Done by voice call or written form. Most principals find this session valuable on its own — mapping it out loud surfaces things that have been invisible for years.</p>
+        <p>A structured conversation covering your workflows, team, tools, and recurring bottlenecks. Done by voice call or written form. Most principals find this session valuable on its own. Mapping it out loud surfaces things that have been invisible for years.</p>
       </div>
     </div>
     <div class="process-step">
@@ -829,7 +828,7 @@ const faqSchema = {
       <div class="step-content">
         <span class="step-time">Written report + 30-min call</span>
         <h3>Delivery</h3>
-        <p>Full written report with ranked findings and a prioritised 90-day implementation plan. Followed by a 30-minute walkthrough call. R50,000 minimum savings identified — or full refund, no questions asked.</p>
+        <p>Full written report with ranked findings and a prioritised 90-day implementation plan. Followed by a 30-minute walkthrough call. R50,000 minimum savings identified, or full refund, no questions asked.</p>
       </div>
     </div>
   </div>
@@ -844,14 +843,14 @@ const faqSchema = {
         Do I need to be technical or already using AI tools?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems — in fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive.</div>
+      <div class="faq-body">No. The assessment is designed for principals who are thinking about AI, not ones already implementing it. You don't need any existing systems. In fact, starting fresh means you avoid the retrofitting problem. The intake session is a conversation, not a tech deep-dive.</div>
     </details>
     <details class="faq-item">
       <summary>
         How disruptive is the intake session to my schedule?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">90 minutes, once. You can do it by voice call or written form — whichever suits how you think. After that, there's nothing required from you until the delivery call. Most principals find the intake itself is worth the time — it forces you to map your business in a way you've never done formally.</div>
+      <div class="faq-body">90 minutes, once. You can do it by voice call or written form, whichever suits how you think. After that, there's nothing required from you until the delivery call. Most principals find the intake itself is worth the time. It forces you to map your business in a way you've never done formally.</div>
     </details>
     <details class="faq-item">
       <summary>
@@ -862,24 +861,24 @@ const faqSchema = {
     </details>
     <details class="faq-item">
       <summary>
-        What happens after the report — do you implement it for me?
+        What happens after the report, do you implement it for me?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">The assessment is a standalone deliverable — a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call.</div>
+      <div class="faq-body">The assessment is a standalone deliverable: a clear, prioritised plan you can implement yourself, hand to your team, or use to brief a developer. If you want to work together on implementation, that's a separate conversation we can have on the delivery call.</div>
     </details>
     <details class="faq-item">
       <summary>
         Is this specific to South African businesses?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">Yes — the pricing, tools, and context are calibrated for SA professional services. That means ZAR-priced software, local compliance requirements, and realistic automation options for team sizes common in SA firms. Generic AI advice ignores all of this.</div>
+      <div class="faq-body">Yes. The pricing, tools, and context are calibrated for SA professional services. That means ZAR-priced software, local compliance requirements, and realistic automation options for team sizes common in SA firms. Generic AI advice ignores all of this.</div>
     </details>
     <details class="faq-item">
       <summary>
         What if you don't find R50,000 in savings?
         <span class="faq-icon" style="font-size:1.3rem;font-weight:300;color:var(--color-smoke);flex-shrink:0;">+</span>
       </summary>
-      <div class="faq-body">You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real — if the assessment doesn't deliver identifiable value at least 5× the cost, you pay nothing. In practice, the average professional services firm has <strong>well over R200,000</strong> in recoverable annual leakage once workflows are mapped properly.</div>
+      <div class="faq-body">You get a full refund within 5 business days. No awkward conversations, no conditions. The guarantee is real: if the assessment doesn't deliver identifiable value at least 5× the cost, you pay nothing. In practice, the average professional services firm has <strong>well over R200,000</strong> in recoverable annual leakage once workflows are mapped properly.</div>
     </details>
   </div>
 
@@ -888,23 +887,17 @@ const faqSchema = {
   <!-- PRICING -->
   <p class="a-label">Investment</p>
   <div class="pricing-grid">
-    <div class="price-cell featured pricing-featured">
-      <p class="price-tag" id="spots-tag">Early Adopter — 17 spots left for this month</p>
+    <div class="price-cell featured">
+      <p class="price-tag">Your investment</p>
       <p class="price-amount">R5,497</p>
-      <p class="price-desc" id="spots-desc">Everything in the standard assessment, at 63% off — guaranteed price for the remaining spots this month only.</p>
+      <p class="price-desc">Once off. No retainer, and no upsell built into the report. At R800 an hour, recovering ten hours a week pays this back inside a week.</p>
       <ul class="price-checklist">
         <li>90-min structured intake (call or written)</li>
         <li>Full written report with ranked findings</li>
         <li>Prioritised 90-day implementation plan</li>
         <li>30-min delivery + walkthrough call</li>
-        <li>R50,000 savings guarantee — or full refund</li>
       </ul>
-      <p class="price-spots" id="spots-foot">Spots filling — price increases to R15,000 after this month</p>
-    </div>
-    <div class="price-cell">
-      <p class="price-tag">Standard Price</p>
-      <p class="price-amount">R15,000</p>
-      <p class="price-desc">Rate after the first 10 engagements are complete. Same deliverables, same guarantee.</p>
+      <p class="price-guarantee">If the assessment does not find R50,000 in annual savings, you pay nothing.</p>
     </div>
   </div>
 
@@ -939,13 +932,13 @@ const faqSchema = {
 
 </div>
 
-<!-- CTA BAND — full-bleed -->
+<!-- CTA BAND: full-bleed -->
 <div class="cta-band">
   <div class="inner-wide" style="position:relative;z-index:1;">
     <h2>Ready to find your business's leverage gaps?</h2>
     <div class="cta-stack">
       <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener" style="min-width:260px;text-align:center;" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'audit-band'})">
-        Claim Your Assessment — R5,497 →
+        Claim Your Assessment · R5,497 →
       </a>
       <p class="guarantee-note">Money Back Guaranteed. No Questions Asked.</p>
     </div>
@@ -955,28 +948,9 @@ const faqSchema = {
 <!-- STICKY MOBILE CTA BAR -->
 <div class="sticky-cta-bar">
   <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" target="_blank" rel="noopener" style="display:block;text-align:center;width:100%;" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'audit-sticky'})">
-    Claim Your Assessment — R5,497 →
+    Claim Your Assessment · R5,497 →
   </a>
 </div>
 
-
-<script is:inline>
-(function () {
-  var now = new Date();
-  var month = now.toLocaleString('en-US', { month: 'long' });
-  var day = now.getDate();
-  var daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  var max = 17;
-  var spots = Math.max(2, max - Math.floor((day / daysInMonth) * (max - 2)));
-
-  var tag = document.getElementById('spots-tag');
-  var desc = document.getElementById('spots-desc');
-  var foot = document.getElementById('spots-foot');
-
-  if (tag)  tag.textContent  = 'Early Adopter — ' + spots + ' spots left for ' + month;
-  if (desc) desc.textContent = 'Everything in the standard assessment, at 63% off — guaranteed price for the ' + spots + ' remaining ' + month + ' spots only.';
-  if (foot) foot.textContent = spots + ' spots remaining for ' + month + ' — price increases to R15,000 thereafter';
-})();
-</script>
 
 </Base>

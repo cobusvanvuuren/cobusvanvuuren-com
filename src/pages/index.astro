@@ -4,27 +4,35 @@ import Base from '../layouts/Base.astro';
 const articles = [
   {
     tag: 'Owner Bottleneck',
-    title: 'Why SA professional services firms lose 15–25% of billable hours annually',
+    title: 'Why SA professional services firms lose 15 to 25% of billable hours annually',
     date: 'May 2026',
     readTime: '8 min read',
-    excerpt: 'Most firms have no idea where the time goes. The data does — and the number is always the same.',
+    excerpt: 'Most firms have no idea where the time goes. The data does, and the number is always the same.',
     slug: 'billable-hours-professional-services',
   },
   {
     tag: 'Time Leaks',
-    title: 'The 5 most common time leaks in an accounting, law, or FSP practice',
-    date: 'May 2026',
-    readTime: '6 min read',
-    excerpt: 'Five patterns that show up in almost every practice audit. The first one will surprise you.',
+    title: 'The 5 Most Common Time Leaks in a Professional Practice (And What Each One Costs You in Rands)',
+    date: 'July 2026',
+    readTime: '10 min read',
+    excerpt: 'Five patterns that show up in almost every practice audit, each one costed in rands at your own billing rate.',
     slug: 'time-leaks-professional-practice',
   },
   {
     tag: 'Automation',
-    title: 'What is a Business Automation Assessment — and why would you pay R15,000 for one?',
-    date: 'May 2026',
-    readTime: '7 min read',
-    excerpt: 'A structured answer to the most common question I get. With the maths.',
+    title: 'What Is a Business Automation Audit, and Why Would a Professional Services Firm Pay R5,497 for One?',
+    date: 'July 2026',
+    readTime: '11 min read',
+    excerpt: 'A structured answer to the most common question I get. With the maths, the guarantee, and who it\'s actually for.',
     slug: 'what-is-business-automation-audit',
+  },
+  {
+    tag: 'AI Framework',
+    title: 'The AI Prompt Framework Built to Work on Any Task, Not Just One',
+    date: 'August 2026',
+    readTime: '14 min read',
+    excerpt: 'Most AI prompt frameworks work for one kind of task. PRIME is the 5-step structure built to hold up across strategy, research, ops, and creative work.',
+    slug: 'ai-prompt-framework',
   },
 ];
 
@@ -35,12 +43,12 @@ const videos = [
     tag: 'Owner Bottleneck',
   },
   {
-    title: 'The first AI workflow every SA professional should set up — and why most start wrong',
+    title: 'The first AI workflow every SA professional should set up, and why most start wrong',
     duration: '8 min',
     tag: 'Automation',
   },
   {
-    title: 'Why your competitors convert leads 21× faster than you — and what to do about it',
+    title: 'Why your competitors convert leads 21× faster than you, and what to do about it',
     duration: '6 min',
     tag: 'Sales AI',
   },
@@ -64,7 +72,7 @@ const schema = {
       "@id": "https://cobusvanvuuren.com/#organization",
       "name": "Cobus van Vuuren",
       "url": "https://cobusvanvuuren.com",
-      "description": "Business Automation Assessments for South African professional services firms — accountants, attorneys, and financial advisors.",
+      "description": "Business Automation Assessments for South African professional services firms: accountants, attorneys, and financial advisors.",
       "founder": { "@id": "https://cobusvanvuuren.com/#person" },
       "sameAs": ["https://www.linkedin.com/in/cobusvanvuuren/"]
     },
@@ -80,7 +88,7 @@ const schema = {
 ---
 
 <Base
-  title="Cobus van Vuuren — AI and Automation for SA Professional Services"
+  title="Cobus van Vuuren | AI and Automation for SA Professional Services"
   description="I map the time leaks inside SA professional services firms and show exactly where automation changes the maths. Articles, videos, and the Business Automation Assessment."
 >
   <Fragment slot="head">
@@ -101,7 +109,7 @@ const schema = {
         pointer-events: none;
       }
 
-/* Proof strip — 4 stats below the hero CTAs */
+/* Proof strip: 4 stats below the hero CTAs */
       .proof-strip {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -212,7 +220,7 @@ const schema = {
       .path-card:hover { border-color: rgba(255, 255, 255, 0.14); }
       .path-card-primary:hover { border-color: rgba(200, 40, 44, 0.5); }
 
-      /* Section rule — crimson */
+      /* Section rule: crimson */
       .section-rule {
         width: 100%;
         height: 1px;
@@ -298,7 +306,7 @@ const schema = {
   <section class="relative min-h-screen overflow-hidden">
     <div class="hero-bloom"></div>
 
-    <!-- Full-width centered text — no portrait in hero -->
+    <!-- Full-width centered text: no portrait in hero -->
     <div class="relative flex items-center min-h-screen">
       <div class="w-full max-w-4xl mx-auto flex flex-col justify-center pt-28 pb-20 px-8 sm:px-12 lg:px-16">
 
@@ -313,7 +321,7 @@ const schema = {
 
         <p class="font-sans font-normal text-[16px] text-[#B0ABA4] leading-[1.8] max-w-xl mb-10">
           Your business is losing time and revenue to manual work that doesn't need you.
-          We find exactly where — and build the systems to stop it. Not generic AI advice.
+          We find exactly where, and build the systems to stop it. Not generic AI advice.
           Specific findings. Specific fixes. For your type of business.
         </p>
 
@@ -330,7 +338,7 @@ const schema = {
         <div class="flex flex-wrap gap-x-5 gap-y-2 text-[12px] font-sans font-normal text-smoke border-t border-white/7 pt-7 mb-12">
           <span>Accountants · Attorneys · Financial Advisors</span>
           <span class="text-white/15 hidden sm:block">|</span>
-          <span>3–20 staff · South Africa</span>
+          <span>3 to 20 staff · South Africa</span>
           <span class="text-white/15 hidden sm:block">|</span>
           <span>R50,000 minimum savings guaranteed</span>
         </div>
@@ -339,15 +347,15 @@ const schema = {
         <div class="proof-strip">
           <div data-anim="fade-up" data-anim-delay="1">
             <span class="proof-strip-num"><span data-count="24">24</span><span style="font-size:0.62em;font-weight:500"> days</span></span>
-            <p class="proof-strip-label">lost to admin per year — avg SA business owner</p>
+            <p class="proof-strip-label">lost to admin per year, avg SA business owner</p>
           </div>
           <div data-anim="fade-up" data-anim-delay="2">
             <span class="proof-strip-num"><span data-count="37">37</span><span style="font-size:0.62em;font-weight:500">%</span></span>
-            <p class="proof-strip-label">avg attorney billable utilisation — 63% disappears</p>
+            <p class="proof-strip-label">avg attorney billable utilisation, 63% disappears</p>
           </div>
           <div data-anim="fade-up" data-anim-delay="3">
             <span class="proof-strip-num"><span data-count="21">21</span><span style="font-size:0.62em;font-weight:500">×</span></span>
-            <p class="proof-strip-label">more likely to convert — 5 min vs 42 hrs response</p>
+            <p class="proof-strip-label">more likely to convert, 5 min vs 42 hrs response</p>
           </div>
         </div>
 
@@ -398,7 +406,7 @@ const schema = {
 
     <div class="grid md:grid-cols-3 gap-8">
       {[
-        { num: '24', unit: ' days', label: 'Lost per year to admin — average SA business owner, at billing rate' },
+        { num: '24', unit: ' days', label: 'Lost per year to admin: average SA business owner, at billing rate' },
         { num: '37', unit: '%', label: 'Average attorney billable utilisation. 63% disappears to work that shouldn\'t need them.' },
         { num: '21', unit: '×', label: 'More likely to convert a lead contacted within 5 minutes vs the SA average of 42 hours.' },
       ].map(stat => (
@@ -428,13 +436,13 @@ const schema = {
           professional services firms do the same.
         </p>
         <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-6">
-          Seven years running RhinoBerry — a digital marketing agency — meant running every manual
+          Seven years running RhinoBerry, a digital marketing agency, meant running every manual
           process first, then spending three years automating the parts that were eating my evenings.
           Client intake, proposal generation, reporting, billing, content production. The assessment methodology
           is what I use on my own business. Not what I theorise about.
         </p>
         <p class="font-sans font-normal text-[#B0ABA4] text-base leading-[1.80] mb-8">
-          CVV is where I share what I'm learning about building better business systems —
+          CVV is where I share what I'm learning about building better business systems:
           growth, automation, and the patterns that actually work for SA owner-operators.
           RhinoBerry is where the marketing implementation lives. The two are connected.
         </p>
@@ -468,12 +476,12 @@ const schema = {
 
       <!-- Path 1: Free Scorecard -->
       <div class="path-card path-card-primary">
-        <p class="font-sans font-medium text-crimson text-[11px] tracking-[0.14em] uppercase mb-4">Free — 5 minutes</p>
+        <p class="font-sans font-medium text-crimson text-[11px] tracking-[0.14em] uppercase mb-4">Free · 5 minutes</p>
         <h3 class="font-serif font-bold text-ivory text-[1.75rem] leading-[1.2] mb-4">
           AI Readiness Scorecard
         </h3>
         <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-8">
-          20 questions. Score from 0–200. Find out exactly where your business stands —
+          20 questions. Score from 0 to 200. Find out exactly where your business stands:
           time leaks, automation gaps, speed-to-lead. Personalised results on screen immediately.
           No pitch. Genuinely useful whether you claim an assessment or not.
         </p>
@@ -491,7 +499,7 @@ const schema = {
         <p class="font-sans font-normal text-[#B0ABA4] text-sm leading-[1.70] mb-6">
           Skip the scorecard. Go straight to the full engagement. A 90-minute intake maps every
           process in your business, ranks every automation opportunity by ROI, and delivers a
-          prioritised 90-day plan. R50,000 minimum savings identified — or full refund.
+          prioritised 90-day plan. R50,000 minimum savings identified, or full refund.
         </p>
         <a href="/audit" class="btn-ghost-dark block text-center w-full">
           See the Business Assessment →
@@ -503,7 +511,7 @@ const schema = {
 
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- AUDIT SALES BLOCK — full-bleed            -->
+  <!-- AUDIT SALES BLOCK: full-bleed            -->
   <!-- ══════════════════════════════════════════ -->
   <section style="background:linear-gradient(135deg,rgba(200,40,44,0.08) 0%,rgba(11,10,9,0) 55%);border-top:3px solid rgba(200,40,44,0.35);padding:5.5rem 1.5rem 6.5rem;" data-anim="fade-up">
     <style>
@@ -582,9 +590,9 @@ const schema = {
       </p>
 
       <ul class="audit-feature-list text-left max-w-md mx-auto mb-8">
-        <li>90-minute intake. No prep needed — just walk us through your week.</li>
+        <li>90-minute intake. No prep needed. Just walk us through your week.</li>
         <li>Written report delivered in 5 business days.</li>
-        <li>R50,000 minimum savings identified — or full refund.</li>
+        <li>R50,000 minimum savings identified, or full refund.</li>
       </ul>
 
       <div class="audit-guarantee-box text-left">
@@ -592,7 +600,7 @@ const schema = {
         <p class="guar-text">If we don't find R50,000 in annual savings specific to your business, you pay nothing. The risk is ours, not yours.</p>
       </div>
 
-      <p class="audit-price-line"><strong>R5,497</strong> — once-off, no retainer</p>
+      <p class="audit-price-line"><strong>R5,497</strong>, once-off, no retainer</p>
 
       <div class="flex flex-col sm:flex-row gap-3 justify-center mb-4">
         <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary text-center" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'homepage-bottom'})">

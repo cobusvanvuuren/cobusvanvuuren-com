@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# AI training crawlers — allowed
+# AI training crawlers: allowed
 User-agent: Anthropic-AI
 Allow: /
 

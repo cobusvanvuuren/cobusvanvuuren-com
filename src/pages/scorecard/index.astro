@@ -1,3 +1,5 @@
 ---
-return Astro.redirect('/score', 301);
+// Preserve any query string (e.g. UTM params on old inbound links) instead of
+// dropping it. A bare '/score' redirect silently discards it.
+return Astro.redirect(`/score${Astro.url.search}`, 301);
 ---

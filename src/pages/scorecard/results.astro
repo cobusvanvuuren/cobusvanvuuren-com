@@ -1,3 +1,8 @@
 ---
-return Astro.redirect('/score', 301);
+// Old /scorecard/results?score=...&tier=...&name=... links carry the full
+// results payload in the query string. Redirecting to bare '/score' (no
+// query string) drops it and dumps the visitor on the generic landing page
+// instead of their personalised results. Preserve it and route to the real
+// results page instead.
+return Astro.redirect(`/score/results${Astro.url.search}`, 301);
 ---

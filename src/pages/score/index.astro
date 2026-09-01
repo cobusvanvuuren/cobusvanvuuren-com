@@ -3,8 +3,8 @@ import Scorecard from '../../layouts/Scorecard.astro';
 ---
 
 <Scorecard
-  title="AI Readiness Diagnostic — Cobus van Vuuren"
-  description="Benchmark your business across 4 AI systems in 10 minutes. See exactly where you're leaving time and rand on the table — and which system to fix first."
+  title="AI Readiness Diagnostic | Cobus van Vuuren"
+  description="Benchmark your business across 4 AI systems in 10 minutes. See exactly where you're leaving time and rand on the table, and which system to fix first."
 >
 
 <style is:global>
@@ -60,7 +60,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     padding-bottom: 4rem;
   }
 
-  /* Quiz wrapper — still centered */
+  /* Quiz wrapper: still centered */
   #quiz {
     max-width: 660px;
     margin: 0 auto;
@@ -557,10 +557,10 @@ import Scorecard from '../../layouts/Scorecard.astro';
     opacity: 0.6;
   }
 
-  /* System intro card — hidden (replaced by stat bar below) */
+  /* System intro card: hidden (replaced by stat bar below) */
   .system-intro { display: none !important; }
 
-  /* System stat bar — bottom of quiz, copper-tinted, auto-dismisses */
+  /* System stat bar: bottom of quiz, copper-tinted, auto-dismisses */
   #system-stat-bar {
     border-top: 1px solid rgba(166,124,82,0.28);
     background: rgba(166,124,82,0.06);
@@ -664,7 +664,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     box-shadow: -3px 0 0 0 var(--color-crimson), 0 2px 20px rgba(200,40,44,0.15);
   }
 
-  /* Letter badge — small square */
+  /* Letter badge: small square */
   .choice-label {
     display: inline-flex;
     align-items: center;
@@ -704,7 +704,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     box-shadow: 0 0 14px rgba(200,40,44,0.6);
   }
 
-  /* Yesno — 3-col horizontal */
+  /* Yesno: 3-col horizontal */
   #scored-choices.yesno {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -733,7 +733,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     background: rgba(200,40,44,0.12);
   }
 
-  /* Frequency — horizontal pills */
+  /* Frequency: horizontal pills */
   #scored-choices.freq {
     display: flex;
     flex-direction: row;
@@ -771,7 +771,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     transform: none !important;
   }
 
-  /* Scale — 5 numbered tiles in a row */
+  /* Scale: 5 numbered tiles in a row */
   #scored-choices.scale {
     display: flex;
     flex-direction: row;
@@ -995,7 +995,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   <!-- LANDING -->
   <div id="landing">
 
-    <!-- 1. HERO — two-column: text left, metrics card right -->
+    <!-- 1. HERO: two-column, text left, metrics card right -->
     <section class="sect sect-hero">
       <div class="sect-inner hero-inner">
         <div class="hero-grid">
@@ -1003,12 +1003,12 @@ import Scorecard from '../../layouts/Scorecard.astro';
           <div>
             <div class="diag-eyebrow">
               <span class="diag-eyebrow-dot"></span>
-              <span class="diag-eyebrow-text">AI Readiness Diagnostic — Free · 10 Minutes</span>
+              <span class="diag-eyebrow-text">AI Readiness Diagnostic · Free · 10 Minutes</span>
             </div>
 
             <h1 class="diag-h1">How much of your business depends on you <em>personally</em> showing up?</h1>
 
-            <p class="diag-sub">Most SA accountants, attorneys, and financial advisors are running their business from memory. This 10-minute diagnostic tells you exactly which systems would break first — and what it's costing you at your billing rate.</p>
+            <p class="diag-sub">Most SA accountants, attorneys, and financial advisors are running their business from memory. This 10-minute diagnostic tells you exactly which systems would break first, and what it's costing you at your billing rate.</p>
 
             <button id="btn-scroll-form" class="btn-primary" style="font-size:1rem;padding:16px 36px;">
               Start the FREE Diagnostic →
@@ -1039,17 +1039,17 @@ import Scorecard from '../../layouts/Scorecard.astro';
       </div>
     </section>
 
-    <!-- 2. PROBLEM TENSION — copper-tinted band -->
+    <!-- 2. PROBLEM TENSION: copper-tinted band -->
     <section class="sect sect-problem" data-anim="fade-up">
       <div class="sect-inner">
         <h2 class="problem-h2">The invisible drain most business owners don't measure</h2>
-        <p class="problem-p">The average SA professional services firm loses <strong>15–25% of billable hours</strong> annually to admin, compliance paperwork, and client follow-ups that don't require a principal's expertise. At R1,500/hour, that's <strong>R18,000–R30,000 per month</strong> leaving quietly — not in one visible leak, but across dozens of tasks you've stopped noticing.</p>
-        <p class="problem-p">Most businesses also respond to new enquiries in an average of <strong>42 hours</strong>. Firms that respond in under 5 minutes are <strong>21× more likely to convert</strong> that lead. That isn't a staffing problem. It's a systems problem — and it's costing clients you'll never know you lost.</p>
-        <p class="problem-p">The problem isn't your effort. It's that without a clear diagnostic, you don't know which of your 4 AI systems is the actual bottleneck — or in what order to build them.</p>
+        <p class="problem-p">The average SA professional services firm loses <strong>15 to 25% of billable hours</strong> annually to admin, compliance paperwork, and client follow-ups that don't require a principal's expertise. At R1,500/hour, that's <strong>R18,000 to R30,000 per month</strong> leaving quietly, not in one visible leak, but across dozens of tasks you've stopped noticing.</p>
+        <p class="problem-p">Most businesses also respond to new enquiries in an average of <strong>42 hours</strong>. Firms that respond in under 5 minutes are <strong>21× more likely to convert</strong> that lead. That isn't a staffing problem. It's a systems problem, and it's costing clients you'll never know you lost.</p>
+        <p class="problem-p">The problem isn't your effort. It's that without a clear diagnostic, you don't know which of your 4 AI systems is the actual bottleneck, or in what order to build them.</p>
       </div>
     </section>
 
-    <!-- 3. 4-SYSTEM GRID — crimson-tinted band -->
+    <!-- 3. 4-SYSTEM GRID: crimson-tinted band -->
     <section class="sect sect-systems">
       <div class="sect-inner">
         <p class="section-eyebrow-label" style="margin-bottom:1.5rem;">The 4 systems we score</p>
@@ -1072,20 +1072,20 @@ import Scorecard from '../../layouts/Scorecard.astro';
           <div class="sys-cell">
             <p class="sys-cell-num">04</p>
             <p class="sys-cell-name">Time Reclamation</p>
-            <p class="sys-cell-desc">15–25% of billable hours recovered from tasks that never needed a principal.</p>
+            <p class="sys-cell-desc">15 to 25% of billable hours recovered from tasks that never needed a principal.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 4. WHAT YOU'LL KNOW — 2×2 grid -->
+    <!-- 4. WHAT YOU'LL KNOW: 2×2 grid -->
     <section class="sect sect-discover" data-anim="fade-up">
       <div class="sect-inner">
         <p class="section-eyebrow-label" style="margin-bottom:1.5rem;">In 10 minutes you'll know</p>
         <div class="discover-grid">
           <div class="discover-card">
             <p class="discover-num">01</p>
-            <p class="discover-text">Which of your 4 AI systems is the weakest link — and why it's costing more than you think</p>
+            <p class="discover-text">Which of your 4 AI systems is the weakest link, and why it's costing more than you think</p>
           </div>
           <div class="discover-card">
             <p class="discover-num">02</p>
@@ -1093,11 +1093,11 @@ import Scorecard from '../../layouts/Scorecard.astro';
           </div>
           <div class="discover-card">
             <p class="discover-num">03</p>
-            <p class="discover-text">A ranked list of where to start — by time saved and effort required</p>
+            <p class="discover-text">A ranked list of where to start, by time saved and effort required</p>
           </div>
           <div class="discover-card">
             <p class="discover-num">04</p>
-            <p class="discover-text">Whether you're Reactive, Emerging, Leverage, or Mastery — and what the gap looks like</p>
+            <p class="discover-text">Whether you're Reactive, Emerging, Leverage, or Mastery, and what the gap looks like</p>
           </div>
         </div>
       </div>
@@ -1107,16 +1107,16 @@ import Scorecard from '../../layouts/Scorecard.astro';
     <section class="sect" style="padding-top:0;padding-bottom:3rem;">
       <div class="sect-inner" style="text-align:center;">
         <button onclick="document.getElementById('intake-form-section').scrollIntoView({behavior:'smooth'})" class="btn-primary" style="font-size:1rem;padding:14px 32px;">
-          Start the Diagnostic — Free →
+          Start the Diagnostic · Free →
         </button>
         <p style="margin-top:0.6rem;font-family:var(--font-sans);font-size:0.75rem;color:var(--color-smoke);opacity:0.65;">10 minutes. No credit card.</p>
       </div>
     </section>
 
-    <!-- 5. TRUST — copper warm band -->
+    <!-- 5. TRUST: copper warm band -->
     <section class="sect sect-trust">
       <div class="sect-inner">
-        <p class="trust-line" data-anim="fade-up">Only 55% of SA professional services firms have any AI system implemented — the rest are still running on memory and manual follow-up. This diagnostic tells you where your business sits, and what to fix first.</p>
+        <p class="trust-line" data-anim="fade-up">Only 55% of SA professional services firms have any AI system implemented. The rest are still running on memory and manual follow-up. This diagnostic tells you where your business sits, and what to fix first.</p>
         <div class="trust-stats">
           <div data-anim="fade-up" data-anim-delay="1">
             <span class="trust-stat-num"><span data-count="21">21</span>×</span>
@@ -1134,7 +1134,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
       </div>
     </section>
 
-    <!-- 6. INTAKE FORM — elevated dark band -->
+    <!-- 6. INTAKE FORM: elevated dark band -->
     <section class="sect sect-form" id="intake-form-section" data-anim="fade-up">
       <div class="sect-inner">
         <div class="intake-card">
@@ -1165,7 +1165,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
               <input type="checkbox" id="intake-consent" required />
               <label for="intake-consent">I agree to receive my diagnostic results and occasional insights from Cobus van Vuuren. Unsubscribe anytime.</label>
             </div>
-            <p class="popia-note">Your answers are confidential and never shared. This assessment works at the process level — we never ask for client data, financial records, or anything POPIA-sensitive.</p>
+            <p class="popia-note">Your answers are confidential and never shared. This assessment works at the process level. We never ask for client data, financial records, or anything POPIA-sensitive.</p>
             <p id="intake-error" style="display:none;font-family:var(--font-sans);font-size:0.8rem;color:var(--color-crimson);margin-top:0.75rem;"></p>
             <button type="submit" class="btn-primary intake-submit">Start My Diagnostic →</button>
           </form>
@@ -1216,7 +1216,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
     <div id="extra-screen" class="question-card" style="display:none;">
       <span class="question-optional-badge">Optional</span>
       <p class="question-text" id="extra-question"></p>
-      <textarea class="extra-textarea" id="extra-textarea" placeholder="Type your answer here — or skip if it's not relevant."></textarea>
+      <textarea class="extra-textarea" id="extra-textarea" placeholder="Type your answer here, or skip if it's not relevant."></textarea>
       <div class="nav-row">
         <button class="btn-back" id="btn-extra-back">← Back</button>
         <button class="btn-primary" id="btn-extra-next">Next →</button>
@@ -1251,13 +1251,13 @@ const SYSTEMS = [
     label: 'Intelligence Capture',
     intro: {
       headline: '"Your business can\'t grow faster than its memory."',
-      body: 'Most businesses carry critical context — client history, commitments, follow-ups — in the principal\'s head. When that context isn\'t captured, it leaks. Leads fall through. Clients feel forgotten. Time is wasted retrieving what should already be known.',
+      body: 'Most businesses carry critical context (client history, commitments, follow-ups) in the principal\'s head. When that context isn\'t captured, it leaks. Leads fall through. Clients feel forgotten. Time is wasted retrieving what should already be known.',
     },
     questions: [
-      { text: 'My business captures every enquiry — calls, emails, WhatsApp — in one place, without anyone having to remember to log it.', type: 'freq' },
+      { text: 'My business captures every enquiry (calls, emails, WhatsApp) in one place, without anyone having to remember to log it.', type: 'freq' },
       { text: 'I can pull up a client\'s full history (what was promised, what was discussed) in under 60 seconds.', type: 'yesno' },
       { text: 'Every active client has a documented profile: their situation, outstanding items, and communication preferences.', type: 'yesno' },
-      { text: 'When a potential client contacts us, the same information is captured every time — regardless of who answers.', type: 'freq' },
+      { text: 'When a potential client contacts us, the same information is captured every time, regardless of who answers.', type: 'freq' },
       { text: 'My mental bandwidth isn\'t consumed by trying to remember client context, commitments, or follow-ups.', type: 'scale' },
     ],
   },
@@ -1265,12 +1265,12 @@ const SYSTEMS = [
     label: 'Decision Speed',
     intro: {
       headline: '"Speed-to-lead wins the client. Speed-to-decision keeps the team running."',
-      body: 'Research shows the average professional services firm responds to new enquiries in 42 hours — with a 21× conversion lift for firms that respond in under 5 minutes. Decision Speed is about removing the principal as the bottleneck to both external responsiveness and internal operational flow.',
+      body: 'Research shows the average professional services firm responds to new enquiries in 42 hours, with a 21× conversion lift for firms that respond in under 5 minutes. Decision Speed is about removing the principal as the bottleneck to both external responsiveness and internal operational flow.',
     },
     questions: [
-      { text: 'New enquiries receive a substantive response within 2 hours — without needing me personally to step in.', type: 'yesno' },
+      { text: 'New enquiries receive a substantive response within 2 hours, without needing me personally to step in.', type: 'yesno' },
       { text: 'My team handles common client questions and requests without escalating to me.', type: 'freq' },
-      { text: 'I\'ve documented criteria for the decisions my team faces most often — they rarely need to ask me.', type: 'scale' },
+      { text: 'I\'ve documented criteria for the decisions my team faces most often, and they rarely need to ask me.', type: 'scale' },
       { text: 'I make fewer operational decisions than a year ago. More runs on agreed processes.', type: 'yesno' },
       { text: 'Fewer than 3 situations per week require the business to wait on my personal decision.', type: 'yesno' },
     ],
@@ -1279,13 +1279,13 @@ const SYSTEMS = [
     label: 'Process Independence',
     intro: {
       headline: '"Every process that only lives in your head is a liability."',
-      body: 'Professional services principals are often the only person who knows how something is done. That works — until it doesn\'t. Process Independence means turning tacit knowledge into documented, repeatable systems your team can run without you.',
+      body: 'Professional services principals are often the only person who knows how something is done. That works, until it doesn\'t. Process Independence means turning tacit knowledge into documented, repeatable systems your team can run without you.',
     },
     questions: [
       { text: 'When we repeat a process more than twice, we document it so anyone on the team can follow it.', type: 'freq' },
-      { text: 'Core recurring tasks — billing, client onboarding, compliance checks, reporting — have a documented process anyone can follow.', type: 'yesno' },
+      { text: 'Core recurring tasks (billing, client onboarding, compliance checks, reporting) have a documented process anyone can follow.', type: 'yesno' },
       { text: 'We can take on a new client without me personally managing every step of their onboarding.', type: 'yesno' },
-      { text: 'If I was unavailable for a week, my team would know exactly what to do — without calling me.', type: 'yesno' },
+      { text: 'If I was unavailable for a week, my team would know exactly what to do, without calling me.', type: 'yesno' },
       { text: 'Building documented processes in my business feels normal, not like extra work.', type: 'scale' },
     ],
   },
@@ -1293,14 +1293,14 @@ const SYSTEMS = [
     label: 'Time Reclamation',
     intro: {
       headline: '"You can\'t leverage what you\'re still doing yourself."',
-      body: 'Research shows professional services firms lose 15–25% of billable hours annually to tasks that don\'t require the principal\'s expertise — admin, reporting, compliance paperwork, client follow-ups. Time Reclamation is about identifying those leaks and systematically closing them.',
+      body: 'Research shows professional services firms lose 15 to 25% of billable hours annually to tasks that don\'t require the principal\'s expertise: admin, reporting, compliance paperwork, client follow-ups. Time Reclamation is about identifying those leaks and systematically closing them.',
     },
     questions: [
       { text: 'I\'ve identified and quantified how many hours per week I spend on tasks that don\'t require my professional expertise.', type: 'scale' },
       { text: 'I regularly review whether tasks on my plate could be handled by a documented system or a team member.', type: 'freq' },
-      { text: 'I\'ve moved at least one major recurring task off my plate in the past 3 months — delegated or automated.', type: 'yesno' },
+      { text: 'I\'ve moved at least one major recurring task off my plate in the past 3 months, delegated or automated.', type: 'yesno' },
       { text: 'My business can function for at least 3 days without my direct input.', type: 'yesno' },
-      { text: 'I have a clear picture of what my business looks like when it runs without me — and I\'m actively building toward it.', type: 'yesno' },
+      { text: 'I have a clear picture of what my business looks like when it runs without me, and I\'m actively building toward it.', type: 'yesno' },
     ],
   },
 ];
@@ -1320,17 +1320,17 @@ const PROFILES = [
     question: 'How many people work in your business, including you?',
     options: [
       { text: 'Just me', tag: 'solo' },
-      { text: '2–4', tag: 'micro' },
-      { text: '5–15', tag: 'sweet-spot' },
-      { text: '16–50', tag: 'mid' },
+      { text: '2 to 4', tag: 'micro' },
+      { text: '5 to 15', tag: 'sweet-spot' },
+      { text: '16 to 50', tag: 'mid' },
       { text: '51+', tag: 'large' },
     ],
   },
   {
     question: 'What\'s the single biggest thing stopping your business from running the way you envisioned when you started?',
     options: [
-      { text: 'Too much work runs through me personally — I\'m the bottleneck', tag: 'owner-bottleneck' },
-      { text: 'Systems aren\'t in place — things fall through the cracks', tag: 'no-systems' },
+      { text: 'Too much work runs through me personally, I\'m the bottleneck', tag: 'owner-bottleneck' },
+      { text: 'Systems aren\'t in place, things fall through the cracks', tag: 'no-systems' },
       { text: 'Too busy to properly handle the leads I already have', tag: 'lead-overflow' },
       { text: 'All of the above', tag: 'all-of-above' },
     ],
@@ -1346,7 +1346,7 @@ const LETTERS = ['A', 'B', 'C', 'D', 'E'];
 const YESNO_OPTIONS = [
   { text: 'Not yet', value: 0 },
   { text: 'Getting there', value: 5 },
-  { text: 'Yes — nailed it', value: 10 },
+  { text: 'Yes, nailed it', value: 10 },
 ];
 const FREQ_OPTIONS = [
   { text: 'Never', value: 0 },
@@ -1364,9 +1364,9 @@ const SCALE_OPTIONS = [
 ];
 const SYSTEM_STATS = [
   'Businesses with automated enquiry capture close 2× more new clients on average.',
-  'Responding in under 5 min = 21× more conversions — vs the SA average of 42 hours.',
+  'Responding in under 5 min = 21× more conversions, vs the SA average of 42 hours.',
   '85% of owner-bottleneck businesses have zero documented core processes.',
-  '15–25% of billable hours are lost annually to admin that doesn\'t need the principal.',
+  '15 to 25% of billable hours are lost annually to admin that doesn\'t need the principal.',
 ];
 
 // ── STATE ─────────────────────────────────────────────────────
@@ -1463,25 +1463,35 @@ function renderProfileScreen(step) {
   const p = PROFILES[step];
   profileQuestion.textContent = p.question;
   profileChoices.innerHTML = '';
+  profileChoices.setAttribute('role', 'radiogroup');
+  profileChoices.setAttribute('aria-labelledby', 'profile-question');
   btnProfileNext.disabled = true;
   btnProfileNext.style.display = 'none';
 
   p.options.forEach((opt, idx) => {
     const btn = document.createElement('button');
     btn.className = 'choice-card';
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('type', 'button');
     btn.innerHTML = `<span class="choice-label">${LETTERS[idx]}</span><span class="choice-radio"></span><span>${opt.text}</span>`;
     btn.dataset.tag = opt.tag;
 
     const savedTag = Object.values(state.profile)[step];
-    if (savedTag === opt.tag) {
+    const isSelected = savedTag === opt.tag;
+    btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+    if (isSelected) {
       btn.classList.add('selected');
       btnProfileNext.style.display = 'inline-block';
       btnProfileNext.disabled = false;
     }
 
     btn.addEventListener('click', () => {
-      profileChoices.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+      profileChoices.querySelectorAll('.choice-card').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-checked', 'false');
+      });
       btn.classList.add('selected');
+      btn.setAttribute('aria-checked', 'true');
       const keys = ['type', 'size', 'pain'];
       state.profile[keys[step]] = opt.tag;
       saveState(state);
@@ -1503,6 +1513,8 @@ function renderScoredChoices(step, type) {
   const savedVal = state.answers[`q${step}`];
 
   scoredChoices.className = type;
+  scoredChoices.setAttribute('role', 'radiogroup');
+  scoredChoices.setAttribute('aria-labelledby', 'scored-question');
   if (type === 'yesno') {
     scoredChoices.style.display = 'grid';
   } else {
@@ -1515,16 +1527,24 @@ function renderScoredChoices(step, type) {
   opts.forEach((opt) => {
     const btn = document.createElement('button');
     btn.className = 'choice-card';
+    btn.setAttribute('role', 'radio');
+    btn.setAttribute('type', 'button');
+    const isSelected = savedVal === opt.value;
+    btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
     if (type === 'scale') {
       btn.innerHTML = `<span class="scale-num">${opt.text}</span><span class="scale-sub">${opt.sub || ''}</span>`;
     } else {
       btn.innerHTML = `<span>${opt.text}</span>`;
     }
-    if (savedVal === opt.value) btn.classList.add('selected');
+    if (isSelected) btn.classList.add('selected');
 
     btn.addEventListener('click', () => {
-      scoredChoices.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+      scoredChoices.querySelectorAll('.choice-card').forEach(c => {
+        c.classList.remove('selected');
+        c.setAttribute('aria-checked', 'false');
+      });
       btn.classList.add('selected');
+      btn.setAttribute('aria-checked', 'true');
       state.answers[`q${step}`] = opt.value;
       saveState(state);
       btnScoredNext.style.display = 'inline-block';
