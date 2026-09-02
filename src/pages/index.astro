@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import FireBackground from '../components/FireBackground.astro';
 
 const articles = [
   {
@@ -304,10 +305,11 @@ const schema = {
   <!-- HERO                                      -->
   <!-- ══════════════════════════════════════════ -->
   <section class="relative min-h-screen overflow-hidden">
+    <FireBackground />
     <div class="hero-bloom"></div>
 
     <!-- Full-width centered text: no portrait in hero -->
-    <div class="relative flex items-center min-h-screen">
+    <div class="relative flex items-center min-h-screen" style="z-index: 2;">
       <div class="w-full max-w-4xl mx-auto flex flex-col justify-center pt-28 pb-20 px-8 sm:px-12 lg:px-16">
 
         <div class="eyebrow mb-8">
