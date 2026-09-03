@@ -1214,7 +1214,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
 
     <!-- Optional extra questions -->
     <div id="extra-screen" class="question-card" style="display:none;">
-      <span class="question-optional-badge">Optional</span>
+      <span class="question-optional-badge" id="extra-optional-badge">Optional</span>
       <p class="question-text" id="extra-question"></p>
       <textarea class="extra-textarea" id="extra-textarea" placeholder="Type your answer here, or skip if it's not relevant."></textarea>
       <div class="nav-row">
@@ -1337,8 +1337,8 @@ const PROFILES = [
   },
 ];
 
+const PRE_SCORED_QUESTION = { key: 'extra1', text: "Before we start, in your own words: what's the one thing about your business that, if it changed, would make the biggest difference to you?" };
 const EXTRA_QUESTIONS = [
-  { key: 'extra1', text: "What's the one thing about your business that, if it changed, would make the biggest difference to you?" },
   { key: 'extra2', text: 'What else do we need to know about your business or situation?' },
 ];
 
@@ -1444,6 +1444,7 @@ const scoredChoices = document.getElementById('scored-choices');
 const extraScreen   = document.getElementById('extra-screen');
 const extraQuestion = document.getElementById('extra-question');
 const extraTextarea = document.getElementById('extra-textarea');
+const extraOptionalBadge = document.getElementById('extra-optional-badge');
 const btnExtraBack  = document.getElementById('btn-extra-back');
 const btnExtraNext  = document.getElementById('btn-extra-next');
 
@@ -1587,10 +1588,27 @@ function renderScoredScreen(step) {
   hide(profileScreen, extraScreen);
 }
 
+function renderExtra1Screen() {
+  extraQuestion.textContent = PRE_SCORED_QUESTION.text;
+  extraTextarea.value = state.extra.extra1 || '';
+  extraOptionalBadge.style.display = 'none';
+
+  systemLabel.textContent = 'Before we start';
+  stepCount.textContent = '';
+  progressFill.style.width = '0%';
+  hide(systemIntro);
+
+  btnExtraBack.disabled = false;
+  show(extraScreen);
+  hide(profileScreen, scoredScreen);
+  extraTextarea.focus();
+}
+
 function renderExtraScreen(step) {
   const q = EXTRA_QUESTIONS[step];
   extraQuestion.textContent = q.text;
   extraTextarea.value = state.extra[q.key] || '';
+  extraOptionalBadge.style.display = '';
 
   systemLabel.textContent = 'Almost done';
   stepCount.textContent = 'Optional';
@@ -1607,6 +1625,7 @@ function showPhase() {
   hide(landing, quiz, calculating);
   if (state.phase === 'landing') { show(landing); return; }
   if (state.phase === 'profile') { show(quiz); hide(scoredScreen, extraScreen); renderProfileScreen(state.profileStep); return; }
+  if (state.phase === 'extra1')  { show(quiz); hide(profileScreen, scoredScreen); renderExtra1Screen(); return; }
   if (state.phase === 'scored')  { show(quiz); hide(profileScreen, extraScreen); renderScoredScreen(state.scoredStep); return; }
   if (state.phase === 'extra')   { show(quiz); hide(profileScreen, scoredScreen); renderExtraScreen(state.extraStep); return; }
   if (state.phase === 'calculating') { show(calculating); setTimeout(finishAndRedirect, 1800); return; }
@@ -1620,6 +1639,8 @@ function finishAndRedirect() {
   const bn    = s.indexOf(Math.min(...s)) + 1;
   const tier  = total <= 50 ? 'reactive' : total <= 100 ? 'emerging' : total <= 150 ? 'leverage' : 'mastery';
   const type  = state.profile.type || 'other';
+  const size  = state.profile.size || '';
+  const pain  = state.profile.pain || '';
 
   fetch('/api/lead-capture', {
     method: 'POST',
@@ -1627,13 +1648,22 @@ function finishAndRedirect() {
     body: JSON.stringify({
       name: state.name || '', email: state.email || '',
       phone: state.phone || '', website: state.website || '',
-      score: total, tier, type,
+      score: total, tier, type, size, pain,
       s1: s[0], s2: s[1], s3: s[2], s4: s[3], bn,
       answers: state.answers || {},
       extra1: state.extra?.extra1 || '', extra2: state.extra?.extra2 || '',
     }),
     keepalive: true,
   }).catch(() => {});
+
+  // Separate, longer-lived key: results.astro reads this to build the
+  // seesaw (highest/lowest individual answer), then clears it itself.
+  // STORAGE_KEY below is cleared immediately since it only drives quiz-resume.
+  try {
+    sessionStorage.setItem('cvv_diagnostic_result', JSON.stringify({
+      answers: state.answers || {}, type, size, pain,
+    }));
+  } catch {}
 
   sessionStorage.removeItem(STORAGE_KEY);
   window.location.href = `/score/results?score=${total}&tier=${tier}&s1=${s[0]}&s2=${s[1]}&s3=${s[2]}&s4=${s[3]}&bn=${bn}&type=${encodeURIComponent(type)}&name=${encodeURIComponent(state.name || '')}`;
@@ -1709,10 +1739,26 @@ btnProfileNext.addEventListener('click', () => {
     saveState(state);
     renderProfileScreen(state.profileStep);
   } else {
-    state.phase = 'scored';
-    state.scoredStep = 0;
+    state.phase = 'extra1';
     saveState(state);
     showPhase();
+
+    // Profile is fully answered at this point (type/size/pain) but the
+    // lead may abandon before finishing the 20 scored questions, which is
+    // the only other point that posts to the server. Capture it now so
+    // that data isn't lost for abandoners.
+    fetch('/api/lead-capture', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: state.name || '', email: state.email || '',
+        phone: state.phone || '', website: state.website || '',
+        score: null, tier: null,
+        type: state.profile.type || 'other',
+        size: state.profile.size || '', pain: state.profile.pain || '',
+      }),
+      keepalive: true,
+    }).catch(() => {});
   }
 });
 

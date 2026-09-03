@@ -433,6 +433,7 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   .cta-block.reactive,
   .cta-block.emerging,
+  .cta-block.leverage,
   .cta-block.mastery {
     background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.07);
@@ -580,18 +581,6 @@ import Scorecard from '../../layouts/Scorecard.astro';
   }
   @media (max-width: 600px) {
     .testimonials-grid { grid-template-columns: 1fr; }
-  }
-
-  /* Video embed */
-  .video-slot {
-    border: 1px dashed rgba(255,255,255,0.12);
-    border-radius: 10px;
-    padding: 2rem;
-    text-align: center;
-    margin-bottom: 1.5rem;
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    color: rgba(94,90,86,0.5);
   }
 
   @media (max-width: 560px) {
@@ -819,6 +808,19 @@ const SYSTEM_NAMES  = ['Intelligence Capture', 'Decision Speed', 'Process Indepe
 const TIERS_ORDER   = ['reactive', 'emerging', 'leverage', 'mastery'];
 const TIERS_LABELS  = ['Reactive', 'Emerging', 'Leverage', 'Mastery'];
 
+// Shared cost-of-gap formula — MUST stay identical to the copy in
+// functions/api/lead-capture.js (buildLeadEmail), or the page and the
+// results email quote different rand figures for the same lead. Shown as
+// a range (4 to 4.33 weeks/month) rather than a single decimal-precision
+// number: a 20-question self-assessment can't defensibly claim more
+// precision than that.
+const HOURLY_RATE_ZAR = 1500;
+function costRange(hoursPerWeek) {
+  const monthlyLow  = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4);
+  const monthlyHigh = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4.33);
+  return { monthlyLow, monthlyHigh, annualLow: monthlyLow * 12, annualHigh: monthlyHigh * 12 };
+}
+
 const TIER_DATA = {
   reactive: {
     badge: 'REACTIVE',
@@ -866,23 +868,34 @@ function getSysLabel(score) {
   return               { cls: 'label-needs',      text: 'Needs attention',  fbIdx: 2 };
 }
 
+function scrollToAuditBottom() {
+  const el = document.getElementById('audit-bottom-section');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
+function secondaryLinksRow(labelPrefix, center) {
+  const justify = center ? 'justify-content:center;' : '';
+  return `
+        <div class="btn-row" style="margin-top:0.85rem;${justify}">
+          <a href="https://tidycal.com/cobus/meeting" class="btn-ghost-dark" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'call_booking_click', event_category:'CTA', event_label:'${labelPrefix}-call'})">Not 100% sure? Book a call →</a>
+          <a href="https://wa.me/27600553283" class="btn-ghost-dark" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'whatsapp_click', event_category:'CTA', event_label:'${labelPrefix}-whatsapp'})">Chat on WhatsApp →</a>
+        </div>`;
+}
+
 function buildCTA(tier, score, name) {
   if (tier === 'reactive') {
     return `
       <div class="cta-block reactive">
         <h2 class="cta-h2">The foundation isn't built yet, and that's exactly where the leverage is hiding.</h2>
-        <p class="cta-body">Most businesses at this stage try to bolt AI onto chaos. The move that creates the most lasting leverage is simpler: start with these three foundation steps.</p>
+        <p class="cta-body">Start with these three foundation steps yourself, they cost nothing but time.</p>
         <ul class="tips-list">
           <li class="tip-item"><span class="tip-num">1</span><span class="tip-text">Get your client contact list into one place before any automation. A messy list makes every system downstream worse.</span></li>
           <li class="tip-item"><span class="tip-num">2</span><span class="tip-text">Document one recurring task this week: any task you do more than twice a month. Take a voice note, have AI transcribe it. That's your first system.</span></li>
           <li class="tip-item"><span class="tip-num">3</span><span class="tip-text">Measure your response time to new enquiries for one week. Write it down. That number alone will show you your highest-leverage starting point.</span></li>
         </ul>
-        <p class="cta-body">Want weekly business systems insights delivered to your inbox?</p>
-        <div class="btn-row">
-          <a href="https://cobusvanvuuren.com" class="btn-primary">Get Weekly Insights →</a>
-        </div>
+        <p class="cta-body">Or skip the guesswork. The assessment below is exactly this: finding out which of the three matters most for your specific business, and what order to build them in.</p>
         <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid rgba(255,255,255,0.06);">
-          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Follow along on LinkedIn. I share what I'm learning building better business systems for SA owner-operators.</p>
+          <p style="font-family:var(--font-sans);font-size:0.85rem;color:var(--color-smoke);line-height:1.6;margin-bottom:0.75rem;">Prefer to go slower first? Follow along on LinkedIn, I share what I'm learning building better business systems for SA owner-operators.</p>
           <a href="https://www.linkedin.com/in/cobusvanvuuren/" class="btn-ghost-dark" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         </div>
       </div>`;
@@ -894,25 +907,33 @@ function buildCTA(tier, score, name) {
         <h2 class="cta-h2">You've started. But your systems aren't wired together yet.</h2>
         <p class="cta-body">Most businesses at this level try to fix everything at once.</p>
         <p class="seq-callout">The gap between Emerging and Leverage isn't effort, it's sequence.</p>
-        <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds. Ready to map exactly what to build, in the right order?</p>
+        <p class="cta-body">Your bottleneck is identified above. Fixing it first means everything else compounds.</p>
+        <div class="btn-row">
+          <a href="javascript:void(0)" class="btn-primary" onclick="scrollToAuditBottom()">See what closing that gap looks like →</a>
+        </div>
       </div>`;
   }
 
   if (tier === 'leverage') {
-    return '';
+    return `
+      <div class="cta-block leverage">
+        <h2 class="cta-h2">Real systems in 2 to 3 areas. One clear bottleneck holding the rest back.</h2>
+        <p class="cta-body">You've done the hard part already. What's left isn't a full rebuild, it's closing a specific, identified gap.</p>
+        <div class="btn-row">
+          <a href="javascript:void(0)" class="btn-primary" onclick="scrollToAuditBottom()">See what closing that gap is worth →</a>
+        </div>
+      </div>`;
   }
 
   return `
     <div class="cta-block mastery">
       <h2 class="cta-h2">Your business is already in the top tier. Here's how to compound it.</h2>
       <p class="cta-body">Mastery-level businesses don't need a diagnostic. They need an implementation partner. The next leverage point is building the specific AI systems that move your highest-ROI processes from manual to automatic.</p>
-      <div class="video-slot" id="video-embed">
-        Video coming soon. Check back after launch.
-      </div>
       <div class="btn-row">
-        <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-mastery-cta'})">Claim Your Assessment →</a>
-        <a href="https://wa.me/27600553283" class="btn-ghost-dark" target="_blank" rel="noopener">Chat on WhatsApp first →</a>
+        <a href="/audit" class="btn-primary" onclick="window.dataLayer && window.dataLayer.push({event:'audit_cta_click', event_category:'CTA', event_label:'results-mastery-cta'})">See the Business Automation Assessment →</a>
       </div>
+      <p style="font-family:var(--font-sans);font-size:0.8rem;color:var(--color-smoke);margin-top:0.6rem;">Already sure? <a href="https://paystack.com/buy/business-ai-audit" style="color:var(--color-smoke);text-decoration:underline;" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'results-mastery-skip'})">Skip ahead to checkout →</a></p>
+      ${secondaryLinksRow('results-mastery')}
       <p class="guarantee-note">Money Back Guaranteed. No Questions Asked.</p>
     </div>`;
 }
@@ -983,11 +1004,11 @@ function buildNarrativeBridge(tier) {
   return bridges[tier] || bridges.reactive;
 }
 
-function buildAuditBottomSection(tier, name, monthlyLoss) {
+function buildAuditBottomSection(tier, name, gapRange) {
   if (tier === 'mastery') return '';
 
   const namePrefix = name ? `${name}, ` : '';
-  const monthlyStr = 'R' + monthlyLoss.toLocaleString();
+  const rangeStr = `R${gapRange.monthlyLow.toLocaleString()}&ndash;R${gapRange.monthlyHigh.toLocaleString()}`;
 
   const headlines = {
     leverage: `${namePrefix}here's the cost of your remaining gap.`,
@@ -995,13 +1016,16 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
     reactive: `${namePrefix}here's where the leverage is hiding.`,
   };
   const subs = {
-    leverage: `You're leaving an estimated ${monthlyStr}/month on the table in unrealised billing. The Business Automation Assessment maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
+    leverage: `You're leaving roughly ${rangeStr}/month on the table in unrealised billing (based on an R${HOURLY_RATE_ZAR.toLocaleString()}/hr rate, your own actual rate may differ). The Business Automation Assessment maps exactly which hours those are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to recover them.`,
     emerging: `You're 60% of the way to a Leverage-tier business. The Business Automation Assessment maps the exact sequence, what to wire together first, so the systems you've already built start compounding instead of sitting in isolation.`,
-    reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing. The Business Automation Assessment maps exactly where those hours are, prices them at your billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
+    reactive: `Every hour your business spends on work that doesn't require your expertise is billing you for nothing, roughly ${rangeStr}/month at an R${HOURLY_RATE_ZAR.toLocaleString()}/hr rate. The Business Automation Assessment maps exactly where those hours are, prices them at your actual billing rate, and delivers a ranked, costed 90-day plan to fix it.`,
   };
 
   const h = headlines[tier] || headlines.reactive;
   const s = subs[tier]     || subs.reactive;
+
+  const skipAhead = tier === 'leverage' ? `
+        <p style="font-family:var(--font-sans);font-size:0.8rem;color:var(--color-smoke);text-align:center;margin-top:0.6rem;">Already sure? <a href="https://paystack.com/buy/business-ai-audit" style="color:var(--color-smoke);text-decoration:underline;" onclick="window.dataLayer && window.dataLayer.push({event:'assessment_checkout_click', event_category:'CTA', event_label:'results-bottom-${tier}-skip'})">Skip ahead to checkout →</a></p>` : '';
 
   return `
     <div class="audit-bottom-section">
@@ -1020,8 +1044,10 @@ function buildAuditBottomSection(tier, name, monthlyLoss) {
         </div>
         <p class="audit-bottom-price"><strong>R5,497</strong>, once-off, no retainer</p>
         <div class="btn-row" style="justify-content:center;">
-          <a href="https://paystack.com/buy/business-ai-audit" class="btn-primary" onclick="gtag&&gtag('event','audit_cta_click',{event_category:'CTA',event_label:'results-bottom'})">Claim Your Assessment →</a>
+          <a href="/audit" class="btn-primary" onclick="window.dataLayer && window.dataLayer.push({event:'audit_cta_click', event_category:'CTA', event_label:'results-bottom-${tier}'})">See the Full Assessment →</a>
         </div>
+        ${skipAhead}
+        ${secondaryLinksRow('results-bottom-' + tier, true)}
         <p class="guarantee-note" style="text-align:center;">Money Back Guaranteed. No Questions Asked.</p>
       </div>
     </div>`;
@@ -1079,17 +1105,20 @@ function render() {
     return `<div class="tier-step"><span class="tier-step-name${isActive ? ' active' : ''}">${TIERS_LABELS[i]}</span>${arrow}</div>`;
   }).join('');
 
-  // Cost of gap: two hero stat blocks
-  const hoursWasted = ((200 - score) / 10).toFixed(1);
-  const monthlyLoss = Math.round((200 - score) / 10 * 1500 * 4);
+  // Cost of gap: two hero stat blocks. hoursPerWeek and the cost range are
+  // whole numbers, not decimal-precision — a 20-question self-assessment
+  // can't defensibly claim more precision than that.
+  const hoursPerWeek = Math.round((200 - score) / 10);
+  const gapRange = costRange(hoursPerWeek);
+  const monthlyMidRounded = Math.round((gapRange.monthlyLow + gapRange.monthlyHigh) / 2 / 100) * 100;
   document.getElementById('cost-gap').innerHTML = `
     <div class="cost-stat">
-      <span class="cost-stat-num">${hoursWasted} hrs</span>
+      <span class="cost-stat-num">${hoursPerWeek} hrs</span>
       <span class="cost-stat-label">per week left on the table</span>
     </div>
     <div class="cost-stat">
-      <span class="cost-stat-num">R${monthlyLoss.toLocaleString()}</span>
-      <span class="cost-stat-label">per month in unrealised billing</span>
+      <span class="cost-stat-num">~R${monthlyMidRounded.toLocaleString()}</span>
+      <span class="cost-stat-label">estimated per month, see below</span>
     </div>
   `;
 
@@ -1097,11 +1126,11 @@ function render() {
   const weakestScore = Math.min(...s);
   if (weakestScore < 25) {
     const potentialGain = 25 - weakestScore;
-    const hoursGained = (potentialGain / 5).toFixed(1);
-    const annualValue = Math.round(potentialGain / 5 * 4 * 1500 * 12);
+    const hoursGainedPerWeek = Math.round(potentialGain / 5);
+    const potRange = costRange(hoursGainedPerWeek);
     const potEl = document.getElementById('improvement-potential');
-    if (potEl) {
-      potEl.innerHTML = `If you improve your weakest system to <strong>Leverage</strong> level, you recover an estimated <strong>${hoursGained} hrs/week</strong>, worth <strong>R${annualValue.toLocaleString()}/year</strong> at an R1,500/hr billing rate.`;
+    if (potEl && hoursGainedPerWeek > 0) {
+      potEl.innerHTML = `If you improve your weakest system to <strong>Leverage</strong> level, you recover an estimated <strong>${hoursGainedPerWeek} hrs/week</strong>, worth roughly <strong>R${potRange.annualLow.toLocaleString()}&ndash;R${potRange.annualHigh.toLocaleString()}/year</strong> at an R${HOURLY_RATE_ZAR.toLocaleString()}/hr billing rate.`;
       potEl.style.display = 'block';
     }
   }
@@ -1195,7 +1224,7 @@ function render() {
 
   // Full-width audit section at page bottom
   document.getElementById('audit-bottom-section').innerHTML =
-    buildAuditBottomSection(tier, name, monthlyLoss);
+    buildAuditBottomSection(tier, name, gapRange);
 }
 
 render();

@@ -70,7 +70,22 @@ const ANSWER_LABELS = {
 
 // Live price: keep in sync with the assessment price in audit.astro and terms.astro
 const ASSESSMENT_PRICE_ZAR = 5497;
+
+// Shared cost-of-gap formula — MUST stay identical to the copy in
+// src/pages/score/results.astro (costRange), or the results page and this
+// email quote different rand figures for the same lead. Shown as a range
+// (4 to 4.33 weeks/month) rather than a single decimal-precision number: a
+// 20-question self-assessment can't defensibly claim more precision than that.
+const HOURLY_RATE_ZAR = 1500;
+function costRange(hoursPerWeek) {
+  const monthlyLow  = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4);
+  const monthlyHigh = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4.33);
+  return { monthlyLow, monthlyHigh, annualLow: monthlyLow * 12, annualHigh: monthlyHigh * 12 };
+}
+
 const VALID_TIERS = new Set(['reactive', 'emerging', 'leverage', 'mastery']);
+const VALID_SIZES = new Set(['solo', 'micro', 'sweet-spot', 'mid', 'large']);
+const VALID_PAINS = new Set(['owner-bottleneck', 'no-systems', 'lead-overflow', 'all-of-above']);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isPlainObject(v) {
@@ -93,6 +108,13 @@ function clampInt(v, min, max) {
   const n = Math.round(v);
   if (n < min || n > max) return null;
   return n;
+}
+
+// Only accepts one of the diagnostic's own fixed tag values (never an
+// attacker-supplied string) for a column that's echoed back into internal
+// emails and used for routing.
+function validTag(v, allowedSet) {
+  return typeof v === 'string' && allowedSet.has(v) ? v : null;
 }
 
 export async function onRequestPost(context) {
@@ -119,6 +141,8 @@ export async function onRequestPost(context) {
   const phone   = cleanString(body.phone, 60);
   const website = cleanString(body.website, 300);
   const type    = cleanString(body.type, 60);
+  const size    = validTag(body.size, VALID_SIZES);
+  const pain    = validTag(body.pain, VALID_PAINS);
   const extra1  = cleanString(body.extra1, 2000, { stripControl: false }) || '';
   const extra2  = cleanString(body.extra2, 2000, { stripControl: false }) || '';
 
@@ -149,30 +173,35 @@ export async function onRequestPost(context) {
     if (isCompletion) {
       await env.DB.prepare(`
         INSERT INTO cvv_leads
-          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, answers, captured_at, completed_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, team_size, primary_pain, answers, captured_at, completed_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(email) DO UPDATE SET
           score = excluded.score, tier = excluded.tier,
           s1 = excluded.s1, s2 = excluded.s2,
           s3 = excluded.s3, s4 = excluded.s4,
           bottleneck = excluded.bottleneck,
-          business_type = excluded.business_type,
+          business_type = COALESCE(excluded.business_type, cvv_leads.business_type),
+          team_size = COALESCE(excluded.team_size, cvv_leads.team_size),
+          primary_pain = COALESCE(excluded.primary_pain, cvv_leads.primary_pain),
           answers = excluded.answers,
           completed_at = excluded.completed_at
       `).bind(
         name, email, phone || null, website || null,
         score, tier,
         s1 ?? null, s2 ?? null, s3 ?? null, s4 ?? null,
-        bn ?? null, type || null,
+        bn ?? null, type || null, size, pain,
         answers ? JSON.stringify({ ...answers, extra1: extra1 || '', extra2: extra2 || '' }) : null,
         now, now
       ).run();
     } else {
       await env.DB.prepare(`
-        INSERT INTO cvv_leads (name, email, phone, website, captured_at)
-        VALUES (?, ?, ?, ?, ?)
-        ON CONFLICT(email) DO NOTHING
-      `).bind(name, email, phone || null, website || null, now).run();
+        INSERT INTO cvv_leads (name, email, phone, website, business_type, team_size, primary_pain, captured_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(email) DO UPDATE SET
+          business_type = COALESCE(excluded.business_type, cvv_leads.business_type),
+          team_size = COALESCE(excluded.team_size, cvv_leads.team_size),
+          primary_pain = COALESCE(excluded.primary_pain, cvv_leads.primary_pain)
+      `).bind(name, email, phone || null, website || null, type || null, size, pain, now).run();
     }
   } catch (err) {
     console.error('D1 error:', err);
@@ -251,9 +280,8 @@ async function sendEmail(apiKey, { from, to, subject, html }) {
 function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg, greeting }) {
   const hoursPerWeek = Math.round((200 - score) / 10);
   const daysPerYear  = Math.round(hoursPerWeek * 52 / 8);
-  const monthlyCost  = Math.round(hoursPerWeek * 1500 * 4.33);
-  const annualCost   = monthlyCost * 12;
-  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(ASSESSMENT_PRICE_ZAR / (hoursPerWeek * 1500 / 5)) : null;
+  const gapRange     = costRange(hoursPerWeek);
+  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(ASSESSMENT_PRICE_ZAR / (hoursPerWeek * HOURLY_RATE_ZAR / 5)) : null;
   const fmt = n => n.toLocaleString('en-ZA');
 
   const systems = [
@@ -289,15 +317,15 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
     </tr>
     <tr>
       <td style="font-family:Arial,sans-serif;font-size:14px;color:#7A766E;padding:7px 0;">Monthly billing left on the table</td>
-      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(monthlyCost)}</td>
+      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(gapRange.monthlyLow)}&ndash;R${fmt(gapRange.monthlyHigh)}</td>
     </tr>
     <tr>
       <td style="font-family:Arial,sans-serif;font-size:14px;color:#7A766E;padding:7px 0;">Annual cost of doing nothing</td>
-      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(annualCost)}</td>
+      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(gapRange.annualLow)}&ndash;R${fmt(gapRange.annualHigh)}</td>
     </tr>
   </table>
-  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R1,500/hour, the assessment pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
-  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R1,500/hr SA professional services rate.</p>
+  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R${HOURLY_RATE_ZAR.toLocaleString()}/hour, the assessment pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R${HOURLY_RATE_ZAR.toLocaleString()}/hr rate, roughly what this ICP bills for their own time, your actual rate may be higher or lower.</p>
 </td></tr>` : '';
 
   // encodeURIComponent, not escapeHtml, because these values populate a
