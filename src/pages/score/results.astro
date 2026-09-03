@@ -425,6 +425,48 @@ import Scorecard from '../../layouts/Scorecard.astro';
     border-radius: 6px;
   }
 
+  /* ── SEESAW (strongest + weakest answer) ── */
+  .seesaw-block {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .seesaw-line {
+    font-family: var(--font-sans);
+    font-size: 0.92rem;
+    color: var(--color-smoke);
+    line-height: 1.65;
+    margin-bottom: 0.6rem;
+  }
+  .seesaw-line:last-child { margin-bottom: 0; }
+  .seesaw-tag {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.5rem;
+    border-radius: 3px;
+    margin-right: 0.5rem;
+  }
+  .seesaw-tag.strong { color: #6bbf7a; border: 1px solid rgba(107,191,122,0.4); }
+  .seesaw-tag.weak   { color: var(--color-crimson); border: 1px solid rgba(200,40,44,0.4); }
+
+  /* ── COHORT LINE ── */
+  .cohort-line {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--color-smoke);
+    line-height: 1.6;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .cohort-line strong { color: var(--color-ivory); }
+
   /* ── CTA BLOCKS ── */
   .cta-block {
     border-radius: 16px;
@@ -782,6 +824,9 @@ import Scorecard from '../../layouts/Scorecard.astro';
         Note for professional services firms: the assessment operates at the workflow level, not the data level. No client files, no financial records, no POPIA exposure.
       </p>
 
+      <!-- SEESAW: strongest + weakest individual answer, in their own words -->
+      <div id="seesaw-block" style="display:none;"></div>
+
       <!-- ACTIONABLE INSIGHTS -->
       <div class="insights-section anim-fade-up" id="insights-block" style="animation-delay:0.4s;"></div>
 
@@ -819,6 +864,66 @@ function costRange(hoursPerWeek) {
   const monthlyLow  = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4);
   const monthlyHigh = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4.33);
   return { monthlyLow, monthlyHigh, annualLow: monthlyLow * 12, annualHigh: monthlyHigh * 12 };
+}
+
+// Verbatim copy of functions/api/lead-capture.js's QUESTIONS + ANSWER_LABELS
+// — the seesaw (strongest/weakest individual answer) needs the same text
+// and label lookup the email uses, or the two surfaces could describe the
+// same answer differently. Keep both copies in sync if the wording changes
+// (the 20 scored statements themselves are a hard constraint and don't
+// change independently of this).
+const QUESTIONS = [
+  { key: 'q0',  sys: 1, text: 'Captures every enquiry in one place without manual logging',          type: 'freq'  },
+  { key: 'q1',  sys: 1, text: 'Can pull full client history in under 60 seconds',                    type: 'yesno' },
+  { key: 'q2',  sys: 1, text: 'Every active client has a documented profile',                        type: 'yesno' },
+  { key: 'q3',  sys: 1, text: 'Same information captured regardless of who answers',                 type: 'freq'  },
+  { key: 'q4',  sys: 1, text: 'Mental bandwidth not consumed by remembering client context',         type: 'scale' },
+  { key: 'q5',  sys: 2, text: 'New enquiries get substantive response within 2 hours without me',   type: 'yesno' },
+  { key: 'q6',  sys: 2, text: 'Team handles common questions without escalating to me',              type: 'freq'  },
+  { key: 'q7',  sys: 2, text: 'Documented criteria for common decisions, team rarely asks me',     type: 'scale' },
+  { key: 'q8',  sys: 2, text: 'Fewer operational decisions than a year ago',                         type: 'yesno' },
+  { key: 'q9',  sys: 2, text: 'Fewer than 3 situations per week require my personal decision',      type: 'yesno' },
+  { key: 'q10', sys: 3, text: 'Repeated processes get documented so anyone can follow',              type: 'freq'  },
+  { key: 'q11', sys: 3, text: 'Core recurring tasks have documented processes',                      type: 'yesno' },
+  { key: 'q12', sys: 3, text: 'Can onboard a new client without managing every step personally',    type: 'yesno' },
+  { key: 'q13', sys: 3, text: "Team knows what to do if I'm unavailable for a week",                type: 'yesno' },
+  { key: 'q14', sys: 3, text: 'Building documented processes feels normal, not extra work',          type: 'scale' },
+  { key: 'q15', sys: 4, text: 'Identified and quantified hours/week on non-expertise tasks',         type: 'scale' },
+  { key: 'q16', sys: 4, text: 'Regularly review whether tasks could be delegated or automated',     type: 'freq'  },
+  { key: 'q17', sys: 4, text: 'Moved at least one major recurring task off plate in past 3 months', type: 'yesno' },
+  { key: 'q18', sys: 4, text: 'Business can function 3 days without my direct input',               type: 'yesno' },
+  { key: 'q19', sys: 4, text: 'Clear picture of business running without me, actively building',   type: 'yesno' },
+];
+const ANSWER_LABELS = {
+  yesno: { 0: 'Not yet', 5: 'Getting there', 10: 'Yes, nailed it' },
+  freq:  { 0: 'Never', 2: 'Rarely', 5: 'Sometimes', 8: 'Often', 10: 'Always' },
+  scale: { 0: '1 (Not at all)', 2: '2', 5: '3 (Partially)', 8: '4', 10: '5 (Completely)' },
+};
+
+// Strongest + weakest individual answer, named together (the "seesaw" —
+// per _methods/scorecard-marketing.md: naming the high score first gives a
+// hit of pride, the low one curiosity-tinged unease, and the pair together
+// is what makes someone want the next sentence. A list of only weak
+// answers reads as a form letter, not a personalised read).
+function buildSeesaw(answers) {
+  if (!answers || typeof answers !== 'object') return '';
+  const entries = QUESTIONS
+    .map(q => ({ ...q, val: answers[q.key] }))
+    .filter(q => typeof q.val === 'number');
+  if (entries.length < 2) return '';
+
+  const highest = entries.reduce((a, b) => (b.val > a.val ? b : a));
+  const lowest  = entries.reduce((a, b) => (b.val < a.val ? b : a));
+  if (highest.key === lowest.key) return '';
+
+  const label = (q) => (ANSWER_LABELS[q.type] && ANSWER_LABELS[q.type][q.val]) || '';
+
+  return `
+    <div class="seesaw-block anim-fade-up">
+      <p class="section-eyebrow">In your own answers</p>
+      <p class="seesaw-line"><span class="seesaw-tag strong">Strongest</span> &ldquo;${highest.text}&rdquo; &mdash; ${label(highest)}.</p>
+      <p class="seesaw-line"><span class="seesaw-tag weak">Weakest</span> &ldquo;${lowest.text}&rdquo; &mdash; ${label(lowest)}.</p>
+    </div>`;
 }
 
 const TIER_DATA = {
@@ -1180,6 +1285,37 @@ function render() {
   // POPIA note
   if (type === 'prof-services') {
     document.getElementById('popia-note').style.display = 'block';
+  }
+
+  // Seesaw (strongest + weakest individual answer) + cohort median.
+  // Reads the separate sessionStorage key finishAndRedirect() wrote (the
+  // quiz-resume key is already cleared by that point) and clears it here,
+  // since this page is the only consumer.
+  let diagnosticResult = null;
+  try {
+    const raw = sessionStorage.getItem('cvv_diagnostic_result');
+    if (raw) diagnosticResult = JSON.parse(raw);
+  } catch {}
+  sessionStorage.removeItem('cvv_diagnostic_result');
+
+  const seesawEl = document.getElementById('seesaw-block');
+  if (diagnosticResult && diagnosticResult.answers) {
+    const seesawHtml = buildSeesaw(diagnosticResult.answers);
+    if (seesawHtml) {
+      seesawEl.innerHTML = seesawHtml;
+      seesawEl.style.display = 'block';
+
+      // Cohort median: non-blocking, appended once it resolves so the
+      // seesaw itself never waits on a network round-trip.
+      fetch('/data/score-benchmarks.json').then(r => r.ok ? r.json() : null).then(bench => {
+        if (!bench || !bench.n || typeof bench.overall_median !== 'number') return;
+        const cmp = score > bench.overall_median ? 'above' : score < bench.overall_median ? 'below' : 'at';
+        const cohortEl = document.createElement('p');
+        cohortEl.className = 'cohort-line';
+        cohortEl.innerHTML = `Your score is <strong>${cmp} the median</strong> of the <strong>${bench.n}</strong> business owners who've completed this diagnostic so far.`;
+        seesawEl.appendChild(cohortEl);
+      }).catch(() => {});
+    }
   }
 
   // Actionable insights
