@@ -246,7 +246,7 @@ export async function onRequestPost(context) {
         from: 'Cobus van Vuuren <ask@cobusvanvuuren.com>',
         to: email,
         subject: `Your AI Readiness Score: ${score}/200`,
-        html: buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg: { ...msg, body: bodyText }, greeting, answers }),
+        html: buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg: { ...msg, body: bodyText }, greeting, answers, extra1 }),
       }),
       sendEmail(env.RESEND_API_KEY, {
         from: 'CVV Diagnostic <ask@cobusvanvuuren.com>',
@@ -313,7 +313,75 @@ function getSeesaw(answers) {
   return { highestText: highest.text, highestLabel: label(highest), lowestText: lowest.text, lowestLabel: label(lowest) };
 }
 
-function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg, greeting, answers }) {
+// Verbatim copy of results.astro's buildInsights() data — the tier-specific
+// "what to do with this" section. Previously only shown on the results
+// page; a lead who doesn't click back through never saw it, so the email
+// gave less value than the page it linked to. Kept in sync manually (same
+// browser/Worker split as QUESTIONS/ANSWER_LABELS above).
+const INSIGHTS_DATA = {
+  reactive: {
+    headline: 'Here is where to start first',
+    lead: (bn0) => `One focused fix creates more leverage than ten scattered improvements. Your ${bn0} system is the entry point, because fixing it first makes everything else easier to build on.`,
+    actions: (bn0) => [
+      { title: `This week: get your ${bn0} data into one place`, detail: 'Before any automation can work, the raw information needs to be in a system, not split across emails, WhatsApp threads, and your memory. Even a spreadsheet beats nothing.' },
+      { title: 'Time one task you repeat more than twice a month', detail: 'Set a timer. Write down how long it actually takes. That number is your baseline, and it will immediately show you your fastest-return automation opportunity.' },
+      { title: 'Find the one question your team asks you most often', detail: 'That recurring question is a process waiting to be documented. Answer it in a voice note this week. An AI can transcribe it in five minutes. That is your first system.' },
+    ],
+  },
+  emerging: {
+    headline: 'You are 60% there. Here is what the next 40% looks like',
+    lead: (bn0) => `The gap between Emerging and Leverage is not effort, it is sequence. Your ${bn0} system is still creating friction. Fix the connection points first, then the coverage.`,
+    actions: (bn0) => [
+      { title: `Identify one manual step in your ${bn0} system`, detail: 'Find the step that still requires you personally: an approval, a response, a decision. That is your highest-leverage automation target right now.' },
+      { title: 'Connect your two best-working systems', detail: 'You have isolated pockets of process. Pick the two that are most developed and find the handoff point between them. Automating that single handoff compounds everything downstream.' },
+      { title: 'Set a 2-week deadline for one process handoff', detail: 'Pick one task your team currently asks you about. Document the decision logic and hand it off completely within 14 days. Measure whether the quality holds.' },
+    ],
+  },
+  leverage: {
+    headline: 'You are ahead of most SA businesses. Here is the ceiling you are about to hit',
+    lead: (bn0) => `Real systems in 2-3 areas. The gaps are specific now, and closing them is a focused build, not a full overhaul. Your ${bn0} system is where the remaining drag is concentrated.`,
+    actions: (bn0) => [
+      { title: `Review your ${bn0} system for steps still needing human sign-off`, detail: 'List every approval or decision in that system that goes through you. Each one is a bottleneck. Rank them by frequency, highest-frequency goes first.' },
+      { title: 'Find one metric you are not tracking that would prove the system is working', detail: `At this level, what gets measured gets improved. If you cannot quantify whether your ${bn0} system is performing, you cannot optimise it.` },
+      { title: 'Calculate the cost of the remaining gap', detail: 'Take your hourly billing rate. Multiply by the hours per month still spent on non-expertise tasks. That number is what the assessment finds, and what the guarantee covers.' },
+    ],
+  },
+  mastery: {
+    headline: 'Here is how systems at this level stay optimised',
+    lead: () => 'You are operating at a level most SA businesses never reach. The risk at Mastery is not under-automation, it is drift. Systems that are not actively maintained start to decay.',
+    actions: (bn0) => [
+      { title: 'Run a quarterly review of all active automations', detail: 'Schedule 90 minutes every quarter to review what is running. Check for drift: processes that have changed but whose automations have not kept up. Prune anything that has become noise.' },
+      { title: 'Identify one human bottleneck to systematise before year-end', detail: 'Even at Mastery, there is always one high-frequency task that still runs through a person. Find it. Systematising it is the highest-leverage move available to you right now.' },
+      { title: `Build a measurement framework for your ${bn0} system`, detail: 'Define 2-3 KPIs that tell you in real time whether the system is performing. If you cannot see it, you cannot improve it, and drift is invisible until it costs you a client.' },
+    ],
+  },
+};
+
+function buildInsightsEmailHtml(tier, bottleneckName) {
+  const d = INSIGHTS_DATA[tier] || INSIGHTS_DATA.reactive;
+  const actions = d.actions(bottleneckName);
+  const rows = actions.map((a, i) => `
+    <tr>
+      <td valign="top" style="padding:0 12px 16px 0;width:28px;">
+        <div style="width:24px;height:24px;border-radius:50%;background:#C8282C;color:#F7F4EF;font-family:Arial,sans-serif;font-size:12px;font-weight:700;text-align:center;line-height:24px;">${i + 1}</div>
+      </td>
+      <td valign="top" style="padding-bottom:16px;">
+        <p style="font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:#F7F4EF;margin:0 0 4px;line-height:1.4;">${a.title}</p>
+        <p style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;margin:0;line-height:1.6;">${a.detail}</p>
+      </td>
+    </tr>`).join('');
+
+  return `
+<tr><td style="height:28px;"></td></tr>
+<tr><td>
+  <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#A67C52;margin:0 0 8px;">What to do with this</p>
+  <p style="font-family:Arial,sans-serif;font-size:16px;font-weight:700;color:#F7F4EF;margin:0 0 10px;line-height:1.3;">${d.headline}</p>
+  <p style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;margin:0 0 18px;line-height:1.7;">${d.lead(bottleneckName)}</p>
+  <table width="100%" cellpadding="0" cellspacing="0">${rows}</table>
+</td></tr>`;
+}
+
+function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg, greeting, answers, extra1 }) {
   const hoursPerWeek = Math.round((200 - score) / 10);
   const daysPerYear  = Math.round(hoursPerWeek * 52 / 8);
   const gapRange     = costRange(hoursPerWeek);
@@ -340,6 +408,19 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
   const closingQuestion = seesaw
     ? `You flagged &ldquo;${escapeHtml(seesaw.lowestText)}&rdquo; as a weak spot. Roughly what's that costing you a week, in time or missed follow-up?`
     : `Is fixing this something you want done in the next 90 days, or is it more exploratory for now?`;
+
+  const insightsHtml = buildInsightsEmailHtml(tier, bottleneckName);
+
+  // Echoes their own free-text answer back to them -- previously only
+  // Cobus's internal notification email showed this; the lead who wrote it
+  // never saw it referenced back, which is the easiest "this was read"
+  // signal available.
+  const extra1Callout = extra1 && extra1.trim() ? `
+<tr><td style="height:20px;"></td></tr>
+<tr><td style="border-left:2px solid #A67C52;padding:2px 0 2px 16px;">
+  <p style="font-family:Arial,sans-serif;font-size:12px;color:#7A766E;margin:0 0 4px;">You told us the one thing that would make the biggest difference:</p>
+  <p style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-style:italic;margin:0;line-height:1.6;">&ldquo;${escapeHtml(extra1.trim())}&rdquo;</p>
+</td></tr>` : '';
 
   const systems = [
     { name: 'Intelligence Capture', score: s1 },
@@ -414,6 +495,7 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
   <p style="font-family:Arial,sans-serif;font-size:18px;font-weight:700;color:#F7F4EF;margin:0 0 16px;">${msg.headline}</p>
   <p style="font-family:Arial,sans-serif;font-size:18px;color:#7A766E;line-height:1.9;margin:0 0 8px;">${msg.body}</p>
 </td></tr>
+${extra1Callout}
 
 ${costBox}
 
@@ -424,6 +506,7 @@ ${costBox}
   <table width="100%" cellpadding="0" cellspacing="0">${systemRows}</table>
 </td></tr>
 ${seesawBox}
+${insightsHtml}
 <tr><td style="height:32px;"></td></tr>
 
 <tr><td style="text-align:center;">
