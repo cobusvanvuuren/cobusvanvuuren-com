@@ -1,3 +1,5 @@
+import { BENCHMARKS } from './_benchmarks.js';
+
 const SYSTEM_NAMES = [
   'Intelligence Capture',
   'Decision Speed',
@@ -12,30 +14,44 @@ const TIER_LABELS = {
   mastery: 'Mastery',
 };
 
+// secondaryCta/secondaryCtaUrl: the "not sure yet" call booking option,
+// shown under the primary assessment CTA on every tier (added 2026-09-04 —
+// these fields were already rendered by buildLeadEmail's template but
+// never populated anywhere, so the button never appeared).
+const CALL_BOOKING_URL = 'https://tidycal.com/cobus/meeting';
+
 const TIER_MESSAGES = {
   reactive: {
     headline: 'Your business is running on manual everything.',
     body: 'The good news: the leverage is huge once you start building. You have four clear systems to address, and the wins come fast in the first 90 days.',
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Not 100% sure yet? Book a call first',
+    secondaryCtaUrl: CALL_BOOKING_URL,
   },
   emerging: {
     headline: "You've started, but the systems aren't talking to each other yet.",
     body: "You have pieces in place but they're working in isolation. The next step is integration: getting your systems to work as one unit instead of four separate tools.",
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Not 100% sure yet? Book a call first',
+    secondaryCtaUrl: CALL_BOOKING_URL,
   },
   leverage: {
     headline: 'Real systems in 2 to 3 areas. One clear bottleneck holding the rest back.',
     body: null, // built dynamically using bottleneckName
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Not 100% sure yet? Book a call first',
+    secondaryCtaUrl: CALL_BOOKING_URL,
   },
   mastery: {
     headline: 'AI is woven into your operating system.',
     body: "You're in the top tier. The next move is a partnership to push further: AI-native processes that most firms won't reach for another 3 years.",
     cta: 'Claim Your Assessment',
     ctaUrl: 'https://cobusvanvuuren.com/audit',
+    secondaryCta: 'Not 100% sure yet? Book a call first',
+    secondaryCtaUrl: CALL_BOOKING_URL,
   },
 };
 
@@ -70,7 +86,22 @@ const ANSWER_LABELS = {
 
 // Live price: keep in sync with the assessment price in audit.astro and terms.astro
 const ASSESSMENT_PRICE_ZAR = 5497;
+
+// Shared cost-of-gap formula — MUST stay identical to the copy in
+// src/pages/score/results.astro (costRange), or the results page and this
+// email quote different rand figures for the same lead. Shown as a range
+// (4 to 4.33 weeks/month) rather than a single decimal-precision number: a
+// 20-question self-assessment can't defensibly claim more precision than that.
+const HOURLY_RATE_ZAR = 1500;
+function costRange(hoursPerWeek) {
+  const monthlyLow  = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4);
+  const monthlyHigh = Math.round(hoursPerWeek * HOURLY_RATE_ZAR * 4.33);
+  return { monthlyLow, monthlyHigh, annualLow: monthlyLow * 12, annualHigh: monthlyHigh * 12 };
+}
+
 const VALID_TIERS = new Set(['reactive', 'emerging', 'leverage', 'mastery']);
+const VALID_SIZES = new Set(['solo', 'micro', 'sweet-spot', 'mid', 'large']);
+const VALID_PAINS = new Set(['owner-bottleneck', 'no-systems', 'lead-overflow', 'all-of-above']);
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function isPlainObject(v) {
@@ -93,6 +124,13 @@ function clampInt(v, min, max) {
   const n = Math.round(v);
   if (n < min || n > max) return null;
   return n;
+}
+
+// Only accepts one of the diagnostic's own fixed tag values (never an
+// attacker-supplied string) for a column that's echoed back into internal
+// emails and used for routing.
+function validTag(v, allowedSet) {
+  return typeof v === 'string' && allowedSet.has(v) ? v : null;
 }
 
 export async function onRequestPost(context) {
@@ -119,6 +157,8 @@ export async function onRequestPost(context) {
   const phone   = cleanString(body.phone, 60);
   const website = cleanString(body.website, 300);
   const type    = cleanString(body.type, 60);
+  const size    = validTag(body.size, VALID_SIZES);
+  const pain    = validTag(body.pain, VALID_PAINS);
   const extra1  = cleanString(body.extra1, 2000, { stripControl: false }) || '';
   const extra2  = cleanString(body.extra2, 2000, { stripControl: false }) || '';
 
@@ -149,30 +189,35 @@ export async function onRequestPost(context) {
     if (isCompletion) {
       await env.DB.prepare(`
         INSERT INTO cvv_leads
-          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, answers, captured_at, completed_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          (name, email, phone, website, score, tier, s1, s2, s3, s4, bottleneck, business_type, team_size, primary_pain, answers, captured_at, completed_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON CONFLICT(email) DO UPDATE SET
           score = excluded.score, tier = excluded.tier,
           s1 = excluded.s1, s2 = excluded.s2,
           s3 = excluded.s3, s4 = excluded.s4,
           bottleneck = excluded.bottleneck,
-          business_type = excluded.business_type,
+          business_type = COALESCE(excluded.business_type, cvv_leads.business_type),
+          team_size = COALESCE(excluded.team_size, cvv_leads.team_size),
+          primary_pain = COALESCE(excluded.primary_pain, cvv_leads.primary_pain),
           answers = excluded.answers,
           completed_at = excluded.completed_at
       `).bind(
         name, email, phone || null, website || null,
         score, tier,
         s1 ?? null, s2 ?? null, s3 ?? null, s4 ?? null,
-        bn ?? null, type || null,
+        bn ?? null, type || null, size, pain,
         answers ? JSON.stringify({ ...answers, extra1: extra1 || '', extra2: extra2 || '' }) : null,
         now, now
       ).run();
     } else {
       await env.DB.prepare(`
-        INSERT INTO cvv_leads (name, email, phone, website, captured_at)
-        VALUES (?, ?, ?, ?, ?)
-        ON CONFLICT(email) DO NOTHING
-      `).bind(name, email, phone || null, website || null, now).run();
+        INSERT INTO cvv_leads (name, email, phone, website, business_type, team_size, primary_pain, captured_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(email) DO UPDATE SET
+          business_type = COALESCE(excluded.business_type, cvv_leads.business_type),
+          team_size = COALESCE(excluded.team_size, cvv_leads.team_size),
+          primary_pain = COALESCE(excluded.primary_pain, cvv_leads.primary_pain)
+      `).bind(name, email, phone || null, website || null, type || null, size, pain, now).run();
     }
   } catch (err) {
     console.error('D1 error:', err);
@@ -201,13 +246,13 @@ export async function onRequestPost(context) {
         from: 'Cobus van Vuuren <ask@cobusvanvuuren.com>',
         to: email,
         subject: `Your AI Readiness Score: ${score}/200`,
-        html: buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg: { ...msg, body: bodyText }, greeting }),
+        html: buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg: { ...msg, body: bodyText }, greeting, answers }),
       }),
       sendEmail(env.RESEND_API_KEY, {
         from: 'CVV Diagnostic <ask@cobusvanvuuren.com>',
         to: 'cobus@rhinoberry.co.za',
         subject: `New CVV Lead: ${name} scored ${score}/200 (${tierLabel})`,
-        html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }),
+        html: buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, size, pain, answers, extra1, extra2 }),
       }),
     ]);
   }
@@ -248,13 +293,53 @@ async function sendEmail(apiKey, { from, to, subject, html }) {
 
 // ── email templates ───────────────────────────────────────────
 
-function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg, greeting }) {
+// Strongest + weakest individual answer, named together — same "seesaw"
+// logic as src/pages/score/results.astro's buildSeesaw(), kept in sync
+// deliberately rather than sharing a module (browser page vs. Worker
+// function are different runtimes here). Returns null rather than a
+// partial result when there isn't enough data to compare.
+function getSeesaw(answers) {
+  if (!answers || typeof answers !== 'object') return null;
+  const entries = QUESTIONS
+    .map(q => ({ ...q, val: answers[q.key] }))
+    .filter(q => typeof q.val === 'number');
+  if (entries.length < 2) return null;
+
+  const highest = entries.reduce((a, b) => (b.val > a.val ? b : a));
+  const lowest  = entries.reduce((a, b) => (b.val < a.val ? b : a));
+  if (highest.key === lowest.key) return null;
+
+  const label = (q) => (ANSWER_LABELS[q.type] && ANSWER_LABELS[q.type][q.val]) || '';
+  return { highestText: highest.text, highestLabel: label(highest), lowestText: lowest.text, lowestLabel: label(lowest) };
+}
+
+function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, msg, greeting, answers }) {
   const hoursPerWeek = Math.round((200 - score) / 10);
   const daysPerYear  = Math.round(hoursPerWeek * 52 / 8);
-  const monthlyCost  = Math.round(hoursPerWeek * 1500 * 4.33);
-  const annualCost   = monthlyCost * 12;
-  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(ASSESSMENT_PRICE_ZAR / (hoursPerWeek * 1500 / 5)) : null;
+  const gapRange     = costRange(hoursPerWeek);
+  const paybackDays  = hoursPerWeek > 0 ? Math.ceil(ASSESSMENT_PRICE_ZAR / (hoursPerWeek * HOURLY_RATE_ZAR / 5)) : null;
   const fmt = n => n.toLocaleString('en-ZA');
+  const seesaw = getSeesaw(answers);
+
+  const cohortLine = (BENCHMARKS && typeof BENCHMARKS.overall_median === 'number' && BENCHMARKS.n)
+    ? `<p style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;margin:14px 0 0;padding-top:14px;border-top:1px solid #1e1c1a;">Your score is ${score > BENCHMARKS.overall_median ? 'above' : score < BENCHMARKS.overall_median ? 'below' : 'at'} the median of the ${BENCHMARKS.n} business owners who've completed this diagnostic so far.</p>`
+    : '';
+
+  const seesawBox = seesaw ? `
+<tr><td style="height:28px;"></td></tr>
+<tr><td style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:6px;padding:22px;">
+  <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#A67C52;margin:0 0 14px;">In your own answers</p>
+  <p style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;line-height:1.7;margin:0 0 10px;"><span style="color:#2d7a4f;font-weight:700;">Strongest:</span> &ldquo;${escapeHtml(seesaw.highestText)}&rdquo; &mdash; ${escapeHtml(seesaw.highestLabel)}.</p>
+  <p style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;line-height:1.7;margin:0;"><span style="color:#C8282C;font-weight:700;">Weakest:</span> &ldquo;${escapeHtml(seesaw.lowestText)}&rdquo; &mdash; ${escapeHtml(seesaw.lowestLabel)}.</p>
+  ${cohortLine}
+</td></tr>` : '';
+
+  // Qualifying question, not a survey question ("reply with a number" gets
+  // low-effort replies that don't tell Cobus whether to spend time on the
+  // lead). Anchored to their actual weakest answer when we have one.
+  const closingQuestion = seesaw
+    ? `You flagged &ldquo;${escapeHtml(seesaw.lowestText)}&rdquo; as a weak spot. Roughly what's that costing you a week, in time or missed follow-up?`
+    : `Is fixing this something you want done in the next 90 days, or is it more exploratory for now?`;
 
   const systems = [
     { name: 'Intelligence Capture', score: s1 },
@@ -289,15 +374,15 @@ function buildLeadEmail({ name, email, score, tier, tierLabel, s1, s2, s3, s4, b
     </tr>
     <tr>
       <td style="font-family:Arial,sans-serif;font-size:14px;color:#7A766E;padding:7px 0;">Monthly billing left on the table</td>
-      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(monthlyCost)}</td>
+      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(gapRange.monthlyLow)}&ndash;R${fmt(gapRange.monthlyHigh)}</td>
     </tr>
     <tr>
       <td style="font-family:Arial,sans-serif;font-size:14px;color:#7A766E;padding:7px 0;">Annual cost of doing nothing</td>
-      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(annualCost)}</td>
+      <td style="font-family:Arial,sans-serif;font-size:14px;color:#F7F4EF;font-weight:700;text-align:right;padding:7px 0;">R${fmt(gapRange.annualLow)}&ndash;R${fmt(gapRange.annualHigh)}</td>
     </tr>
   </table>
-  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R1,500/hour, the assessment pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
-  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R1,500/hr SA professional services rate.</p>
+  ${paybackDays !== null ? `<p style="font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#C8282C;margin:0 0 8px;">At R${HOURLY_RATE_ZAR.toLocaleString()}/hour, the assessment pays for itself in under ${paybackDays} billing day${paybackDays === 1 ? '' : 's'}.</p>` : ''}
+  <p style="font-family:Arial,sans-serif;font-size:11px;color:#3A3530;margin:0;">Based on a conservative R${HOURLY_RATE_ZAR.toLocaleString()}/hr rate, roughly what this ICP bills for their own time, your actual rate may be higher or lower.</p>
 </td></tr>` : '';
 
   // encodeURIComponent, not escapeHtml, because these values populate a
@@ -338,7 +423,7 @@ ${costBox}
   <p style="font-family:Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#A67C52;margin:0 0 8px;">Your four systems</p>
   <table width="100%" cellpadding="0" cellspacing="0">${systemRows}</table>
 </td></tr>
-
+${seesawBox}
 <tr><td style="height:32px;"></td></tr>
 
 <tr><td style="text-align:center;">
@@ -349,6 +434,13 @@ ${msg.secondaryCta ? `
 <tr><td style="text-align:center;">
   <a href="${msg.secondaryCtaUrl}" style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;text-decoration:underline;">${msg.secondaryCta} &rarr;</a>
 </td></tr>` : ''}
+
+<tr><td style="height:36px;"></td></tr>
+
+<tr><td style="background:rgba(255,255,255,0.02);border-radius:6px;padding:18px 20px;">
+  <p style="font-family:Arial,sans-serif;font-size:13px;color:#7A766E;line-height:1.7;margin:0 0 6px;">I read every one of these myself.</p>
+  <p style="font-family:Arial,sans-serif;font-size:15px;color:#F7F4EF;line-height:1.7;margin:0;">${closingQuestion} Just reply, I'll see it.</p>
+</td></tr>
 
 <tr><td style="height:40px;"></td></tr>
 
@@ -362,7 +454,21 @@ ${msg.secondaryCta ? `
 </body></html>`;
 }
 
-function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, answers, extra1, extra2 }) {
+const SIZE_LABELS = { solo: 'Just me', micro: '2 to 4', 'sweet-spot': '5 to 15', mid: '16 to 50', large: '51+' };
+const PAIN_LABELS = {
+  'owner-bottleneck': 'Too much runs through me personally',
+  'no-systems': "Systems aren't in place, things fall through the cracks",
+  'lead-overflow': 'Too busy to handle the leads I already have',
+  'all-of-above': 'All of the above',
+};
+
+function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, s1, s2, s3, s4, bn, bottleneckName, type, size, pain, answers, extra1, extra2 }) {
+  const isCinderella = type === 'prof-services' && size === 'sweet-spot' && pain === 'owner-bottleneck';
+  const seesaw = getSeesaw(answers);
+  const cohortLine = (BENCHMARKS && typeof BENCHMARKS.overall_median === 'number' && BENCHMARKS.n)
+    ? `${score > BENCHMARKS.overall_median ? 'Above' : score < BENCHMARKS.overall_median ? 'Below' : 'At'} the median of ${BENCHMARKS.n} completions`
+    : null;
+
   const systems = [
     { name: 'Intelligence Capture', score: s1 },
     { name: 'Decision Speed', score: s2 },
@@ -409,6 +515,7 @@ function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, 
 <table style="max-width:560px;width:100%;">
 <tr><td>
   <p style="font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:#A67C52;margin:0 0 20px;">New CVV Lead</p>
+  ${isCinderella ? `<p style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#0B0A09;background:#e8a838;display:inline-block;padding:4px 10px;border-radius:4px;margin:0 0 16px;">Cinderella &mdash; prof-services, 5-15 staff, owner-bottleneck</p>` : ''}
 
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
     <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;width:80px;">Name</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;font-weight:700;">${escapeHtml(name)}</td></tr>
@@ -416,12 +523,20 @@ function buildCobusEmail({ name, email, phone, website, score, tier, tierLabel, 
     <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Phone</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${phone ? escapeHtml(phone) : '&mdash;'}</td></tr>
     <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Website</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${website ? escapeHtml(website) : '&mdash;'}</td></tr>
     <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Type</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${type ? escapeHtml(type) : '&mdash;'}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Team size</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${size && SIZE_LABELS[size] ? escapeHtml(SIZE_LABELS[size]) : '&mdash;'}</td></tr>
+    <tr><td style="padding:6px 0;font-size:13px;color:#7A766E;">Biggest blocker</td><td style="padding:6px 0;font-size:13px;color:#F7F4EF;">${pain && PAIN_LABELS[pain] ? escapeHtml(PAIN_LABELS[pain]) : '&mdash;'}</td></tr>
   </table>
 
   <p style="font-size:48px;font-weight:700;color:#F7F4EF;margin:0 0 4px;line-height:1;">${score}<span style="font-size:22px;color:#7A766E;">/200</span></p>
-  <p style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C8282C;margin:0 0 20px;">${tierLabel} &middot; Bottleneck: ${bottleneckName}</p>
+  <p style="font-size:12px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#C8282C;margin:0 0 4px;">${tierLabel} &middot; Bottleneck: ${bottleneckName}</p>
+  ${cohortLine ? `<p style="font-size:12px;color:#7A766E;margin:0 0 20px;">${cohortLine}</p>` : '<div style="height:20px;"></div>'}
 
   <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:32px;">${systemRows}</table>
+
+  ${seesaw ? `
+  <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;margin:0 0 8px;">Seesaw</p>
+  <p style="font-size:13px;color:#F7F4EF;line-height:1.6;margin:0 0 6px;"><span style="color:#2d7a4f;font-weight:700;">Strongest:</span> ${escapeHtml(seesaw.highestText)} &mdash; ${escapeHtml(seesaw.highestLabel)}</p>
+  <p style="font-size:13px;color:#F7F4EF;line-height:1.6;margin:0 0 24px;"><span style="color:#C8282C;font-weight:700;">Weakest:</span> ${escapeHtml(seesaw.lowestText)} &mdash; ${escapeHtml(seesaw.lowestLabel)}</p>` : ''}
 
   <p style="font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#A67C52;margin:0 0 4px;">Full Q&amp;A</p>
   <table width="100%" cellpadding="0" cellspacing="0">${qaHtml}</table>

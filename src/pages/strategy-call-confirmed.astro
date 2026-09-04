@@ -25,8 +25,8 @@ import Base from '../layouts/Base.astro';
 
       <p class="font-sans font-normal text-[#7A766E] text-base leading-[1.80] mb-10">
         Before we talk, it's worth doing the
-        <a href="https://score.cobusvanvuuren.com?utm_source=cobusvanvuuren&utm_medium=website&utm_campaign=confirmed-scorecard" class="text-smoke hover:text-ivory transition-colors underline underline-offset-2" target="_blank" rel="noopener">
-          AI Readiness Scorecard
+        <a href="/score/?utm_source=cobusvanvuuren&utm_medium=website&utm_campaign=confirmed-diagnostic" class="text-smoke hover:text-ivory transition-colors underline underline-offset-2">
+          AI Readiness Diagnostic
         </a>
         if you haven't already. It'll make the call sharper.
       </p>
@@ -40,11 +40,17 @@ import Base from '../layouts/Base.astro';
 </Base>
 
 <script is:inline>
-  if (typeof gtag !== 'undefined') {
-    gtag('event', 'Strategy_Call_booked', {
-      currency: 'ZAR',
-      value: 2500,
-      event_category: 'Conversion'
-    });
-  }
+  // gtag() was never defined on this GTM-only site -- this call has always
+  // thrown a ReferenceError and never fired. GTM's existing "Call booked"
+  // trigger (Page View, URL contains /strategy-call-confirmed) already
+  // covers the conversion event independently of this script, but push a
+  // dataLayer event too so a future GTM trigger can target it directly
+  // rather than relying on a bare pageview match.
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push({
+    event: 'strategy_call_booked',
+    currency: 'ZAR',
+    value: 2500,
+    event_category: 'Conversion'
+  });
 </script>
