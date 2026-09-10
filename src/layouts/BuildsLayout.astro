@@ -8,13 +8,19 @@
 // DOM via client-side JS (anatomy panels, steppers), and Astro's normal
 // scoped-CSS attribute is only applied to elements it compiles from the
 // template, never to elements created with document.createElement/innerHTML.
+interface Crumb { label: string; href?: string }
 interface Props {
   title: string;
   description: string;
-  wordmark?: string;
+  breadcrumb?: Crumb[];
   navLinks?: { href: string; label: string }[];
 }
-const { title, description, wordmark = 'Builds', navLinks = [] } = Astro.props;
+const {
+  title,
+  description,
+  breadcrumb = [{ label: 'Cobus van Vuuren', href: '/' }, { label: 'Builds', href: '/builds/' }],
+  navLinks = [],
+} = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
@@ -58,7 +64,12 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 /* ---------- top nav ---------- */
 .builds-body .topnav{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--rule)}
 .builds-body .topnav .wrap{display:flex;align-items:center;justify-content:space-between;padding:16px 24px;gap:16px}
-.builds-body .wordmark{font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em;text-decoration:none}
+.builds-body .crumb{display:flex;align-items:center;gap:8px;font-size:13px;white-space:nowrap}
+.builds-body .crumb a{text-decoration:none;color:var(--muted-2)}
+.builds-body .crumb a:hover,.builds-body .crumb a:focus-visible{color:var(--ink)}
+.builds-body .crumb .sep{color:var(--muted-2);opacity:.6}
+.builds-body .crumb .current{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:-.02em;color:var(--ink)}
+@media(max-width:520px){.builds-body .crumb a:not(:last-child){display:none}.builds-body .crumb .sep{display:none}}
 .builds-body .navlinks{display:flex;gap:22px;list-style:none;margin:0;padding:0;font-size:13px}
 .builds-body .navlinks a{text-decoration:none;color:var(--muted);border-bottom:1px solid transparent;padding-bottom:2px}
 .builds-body .navlinks a:hover,.builds-body .navlinks a:focus-visible{color:var(--ink);border-color:var(--accent)}
@@ -187,8 +198,14 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .close-sec p{font-size:17px;line-height:1.7;max-width:46ch;margin:0 auto;color:#ffffffc0}
 .builds-body .close-sec .q{margin-top:30px;font-family:var(--display);font-size:22px;color:var(--paper)}
 
-.builds-body footer{padding:28px 0;text-align:center}
-.builds-body footer p{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted-2)}
+.builds-body footer{padding:40px 0;border-top:1px solid var(--rule-soft)}
+.builds-body .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;list-style:none;margin:0 0 18px;padding:0}
+.builds-body .foot-nav a{font-family:var(--display);font-weight:600;font-size:14px;color:var(--ink);text-decoration:none}
+.builds-body .foot-nav a:hover,.builds-body .foot-nav a:focus-visible{color:var(--accent-text)}
+.builds-body .foot-legal{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted-2);text-align:center}
+.builds-body .foot-legal a{color:var(--muted-2);text-decoration:none}
+.builds-body .foot-legal a:hover,.builds-body .foot-legal a:focus-visible{color:var(--ink)}
+.builds-body .foot-legal .dot{opacity:.5}
 
 /* ---------- print ---------- */
 @media print{
@@ -210,7 +227,16 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 
 <nav class="topnav">
   <div class="wrap">
-    <a class="wordmark" href="/builds/">{wordmark}</a>
+    <div class="crumb">
+      {breadcrumb.map((c, i) => (
+        <>
+          {i > 0 && <span class="sep">/</span>}
+          {c.href
+            ? <a href={c.href} class={i === breadcrumb.length - 1 ? 'current' : ''}>{c.label}</a>
+            : <span class="current">{c.label}</span>}
+        </>
+      ))}
+    </div>
     {navLinks.length > 0 && (
       <ul class="navlinks">
         {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
@@ -222,7 +248,25 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 <slot />
 
 <footer>
-  <p class="wrap">RHINOBERRY &middot; BUILDS</p>
+  <div class="wrap">
+    <ul class="foot-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="/articles/">Articles</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/score/">Free Diagnostic</a></li>
+    </ul>
+    <div class="foot-legal">
+      <span>&copy; 2026 Cobus van Vuuren</span>
+      <span class="dot">&middot;</span>
+      <a href="/privacy/">Privacy</a>
+      <span class="dot">&middot;</span>
+      <a href="/terms/">Terms</a>
+      <span class="dot">&middot;</span>
+      <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <span class="dot">&middot;</span>
+      <a href="mailto:cobus@rhinoberry.com">Email</a>
+    </div>
+  </div>
 </footer>
 
 </body>
