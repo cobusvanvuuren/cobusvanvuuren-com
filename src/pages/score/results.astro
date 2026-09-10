@@ -982,7 +982,7 @@ function secondaryLinksRow(labelPrefix, center) {
   const justify = center ? 'justify-content:center;' : '';
   return `
         <div class="btn-row" style="margin-top:0.85rem;${justify}">
-          <a href="https://tidycal.com/cobus/meeting" class="btn-ghost-dark" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'call_booking_click', event_category:'CTA', event_label:'${labelPrefix}-call'})">Not 100% sure? Book a call →</a>
+          <a href="https://tidycal.com/cobus/cvv" class="btn-ghost-dark" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'call_booking_click', event_category:'CTA', event_label:'${labelPrefix}-call'})">Not 100% sure? Book a call →</a>
           <a href="https://wa.me/27600553283" class="btn-ghost-dark" target="_blank" rel="noopener" onclick="window.dataLayer && window.dataLayer.push({event:'whatsapp_click', event_category:'CTA', event_label:'${labelPrefix}-whatsapp'})">Chat on WhatsApp →</a>
         </div>`;
 }

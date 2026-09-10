@@ -18,7 +18,7 @@ const TIER_LABELS = {
 // shown under the primary assessment CTA on every tier (added 2026-09-04 —
 // these fields were already rendered by buildLeadEmail's template but
 // never populated anywhere, so the button never appeared).
-const CALL_BOOKING_URL = 'https://tidycal.com/cobus/meeting';
+const CALL_BOOKING_URL = 'https://tidycal.com/cobus/cvv';
 
 const TIER_MESSAGES = {
   reactive: {
