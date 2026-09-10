@@ -1,0 +1,15 @@
+---
+interface Props {
+  headline: string;
+  linkText?: string;
+  href?: string;
+}
+const { headline, linkText = 'Start with the free diagnostic', href = '/score/' } = Astro.props;
+---
+<section class="cta-sec">
+  <div class="wrap cta-block">
+    <p class="eyebrow">Want this in your business?</p>
+    <h2>{headline}</h2>
+    <a class="cta-link" href={href}>{linkText} &rarr;</a>
+  </div>
+</section>
