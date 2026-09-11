@@ -52,20 +52,48 @@
     const wrap = canvas?.closest('.fire-bg-wrap') as HTMLElement | null;
     if (!canvas || !wrap) return;
 
-    const gl = canvas.getContext('webgl');
+    // Render at half resolution and let the browser bilinear-upscale via CSS --
+    // a soft, scrim-covered flame loses nothing visible and this alone cuts
+    // fragment work 4x.
+    const RES_SCALE = 0.5;
+
+    const gl = canvas.getContext('webgl', {
+      antialias: false,
+      depth: false,
+      stencil: false,
+      alpha: false,
+      powerPreference: 'low-power',
+    });
     if (!gl) {
       wrap.classList.add('fire-fallback');
       canvas.style.display = 'none';
       return;
     }
 
+    // Headless/software rasterizers (Lighthouse, GTmetrix, remote-desktop GPUs)
+    // execute this shader on the CPU main thread -- genuinely too slow there.
+    // Fall back to the static gradient rather than pretend it's fine.
+    const dbgInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    if (dbgInfo) {
+      const renderer = String(gl.getParameter(dbgInfo.UNMASKED_RENDERER_WEBGL) || '');
+      if (/SwiftShader|llvmpipe|Software|Microsoft Basic Render/i.test(renderer)) {
+        wrap.classList.add('fire-fallback');
+        canvas.style.display = 'none';
+        return;
+      }
+    }
+
     function resize() {
       const rect = wrap!.getBoundingClientRect();
-      canvas!.width = Math.max(1, Math.floor(rect.width));
-      canvas!.height = Math.max(1, Math.floor(rect.height));
+      canvas!.width = Math.max(1, Math.floor(rect.width * RES_SCALE));
+      canvas!.height = Math.max(1, Math.floor(rect.height * RES_SCALE));
       gl!.viewport(0, 0, canvas!.width, canvas!.height);
     }
-    window.addEventListener('resize', resize);
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 150);
+    });
 
     const vertSrc = `
 attribute vec2 aPos;
@@ -79,8 +107,9 @@ uniform vec2 uRes;
 uniform float uTime;
 
 vec2 hash2(vec2 p) {
-  p = vec2(dot(p, vec2(127.1, 311.7)), dot(p, vec2(269.5, 183.3)));
-  return -1.0 + 2.0 * fract(sin(p) * 43758.5453123);
+  vec3 p3 = fract(vec3(p.xyx) * vec3(0.1031, 0.1030, 0.0973));
+  p3 += dot(p3, p3.yzx + 33.33);
+  return -1.0 + 2.0 * fract((p3.xx + p3.yz) * p3.zy);
 }
 
 float valueNoise(vec2 p) {
@@ -98,7 +127,7 @@ float fbm(vec2 p) {
   float sum = 0.0;
   float amp = 0.5;
   float freq = 1.0;
-  for (int i = 0; i < 6; i++) {
+  for (int i = 0; i < 4; i++) {
     sum += amp * valueNoise(p * freq);
     freq *= 2.02;
     amp *= 0.5;
@@ -110,7 +139,7 @@ float ridgedFbm(vec2 p) {
   float sum = 0.0;
   float amp = 0.5;
   float freq = 1.0;
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     float n = 1.0 - abs(valueNoise(p * freq));
     n = n * n;
     sum += amp * n;
@@ -141,8 +170,9 @@ void main() {
   intensity *= mix(0.5, 1.0, centerFalloff);
   intensity = pow(intensity, 1.15);
 
-  float streaks = ridgedFbm(warpedP * 2.6 - vec2(0.0, rise * 1.6));
-  intensity -= (1.0 - streaks) * 0.22 * taper;
+  // Reuse the already-computed ridge value for streak detail instead of a
+  // second ridgedFbm evaluation -- visually equivalent, one fewer noise pass.
+  intensity -= (1.0 - ridges) * 0.22 * taper;
   intensity = clamp(intensity, 0.0, 1.0);
 
   // Brand-tuned ramp: near-black base -> crimson (#C8282C) -> copper (#A67C52) -> ivory (#F5F0E8) highlight
@@ -190,28 +220,66 @@ void main() {
     const uTime = gl.getUniformLocation(prog, 'uTime');
 
     resize();
-    const start = performance.now();
+    const startTime = performance.now();
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let running = !document.hidden;
-    document.addEventListener('visibilitychange', () => {
-      running = !document.hidden;
-    });
+
+    // prefers-reduced-motion: paint one static frame and never touch
+    // requestAnimationFrame at all.
+    if (prefersReducedMotion) {
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+      gl.uniform1f(uTime, 0.0);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      return;
+    }
 
     let lastFrame = 0;
     const targetFPS = 30;
     const frameInterval = 1000 / targetFPS;
+    let rafId: number | null = null;
+    let inView = false;
+    let pageVisible = !document.hidden;
 
     function draw(t: number) {
-      requestAnimationFrame(draw);
-      if (!running) return;
+      rafId = requestAnimationFrame(draw);
       if (t - lastFrame < frameInterval) return;
       lastFrame = t;
       gl!.uniform2f(uRes, canvas!.width, canvas!.height);
-      gl!.uniform1f(uTime, prefersReducedMotion ? 0.0 : (t - start) / 1000);
+      gl!.uniform1f(uTime, (t - startTime) / 1000);
       gl!.drawArrays(gl!.TRIANGLES, 0, 3);
     }
-    requestAnimationFrame(draw);
+
+    function startLoop() {
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(draw);
+    }
+    function stop() {
+      if (rafId !== null) cancelAnimationFrame(rafId);
+      rafId = null;
+    }
+    function syncRunning() {
+      if (inView && pageVisible) startLoop();
+      else stop();
+    }
+
+    // Only spend GPU/CPU while the hero is actually on screen.
+    const io = new IntersectionObserver((entries) => {
+      inView = entries.some((e) => e.isIntersecting);
+      syncRunning();
+    }, { threshold: 0 });
+    io.observe(wrap);
+
+    document.addEventListener('visibilitychange', () => {
+      pageVisible = !document.hidden;
+      syncRunning();
+    });
+
+    canvas.addEventListener('webglcontextlost', (e) => {
+      e.preventDefault();
+      stop();
+      wrap!.classList.add('fire-fallback');
+      canvas!.style.display = 'none';
+    });
   }
 
   if (document.readyState === 'loading') {

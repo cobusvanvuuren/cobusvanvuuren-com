@@ -146,14 +146,23 @@ const ogImageURL = new URL(image, Astro.site);
     // Magnetic buttons (desktop only)
     if (window.matchMedia('(pointer: fine)').matches) {
       document.querySelectorAll('.btn-primary, .btn-ghost-dark').forEach(function (btn) {
+        // Cache the rect once on enter -- before any transform is applied --
+        // instead of calling getBoundingClientRect() on every mousemove.
+        // Reading layout mid-move forces a reflow AND reads the button's own
+        // already-transformed box back into the next frame's calculation.
+        var r = null;
+        btn.addEventListener('mouseenter', function () {
+          r = btn.getBoundingClientRect();
+          btn.style.transition = 'transform 0.1s ease';
+        });
         btn.addEventListener('mousemove', function (e) {
-          var r = btn.getBoundingClientRect();
+          if (!r) return;
           var x = ((e.clientX - r.left) / r.width - 0.5) * 9;
           var y = ((e.clientY - r.top) / r.height - 0.5) * 6;
           btn.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-          btn.style.transition = 'transform 0.1s ease';
         });
         btn.addEventListener('mouseleave', function () {
+          r = null;
           btn.style.transform = '';
           btn.style.transition = 'transform 0.45s ease, background-color 0.2s ease, box-shadow 0.2s ease';
         });

@@ -61,16 +61,20 @@
     font-weight: 400;
   }
 
-  /* Film grain */
+  /* Film grain. Sized to 120%/-10% (not 200%/-50%) since grain-shift never
+     translates more than 4% -- a smaller layer is ~2.8x less to rasterize
+     with an identical visible margin. will-change promotes it to its own
+     layer so the shift is a pure composite, not a repaint. */
   body::after {
     content: '';
     position: fixed;
-    inset: -50%;
-    width: 200%;
-    height: 200%;
+    inset: -10%;
+    width: 120%;
+    height: 120%;
     z-index: 9998;
     pointer-events: none;
     opacity: 0.028;
+    will-change: transform;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     animation: grain-shift 0.35s steps(1) infinite;
   }
@@ -100,27 +104,30 @@
     -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 20%, transparent 100%);
   }
 
-  /* Orbs */
+  /* Orbs. No filter: blur() -- animating transform on a blurred element forces
+     Chrome to repaint the blur every frame instead of compositing. The
+     gradients below widen/soften the falloff instead, to approximate the
+     blur's spread without the per-frame repaint cost. will-change promotes
+     each orb to its own layer so orbBreathe (global.css) is a pure composite. */
   .bg-orb {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
+    will-change: transform;
   }
   .bg-orb-crimson {
     top: 5%;
     left: 2%;
     width: 520px;
     height: 520px;
-    background: radial-gradient(circle, rgba(200, 40, 44, 0.08) 0%, transparent 70%);
-    filter: blur(70px);
+    background: radial-gradient(circle, rgba(200, 40, 44, 0.06) 0%, rgba(200, 40, 44, 0.03) 40%, rgba(200, 40, 44, 0.008) 65%, transparent 100%);
   }
   .bg-orb-warm {
     top: 58%;
     right: -5%;
     width: 380px;
     height: 380px;
-    background: radial-gradient(circle, rgba(247, 244, 239, 0.016) 0%, transparent 70%);
-    filter: blur(80px);
+    background: radial-gradient(circle, rgba(247, 244, 239, 0.012) 0%, rgba(247, 244, 239, 0.006) 40%, rgba(247, 244, 239, 0.002) 65%, transparent 100%);
   }
   /* Keep class defined so existing HTML refs don't error, just invisible */
   .bg-orb-accent { display: none; }
@@ -283,4 +290,18 @@
   }
   .bg-orb-crimson { animation: orbBreathe 14s ease-in-out infinite; }
   .bg-orb-warm    { animation: orbBreathe 18s ease-in-out infinite; animation-delay: -6s; }
+}
+
+/* Stop every infinite/looping animation (grain, orbs, cursor blink, shimmer,
+   scroll-reveal transitions) for users who've asked for reduced motion.
+   [data-anim] elements snap straight to their .in-view end state instead of
+   sitting invisible -- the reveal is still driven by the same
+   IntersectionObserver in Base.astro, just with an imperceptible transition. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
