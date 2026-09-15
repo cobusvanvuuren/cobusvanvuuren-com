@@ -1,0 +1,266 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="Meerkat — a quiet watch on the competitor you can't watch every day"
+  description="Meerkat tracks a competitor's traffic, rankings, backlinks, site changes, and AI-search visibility every quarter, and flags the moment something changes enough to matter."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">A quiet watch on the competitor you can't watch every day</p>
+      <h1>By the time you notice a competitor moving, <em>they've already moved</em>.</h1>
+      <p class="lede">Meerkat tracks a competitor's traffic, rankings, backlinks, site changes, and AI-search visibility every quarter, and flags the moment something changes enough to be worth a second look. Nobody has to check manually.</p>
+      <p class="category-line"><strong>A quarterly watch run for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get a flagged finding when something moves, and someone who can walk you through what it means.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/meerkat-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Somewhere, a competitor is already moving, and nobody on your side is watching.</h2>
+      <p>A competitor changes their pricing page, launches a new campaign, or starts climbing search rankings for a term that used to be yours. None of that arrives as a notification. It just quietly happens, and the first anyone notices is when a customer mentions it, or a lead that should have been easy suddenly isn't.</p>
+      <p>Checking manually doesn't scale either. Nobody has time to look at a competitor's website, rankings, and backlink profile every week just in case something changed.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Real competitor movement going unnoticed for months at a time. Reacting to a competitor's campaign only after it's already worked on your customers. No early warning before a shift becomes obvious to everyone.</p>
+      </div>
+      <div class="col">
+        <h3>After Meerkat</h3>
+        <p>A flag the moment something moves enough to matter: traffic, rankings, backlinks, site structure, or how often they show up in AI search answers. Checked quarterly, so nothing sits unwatched for long.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't checking more often. It's someone actually watching on a rhythm.</h2>
+      <p>A quarterly, disciplined check against a real threshold catches genuine movement without drowning in noise from normal month-to-month fluctuation. Meerkat is that watch, run properly, every quarter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every quarter</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">MEERKAT &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs the watch and delivers a finding when something moves; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>A flagged finding when something actually moves</h2>
+      <p>A quarterly watch on a named competitor (or a small set of them), with a flagged, written finding whenever traffic, rankings, backlinks, site structure, or AI-search visibility move enough to matter. Quiet quarters produce no noise; a genuine shift produces a real, checked finding, confidence-tagged.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's watchlist</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>Traffic</strong><br />Estimated visits up meaningfully against the competitor's own trailing baseline, corroborated by a second signal.</p>
+        <p><strong>Rankings</strong><br />New top-10 positions appearing for terms the competitor wasn't previously ranking for.</p>
+        <p><strong>Confidence</strong><br />Corroborated &mdash; two independent signals moved together, not single-signal noise.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact process currently tracks <span class="stat">173</span> real companies, with <span class="stat">17</span> open flags waiting on a human review. The threshold logic that decides what counts as real movement was calibrated against real historical data before it was ever trusted live. Nothing auto-publishes and nothing gets diagnosed automatically; every flag gets a human look before it's called a real finding.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Have a competitor watched properly, every quarter." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/meerkat-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Meerkat</p>
+    <p>Named for the sentries that scan constantly and alert the group the instant something changes.</p>
+    <p class="q">Who's watching your biggest competitor while you're busy running the business?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var SIGNALS = [
+    {src:"Traffic estimate", note:"Trailing baseline vs. this quarter"},
+    {src:"Search rankings", note:"New and lost keyword positions"},
+    {src:"Backlink profile", note:"New referring domains, authority shift"},
+    {src:"Site structure", note:"Sitemap diff against last quarter"},
+    {src:"AI-search visibility", note:"Mentions in ChatGPT / AI answer engines"}
+  ];
+  var CHECKS = [
+    {name:"Traffic movement", tag:"Within normal range", primary:false},
+    {name:"New top-10 rankings", tag:"Flagged", primary:true},
+    {name:"Backlink authority", tag:"Within normal range", primary:false},
+    {name:"Site structure change", tag:"No change", primary:false}
+  ];
+  var FINDING = {
+    id:"M-01",
+    theme:"Flagged: new ranking positions",
+    observation:"A competitor gained several new top-10 rankings this quarter for terms it wasn't previously visible for, corroborated by a matching rise in estimated traffic over the same period. Two independent signals moved together, which raises this from single-signal noise to a corroborated flag.",
+    action:"Worth a closer look at what content or campaign is behind the new rankings before assuming it's a one-off."
+  };
+
+  var steps = [
+    {n:"01", name:"Track", h:"A standing watchlist entry, not a snapshot", p:"A named competitor's traffic, rankings, backlinks, site structure, and AI-search visibility get tracked as a standing watchlist entry.", nextLabel:"Next: Check", type:"track"},
+    {n:"02", name:"Check", h:"Compared against their own history", p:"Every quarter, the same signals get pulled again and compared against the competitor's own history, not an industry average.", nextLabel:"Next: Flag", type:"check"},
+    {n:"03", name:"Flag", h:"Checked against a real threshold", p:"Movement gets checked against a real, self-improving threshold before it's called meaningful, and tagged by confidence — single-signal or corroborated across several signals.", nextLabel:"Next: Confirm", type:"flag"},
+    {n:"04", name:"Confirm", h:"A human look before it's called real", p:"A flagged change gets a human look before it's called a real story worth acting on. Nothing auto-publishes and nothing gets diagnosed automatically.", nextLabel:"Start again", type:"confirm"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'track') {
+      return '<ul class="ws-excerpt-list">' + SIGNALS.map(function(s){
+        return '<li><span class="ws-src">' + s.src + '</span><p>' + s.note + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'check' || type === 'flag') {
+      return '<ul class="ws-theme-list">' + CHECKS.map(function(c){
+        return '<li class="' + (c.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + c.name + '</span><span class="ws-theme-count">' + c.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'confirm') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + FINDING.id + '</span><span class="finding-theme">' + FINDING.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + FINDING.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + FINDING.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy finding</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = FINDING.theme + '\n\n' + FINDING.observation + '\n\nRecommended next step: ' + FINDING.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
