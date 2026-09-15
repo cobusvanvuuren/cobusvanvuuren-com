@@ -1,0 +1,265 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="Echo Engine — one piece of content, fanned out everywhere"
+  description="Takes one article, video, or podcast and turns it into platform-native posts across LinkedIn, X, Instagram, TikTok, YouTube Shorts, and a newsletter."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">One piece of content, fanned out everywhere</p>
+      <h1>You already made the thing. <em>Most of its value is still trapped in one place.</em></h1>
+      <p class="lede">Echo Engine takes one article, video, or podcast and turns it into platform-native posts across LinkedIn, X, Instagram, TikTok, YouTube Shorts, and a newsletter, each one written for that platform, not just copy-pasted with a shorter caption.</p>
+      <p class="category-line"><strong>A content process run for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get a finished set of platform-native posts, and someone who can walk you through the plan.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/echo-engine-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Most content gets made once, published once, and then it's done.</h2>
+      <p>An article gets written, a video gets recorded, a podcast episode goes out, and then it's over. Maybe one link gets shared on one platform. The actual ideas inside it, the ones that took real time and thought to work out, never make it anywhere else.</p>
+      <p>Meanwhile the same core message could genuinely work on five other platforms, in five different shapes, each reaching a different part of the audience. That work almost never happens, because it's slow and it's easy to skip.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Real content, made once, used once. Ideas that deserved five more posts, getting zero. Hours spent creating something that reaches a fraction of the people it could.</p>
+      </div>
+      <div class="col">
+        <h3>After Echo Engine</h3>
+        <p>One piece of content becomes weeks of platform-native posts: LinkedIn, X, Instagram, TikTok, YouTube Shorts, and a newsletter, each written for how that platform actually works.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't making more content. It's actually using the content you already made.</h2>
+      <p>Echo Engine finds every distinct idea worth its own post inside a source you already created, and turns it into a real distribution plan across platforms, not a copy-paste job.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every time</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">ECHO ENGINE &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs the fan-out on your content; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>Weeks of platform-native posts, from one thing you already made</h2>
+      <p>A set of platform-native posts drawn from one source article, video, or podcast episode, each written for its platform, with attribution back to the original so performance is traceable. It doesn't include making the original source content &mdash; that's a separate, earlier step.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's batch</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>LinkedIn</strong><br />The strongest single idea from the source, written as a standalone post with its own hook, not a summary.</p>
+        <p><strong>Instagram</strong><br />The most visual moment from the source, adapted into a caption-first format.</p>
+        <p><strong>Newsletter</strong><br />A shorter digest version, linking back to the full original.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact process has run <span class="stat">9</span> times on real source content, each run producing multiple platform-native posts with attribution back to the original piece. It's a newer addition than some of the other systems on this page, with a smaller run count so far, and that's said plainly rather than inflated.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Get more out of the content you already made." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/echo-engine-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Echo Engine</p>
+    <p>The work is already done. Most of what it could reach, isn't.</p>
+    <p class="q">What's the best thing you made this year that only got posted once?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var IDEAS = [
+    {src:"Idea 1", note:"The core argument, strong enough to stand alone"},
+    {src:"Idea 2", note:"A specific example used to illustrate the point"},
+    {src:"Idea 3", note:"A counter-intuitive detail worth its own post"},
+    {src:"Idea 4", note:"A closing takeaway, reframed as a standalone hook"}
+  ];
+  var PLATFORMS = [
+    {name:"LinkedIn", tag:"Long-form idea", primary:true},
+    {name:"Instagram", tag:"Visual moment", primary:false},
+    {name:"X", tag:"Sharp one-liner", primary:false},
+    {name:"Newsletter", tag:"Digest + link back", primary:false}
+  ];
+  var PLAN = {
+    id:"E-01",
+    theme:"Distribution plan ready",
+    observation:"Four distinct standalone ideas were pulled from the source, each scored and matched to the platform it fits best. Every post carries attribution back to the original so what actually performs is traceable, not guessed at.",
+    action:"Review the plan, then release posts across the week rather than all at once, so each idea gets its own moment."
+  };
+
+  var steps = [
+    {n:"01", name:"Find", h:"Every distinct idea, pulled and scored", p:"The source gets read in full, and every distinct, standalone idea worth its own post gets pulled out and scored.", nextLabel:"Next: Fit", type:"find"},
+    {n:"02", name:"Fit", h:"Matched to the platform it fits", p:"Each idea gets matched to the platform it actually fits, not forced into a one-size format across all of them.", nextLabel:"Next: Write", type:"fit"},
+    {n:"03", name:"Write", h:"Written properly, not shortened", p:"Each post is written properly for that platform's shape and voice, checked against the brand's own voice, not a shortened copy-paste.", nextLabel:"Next: Track", type:"write"},
+    {n:"04", name:"Track", h:"Traceable back to the source", p:"Every post carries its own attribution back to the source, so what actually worked is traceable, not guessed at.", nextLabel:"Start again", type:"track"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'find') {
+      return '<ul class="ws-excerpt-list">' + IDEAS.map(function(i){
+        return '<li><span class="ws-src">' + i.src + '</span><p>' + i.note + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'fit' || type === 'write') {
+      return '<ul class="ws-theme-list">' + PLATFORMS.map(function(p){
+        return '<li class="' + (p.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + p.name + '</span><span class="ws-theme-count">' + p.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'track') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + PLAN.id + '</span><span class="finding-theme">' + PLAN.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + PLAN.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + PLAN.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy plan summary</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = PLAN.theme + '\n\n' + PLAN.observation + '\n\nRecommended next step: ' + PLAN.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
