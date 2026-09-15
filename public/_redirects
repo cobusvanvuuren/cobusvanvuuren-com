@@ -1,0 +1,5 @@
+# Okapi capability page moved from /builds/ to /ai-automation/ (2026-09-15).
+# The /builds/ hub itself still lives at its original path until the full
+# hub migration (Phase 3) lands -- do not wildcard /builds/* yet, that would
+# break the still-live hub before /ai-automation/index.astro exists.
+/builds/okapi/  /ai-automation/okapi/  301
