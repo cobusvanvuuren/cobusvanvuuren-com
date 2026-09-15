@@ -1,0 +1,266 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="Growth Opportunity Scan — a growth plan built from your own numbers"
+  description="Pulls your business's own traffic, search, and ad data and turns it into a costed, channel-by-channel picture of what growth is actually available."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">A growth plan built from your own real numbers</p>
+      <h1>Most growth plans are guesses wearing a strategy deck. <em>This one isn't.</em></h1>
+      <p class="lede">The Growth Opportunity Scan pulls your business's own traffic, search, and ad data and turns it into a costed, channel-by-channel picture of what growth is actually available, and what it costs to get there.</p>
+      <p class="category-line"><strong>A report built from your business's real data, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get a document, and someone who can walk you through it.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/growth-opportunity-scan-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Most growth advice is generic before it's even finished being said.</h2>
+      <p>"Post more on social." "Try Google Ads." "You should really be doing SEO." Every business owner has heard some version of this, and none of it says what it would actually cost, what it would actually return, or whether it even fits the business asking.</p>
+      <p>Meanwhile the business's own traffic, search rankings, and ad performance already contain the real answer. Almost nobody actually opens that data and works out what it's saying.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Growth decisions made on gut feel instead of the business's own numbers. Budget going to a channel that was never actually evaluated against the alternatives. No real picture of what standing still costs against what a competitor is gaining.</p>
+      </div>
+      <div class="col">
+        <h3>After the Scan</h3>
+        <p>A channel-by-channel picture, in Rand, of what's available: conservative and aggressive scenarios, what it costs, and what happens if nothing changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't another channel. It's actually reading the data you already have.</h2>
+      <p>Every growth channel gets evaluated against the business's own real traffic, search, and ad numbers, not a generic playbook. The Growth Opportunity Scan is that read, done properly, on a quarterly rhythm.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every time</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">GROWTH SCAN &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs the scan on your business and delivers the report; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>One report, six channels, real Rand figures</h2>
+      <p>A written growth report covering six core channels (plus any conditional channels that genuinely fit the business), each with a conservative and aggressive projection, the real cost to run it, and what standing still is already costing. It's a menu of options, not a single locked-in recommendation &mdash; going deeper on any one channel is a separate, later step.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's report</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>Paid search</strong><br />Conservative: incremental leads at the current cost-per-lead. Aggressive: a scaled-budget scenario at the same cost-per-lead assumption.</p>
+        <p><strong>Organic content</strong><br />Conservative: gains from improving existing published pages. Aggressive: a dedicated monthly publishing cadence.</p>
+        <p><strong>Cost of doing nothing</strong><br />What the business's current search visibility and ad spend are already losing to competitors who are moving, not just described but costed.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact report has been run <span class="stat">13</span> times for real South African businesses, producing real, delivered PDF reports used in real client conversations. Every number in every report traces back to that business's own analytics, search console, or ad account data, never an industry-average guess. This is what the process has produced for existing clients; it hasn't yet been priced or packaged as a standalone product for a new business.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="See what growth is actually available in your own numbers." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/growth-opportunity-scan-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Growth Opportunity Scan</p>
+    <p>Every business is already generating this data. Almost nobody stops to read what it's actually saying.</p>
+    <p class="q">What is your own growth data already telling you?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var SOURCES = [
+    {src:"Website traffic", note:"90-day trend, by source"},
+    {src:"Search rankings", note:"Top pages and keyword positions"},
+    {src:"Ad account", note:"Spend, cost-per-lead, campaign performance"},
+    {src:"Organic social", note:"Reach and engagement baseline"}
+  ];
+  var CHANNELS = [
+    {name:"Paid search", tag:"Core channel", primary:true},
+    {name:"Organic content", tag:"Core channel", primary:false},
+    {name:"Email / list", tag:"Core channel", primary:false},
+    {name:"Local / GBP", tag:"Core channel", primary:false},
+    {name:"Referral partnerships", tag:"Conditional", primary:false}
+  ];
+  var REPORT = {
+    id:"G-01",
+    theme:"Priority channel",
+    observation:"Paid search shows the clearest short-term lift at the current cost-per-lead, with organic content the strongest 12-month compounding play. The cost of doing nothing over the same period is larger than either channel's aggressive-case spend.",
+    action:"Consider funding paid search first for near-term volume, while organic content builds in parallel for the channel that keeps paying after the budget stops."
+  };
+
+  var steps = [
+    {n:"01", name:"Pull", h:"Real data, pulled directly", p:"Traffic, search, and ad data gets pulled directly from the business's own accounts, not estimated.", nextLabel:"Next: Project", type:"pull"},
+    {n:"02", name:"Project", h:"Six channels, conservative and aggressive", p:"Each of six core growth channels gets a conservative and an aggressive projection, in Rand, based on the business's own deal value and close rate.", nextLabel:"Next: Compare", type:"project"},
+    {n:"03", name:"Compare", h:"Set side by side, including the cost of nothing", p:"Channels get set side by side against what they cost, including the cost of doing nothing at all.", nextLabel:"Next: Prioritise", type:"compare"},
+    {n:"04", name:"Prioritise", h:"A menu, not a pitch", p:"The findings come back as a menu, not a pitch: what to consider first, and why, with the business free to choose.", nextLabel:"Start again", type:"prioritise"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'pull') {
+      return '<ul class="ws-excerpt-list">' + SOURCES.map(function(s){
+        return '<li><span class="ws-src">' + s.src + '</span><p>' + s.note + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'project' || type === 'compare') {
+      return '<ul class="ws-theme-list">' + CHANNELS.map(function(c){
+        return '<li class="' + (c.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + c.name + '</span><span class="ws-theme-count">' + c.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'prioritise') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + REPORT.id + '</span><span class="finding-theme">' + REPORT.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + REPORT.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + REPORT.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy report summary</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = REPORT.theme + '\n\n' + REPORT.observation + '\n\nRecommended next step: ' + REPORT.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
