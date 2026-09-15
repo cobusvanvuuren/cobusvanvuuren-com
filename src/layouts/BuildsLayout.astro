@@ -125,16 +125,16 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
   .builds-body .fly-4{animation:builds-buzz-b 3.7s ease-in-out infinite .2s}
 }
 @keyframes builds-buzz-a{
-  0%,100%{transform:translate(0,0)} 25%{transform:translate(9px,-10px)}
-  50%{transform:translate(-6px,-4px)} 75%{transform:translate(4px,7px)}
+  0%,100%{transform:translate(0,0)} 25%{transform:translate(5px,-6px)}
+  50%{transform:translate(-4px,-2px)} 75%{transform:translate(3px,4px)}
 }
 @keyframes builds-buzz-b{
-  0%,100%{transform:translate(0,0)} 30%{transform:translate(-10px,6px)}
-  60%{transform:translate(7px,10px)} 85%{transform:translate(-4px,-6px)}
+  0%,100%{transform:translate(0,0)} 30%{transform:translate(-6px,4px)}
+  60%{transform:translate(4px,6px)} 85%{transform:translate(-3px,-4px)}
 }
 @keyframes builds-buzz-c{
-  0%,100%{transform:translate(0,0)} 40%{transform:translate(8px,9px)}
-  70%{transform:translate(-9px,-3px)}
+  0%,100%{transform:translate(0,0)} 40%{transform:translate(5px,5px)}
+  70%{transform:translate(-5px,-2px)}
 }
 
 /* ---------- section shell ---------- */
@@ -172,21 +172,79 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .anatomy-detail .lives-in strong{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);display:block;margin-bottom:6px}
 .builds-body .mech{border-top:1px solid var(--rule-soft);padding-top:16px;font-size:14px;line-height:1.65;font-style:italic;color:var(--ink)}
 
-/* ---------- stepper ---------- */
-.builds-body .stepper-shell{border:1px solid var(--rule)}
-.builds-body .step-rail{display:flex;overflow-x:auto;border-bottom:1px solid var(--rule);background:var(--stone)}
+/* ---------- workflow preview (redesigned 2026-09-15 per GPT-6 Astra
+   consultation -- unifies the old plain stepper + the old static
+   illustrative-output card into one explorable component where each step
+   changes a real structured "workspace" view, not just a paragraph) ---------- */
+.builds-body .workflow{border:1px solid var(--rule);border-radius:12px;overflow:hidden;background:var(--paper);box-shadow:0 12px 32px #0000000f}
+.builds-body .workflow__toolbar{background:linear-gradient(135deg,#1c1f2e 0%,#12141c 100%);border-bottom:2px solid var(--accent);color:var(--paper);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.builds-body .workflow__label{font-family:var(--mono);font-size:11px;letter-spacing:.1em}
+.builds-body .workflow__tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--accent);border:1px solid #ffffff30;padding:3px 8px;border-radius:4px}
+.builds-body .workflow__sub{font-size:13px;line-height:1.6;color:var(--muted);padding:14px 20px 0;max-width:64ch}
+.builds-body .step-rail{display:flex;overflow-x:auto;border-bottom:1px solid var(--rule);background:var(--stone);margin-top:14px}
 .builds-body .step-tab{flex:1 0 auto;min-width:104px;padding:14px 10px;background:transparent;border:none;border-right:1px solid var(--rule);text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--muted)}
 .builds-body .step-tab:last-child{border-right:none}
 .builds-body .step-tab .n{display:block;font-size:10px;color:var(--muted-2);margin-bottom:4px}
-.builds-body .step-tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
-.builds-body .step-tab[aria-selected="true"] .n{color:var(--accent)}
-.builds-body .step-panel{padding:40px}
-.builds-body .step-panel h3{font-size:22px;margin-bottom:12px}
-.builds-body .step-panel p{font-size:15px;line-height:1.7;color:var(--muted);max-width:60ch}
-.builds-body .step-nav{display:flex;justify-content:space-between;padding:0 40px 32px}
-.builds-body .step-nav button{background:var(--ink);color:var(--paper);border:none;padding:11px 20px;font-size:13px;font-weight:500}
+.builds-body .step-tab[aria-selected="true"]{background:var(--accent);color:#fff}
+.builds-body .step-tab[aria-selected="true"] .n{color:#ffffffb0}
+.builds-body .step-tab:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.builds-body .workflow__body{display:grid;grid-template-columns:minmax(200px,0.85fr) minmax(0,1.6fr)}
+@media(max-width:760px){.builds-body .workflow__body{grid-template-columns:1fr}}
+.builds-body .workflow__explain{padding:28px 26px}
+.builds-body .workflow__explain h3{font-size:20px;margin-bottom:12px}
+.builds-body .workflow__explain p{font-size:14.5px;line-height:1.7;color:var(--muted)}
+.builds-body .workflow__workspace{min-width:0;background:var(--stone);border-left:1px solid var(--rule);padding:26px;min-height:180px}
+@media(max-width:760px){.builds-body .workflow__workspace{border-left:none;border-top:1px solid var(--rule)}}
+.builds-body .step-nav{display:flex;justify-content:space-between;padding:18px 26px 26px}
+.builds-body .step-nav button{border:none;padding:11px 20px;font-size:13px;font-weight:500}
 .builds-body .step-nav button:disabled{opacity:.3;cursor:default}
-.builds-body .step-nav button:not(:disabled):hover{background:var(--accent)}
+.builds-body #stepPrev{background:var(--stone);color:var(--ink);border:1px solid var(--rule)}
+.builds-body #stepPrev:not(:disabled):hover{border-color:var(--accent-text);color:var(--accent-text)}
+.builds-body #stepNext{background:var(--accent);color:#fff}
+.builds-body #stepNext:not(:disabled):hover{background:var(--accent-text)}
+
+/* workspace content types */
+.builds-body .ws-field{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px dotted var(--rule)}
+.builds-body .ws-field:last-child{border-bottom:none}
+.builds-body .ws-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+.builds-body .ws-value{font-size:14px;color:var(--ink);text-align:right}
+.builds-body .ws-excerpt-list{list-style:none;margin:0;padding:0}
+.builds-body .ws-excerpt-list li{padding:10px 0;border-bottom:1px dotted var(--rule)}
+.builds-body .ws-excerpt-list li:last-child{border-bottom:none}
+.builds-body .ws-src{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2)}
+.builds-body .ws-excerpt-list p{font-size:14px;line-height:1.5;color:var(--ink);margin-top:4px}
+.builds-body .ws-theme-list{list-style:none;margin:0;padding:0}
+.builds-body .ws-theme-list li{display:flex;justify-content:space-between;gap:12px;padding:11px 12px;border-bottom:1px dotted var(--rule);border-radius:4px}
+.builds-body .ws-theme-list li:last-child{border-bottom:none}
+.builds-body .ws-theme-list li.primary{background:var(--paper);border:1px solid var(--accent-text);border-bottom:1px solid var(--accent-text)}
+.builds-body .ws-theme-name{font-size:14px;color:var(--ink)}
+.builds-body .ws-theme-count{font-family:var(--mono);font-size:11px;color:var(--muted-2);white-space:nowrap}
+.builds-body .ws-theme-list li.primary .ws-theme-count{color:var(--accent-text)}
+
+/* finding inspector (step 04 workspace) */
+.builds-body .finding{background:var(--paper);border:1px solid var(--rule);border-radius:6px;padding:20px 22px}
+.builds-body .finding-head{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--rule-soft)}
+.builds-body .finding-id{font-family:var(--mono);font-size:11px;color:var(--accent-text);border:1px solid var(--accent-text);padding:2px 7px;border-radius:3px}
+.builds-body .finding-theme{font-family:var(--display);font-weight:700;font-size:15px}
+.builds-body .finding-field{font-size:14px;line-height:1.65;color:var(--ink);margin-bottom:14px}
+.builds-body .finding-field strong{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2);margin-bottom:6px}
+.builds-body .finding-toggle{background:none;border:1px solid var(--rule);color:var(--ink);font-size:12.5px;padding:8px 14px;margin-bottom:14px}
+.builds-body .finding-toggle:hover{border-color:var(--accent-text);color:var(--accent-text)}
+.builds-body .finding-excerpts{background:var(--stone);padding:12px 14px;margin-bottom:14px;border-left:2px solid var(--accent)}
+.builds-body .finding-excerpts p{font-size:13.5px;line-height:1.6;color:var(--muted);margin-bottom:6px}
+.builds-body .finding-excerpts p:last-child{margin-bottom:0}
+.builds-body .finding-excerpts span{color:var(--muted-2);font-size:12px}
+.builds-body .finding-copy{background:none;color:var(--ink);border:1px solid var(--rule);font-size:12.5px;padding:9px 16px}
+.builds-body .finding-copy:hover{border-color:var(--accent-text);color:var(--accent-text)}
+
+/* evidence chip (replaces the old text-pill status chip) */
+.builds-body .evidence-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid #ffffff33;border-radius:6px;background:#ffffff0d;color:#e3e3e3;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-decoration:none;margin-top:16px}
+.builds-body .evidence-chip:hover{border-color:var(--accent);color:var(--paper)}
+.builds-body .evidence-chip .dot{width:6px;height:6px;border-radius:50%;background:#ffffff70;flex-shrink:0}
+.builds-body .evidence-chip .arrow{opacity:.6}
+
+.builds-body .explore-link{margin-top:24px;text-align:center}
+.builds-body .explore-link a{font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--accent-text);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- loop diagram ---------- */
 .builds-body .loop-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
@@ -229,8 +287,8 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .cta-block{text-align:center;max-width:640px;margin:0 auto}
 .builds-body .cta-block .eyebrow{color:var(--accent-text)}
 .builds-body .cta-block h2{font-size:clamp(22px,2.8vw,30px);margin:14px 0 28px;line-height:1.32}
-.builds-body .cta-link{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;padding:15px 28px;font-family:var(--display);font-weight:700;font-size:14.5px;letter-spacing:-.01em}
-.builds-body .cta-link:hover,.builds-body .cta-link:focus-visible{background:var(--accent)}
+.builds-body .cta-link{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:15px 28px;font-family:var(--display);font-weight:700;font-size:14.5px;letter-spacing:-.01em;box-shadow:0 8px 24px #ff4a1c40}
+.builds-body .cta-link:hover,.builds-body .cta-link:focus-visible{background:var(--accent-text)}
 
 /* ---------- capability-page shared components (added 2026-09-15) ---------- */
 .builds-body .status-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border:1px solid var(--rule);border-radius:2px;color:var(--muted)}
@@ -296,44 +354,27 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 </head>
 <body class="builds-body">
 
-<!-- GLOBAL NAV -- matches Base.astro exactly (same wordmark, links, CTA)
-     so this page reads as the same site, not a different one. -->
+<!-- COMBINED HEADER (2026-09-15, per Cobus's direct instruction) -- one bar,
+     not two. Wordmark matches Base.astro exactly; Builds/Articles/About and
+     the breadcrumb are dropped for this sub-section specifically; the
+     page's own in-page section links sit centered; Free Diagnostic CTA
+     stays on the right. -->
 <nav class="sticky top-0 z-[9999] bg-[#0B0A09]/80 backdrop-blur-md border-b border-white/5">
-  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+  <div class="max-w-5xl mx-auto px-6 py-4 grid grid-cols-[1fr_auto_1fr] items-center gap-4">
     <a href="/" class="font-serif font-normal text-[13px] tracking-[0.18em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300 flex items-center gap-2">
       Cobus van Vuuren
       <span class="nav-cursor" aria-hidden="true"></span>
     </a>
-    <div class="flex items-center gap-5">
-      <a href="/builds/" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Builds</a>
-      <a href="/articles/" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
-      <a href="/about/"    class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
+    {navLinks.length > 0 && (
+      <ul class="hidden md:flex items-center gap-6 justify-self-center">
+        {navLinks.map((l) => <li><a href={l.href} class="font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">{l.label}</a></li>)}
+      </ul>
+    )}
+    <div class="justify-self-end">
       <a href="/score/" class="btn-primary !py-2.5 !px-4 !text-[11px]">
         Free Diagnostic &rarr;
       </a>
     </div>
-  </div>
-</nav>
-
-<!-- BUILDS SUB-NAV -- breadcrumb + in-page section links, unique to this
-     sub-section, sits below the global nav rather than replacing it. -->
-<nav class="topnav">
-  <div class="wrap">
-    <div class="crumb">
-      {breadcrumb.map((c, i) => (
-        <>
-          {i > 0 && <span class="sep">/</span>}
-          {c.href
-            ? <a href={c.href} class={i === breadcrumb.length - 1 ? 'current' : ''}>{c.label}</a>
-            : <span class="current">{c.label}</span>}
-        </>
-      ))}
-    </div>
-    {navLinks.length > 0 && (
-      <ul class="navlinks">
-        {navLinks.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
-      </ul>
-    )}
   </div>
 </nav>
 

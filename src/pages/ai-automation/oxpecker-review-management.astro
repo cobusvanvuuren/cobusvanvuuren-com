@@ -6,13 +6,11 @@ const navLinks = [
   { href: '#problem', label: 'The problem' },
   { href: '#how', label: 'How it works' },
   { href: '#offers', label: 'What you get' },
-  { href: '#proof', label: 'Proof' },
 ];
 ---
 <BuildsLayout
   title="Oxpecker — reads every review so nobody has to"
   description="Oxpecker reads a company's public reviews and surfaces the one real problem customers keep mentioning, or watches a competitor's reviews for you every month."
-  breadcrumb={[{ label: 'Cobus van Vuuren', href: '/' }, { label: 'Builds', href: '/ai-automation/' }, { label: 'Oxpecker' }]}
   navLinks={navLinks}
 >
 
@@ -21,10 +19,8 @@ const navLinks = [
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="eyebrow">Review intelligence</p>
-      <span class="status-chip chip-live" style="margin-top:16px;display:inline-block">Validated on 8 real companies</span>
       <h1>Your customers already told you what's wrong. <em>Nobody read it.</em></h1>
       <p class="lede">Every business with real review volume has the same problem hiding in plain sight, repeated in a dozen different reviews, in a dozen different words, connected by nobody. Oxpecker reads every single one and hands you the one finding that matters.</p>
-      <p class="category-line"><strong>This is a managed service, not software you log into.</strong> Tell us the business, we run the analysis, you get a written finding. Nothing about your business changes without you deciding it should.</p>
     </div>
     <div class="hero-mark-wrap">
       <img src="/images/marks/oxpecker-mark.png" alt="" class="hero-mark" width="180" height="180" />
@@ -76,11 +72,19 @@ const navLinks = [
       <p class="eyebrow">What actually happens</p>
       <h2>Four steps, same process every time</h2>
     </div>
-    <div class="stepper-shell">
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">OXPECKER &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs your project and delivers the findings; no account or login is provided.</p>
       <div class="step-rail" id="stepRail" role="tablist"></div>
-      <div class="step-panel" id="stepPanel"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
       <div class="step-nav">
-        <button id="stepPrev" type="button">&larr; Back</button>
+        <button id="stepPrev" type="button">&larr; Previous step</button>
         <button id="stepNext" type="button">Next &rarr;</button>
       </div>
     </div>
@@ -110,15 +114,7 @@ const navLinks = [
       </div>
     </div>
 
-    <div class="illustrative-frame" style="margin-top:28px">
-      <div class="illustrative-tag">
-        <span>Illustrative output — not a real client's data</span>
-        <span>Sample finding</span>
-      </div>
-      <div class="illustrative-body">
-        <strong>Recurring theme:</strong> 14 of the last 40 reviews mention slow response to follow-up questions after the initial quote — not the quote itself, the gap afterward. Customers frame it as "went quiet" or "had to chase them." None of the 5-star reviews mention this; it only shows up once someone's already decided not to come back.
-      </div>
-    </div>
+    <p class="explore-link"><a href="#how" id="jumpToFinding">See a real sample finding, worked through the 4 steps &uarr;</a></p>
   </div>
 </section>
 
@@ -150,44 +146,159 @@ const navLinks = [
 
 <script is:inline>
 (function(){
-  var steps = [
-    {n:"01", name:"Point", h:"Tell us the business", p:"A name and, if you have them, the review platform URLs — Oxpecker can usually find the rest on its own."},
-    {n:"02", name:"Ingest", h:"Every public review, pulled in", p:"Google, Hellopeter, Trustpilot, Facebook — whatever the business actually has, read in full, not sampled."},
-    {n:"03", name:"Cluster", h:"Grouped into real themes", p:"Individual complaints and compliments get grouped into the actual recurring patterns underneath them, not just tallied by star rating."},
-    {n:"04", name:"Surface", h:"One finding, checked before it ships", p:"The single most significant theme is written up and checked against a judgment filter before you ever see it — if there isn't enough real data, Oxpecker says so instead of forcing a thin finding."}
+  // One consistent illustrative dataset across all 4 steps -- per the
+  // 2026-09-15 design consultation (GPT-6 Astra): software changes the
+  // state of an object (a source becomes a dataset, becomes clusters,
+  // becomes a finding), it doesn't just swap explanatory paragraphs.
+  var EXCERPTS = [
+    {src:"Google", age:"3wk ago", text:"Quoted us Tuesday, didn't hear back for a week.", theme:"response"},
+    {src:"Hellopeter", age:"1mo ago", text:"Had to phone twice to find out if they were still coming.", theme:"response"},
+    {src:"Facebook", age:"2mo ago", text:"Great work once they started, just took forever to confirm.", theme:"response"},
+    {src:"Google", age:"2mo ago", text:"Went quiet after the site visit, we booked someone else.", theme:"response"}
   ];
+  var THEMES = [
+    {name:"Response time after quote", count:14, primary:true},
+    {name:"Work quality (positive)", count:22, primary:false},
+    {name:"Price transparency", count:6, primary:false},
+    {name:"Scheduling changes", count:5, primary:false}
+  ];
+  var FINDING = {
+    id:"F-01",
+    theme:"Response time after quote",
+    observation:"14 of the last 40 reviews mention slow follow-up after the initial quote, not the quote itself. Customers describe it as “went quiet” or “had to chase them.” None of the 5-star reviews mention this, so it only shows up once someone has already decided not to come back.",
+    action:"Set a same-day acknowledgement rule for every quote, even if the real answer comes later."
+  };
+
+  var steps = [
+    {n:"01", name:"Point", h:"Tell us the business", p:"A name and, if you have them, the review platform URLs — Oxpecker can usually find the rest on its own.", nextLabel:"Next: Ingest", type:"point"},
+    {n:"02", name:"Ingest", h:"Every public review, pulled in", p:"Google, Hellopeter, Trustpilot, Facebook — whatever the business actually has, read in full, not sampled.", nextLabel:"Next: Cluster", type:"ingest"},
+    {n:"03", name:"Cluster", h:"Grouped into real themes", p:"Individual complaints and compliments get grouped into the actual recurring patterns underneath them, not just tallied by star rating.", nextLabel:"Next: Surface", type:"cluster"},
+    {n:"04", name:"Surface", h:"One finding, checked before it ships", p:"The single most significant theme is written up and checked against a judgment filter before you ever see it — if there isn't enough real data, Oxpecker says so instead of forcing a thin finding.", nextLabel:"Start again", type:"surface"}
+  ];
+
   var rail = document.getElementById('stepRail');
-  var panel = document.getElementById('stepPanel');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
   var prevBtn = document.getElementById('stepPrev');
   var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var current = 0;
+
   steps.forEach(function(s, i){
     var tab = document.createElement('button');
     tab.className = 'step-tab';
     tab.type = 'button';
     tab.setAttribute('role','tab');
     tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
     tab.id = 'step-tab-' + i;
     tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
     tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
     rail.appendChild(tab);
   });
+
+  function renderWorkspace(type){
+    if (type === 'point') {
+      return '<div class="ws-field"><span class="ws-label">Business</span><span class="ws-value">Example Home Services Co.</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Sources</span><span class="ws-value">Google &middot; Hellopeter &middot; Facebook</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Period</span><span class="ws-value">Last 12 months &middot; 214 reviews</span></div>';
+    }
+    if (type === 'ingest') {
+      return '<ul class="ws-excerpt-list">' + EXCERPTS.map(function(e){
+        return '<li><span class="ws-src">' + e.src + ' &middot; ' + e.age + '</span><p>“' + e.text + '”</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'cluster') {
+      return '<ul class="ws-theme-list">' + THEMES.map(function(t){
+        return '<li class="' + (t.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + t.name + '</span><span class="ws-theme-count">' + t.count + ' mentions</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'surface') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + FINDING.id + '</span><span class="finding-theme">' + FINDING.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + FINDING.observation + '</p>' +
+        '<button type="button" class="finding-toggle" id="findingToggle" aria-expanded="false">Show supporting excerpts</button>' +
+        '<div class="finding-excerpts" id="findingExcerpts" hidden>' + EXCERPTS.filter(function(e){return e.theme==='response';}).map(function(e){
+          return '<p>“' + e.text + '” <span>&mdash; ' + e.src + '</span></p>';
+        }).join('') + '</div>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + FINDING.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy finding</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var toggle = document.getElementById('findingToggle');
+    if (toggle) {
+      toggle.addEventListener('click', function(){
+        var panel = document.getElementById('findingExcerpts');
+        var open = panel.hasAttribute('hidden');
+        if (open) { panel.removeAttribute('hidden'); toggle.setAttribute('aria-expanded','true'); toggle.textContent = 'Hide supporting excerpts'; }
+        else { panel.setAttribute('hidden',''); toggle.setAttribute('aria-expanded','false'); toggle.textContent = 'Show supporting excerpts'; }
+      });
+    }
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = FINDING.theme + '\n\n' + FINDING.observation + '\n\nRecommended next step: ' + FINDING.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
   function selectStep(i, scrollRail){
     current = i;
     steps.forEach(function(s, j){
       document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
     });
     var s = steps[i];
-    panel.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
     prevBtn.disabled = i === 0;
-    nextBtn.disabled = i === steps.length - 1;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
     if (scrollRail) {
       document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
     }
   }
   prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
-  nextBtn.addEventListener('click', function(){ if(current < steps.length - 1) selectStep(current + 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
   selectStep(0, false);
+
+  var jumpLink = document.getElementById('jumpToFinding');
+  if (jumpLink) {
+    jumpLink.addEventListener('click', function(e){
+      e.preventDefault();
+      selectStep(3, true);
+      document.getElementById('how').scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+    });
+  }
 })();
 </script>
 
