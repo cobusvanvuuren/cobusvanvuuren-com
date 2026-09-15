@@ -1,0 +1,165 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="SpoorSny — one connector, every marketing data source"
+  description="One connector that pulls a business's analytics, search console, ad accounts, reviews, and search-visibility data into a single place, instead of ten different logins."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">One connector, every marketing data source</p>
+      <h1>Ten logins to check on Monday morning. <em>Or one.</em></h1>
+      <p class="lede">SpoorSny is the data layer underneath every other system on this page: one connector that pulls a business's analytics, search console, ad accounts, reviews, and search-visibility data into a single place, instead of ten different logins.</p>
+      <p class="category-line"><strong>Infrastructure run for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into yourself. The data feeds the other work; someone reads it and tells you what it means.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/spoorsny-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Every platform a business uses has its own login, its own dashboard, and its own version of the truth.</h2>
+      <p>Google Analytics says one thing. Google Ads says another. Search Console has its own number for the same week. Reviews live somewhere else entirely. Nobody has time to open ten tabs and reconcile them by hand, so most businesses just don't, and end up guessing at whichever number they saw most recently.</p>
+      <p>The data isn't missing. It's just scattered across every platform a business happens to use, each speaking its own dialect.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Real answers require ten logins and a spreadsheet to reconcile them by hand. Decisions get made on whichever number was easiest to find, not the most accurate one. Nobody has one place to actually look.</p>
+      </div>
+      <div class="col">
+        <h3>After SpoorSny</h3>
+        <p>Every platform's data pulled into one place, in one shape, so a real answer to "how's the business doing" doesn't require ten separate logins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't another dashboard. It's one connector instead of ten.</h2>
+      <p>SpoorSny is the layer every other capability on this page actually runs on. It doesn't replace judgment, it removes the ten-login problem so the judgment has real, reconciled numbers to work from.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>One connector, many platforms</h2>
+      <p>Not a stepper to click through &mdash; SpoorSny runs quietly in the background of every other capability on this site. This is what it actually connects to.</p>
+    </div>
+    <div class="tiles">
+      <div class="tile">
+        <p class="tag">Traffic &amp; behaviour</p>
+        <h4>Analytics &amp; search</h4>
+        <p>Website traffic, on-site behaviour, and search-console rankings, pulled directly rather than exported by hand.</p>
+      </div>
+      <div class="tile">
+        <p class="tag">Spend &amp; performance</p>
+        <h4>Paid advertising</h4>
+        <p>Ad account spend, cost-per-lead, and campaign performance, reconciled against the same time period as everything else.</p>
+      </div>
+      <div class="tile">
+        <p class="tag">Reputation</p>
+        <h4>Reviews &amp; local presence</h4>
+        <p>Public review platforms and local listing performance, read as data rather than checked manually one platform at a time.</p>
+      </div>
+      <div class="tile">
+        <p class="tag">Rankings</p>
+        <h4>Search visibility</h4>
+        <p>Keyword rankings, backlink profile, and domain authority, tracked against the business's own history.</p>
+      </div>
+      <div class="tile">
+        <p class="tag">New territory</p>
+        <h4>AI-search visibility</h4>
+        <p>Whether and how a business shows up when someone asks an AI tool a buying question, not just a traditional search engine.</p>
+      </div>
+      <div class="tile">
+        <p class="tag">Foundation</p>
+        <h4>Every other capability</h4>
+        <p>Oxpecker, Nightjar, the Growth Opportunity Scan, and Meerkat all run on this same connector layer, not separate one-off exports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>One real answer, not ten different numbers</h2>
+      <p>SpoorSny isn't a standalone report on its own; it's the connector every other CVV capability on this site actually runs on, so any report, scan, or watch you get is already built on one reconciled set of numbers instead of a guess stitched together from ten logins.</p>
+    </div>
+    <div class="isnt">
+      <div class="col">
+        <h3>Not this</h3>
+        <ul>
+          <li>Ten platforms, ten logins, ten different numbers</li>
+          <li>Reconciling last week's traffic by hand, in a spreadsheet</li>
+          <li>A decision made on whichever number was easiest to find</li>
+          <li>Reviews and rankings checked manually, if ever</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>This instead</h3>
+        <ul>
+          <li>One connector, one reconciled shape for the data</li>
+          <li>The same numbers underneath every report, scan, and watch</li>
+          <li>A real answer, not the easiest one to find</li>
+          <li>Reviews and rankings read as data, continuously</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This connector layer already powers every other real system on this page, and every audit CVV runs for a client, pulling from search, analytics, paid-ads, review, and search-visibility platforms in active daily use. It isn't sold as a report on its own; it's the reason every other capability's numbers are real instead of guessed.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Stop reconciling ten logins by hand." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/spoorsny-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">SpoorSny</p>
+    <p>Named from spoor (track) and sny (cut) &mdash; the system that tracks the data and cuts through the noise.</p>
+    <p class="q">How many logins does it take to answer "how's the business doing" today?</p>
+  </div>
+</section>
+
+</BuildsLayout>
