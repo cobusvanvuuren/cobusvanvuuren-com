@@ -1,0 +1,270 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="Nightjar — call intelligence, without anyone doing it by hand"
+  description="Nightjar listens to every recorded call, every week, and turns what customers actually said into a coaching brief for your team and real content ideas for your marketing."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Call intelligence, without anyone doing it by hand</p>
+      <h1>Every call is a conversation your business has <em>once</em> and then forgets.</h1>
+      <p class="lede">Nightjar listens to every recorded call, every week, and turns what customers actually said into a coaching brief for your team and real content ideas for your marketing. Nobody has to sit and re-listen to catch it.</p>
+      <p class="category-line"><strong>A weekly process run for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get a brief, delivered on a cadence, and someone who can walk you through it.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/nightjar-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Somewhere in your business, calls are happening that nobody's ever really heard.</h2>
+      <p>A call comes in. Someone answers it, handles it, and moves on. If it goes well, nobody thinks about it again. If it goes badly, the fallout shows up somewhere else entirely — a lost sale, a frustrated customer — and by then the actual call is long forgotten.</p>
+      <p>Multiply that by every call a business takes in a week, and the pattern underneath, what customers keep asking, what keeps going wrong, what a good call actually sounds like, never gets pulled together. Nobody's listening for it.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>No formal record of what's actually said on the phone. The same mistake repeated because nobody caught it the first three times. Real objections and requests from customers, sitting in a phone system, never reaching content or ads.</p>
+      </div>
+      <div class="col">
+        <h3>After Nightjar</h3>
+        <p>A weekly brief: what went well, what needs coaching, and what customers are actually asking for, in their own words. Straight from the calls, not a guess.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't recording more calls. It's someone actually listening to the ones you already have.</h2>
+      <p>Most businesses with a phone system already have the calls. What's missing is a person with time to listen to all of them, every week, and turn what's there into something the team and the marketing can actually use. Nightjar is that weekly pass.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every week</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">NIGHTJAR &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs your weekly pass and delivers the brief; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>One weekly brief, not a raw transcript pile</h2>
+      <p>A weekly coaching brief covering what the team did well and where to improve, plus a short list of content and ad ideas mined from real customer language that week. It needs a call-recording setup already in place; if a business doesn't have one, that's a separate, prior step CVV can help arrange, not part of this deliverable.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's brief</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>Coaching point</strong><br />Two calls this week went quiet after the initial quote before the customer chased. Same point flagged last month — worth a short team check-in.</p>
+        <p><strong>Content signal</strong><br />Three separate callers asked the same pricing question in almost the same words. Strong candidate for a short FAQ post.</p>
+        <p><strong>Objection pattern</strong><br />One recurring objection: customers unsure whether the callout fee applies before or after the quote. Worth clarifying on the phone script.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact process has been running as a live weekly cadence for a real South African business (a gutter installation business in Pretoria) for months, producing a real weekly brief every time. The part of the process that decides what a call actually is &mdash; a sales call, a service call, a wrong number &mdash; has been tested directly against garbled and ambiguous real transcripts and holds up. This runs on a business's own recorded calls; a call-recording setup has to already exist before this can start.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="See what your own calls are actually telling you, every week." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/nightjar-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Nightjar</p>
+    <p>Named for the bird that's heard constantly and almost never seen.</p>
+    <p class="q">What is your last week of calls actually telling you?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var CALLS = [
+    {tag:"Service", age:"Mon", text:"Booked a follow-up visit, handled cleanly start to finish."},
+    {tag:"Sales", age:"Tue", text:"Quoted on the spot, customer said they'd think about it, no follow-up call logged."},
+    {tag:"Service", age:"Wed", text:"Customer asked twice whether the callout fee applied before the quote."},
+    {tag:"Sales", age:"Thu", text:"Price question came up almost word for word with Tuesday's call."}
+  ];
+  var CHECKS = [
+    {name:"Greeting and tone", tag:"Consistent", primary:false},
+    {name:"Follow-up committed to", tag:"Missed once", primary:true},
+    {name:"Pricing explained clearly", tag:"Inconsistent", primary:false},
+    {name:"Call closed with next step", tag:"3 of 4 calls", primary:false}
+  ];
+  var BRIEF = {
+    id:"W-14",
+    theme:"Coaching point: quoted, then went quiet",
+    observation:"One call this week ended with a quote and no committed follow-up date. The same pattern was flagged in a prior week's brief. Two separate callers also asked the identical pricing question, in near-identical words, a candidate for a short FAQ piece rather than a one-off answer.",
+    action:"Add a same-call rule: always set a specific follow-up date before hanging up, even if the answer is 'I'll check and call you Thursday.'"
+  };
+
+  var steps = [
+    {n:"01", name:"Listen", h:"Every recorded call, reviewed in full", p:"Every call from the week gets transcribed and reviewed in full, not sampled.", nextLabel:"Next: Coach", type:"listen"},
+    {n:"02", name:"Coach", h:"Checked against what a good call sounds like", p:"Calls get checked against what a good call on this business's front line actually looks like, and specific coaching points get pulled out for the team.", nextLabel:"Next: Mine", type:"coach"},
+    {n:"03", name:"Mine", h:"Read again for a different signal", p:"The same calls get read a second time for what customers are asking for, objecting to, or describing in their own words — useful for content and ads.", nextLabel:"Next: Deliver", type:"mine"},
+    {n:"04", name:"Deliver", h:"One weekly brief, checked before it ships", p:"It comes back as one weekly brief, in the language the team actually works in, not a raw transcript dump — checked before you see it.", nextLabel:"Start again", type:"deliver"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'listen') {
+      return '<ul class="ws-excerpt-list">' + CALLS.map(function(c){
+        return '<li><span class="ws-src">' + c.tag + ' &middot; ' + c.age + '</span><p>' + c.text + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'coach') {
+      return '<ul class="ws-theme-list">' + CHECKS.map(function(c){
+        return '<li class="' + (c.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + c.name + '</span><span class="ws-theme-count">' + c.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'mine') {
+      return '<div class="ws-field"><span class="ws-label">Repeated pricing question</span><span class="ws-value">2 callers, same wording</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Callout-fee confusion</span><span class="ws-value">Flagged, recurring</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Content candidate</span><span class="ws-value">Short FAQ piece</span></div>';
+    }
+    if (type === 'deliver') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + BRIEF.id + '</span><span class="finding-theme">' + BRIEF.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + BRIEF.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + BRIEF.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy brief summary</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = BRIEF.theme + '\n\n' + BRIEF.observation + '\n\nRecommended next step: ' + BRIEF.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
