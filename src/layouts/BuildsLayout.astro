@@ -1,13 +1,17 @@
 ---
 // Shared shell for /builds/ — the "systems I've built" hub and its child
 // pages (Okapi today; Spoorsny/Oxpecker/Meerkat/Hamerkop as they're written).
-// Deliberately not Base.astro: this sub-site keeps its own Performance Mono
-// brand tokens/fonts rather than CVV's crimson/copper site chrome, the way
-// the original standalone Okapi showcase did. `is:global` on the <style>
+// Header/footer chrome matches Base.astro exactly (2026-09-15 fix -- the
+// prior version used RhinoBerry's brand tokens here instead of CVV's own,
+// which read as two different sites when clicking through). Section bodies
+// below the breadcrumb bar keep their own Performance Mono treatment
+// (black/white/crimson-accent, mono labels) -- that's the accepted
+// difference, not the header/footer. `is:global` on the <style>
 // block is required, not optional — several pages inject markup into the
 // DOM via client-side JS (anatomy panels, steppers), and Astro's normal
 // scoped-CSS attribute is only applied to elements it compiles from the
 // template, never to elements created with document.createElement/innerHTML.
+import '../styles/global.css';
 interface Crumb { label: string; href?: string }
 interface Props {
   title: string;
@@ -55,6 +59,15 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body h1,.builds-body h2,.builds-body h3,.builds-body h4{font-family:var(--display);font-weight:700;letter-spacing:-.02em;margin:0}
 .builds-body p{margin:0}
 .builds-body a{color:inherit}
+/* The Base.astro-matching nav/footer below use Tailwind colour utilities
+   (.text-smoke etc), but .builds-body a{color:inherit} above has higher
+   specificity than a single Tailwind utility class and was silently
+   winning, making those links nearly invisible. Restore explicitly. */
+.builds-body nav.sticky a, .builds-body footer.relative a{color:#A09C94}
+.builds-body nav.sticky a:hover, .builds-body footer.relative a:hover{color:#F5F0E8}
+.builds-body nav.sticky a.font-serif{color:rgba(245,240,232,.9)}
+.builds-body nav.sticky a.font-serif:hover{color:#F5F0E8}
+.builds-body nav.sticky a.btn-primary,.builds-body nav.sticky a.btn-primary:hover{color:#fff}
 .builds-body button{font-family:inherit;cursor:pointer}
 .builds-body .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 .builds-body .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
@@ -83,6 +96,46 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .hero h1{font-size:clamp(34px,5.4vw,58px);line-height:1.06;max-width:15ch;margin:18px 0 26px}
 .builds-body .hero h1 em{font-style:normal;color:var(--accent)}
 .builds-body .hero p.lede{font-size:18px;line-height:1.65;max-width:56ch;color:#ffffffc0;margin-bottom:0}
+.builds-body .hero-grid{display:grid;grid-template-columns:1fr auto;align-items:center;gap:48px}
+@media(max-width:820px){.builds-body .hero-grid{grid-template-columns:1fr}}
+.builds-body .hero-mark-wrap{position:relative;flex-shrink:0;width:180px}
+@media(max-width:820px){.builds-body .hero-mark-wrap{width:110px;justify-self:start}}
+.builds-body .hero-mark{width:100%;height:auto;display:block;opacity:.95}
+@media(prefers-reduced-motion: no-preference){
+  .builds-body .hero-mark{animation:builds-idle 4.6s ease-in-out infinite;transform-origin:70% 85%}
+}
+@keyframes builds-idle{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-5px) rotate(-1.5deg)}
+}
+.builds-body .close-mark{width:48px;height:auto;margin:0 auto 20px;display:block}
+/* "flies" -- review-platform marks orbiting the head, positioned against the
+   generated mark's real head bounding box (top ~10-29%, left ~51-88% of the
+   1024x1024 canvas), not guessed. Each carries a brand-colour ring so the
+   smaller/more abstract marks (Trustpilot, Hellopeter) still read at a glance. */
+.builds-body .fly{position:absolute;border-radius:50%;background:var(--paper);box-shadow:0 2px 6px #00000055;padding:4px;border:2px solid var(--fly-ring, transparent)}
+.builds-body .fly-1{top:-4%;left:54%;--fly-ring:#4285F4}
+.builds-body .fly-2{top:-14%;left:75%;--fly-ring:#0866FF}
+.builds-body .fly-3{top:4%;left:100%;--fly-ring:#00B67A}
+.builds-body .fly-4{top:26%;left:96%;--fly-ring:#1B2A4A}
+@media(prefers-reduced-motion: no-preference){
+  .builds-body .fly-1{animation:builds-buzz-a 3.4s ease-in-out infinite}
+  .builds-body .fly-2{animation:builds-buzz-b 4.1s ease-in-out infinite .5s}
+  .builds-body .fly-3{animation:builds-buzz-c 3.1s ease-in-out infinite .9s}
+  .builds-body .fly-4{animation:builds-buzz-b 3.7s ease-in-out infinite .2s}
+}
+@keyframes builds-buzz-a{
+  0%,100%{transform:translate(0,0)} 25%{transform:translate(9px,-10px)}
+  50%{transform:translate(-6px,-4px)} 75%{transform:translate(4px,7px)}
+}
+@keyframes builds-buzz-b{
+  0%,100%{transform:translate(0,0)} 30%{transform:translate(-10px,6px)}
+  60%{transform:translate(7px,10px)} 85%{transform:translate(-4px,-6px)}
+}
+@keyframes builds-buzz-c{
+  0%,100%{transform:translate(0,0)} 40%{transform:translate(8px,9px)}
+  70%{transform:translate(-9px,-3px)}
+}
 
 /* ---------- section shell ---------- */
 .builds-body section{padding:88px 0;border-bottom:1px solid var(--rule-soft)}
@@ -179,6 +232,24 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .cta-link{display:inline-block;background:var(--ink);color:var(--paper);text-decoration:none;padding:15px 28px;font-family:var(--display);font-weight:700;font-size:14.5px;letter-spacing:-.01em}
 .builds-body .cta-link:hover,.builds-body .cta-link:focus-visible{background:var(--accent)}
 
+/* ---------- capability-page shared components (added 2026-09-15) ---------- */
+.builds-body .status-chip{display:inline-block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;padding:5px 11px;border:1px solid var(--rule);border-radius:2px;color:var(--muted)}
+.builds-body .status-chip.chip-live{color:var(--accent-text);border-color:var(--accent-text)}
+.builds-body .category-line{font-size:15px;line-height:1.6;color:#ffffffb0;max-width:52ch;margin-top:18px;padding-top:18px;border-top:1px solid #ffffff26}
+.builds-body .category-line strong{color:var(--paper)}
+.builds-body .offer-cards{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(max-width:760px){.builds-body .offer-cards{grid-template-columns:1fr}}
+.builds-body .offer-card{background:var(--paper);padding:32px 30px}
+.builds-body .offer-card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text);margin-bottom:10px}
+.builds-body .offer-card h4{font-size:19px;margin-bottom:12px}
+.builds-body .offer-card p{font-size:14.5px;line-height:1.65;color:var(--muted)}
+.builds-body .offer-card p+p{margin-top:10px}
+.builds-body .illustrative-frame{border:1px dashed var(--rule);background:var(--stone);padding:0}
+.builds-body .illustrative-tag{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px dashed var(--rule);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted-2)}
+.builds-body .illustrative-body{padding:24px 26px;font-size:14.5px;line-height:1.65;color:var(--ink)}
+.builds-body .proof-box{border-left:3px solid var(--accent);background:var(--stone);padding:22px 26px;font-size:15px;line-height:1.7;color:var(--ink)}
+.builds-body .proof-box .stat{font-family:var(--display);font-weight:700;color:var(--accent-text)}
+
 /* ---------- builds index (hub) ---------- */
 .builds-body .buildlist{display:flex;flex-direction:column;border:1px solid var(--rule)}
 .builds-body .build-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:30px 32px;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}
@@ -225,6 +296,27 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 </head>
 <body class="builds-body">
 
+<!-- GLOBAL NAV -- matches Base.astro exactly (same wordmark, links, CTA)
+     so this page reads as the same site, not a different one. -->
+<nav class="sticky top-0 z-[9999] bg-[#0B0A09]/80 backdrop-blur-md border-b border-white/5">
+  <div class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-serif font-normal text-[13px] tracking-[0.18em] uppercase text-ivory/90 hover:text-ivory transition-colors duration-300 flex items-center gap-2">
+      Cobus van Vuuren
+      <span class="nav-cursor" aria-hidden="true"></span>
+    </a>
+    <div class="flex items-center gap-5">
+      <a href="/builds/" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Builds</a>
+      <a href="/articles/" class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">Articles</a>
+      <a href="/about/"    class="hidden md:block font-sans text-[12px] font-normal text-smoke hover:text-ivory/80 transition-colors duration-200">About</a>
+      <a href="/score/" class="btn-primary !py-2.5 !px-4 !text-[11px]">
+        Free Diagnostic &rarr;
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- BUILDS SUB-NAV -- breadcrumb + in-page section links, unique to this
+     sub-section, sits below the global nav rather than replacing it. -->
 <nav class="topnav">
   <div class="wrap">
     <div class="crumb">
@@ -247,24 +339,23 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 
 <slot />
 
-<footer>
-  <div class="wrap">
-    <ul class="foot-nav">
-      <li><a href="/">Home</a></li>
-      <li><a href="/articles/">Articles</a></li>
-      <li><a href="/about/">About</a></li>
-      <li><a href="/score/">Free Diagnostic</a></li>
-    </ul>
-    <div class="foot-legal">
-      <span>&copy; 2026 Cobus van Vuuren</span>
-      <span class="dot">&middot;</span>
-      <a href="/privacy/">Privacy</a>
-      <span class="dot">&middot;</span>
-      <a href="/terms/">Terms</a>
-      <span class="dot">&middot;</span>
-      <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <span class="dot">&middot;</span>
-      <a href="mailto:cobus@rhinoberry.com">Email</a>
+<!-- FOOTER -- matches Base.astro exactly -->
+<footer class="relative z-[1] border-t border-white/5 py-10" style="background:#0B0A09">
+  <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="flex flex-col items-center md:items-start gap-1">
+      <p class="font-sans text-[13px] font-normal text-smoke">
+        &copy; 2026 Cobus van Vuuren. Business Automation Assessments for SA professional services firms.
+      </p>
+      <p class="font-sans text-[11px]" style="color:rgba(122,118,110,0.4);">
+        Powered by <a href="https://rhinoberry.co.za" target="_blank" rel="noopener" style="color:rgba(122,118,110,0.5);text-decoration:none;">RhinoBerry</a>
+      </p>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="/builds/"   class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Builds</a>
+      <a href="/privacy/"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
+      <a href="/terms/"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
+      <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
+      <a href="mailto:cobus@rhinoberry.com" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Email</a>
     </div>
   </div>
 </footer>

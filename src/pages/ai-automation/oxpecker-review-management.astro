@@ -1,0 +1,194 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#offers', label: 'What you get' },
+  { href: '#proof', label: 'Proof' },
+];
+---
+<BuildsLayout
+  title="Oxpecker — reads every review so nobody has to"
+  description="Oxpecker reads a company's public reviews and surfaces the one real problem customers keep mentioning, or watches a competitor's reviews for you every month."
+  breadcrumb={[{ label: 'Cobus van Vuuren', href: '/' }, { label: 'Builds', href: '/ai-automation/' }, { label: 'Oxpecker' }]}
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Review intelligence</p>
+      <span class="status-chip chip-live" style="margin-top:16px;display:inline-block">Validated on 8 real companies</span>
+      <h1>Your customers already told you what's wrong. <em>Nobody read it.</em></h1>
+      <p class="lede">Every business with real review volume has the same problem hiding in plain sight, repeated in a dozen different reviews, in a dozen different words, connected by nobody. Oxpecker reads every single one and hands you the one finding that matters.</p>
+      <p class="category-line"><strong>This is a managed service, not software you log into.</strong> Tell us the business, we run the analysis, you get a written finding. Nothing about your business changes without you deciding it should.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/oxpecker-mark.png" alt="" class="hero-mark" width="180" height="180" />
+      <img src="/images/marks/platforms/google.png" alt="Google" class="fly fly-1" width="28" height="28" />
+      <img src="/images/marks/platforms/facebook.svg" alt="Facebook" class="fly fly-2" width="26" height="26" />
+      <img src="/images/marks/platforms/trustpilot.svg" alt="Trustpilot" class="fly fly-3" width="26" height="26" />
+      <img src="/images/marks/platforms/hellopeter.png" alt="Hellopeter" class="fly fly-4" width="28" height="28" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Right now, your reviews are doing nothing for you except sitting there.</h2>
+      <p>A new review comes in. Someone glances at the star rating. If it's bad, they reply and move on. If it's good, nobody even opens it. Multiply that by a hundred, three hundred, a thousand reviews, and the actual pattern underneath — the one thing customers keep circling back to, in their own words, unprompted — never gets pulled together. It's not hidden. It's just never been read as a whole.</p>
+      <p>The same blind spot applies to a competitor. Their customers are telling the internet exactly what that business does well and where it drops the ball. That's sitting in public right now too. Nobody on your side is reading it either.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>The customers who leave over the same recurring problem don't file a complaint. They just don't come back, and they don't tell you why. The only record of why is buried across reviews nobody's connected into one place.</p>
+      </div>
+      <div class="col">
+        <h3>After Oxpecker</h3>
+        <p>One clear answer: this is the specific thing your customers keep mentioning, here's the proof in their own words, and here's what it's actually costing you. Not a star-rating average. One finding you can act on this week.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>Oxpecker is the difference between having reviews and actually using them.</h2>
+      <p>It reads everything public, across every platform, and checks it against a judgment filter before anything gets called a finding. What comes back is one specific, provable problem, not a sentiment score nobody can act on.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every time</h2>
+    </div>
+    <div class="stepper-shell">
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="step-panel" id="stepPanel"></div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Back</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="offers">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Two ways to use it</p>
+      <h2>A one-off finding, or an ongoing watch</h2>
+      <p>Both run on the same engine. Which one fits depends on whether you want a single answer today, or an eye kept on this every month.</p>
+    </div>
+    <div class="offer-cards">
+      <div class="offer-card">
+        <p class="tag">One-off</p>
+        <h4>Find the leak</h4>
+        <p>We scan your business's public reviews and hand you one written finding: the single biggest recurring problem customers keep mentioning, with the quotes that back it up.</p>
+        <p>Best for a business that's never had someone actually read all of its reviews in one place.</p>
+      </div>
+      <div class="offer-card">
+        <p class="tag">Ongoing</p>
+        <h4>Monthly watch</h4>
+        <p>For businesses with real review volume: a monthly read on your own reviews (so nobody has to catch up on hundreds by hand), or a monthly watch on a named competitor — what their customers are saying now, not last quarter.</p>
+        <p>Different signal to a traffic or ranking watch — this one is pure customer sentiment, straight from reviews.</p>
+      </div>
+    </div>
+
+    <div class="illustrative-frame" style="margin-top:28px">
+      <div class="illustrative-tag">
+        <span>Illustrative output — not a real client's data</span>
+        <span>Sample finding</span>
+      </div>
+      <div class="illustrative-body">
+        <strong>Recurring theme:</strong> 14 of the last 40 reviews mention slow response to follow-up questions after the initial quote — not the quote itself, the gap afterward. Customers frame it as "went quiet" or "had to chase them." None of the 5-star reviews mention this; it only shows up once someone's already decided not to come back.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      Run on <span class="stat">8</span> real South African companies. Surfaced <span class="stat">33</span> real findings. Not yet run for a paying client — every number above is from validation runs, not a live engagement. We'll say exactly that until it changes.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Point this at your business and see what's actually in your reviews." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/oxpecker-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Oxpecker</p>
+    <p>Named for the bird that rides large animals and eats what everyone else misses.</p>
+    <p class="q">What's your review history actually saying, that nobody's connected yet?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var steps = [
+    {n:"01", name:"Point", h:"Tell us the business", p:"A name and, if you have them, the review platform URLs — Oxpecker can usually find the rest on its own."},
+    {n:"02", name:"Ingest", h:"Every public review, pulled in", p:"Google, Hellopeter, Trustpilot, Facebook — whatever the business actually has, read in full, not sampled."},
+    {n:"03", name:"Cluster", h:"Grouped into real themes", p:"Individual complaints and compliments get grouped into the actual recurring patterns underneath them, not just tallied by star rating."},
+    {n:"04", name:"Surface", h:"One finding, checked before it ships", p:"The single most significant theme is written up and checked against a judgment filter before you ever see it — if there isn't enough real data, Oxpecker says so instead of forcing a thin finding."}
+  ];
+  var rail = document.getElementById('stepRail');
+  var panel = document.getElementById('stepPanel');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var current = 0;
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    rail.appendChild(tab);
+  });
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    panel.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === steps.length - 1;
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){ if(current < steps.length - 1) selectStep(current + 1, true); });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
