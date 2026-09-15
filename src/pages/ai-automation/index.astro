@@ -1,0 +1,180 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const featured = [
+  {
+    name: 'Okapi',
+    href: '/ai-automation/okapi/',
+    status: 'Used internally',
+    outcome: 'The file-based operating system everything else on this page runs on top of.',
+    problem: "Why believe any of this is real, not a demo",
+  },
+  {
+    name: 'Oxpecker',
+    href: '/ai-automation/oxpecker-review-management/',
+    status: 'Used internally',
+    outcome: "Reads a company's public reviews and surfaces the one real problem customers keep mentioning.",
+    problem: 'Nobody has time to read every review',
+  },
+  {
+    name: 'The Office Automation Blueprint',
+    href: '/ai-automation/the-office-automation-blueprint/',
+    status: 'Delivered for one client',
+    outcome: 'A costed, ordered plan of what to automate in your business, mapped before a tool gets bought.',
+    problem: 'A six-system admin chain nobody has ever mapped',
+  },
+  {
+    name: 'Nightjar',
+    href: '/ai-automation/nightjar/',
+    status: 'Delivered for one client',
+    outcome: 'Turns recorded calls into a weekly coaching brief and content signals, without anyone re-listening.',
+    problem: 'Calls happen and are never really heard',
+  },
+  {
+    name: 'Growth Opportunity Scan',
+    href: '/ai-automation/growth-opportunity-scan/',
+    status: 'Delivered for 3 clients',
+    outcome: "A channel-by-channel growth plan built from the business's own real traffic, search, and ad data.",
+    problem: 'Growth advice that never says what it costs or returns',
+  },
+  {
+    name: 'Meerkat',
+    href: '/ai-automation/meerkat/',
+    status: 'Used internally',
+    outcome: "Watches a named competitor's traffic, rankings, and backlinks, and flags real movement every quarter.",
+    problem: "A competitor moving and nobody noticing",
+  },
+  {
+    name: 'SpoorSny',
+    href: '/ai-automation/spoorsny/',
+    status: 'Used internally',
+    outcome: 'One connector for every marketing data source, instead of ten different logins.',
+    problem: 'Every platform has its own login and its own number',
+  },
+  {
+    name: 'Social Media Studio',
+    href: '/ai-automation/social-media-studio/',
+    status: 'Delivered for multiple clients',
+    outcome: 'A real editorial process behind every post, staged directly into a scheduler.',
+    problem: 'Content written in the ten minutes before it\'s due',
+  },
+  {
+    name: 'Echo Engine',
+    href: '/ai-automation/echo-engine/',
+    status: 'Used internally',
+    outcome: 'Turns one article, video, or podcast into weeks of platform-native posts.',
+    problem: 'Real content made once, used once',
+  },
+];
+
+const alsoBuilt = [
+  'FAQ Harvest', 'Root Cause', 'Image Engine', 'POP Watchdog', 'Google Ads Audit',
+  'Meta Ads Audit', 'AI Visibility Audit', 'SEO Technical Audit', 'Target Market / ICP Research',
+  'ELRIN', 'Sales Call Intelligence', 'Voice Winners', 'Local SEO Audit', 'LLM Profile Page',
+  'Automated Financial Reporting', 'Automated Business Reviews', 'Strategic Advisory Suite',
+  'Elementor-to-native site migration',
+];
+
+const alsoPlanned = [
+  'Client Memory System', 'Managed Agents', 'Automation Engine', 'Speed-to-Lead / Instant Response Agents',
+  'Automated AR & Invoicing Follow-ups', 'Internal Knowledge & Meeting Summarizers', 'AI Customer Support',
+  'Smart Document Processing', 'Automated Meeting Transcripts',
+];
+---
+<BuildsLayout
+  title="AI Automation — systems that already run parts of real businesses"
+  description="A running list of the systems built to run RhinoBerry and its clients, plus a few CVV can build for yours."
+  navLinks={[{ href: '#featured', label: 'Featured' }, { href: '#also-available', label: 'Also available' }]}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Systems, not one-off projects</p>
+    <h1>Systems that already run parts of real businesses &mdash; plus a few we can <em>build for yours</em>.</h1>
+    <p class="lede">Each Featured system below is currently doing a real part of how RhinoBerry or a real client operates, explained the same way it's actually built. Below that is everything else CVV has built or can build, listed honestly, without its own page yet.</p>
+  </div>
+</header>
+
+<!-- PROBLEM / DREAM OUTCOME -->
+<section id="intro">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Why this list exists</p>
+      <h2>Most of what gets called an "AI system" is a demo. These run every week.</h2>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>The bottleneck you recognise</h3>
+        <p>Something in the business runs on memory, manual checking, or whoever has ten minutes today &mdash; not a real process. It works, until it doesn't, and nobody notices until it's already cost something.</p>
+      </div>
+      <div class="col">
+        <h3>Once it's gone</h3>
+        <p>The same work runs on a system instead, with a real process behind it that doesn't depend on someone remembering to do it. Not software you log into &mdash; a system run for you, by a person.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED GRID -->
+<section class="stone" id="featured">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Window shopping</p>
+      <h2>Featured</h2>
+      <p>Real systems, each with its own page: what it does, how it works, and what's actually been validated.</p>
+    </div>
+    <div class="featured-grid">
+      {featured.map((f) => (
+        <a class="featured-card" href={f.href}>
+          <span class="status-chip">{f.status}</span>
+          <h3>{f.name}</h3>
+          <p class="outcome">{f.outcome}</p>
+          <p class="problem">{f.problem}</p>
+          <span class="arrow">Read more &rarr;</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ALSO AVAILABLE -->
+<section id="also-available">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Also available</p>
+      <h2>Built to order</h2>
+      <p>Real and built, but not yet a page of its own &mdash; and a shorter list of things that are genuinely possible but haven't been built at all. Both listed honestly, not featured.</p>
+    </div>
+
+    <div class="also-available">
+      <h3>Already built, listed without a page</h3>
+      <div class="also-list">
+        {alsoBuilt.map((name) => (
+          <div class="also-row">
+            <span class="name">{name}</span>
+            <span class="note">Built, no page yet</span>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="also-available" style="margin-top:40px">
+      <h3>Not built yet, listed for transparency</h3>
+      <div class="also-list">
+        {alsoPlanned.map((name) => (
+          <div class="also-row">
+            <span class="name">{name}</span>
+            <span class="note planned">Planned, not yet built</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Not sure which one? Start with the free diagnostic." />
+
+</BuildsLayout>

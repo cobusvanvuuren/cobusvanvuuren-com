@@ -22,7 +22,7 @@ interface Props {
 const {
   title,
   description,
-  breadcrumb = [{ label: 'Cobus van Vuuren', href: '/' }, { label: 'Builds', href: '/builds/' }],
+  breadcrumb = [{ label: 'Cobus van Vuuren', href: '/' }, { label: 'Builds', href: '/ai-automation/' }],
   navLinks = [],
 } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -308,6 +308,24 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .proof-box{border-left:3px solid var(--accent);background:var(--stone);padding:22px 26px;font-size:15px;line-height:1.7;color:var(--ink)}
 .builds-body .proof-box .stat{font-family:var(--display);font-weight:700;color:var(--accent-text)}
 
+/* ---------- hub Featured grid + Also-available (added 2026-09-15, Phase 3) ---------- */
+.builds-body .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
+@media(max-width:900px){.builds-body .featured-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.builds-body .featured-grid{grid-template-columns:1fr}}
+.builds-body .featured-card{background:var(--paper);padding:30px 26px;display:flex;flex-direction:column;gap:12px;text-decoration:none;color:inherit;min-height:220px}
+.builds-body .featured-card:hover,.builds-body .featured-card:focus-visible{background:var(--stone)}
+.builds-body .featured-card h3{font-size:18px}
+.builds-body .featured-card .outcome{font-size:14px;line-height:1.55;color:var(--muted)}
+.builds-body .featured-card .problem{font-size:12.5px;line-height:1.5;color:var(--muted-2);border-top:1px dotted var(--rule);padding-top:12px;margin-top:auto}
+.builds-body .featured-card .arrow{font-family:var(--mono);color:var(--accent-text);font-size:12px}
+.builds-body .also-available{margin-top:8px}
+.builds-body .also-available h3{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
+.builds-body .also-list{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.builds-body .also-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 2px;border-bottom:1px dotted var(--rule);font-size:14px}
+.builds-body .also-row .name{color:var(--ink)}
+.builds-body .also-row .note{color:var(--muted-2);font-size:11.5px;font-family:var(--mono);white-space:nowrap}
+.builds-body .also-row .note.planned{color:var(--muted)}
+
 /* ---------- builds index (hub) ---------- */
 .builds-body .buildlist{display:flex;flex-direction:column;border:1px solid var(--rule)}
 .builds-body .build-row{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;padding:30px 32px;border-bottom:1px solid var(--rule);text-decoration:none;color:inherit}
@@ -392,7 +410,7 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
       </p>
     </div>
     <div class="flex items-center gap-6">
-      <a href="/builds/"   class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Builds</a>
+      <a href="/ai-automation/" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Builds</a>
       <a href="/privacy/"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
       <a href="/terms/"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
       <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
