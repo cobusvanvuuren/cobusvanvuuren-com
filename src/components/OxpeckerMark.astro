@@ -1,0 +1,26 @@
+---
+// Hand-authored vector silhouette (not AI-generated) — a flat single-colour
+// icon needs exact colour/transparency fidelity a diffusion model doesn't
+// reliably give. Inherits colour via `currentColor` so it can be dropped on
+// dark or light backgrounds without a second asset. Reused across the
+// Oxpecker page: large in the hero, small as a recurring accent.
+interface Props {
+  class?: string;
+}
+const { class: klass = '' } = Astro.props;
+---
+<svg class={klass} viewBox="0 0 240 160" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Oxpecker silhouette">
+  <!-- squared tail (real oxpeckers brace with a stiff, squared tail, like a woodpecker) -->
+  <path d="M60 96 L23 79 L23 103 L60 110 Z" fill="currentColor"/>
+  <!-- body -->
+  <ellipse cx="128" cy="92" rx="60" ry="30" transform="rotate(-7 128 92)" fill="currentColor"/>
+  <!-- head -->
+  <circle cx="196" cy="66" r="21" fill="currentColor"/>
+  <!-- stubby beak -->
+  <path d="M213 61 L234 66 L213 74 Z" fill="currentColor"/>
+  <!-- eye (subtle knockout, reads on any background) -->
+  <circle cx="201" cy="62" r="3" fill="#000" opacity="0.32"/>
+  <!-- legs + clinging claws -->
+  <path d="M108 118 L102 142 M96 142 L100 136 M104 142 L102 136 M108 142 L104 136" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+  <path d="M142 120 L148 144 M144 144 L146 138 M150 144 L148 138 M154 144 L150 138" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+</svg>

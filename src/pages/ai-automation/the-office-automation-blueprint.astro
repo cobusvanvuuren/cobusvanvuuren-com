@@ -1,0 +1,274 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="The Office Automation Blueprint — mapped before anything's bought"
+  description="A full, costed plan of what to automate in your business, in what order, and what it's worth. Mapped stage by stage before a single tool gets chosen."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Business automation, mapped before it's bought</p>
+      <h1>Most businesses buy the tool before anyone's mapped <em>the problem</em>.</h1>
+      <p class="lede">This is what actually happens after the diagnostic: a full, costed plan of what to automate in your business, in what order, and what it's worth. Not a tool recommendation. A map.</p>
+      <p class="category-line"><strong>A plan built for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get a document, and someone who can walk you through it.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/office-automation-blueprint-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Somewhere in your business, a chain just like this one is running right now.</h2>
+      <p>A South African gutter installation business ran every job through six systems that didn't talk to each other. A WhatsApp enquiry got retyped into a diary spreadsheet, then again into a calendar. Measurements went onto a paper sheet, then into a pricing sheet, then a third time into the accounting system to raise the quote, then copied back into WhatsApp to send it.</p>
+      <p>Nothing in that chain was broken. Every step worked. A person was just the connective tissue holding six systems together, and nobody had ever written that down in one place.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Admin time nobody's counted. The same fix "discovered" every few months because the last one was never documented. A team retyping the same information because retyping is faster than asking whether it needs to happen at all.</p>
+      </div>
+      <div class="col">
+        <h3>After the Blueprint</h3>
+        <p>Every admin task in the business mapped in one place: which ones are mechanical, which ones are real judgement, and which ones just needed writing down. A costed order of what to fix first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The mistake isn't the wrong tool. It's buying one before anything's mapped.</h2>
+      <p>Most businesses buy a tool, then discover it doesn't fit how they actually work. The Office Automation Blueprint is the mapping step, done properly, before a single subscription gets bought.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every time</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">THE BLUEPRINT &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV maps your business and delivers the plan; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>One written, costed plan, not a tool list</h2>
+      <p>A written, costed plan naming exactly which admin/ops tasks to automate, in what order, with an estimated time and cost saving for each. It doesn't include doing the automation itself &mdash; that's a separate, later engagement once you decide which items on the plan to act on.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's plan</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>1. Monthly reconciliation (highest priority)</strong><br />Currently done by hand from an accounting export. Mechanical, well-documented, safe to automate first.</p>
+        <p><strong>2. Enquiry-to-diary retyping</strong><br />Same information entered twice across two systems. Mechanical, low complexity, quick win.</p>
+        <p><strong>3. Job-photo filing</strong><br />Missed by two different staff members in a row &mdash; a system gap, not a people problem. Flagged for a simple automated fix.</p>
+        <p><strong>4. Quote pricing decisions</strong><br />Flagged as keep-manual. Genuine judgement call, not a candidate for automation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact process has been run on a real South African business's operations, mapped stage by stage before a single tool was chosen. The largest single finding: a monthly reconciliation done by hand, costing the owner close to a full week of time every month. In the owner's own words: <em>&ldquo;Vat my omtrent &rsquo;n week.&rdquo;</em> One completed mapping exists. This is what it found, not a projection of what it might find for you.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="See exactly what's eating your team's time, mapped and costed." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/office-automation-blueprint-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">The Office Automation Blueprint</p>
+    <p>Every business has a version of the six-system chain. Most owners have never seen it laid out in one place.</p>
+    <p class="q">What's yours actually costing you?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var TASKS = [
+    {name:"Retype enquiry into diary", system:"WhatsApp → Diary spreadsheet"},
+    {name:"Copy diary entry into calendar", system:"Diary → Calendar"},
+    {name:"Raise the quote", system:"Pricing sheet → Accounting"},
+    {name:"File completed job photos", system:"WhatsApp group → Drive"},
+    {name:"Monthly reconciliation", system:"Accounting export → hand calculation"}
+  ];
+  var DIAGNOSIS = [
+    {name:"Monthly reconciliation", tag:"Mechanical", primary:true},
+    {name:"Retype enquiry into diary", tag:"Mechanical", primary:false},
+    {name:"File completed job photos", tag:"Undocumented", primary:false},
+    {name:"Price a standard job", tag:"Judgement — keep manual", primary:false},
+    {name:"Approve a tricky quote exception", tag:"Judgement — keep manual", primary:false}
+  ];
+  var PLAN = {
+    id:"P-01",
+    theme:"Priority order",
+    observation:"Five admin tasks mapped stage by stage. Two are safe to automate immediately (mechanical, well-documented), one needs writing down before it can be automated, and two are genuine judgement calls that stay manual. The monthly reconciliation is the single largest time cost found, so it leads the order.",
+    action:"Start with the reconciliation and the enquiry retyping. Write down the photo-filing step before automating it. Leave both judgement calls alone."
+  };
+
+  var steps = [
+    {n:"01", name:"Map", h:"Every admin task, listed stage by stage", p:"From first contact to final invoice, every system touched and every handoff between them gets written down, before anyone talks about tools.", nextLabel:"Next: Diagnose", type:"map"},
+    {n:"02", name:"Diagnose", h:"Sorted into three real categories", p:"Each task gets marked mechanical (safe to automate), judgement (keep manual), or undocumented (needs writing down first) — not assumed automatable by default.", nextLabel:"Next: Cost", type:"diagnose"},
+    {n:"03", name:"Cost", h:"Time and cost, not a vague estimate", p:"The mechanical tasks get an estimated time cost, so the plan is built on real numbers instead of a general sense that “something should be faster.”", nextLabel:"Next: Prioritise", type:"cost"},
+    {n:"04", name:"Prioritise", h:"One ordered plan, checked before it ships", p:"The findings come back as a written, ordered plan: what to fix first, second, third, and why — checked against a judgment filter before you see it.", nextLabel:"Start again", type:"prioritise"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'map') {
+      return '<ul class="ws-excerpt-list">' + TASKS.map(function(t){
+        return '<li><span class="ws-src">' + t.system + '</span><p>' + t.name + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'diagnose') {
+      return '<ul class="ws-theme-list">' + DIAGNOSIS.map(function(d){
+        return '<li class="' + (d.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + d.name + '</span><span class="ws-theme-count">' + d.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'cost') {
+      return '<div class="ws-field"><span class="ws-label">Monthly reconciliation</span><span class="ws-value">Largest single item</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Enquiry retyping</span><span class="ws-value">Recurring, weekly</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Photo filing</span><span class="ws-value">Missed twice, two staff</span></div>' +
+             '<div class="ws-field"><span class="ws-label">Judgement tasks</span><span class="ws-value">Excluded from costing</span></div>';
+    }
+    if (type === 'prioritise') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + PLAN.id + '</span><span class="finding-theme">' + PLAN.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + PLAN.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + PLAN.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy plan summary</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = PLAN.theme + '\n\n' + PLAN.observation + '\n\nRecommended next step: ' + PLAN.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
