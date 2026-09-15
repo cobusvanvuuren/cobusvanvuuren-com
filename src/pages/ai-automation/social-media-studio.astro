@@ -1,0 +1,265 @@
+---
+import BuildsLayout from '../../layouts/BuildsLayout.astro';
+import BuildCTA from '../../components/BuildCTA.astro';
+
+const navLinks = [
+  { href: '#problem', label: 'The problem' },
+  { href: '#how', label: 'How it works' },
+  { href: '#deliverable', label: 'What you get' },
+];
+---
+<BuildsLayout
+  title="Social Media Studio — content, written and scheduled from one brief"
+  description="Takes a brief, a topic, or a source, and turns it into on-brand posts, written by a real editorial process, then staged straight into your scheduler."
+  navLinks={navLinks}
+>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Content, written and scheduled from one brief</p>
+      <h1>Most businesses post whatever's quick. <em>Not whatever's right.</em></h1>
+      <p class="lede">Social Media Studio takes a brief, a topic, or a source, and turns it into on-brand posts, written by a real editorial process, then staged straight into your scheduler. Nobody has to sit down and write a caption from a blank page.</p>
+      <p class="category-line"><strong>A content process run for your business, by a person</strong>, using CVV's own working method. There's no dashboard to log into. You get finished, scheduled posts, and someone who can walk you through the calendar.</p>
+    </div>
+    <div class="hero-mark-wrap">
+      <img src="/images/marks/social-media-studio-mark.png" alt="" class="hero-mark" width="180" height="180" />
+    </div>
+  </div>
+</header>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Before</p>
+      <h2>Most social content gets written in the ten minutes before it's due.</h2>
+      <p>A post needs to go out today, so it gets written today, fast, from a blank page, by whoever has ten free minutes. It rarely gets checked against the brand's actual voice, and it's rarely part of a real plan &mdash; it's just the thing that filled the gap.</p>
+      <p>Multiply that by every week of the year, and the account ends up sounding like whoever happened to write that day's post, not like one consistent business.</p>
+    </div>
+    <div class="premise-grid">
+      <div class="col">
+        <h3>What it's costing you</h3>
+        <p>Inconsistent voice from post to post. Content written under time pressure instead of planned. Hours spent writing captions that could have gone into running the business.</p>
+      </div>
+      <div class="col">
+        <h3>After the Studio</h3>
+        <p>A real editorial process behind every post: written, edited, proofread, and checked against the brand's actual voice, then scheduled, not published in a rush.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BRIDGE -->
+<section class="stone">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Bridge</p>
+      <h2>The fix isn't posting more. It's a real process behind what gets posted.</h2>
+      <p>A proper editorial pipeline &mdash; brief to draft to edit to proofread to voice-check &mdash; catches what a rushed ten-minute post never would. Social Media Studio is that process, run on your business's own brand and calendar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What actually happens</p>
+      <h2>Four steps, same process every time</h2>
+    </div>
+    <div class="workflow">
+      <div class="workflow__toolbar">
+        <span class="workflow__label">SOCIAL MEDIA STUDIO &middot; WORKFLOW PREVIEW</span>
+        <span class="workflow__tag">SAMPLE DATA</span>
+      </div>
+      <p class="workflow__sub">Interactive sample &mdash; explore the workflow below. CVV runs the batch for your business and stages it in the scheduler; no account or login is provided.</p>
+      <div class="step-rail" id="stepRail" role="tablist"></div>
+      <div class="workflow__body">
+        <div class="workflow__explain" id="stepExplain"></div>
+        <div class="workflow__workspace" id="stepWorkspace"></div>
+      </div>
+      <div class="step-nav">
+        <button id="stepPrev" type="button">&larr; Previous step</button>
+        <button id="stepNext" type="button">Next &rarr;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT YOU GET -->
+<section class="stone" id="deliverable">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">The deliverable</p>
+      <h2>A batch of scheduled posts, not a stack of captions to post yourself</h2>
+      <p>A batch of on-brand posts, written through a real editorial process and staged directly into a scheduling tool on a real calendar. It includes the writing and scheduling; it doesn't include running paid ad campaigns off the same content &mdash; that's a separate, later step.</p>
+    </div>
+    <div class="illustrative-frame">
+      <div class="illustrative-tag">
+        <span>Sample output &mdash; not a real client's batch</span>
+      </div>
+      <div class="illustrative-body">
+        <p><strong>Brief</strong><br />Topic: a recent win worth sharing. Platform: LinkedIn and Facebook. Angle: specific, not generic.</p>
+        <p><strong>Draft</strong><br />Written to the brand's actual voice, checked against what's already been posted this month so nothing repeats.</p>
+        <p><strong>Scheduled</strong><br />Staged into the calendar for the coming week, ready to review before it goes live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">What's actually been validated</p>
+      <h2>Said plainly, not oversold</h2>
+    </div>
+    <div class="proof-box">
+      This exact process has produced <span class="stat">66</span> real, published pieces of content across real accounts, run through the same editorial pipeline described above, not a one-off exception. Every post is staged for review before it goes live; nothing publishes automatically without a person confirming it first.
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<BuildCTA headline="Get a real content process behind what your business posts." linkText="Get this for your business" href="/score/" />
+
+<!-- CLOSE -->
+<section class="close-sec">
+  <div class="wrap">
+    <img src="/images/marks/social-media-studio-mark.png" alt="" class="close-mark" width="48" height="48" />
+    <p class="wordmark-line">Social Media Studio</p>
+    <p>Most accounts sound like whoever wrote today's post. Consistency is a process, not a personality trait.</p>
+    <p class="q">What would your account sound like with the same process behind every post?</p>
+  </div>
+</section>
+
+<script is:inline>
+(function(){
+  var BRIEF = [
+    {src:"Topic", note:"A recent win worth sharing"},
+    {src:"Platforms", note:"LinkedIn and Facebook"},
+    {src:"Angle", note:"Specific, not generic"},
+    {src:"Voice check", note:"Against the brand's own profile"}
+  ];
+  var CHECKS = [
+    {name:"On-brand voice", tag:"Checked", primary:false},
+    {name:"No repeat of last month's angle", tag:"Checked", primary:true},
+    {name:"Platform-specific formatting", tag:"Checked", primary:false},
+    {name:"Proofread", tag:"Checked", primary:false}
+  ];
+  var PLAN = {
+    id:"S-01",
+    theme:"Batch ready for review",
+    observation:"A batch of posts drafted against the brief, edited and proofread against the brand's actual voice, and checked against the last month of published content so nothing repeats an angle already used.",
+    action:"Staged into the scheduler for the coming week, held for review before anything goes live."
+  };
+
+  var steps = [
+    {n:"01", name:"Brief", h:"Matched to the business's own voice", p:"A topic, a source, or a content brief comes in, and gets matched against the business's own brand voice and what's already been posted recently.", nextLabel:"Next: Draft", type:"brief"},
+    {n:"02", name:"Draft", h:"Written platform by platform", p:"A first draft gets written against that brief, platform by platform, not one generic post copy-pasted everywhere.", nextLabel:"Next: Edit", type:"draft"},
+    {n:"03", name:"Edit", h:"Checked against the real brand voice", p:"The draft gets checked and proofread against the brand's actual voice, not a generic tone, before anyone sees it.", nextLabel:"Next: Schedule", type:"edit"},
+    {n:"04", name:"Schedule", h:"Staged, not left sitting in a document", p:"Approved posts get staged directly into the scheduler on a real calendar, ready to go out, not left sitting in a document.", nextLabel:"Start again", type:"schedule"}
+  ];
+
+  var rail = document.getElementById('stepRail');
+  var explain = document.getElementById('stepExplain');
+  var workspace = document.getElementById('stepWorkspace');
+  var prevBtn = document.getElementById('stepPrev');
+  var nextBtn = document.getElementById('stepNext');
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var current = 0;
+
+  steps.forEach(function(s, i){
+    var tab = document.createElement('button');
+    tab.className = 'step-tab';
+    tab.type = 'button';
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+    tab.setAttribute('aria-controls', 'stepWorkspace');
+    tab.id = 'step-tab-' + i;
+    tab.innerHTML = '<span class="n">' + s.n + '</span>' + s.name;
+    tab.addEventListener('click', function(){ selectStep(i, true); });
+    tab.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowRight') { selectStep(Math.min(i+1, steps.length-1), true); }
+      if (e.key === 'ArrowLeft')  { selectStep(Math.max(i-1, 0), true); }
+    });
+    rail.appendChild(tab);
+  });
+
+  function renderWorkspace(type){
+    if (type === 'brief') {
+      return '<ul class="ws-excerpt-list">' + BRIEF.map(function(b){
+        return '<li><span class="ws-src">' + b.src + '</span><p>' + b.note + '</p></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'draft' || type === 'edit') {
+      return '<ul class="ws-theme-list">' + CHECKS.map(function(c){
+        return '<li class="' + (c.primary ? 'primary' : '') + '"><span class="ws-theme-name">' + c.name + '</span><span class="ws-theme-count">' + c.tag + '</span></li>';
+      }).join('') + '</ul>';
+    }
+    if (type === 'schedule') {
+      return '<div class="finding" id="findingCard">' +
+        '<div class="finding-head"><span class="finding-id">' + PLAN.id + '</span><span class="finding-theme">' + PLAN.theme + '</span></div>' +
+        '<p class="finding-field"><strong>Observation</strong>' + PLAN.observation + '</p>' +
+        '<p class="finding-field"><strong>Recommended next step</strong>' + PLAN.action + '</p>' +
+        '<button type="button" class="finding-copy" id="findingCopy">Copy batch summary</button>' +
+      '</div>';
+    }
+    return '';
+  }
+
+  function bindWorkspaceControls(){
+    var copy = document.getElementById('findingCopy');
+    if (copy) {
+      copy.addEventListener('click', function(){
+        var text = PLAN.theme + '\n\n' + PLAN.observation + '\n\nRecommended next step: ' + PLAN.action;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(text).then(function(){
+            var orig = copy.textContent;
+            copy.textContent = 'Copied';
+            setTimeout(function(){ copy.textContent = orig; }, 1600);
+          });
+        }
+      });
+    }
+  }
+
+  function selectStep(i, scrollRail){
+    current = i;
+    steps.forEach(function(s, j){
+      document.getElementById('step-tab-' + j).setAttribute('aria-selected', j === i ? 'true' : 'false');
+    });
+    var s = steps[i];
+    explain.innerHTML = '<h3>' + s.n + ' &middot; ' + s.h + '</h3><p>' + s.p + '</p>';
+    var wsHtml = renderWorkspace(s.type);
+    if (reduceMotion) {
+      workspace.innerHTML = wsHtml;
+    } else {
+      workspace.style.opacity = '0';
+      workspace.style.transform = 'translateY(6px)';
+      workspace.innerHTML = wsHtml;
+      requestAnimationFrame(function(){
+        workspace.style.transition = 'opacity 160ms ease, transform 160ms ease';
+        workspace.style.opacity = '1';
+        workspace.style.transform = 'translateY(0)';
+      });
+    }
+    bindWorkspaceControls();
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === steps.length - 1 ? 'Start again' : s.nextLabel) + (i === steps.length - 1 ? '' : ' →');
+    if (scrollRail) {
+      document.getElementById('step-tab-' + i).scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+    }
+  }
+  prevBtn.addEventListener('click', function(){ if(current > 0) selectStep(current - 1, true); });
+  nextBtn.addEventListener('click', function(){
+    if (current === steps.length - 1) { selectStep(0, true); }
+    else { selectStep(current + 1, true); }
+  });
+  selectStep(0, false);
+})();
+</script>
+
+</BuildsLayout>
