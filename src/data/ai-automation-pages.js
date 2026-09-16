@@ -1,0 +1,77 @@
+// Single source of truth for the /ai-automation/ Featured capability pages --
+// used by the hub's Featured grid AND the sitewide BuildsLayout footer, so
+// adding/renaming a page never means updating the list in two places.
+export const featuredPages = [
+  {
+    name: 'Okapi',
+    href: '/ai-automation/okapi-ai-operating-system/',
+    icon: '/images/marks/okapi-mark.png',
+    outcome: 'The file-based operating system everything else on this page runs on top of.',
+    problem: 'Why believe any of this is real, not a demo',
+    anchor: 'The operating system behind everything else here',
+  },
+  {
+    name: 'Oxpecker',
+    href: '/ai-automation/oxpecker-review-management/',
+    icon: '/images/marks/oxpecker-mark.png',
+    outcome: "Reads a company's public reviews and surfaces the one real problem customers keep mentioning.",
+    problem: 'Nobody has time to read every review',
+    anchor: "Find what your reviews are already telling you",
+  },
+  {
+    name: 'The Office Automation Blueprint',
+    href: '/ai-automation/the-office-automation-blueprint/',
+    icon: '/images/marks/office-automation-blueprint-mark.png',
+    outcome: 'A costed, ordered plan of what to automate in your business, mapped before a tool gets bought.',
+    problem: 'A six-system admin chain nobody has ever mapped',
+    anchor: 'Map your business before buying another tool',
+  },
+  {
+    name: 'Nightjar',
+    href: '/ai-automation/nightjar-call-intelligence/',
+    icon: '/images/marks/nightjar-mark.png',
+    outcome: 'Turns recorded calls into a weekly coaching brief and content signals, without anyone re-listening.',
+    problem: 'Calls happen and are never really heard',
+    anchor: 'Turn your calls into a weekly coaching brief',
+  },
+  {
+    name: 'Growth Opportunity Scan',
+    href: '/ai-automation/growth-opportunity-scan/',
+    icon: '/images/marks/growth-opportunity-scan-mark.png',
+    outcome: "A channel-by-channel growth plan built from the business's own real traffic, search, and ad data.",
+    problem: 'Growth advice that never says what it costs or returns',
+    anchor: 'See what growth your own data says is available',
+  },
+  {
+    name: 'Meerkat',
+    href: '/ai-automation/meerkat-competitor-watch/',
+    icon: '/images/marks/meerkat-mark.png',
+    outcome: "Watches a named competitor's traffic, rankings, and backlinks, and flags real movement every quarter.",
+    problem: 'A competitor moving and nobody noticing',
+    anchor: 'Watch a competitor without checking manually',
+  },
+  {
+    name: 'SpoorSny',
+    href: '/ai-automation/spoorsny-marketing-data-connector/',
+    icon: '/images/marks/spoorsny-mark.png',
+    outcome: 'One connector for every marketing data source, instead of ten different logins.',
+    problem: 'Every platform has its own login and its own number',
+    anchor: 'One connector instead of ten logins',
+  },
+  {
+    name: 'Social Media Studio',
+    href: '/ai-automation/social-media-studio/',
+    icon: '/images/marks/social-media-studio-mark.png',
+    outcome: 'A real editorial process behind every post, staged directly into a scheduler.',
+    problem: "Content written in the ten minutes before it's due",
+    anchor: 'Get a real process behind every post',
+  },
+  {
+    name: 'Echo Engine',
+    href: '/ai-automation/echo-engine-content-repurposing/',
+    icon: '/images/marks/echo-engine-mark.png',
+    outcome: 'Turns one article, video, or podcast into weeks of platform-native posts.',
+    problem: 'Real content made once, used once',
+    anchor: 'Turn one piece of content into weeks of posts',
+  },
+];

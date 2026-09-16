@@ -1,99 +1,56 @@
 ---
 import BuildsLayout from '../../layouts/BuildsLayout.astro';
 import BuildCTA from '../../components/BuildCTA.astro';
+import { featuredPages as featured } from '../../data/ai-automation-pages.js';
 
-const featured = [
-  {
-    name: 'Okapi',
-    href: '/ai-automation/okapi/',
-    status: 'Used internally',
-    outcome: 'The file-based operating system everything else on this page runs on top of.',
-    problem: "Why believe any of this is real, not a demo",
-  },
-  {
-    name: 'Oxpecker',
-    href: '/ai-automation/oxpecker-review-management/',
-    status: 'Used internally',
-    outcome: "Reads a company's public reviews and surfaces the one real problem customers keep mentioning.",
-    problem: 'Nobody has time to read every review',
-  },
-  {
-    name: 'The Office Automation Blueprint',
-    href: '/ai-automation/the-office-automation-blueprint/',
-    status: 'Delivered for one client',
-    outcome: 'A costed, ordered plan of what to automate in your business, mapped before a tool gets bought.',
-    problem: 'A six-system admin chain nobody has ever mapped',
-  },
-  {
-    name: 'Nightjar',
-    href: '/ai-automation/nightjar/',
-    status: 'Delivered for one client',
-    outcome: 'Turns recorded calls into a weekly coaching brief and content signals, without anyone re-listening.',
-    problem: 'Calls happen and are never really heard',
-  },
-  {
-    name: 'Growth Opportunity Scan',
-    href: '/ai-automation/growth-opportunity-scan/',
-    status: 'Delivered for 3 clients',
-    outcome: "A channel-by-channel growth plan built from the business's own real traffic, search, and ad data.",
-    problem: 'Growth advice that never says what it costs or returns',
-  },
-  {
-    name: 'Meerkat',
-    href: '/ai-automation/meerkat/',
-    status: 'Used internally',
-    outcome: "Watches a named competitor's traffic, rankings, and backlinks, and flags real movement every quarter.",
-    problem: "A competitor moving and nobody noticing",
-  },
-  {
-    name: 'SpoorSny',
-    href: '/ai-automation/spoorsny/',
-    status: 'Used internally',
-    outcome: 'One connector for every marketing data source, instead of ten different logins.',
-    problem: 'Every platform has its own login and its own number',
-  },
-  {
-    name: 'Social Media Studio',
-    href: '/ai-automation/social-media-studio/',
-    status: 'Delivered for multiple clients',
-    outcome: 'A real editorial process behind every post, staged directly into a scheduler.',
-    problem: 'Content written in the ten minutes before it\'s due',
-  },
-  {
-    name: 'Echo Engine',
-    href: '/ai-automation/echo-engine/',
-    status: 'Used internally',
-    outcome: 'Turns one article, video, or podcast into weeks of platform-native posts.',
-    problem: 'Real content made once, used once',
-  },
+const alsoAvailable = [
+  { name: 'FAQ Harvest', note: 'Finds the real questions customers are searching for and turns your own answers into content.' },
+  { name: 'Root Cause', note: 'Drills from a surface symptom down to the real cause, instead of fixing the same problem twice.' },
+  { name: 'Image Engine', note: 'On-brand, audience-targeted visuals produced at batch scale.' },
+  { name: 'POP Watchdog', note: 'Monthly technical SEO fixes, found and applied, not just flagged.' },
+  { name: 'Google Ads Audit', note: 'A weekly read on what your Google Ads account is actually doing.' },
+  { name: 'Meta Ads Audit', note: 'The same weekly discipline, for Facebook and Instagram ads.' },
+  { name: 'AI Visibility Audit', note: 'Checks whether your business shows up when someone asks ChatGPT instead of Google.' },
+  { name: 'SEO Technical Audit', note: 'A full technical health check across 16 real ranking factors.' },
+  { name: 'Target Market / ICP Research', note: 'Builds a real picture of who actually buys, not a guess.' },
+  { name: 'ELRIN', note: 'Keeps your systems current with what\'s actually working elsewhere.' },
+  { name: 'Sales Call Intelligence', note: 'Checks a sales call for what was promised against what\'s actually true.' },
+  { name: 'Voice Winners', note: 'Learns which of your own posts actually performed, and writes more like those.' },
+  { name: 'Local SEO Audit', note: 'Checks whether your business is set up to win the map pack.' },
+  { name: 'LLM Profile Page', note: 'A page built specifically to be read and cited by AI answer engines.' },
+  { name: 'Automated Financial Reporting', note: 'A weekly and monthly read on the numbers, without anyone pulling a spreadsheet.' },
+  { name: 'Automated Business Reviews', note: 'A standing pulse on the state of the business, without anyone assembling it by hand.' },
+  { name: 'Strategic Advisory Suite', note: 'A structured second opinion or stress-test before a big decision, on demand.' },
+  { name: 'Client Memory System', note: 'A structured, queryable memory of your business built over time, so nothing has to be re-explained to a new hire or a new tool.' },
+  { name: 'Managed Agents', note: 'An ongoing, managed AI agent running a defined part of your operations, on retainer.' },
+  { name: 'Automation Engine', note: 'Custom-built automation for a specific repeatable process unique to your business.' },
+  { name: 'Speed-to-Lead / Instant Response Agents', note: 'Responds to a new enquiry within minutes, any time of day, before a competitor does.' },
+  { name: 'Automated AR & Invoicing Follow-ups', note: 'Chases overdue invoices and payments automatically, without an awkward phone call.' },
+  { name: 'Internal Knowledge & Meeting Summarizers', note: 'Turns meetings and internal knowledge into searchable, structured notes automatically.' },
+  { name: 'AI Customer Support', note: 'Handles common customer questions automatically, escalating only what actually needs a person.' },
+  { name: 'Smart Document Processing', note: 'Reads and extracts data from documents automatically, instead of manual data entry.' },
+  { name: 'Automated Meeting Transcripts', note: 'A full, searchable transcript of every meeting, without anyone taking notes.' },
 ];
 
-const alsoBuilt = [
-  'FAQ Harvest', 'Root Cause', 'Image Engine', 'POP Watchdog', 'Google Ads Audit',
-  'Meta Ads Audit', 'AI Visibility Audit', 'SEO Technical Audit', 'Target Market / ICP Research',
-  'ELRIN', 'Sales Call Intelligence', 'Voice Winners', 'Local SEO Audit', 'LLM Profile Page',
-  'Automated Financial Reporting', 'Automated Business Reviews', 'Strategic Advisory Suite',
-  'Elementor-to-native site migration',
-];
-
-const alsoPlanned = [
-  'Client Memory System', 'Managed Agents', 'Automation Engine', 'Speed-to-Lead / Instant Response Agents',
-  'Automated AR & Invoicing Follow-ups', 'Internal Knowledge & Meeting Summarizers', 'AI Customer Support',
-  'Smart Document Processing', 'Automated Meeting Transcripts',
-];
+const iconCluster = featured.map((f) => f.icon);
 ---
 <BuildsLayout
   title="AI Automation — systems that already run parts of real businesses"
-  description="A running list of the systems built to run RhinoBerry and its clients, plus a few CVV can build for yours."
+  description="A running list of real systems built for real businesses, plus a few CVV can build for yours."
   navLinks={[{ href: '#featured', label: 'Featured' }, { href: '#also-available', label: 'Also available' }]}
 >
 
 <!-- HERO -->
 <header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Systems, not one-off projects</p>
-    <h1>Systems that already run parts of real businesses &mdash; plus a few we can <em>build for yours</em>.</h1>
-    <p class="lede">Each Featured system below is currently doing a real part of how RhinoBerry or a real client operates, explained the same way it's actually built. Below that is everything else CVV has built or can build, listed honestly, without its own page yet.</p>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Systems, not one-off projects</p>
+      <h1>Systems that already run parts of real businesses &mdash; plus a few we can <em>build for yours</em>.</h1>
+      <p class="lede">Each Featured system below is currently doing a real part of how a real business operates, explained the same way it's actually built. Everything else CVV has built, or can build next, is listed honestly further down &mdash; some already delivering results, a few not built yet.</p>
+    </div>
+    <div class="icon-cluster">
+      {iconCluster.map((src) => <img src={src} alt="" width="56" height="56" />)}
+    </div>
   </div>
 </header>
 
@@ -128,7 +85,7 @@ const alsoPlanned = [
     <div class="featured-grid">
       {featured.map((f) => (
         <a class="featured-card" href={f.href}>
-          <span class="status-chip">{f.status}</span>
+          <img src={f.icon} alt="" class="card-icon" width="40" height="40" />
           <h3>{f.name}</h3>
           <p class="outcome">{f.outcome}</p>
           <p class="problem">{f.problem}</p>
@@ -144,29 +101,16 @@ const alsoPlanned = [
   <div class="wrap">
     <div class="sec-head">
       <p class="eyebrow">Also available</p>
-      <h2>Built to order</h2>
-      <p>Real and built, but not yet a page of its own &mdash; and a shorter list of things that are genuinely possible but haven't been built at all. Both listed honestly, not featured.</p>
+      <h2>Install any of these for your business</h2>
+      <p>Real work CVV has already built, plus what else is genuinely possible to build next. None of it has its own page here, so what it does is explained in one line instead.</p>
     </div>
 
     <div class="also-available">
-      <h3>Already built, listed without a page</h3>
       <div class="also-list">
-        {alsoBuilt.map((name) => (
+        {alsoAvailable.map((item) => (
           <div class="also-row">
-            <span class="name">{name}</span>
-            <span class="note">Built, no page yet</span>
-          </div>
-        ))}
-      </div>
-    </div>
-
-    <div class="also-available" style="margin-top:40px">
-      <h3>Not built yet, listed for transparency</h3>
-      <div class="also-list">
-        {alsoPlanned.map((name) => (
-          <div class="also-row">
-            <span class="name">{name}</span>
-            <span class="note planned">Planned, not yet built</span>
+            <span class="name">{item.name}</span>
+            <span class="note">{item.note}</span>
           </div>
         ))}
       </div>

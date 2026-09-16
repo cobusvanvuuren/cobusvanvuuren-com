@@ -12,6 +12,7 @@
 // scoped-CSS attribute is only applied to elements it compiles from the
 // template, never to elements created with document.createElement/innerHTML.
 import '../styles/global.css';
+import { featuredPages } from '../data/ai-automation-pages.js';
 interface Crumb { label: string; href?: string }
 interface Props {
   title: string;
@@ -102,11 +103,15 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 @media(max-width:820px){.builds-body .hero-mark-wrap{width:110px;justify-self:start}}
 .builds-body .hero-mark{width:100%;height:auto;display:block;opacity:.95}
 @media(prefers-reduced-motion: no-preference){
-  .builds-body .hero-mark{animation:builds-idle 4.6s ease-in-out infinite;transform-origin:70% 85%}
+  .builds-body .hero-mark{animation:builds-idle 4.6s ease-in-out infinite, builds-glow-pulse 3.2s ease-in-out infinite;transform-origin:70% 85%}
 }
 @keyframes builds-idle{
   0%,100%{transform:translateY(0) rotate(0deg)}
   50%{transform:translateY(-5px) rotate(-1.5deg)}
+}
+@keyframes builds-glow-pulse{
+  0%,100%{filter:drop-shadow(0 0 2px rgba(255,74,28,.15))}
+  50%{filter:drop-shadow(0 0 22px rgba(255,74,28,.65))}
 }
 .builds-body .close-mark{width:48px;height:auto;margin:0 auto 20px;display:block}
 /* "flies" -- review-platform marks orbiting the head, positioned against the
@@ -267,6 +272,8 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .tile .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text);margin-bottom:10px}
 .builds-body .tile h4{font-size:16px;margin-bottom:10px;line-height:1.3}
 .builds-body .tile p{font-size:13.5px;line-height:1.6;color:var(--muted)}
+.builds-body p a,.builds-body .tile p a,.builds-body .illustrative-body a{color:var(--accent-text);text-decoration:underline;text-underline-offset:2px}
+.builds-body p a:hover,.builds-body .tile p a:hover,.builds-body .illustrative-body a:hover{color:var(--accent)}
 
 /* ---------- two-column comparison ---------- */
 .builds-body .isnt{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule)}
@@ -308,6 +315,21 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .proof-box{border-left:3px solid var(--accent);background:var(--stone);padding:22px 26px;font-size:15px;line-height:1.7;color:var(--ink)}
 .builds-body .proof-box .stat{font-family:var(--display);font-weight:700;color:var(--accent-text)}
 
+/* ---------- hub icon cluster + Featured-card small icon (added 2026-09-16, review pass) ---------- */
+.builds-body .icon-cluster{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;width:180px}
+@media(max-width:820px){.builds-body .icon-cluster{width:110px;gap:4px}}
+.builds-body .icon-cluster img{width:100%;height:auto;display:block;opacity:.92}
+@media(prefers-reduced-motion: no-preference){
+  .builds-body .icon-cluster img{animation:builds-cluster-pulse 4s ease-in-out infinite}
+  .builds-body .icon-cluster img:nth-child(2n){animation-delay:.5s}
+  .builds-body .icon-cluster img:nth-child(3n){animation-delay:1s}
+}
+@keyframes builds-cluster-pulse{
+  0%,100%{filter:drop-shadow(0 0 1px rgba(255,74,28,.1));transform:scale(1)}
+  50%{filter:drop-shadow(0 0 10px rgba(255,74,28,.5));transform:scale(1.04)}
+}
+.builds-body .featured-card .card-icon{width:40px;height:40px;margin-bottom:2px}
+
 /* ---------- hub Featured grid + Also-available (added 2026-09-15, Phase 3) ---------- */
 .builds-body .featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule)}
 @media(max-width:900px){.builds-body .featured-grid{grid-template-columns:1fr 1fr}}
@@ -320,11 +342,12 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .featured-card .arrow{font-family:var(--mono);color:var(--accent-text);font-size:12px}
 .builds-body .also-available{margin-top:8px}
 .builds-body .also-available h3{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:16px}
-.builds-body .also-list{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
-.builds-body .also-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:13px 2px;border-bottom:1px dotted var(--rule);font-size:14px}
-.builds-body .also-row .name{color:var(--ink)}
-.builds-body .also-row .note{color:var(--muted-2);font-size:11.5px;font-family:var(--mono);white-space:nowrap}
-.builds-body .also-row .note.planned{color:var(--muted)}
+.builds-body .also-list{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;border-top:1px solid var(--rule)}
+@media(max-width:760px){.builds-body .also-list{grid-template-columns:1fr}}
+.builds-body .also-row{display:flex;flex-direction:column;gap:4px;padding:16px 2px;border-bottom:1px dotted var(--rule)}
+.builds-body .also-row .name{color:var(--ink);font-family:var(--display);font-weight:600;font-size:14.5px}
+.builds-body .also-row .note{color:var(--muted);font-size:13px;line-height:1.5}
+.builds-body .also-row .note.planned{color:var(--muted-2);font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
 
 /* ---------- builds index (hub) ---------- */
 .builds-body .buildlist{display:flex;flex-direction:column;border:1px solid var(--rule)}
@@ -344,6 +367,18 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .close-sec .wordmark-line{font-size:22px;margin-bottom:18px;color:var(--paper)}
 .builds-body .close-sec p{font-size:17px;line-height:1.7;max-width:46ch;margin:0 auto;color:#ffffffc0}
 .builds-body .close-sec .q{margin-top:30px;font-family:var(--display);font-size:22px;color:var(--paper)}
+
+/* ---------- mega footer (added 2026-09-16, sitewide interlinking pass) ---------- */
+.builds-body .mega-footer{background:var(--ink);color:var(--paper);padding:64px 0 48px}
+.builds-body .mega-footer .wrap{display:grid;grid-template-columns:1.1fr 2fr;gap:48px}
+@media(max-width:760px){.builds-body .mega-footer .wrap{grid-template-columns:1fr;gap:32px}}
+.builds-body .mega-footer .mf-intro p.eyebrow{color:#ffffff85}
+.builds-body .mega-footer .mf-intro h2{font-size:clamp(20px,2.4vw,26px);margin:14px 0 12px;color:var(--paper)}
+.builds-body .mega-footer .mf-intro p{font-size:14.5px;line-height:1.65;color:#ffffffb0;max-width:38ch}
+.builds-body .mf-links{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+@media(max-width:520px){.builds-body .mf-links{grid-template-columns:1fr}}
+.builds-body .mf-links a{display:block;font-size:14px;line-height:1.5;color:#ffffffc0;text-decoration:none;padding:9px 0;border-bottom:1px solid #ffffff14}
+.builds-body .mf-links a:hover,.builds-body .mf-links a:focus-visible{color:var(--accent)}
 
 .builds-body footer{padding:40px 0;border-top:1px solid var(--rule-soft)}
 .builds-body .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;list-style:none;margin:0 0 18px;padding:0}
@@ -397,6 +432,20 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 </nav>
 
 <slot />
+
+<!-- MEGA FOOTER -- every capability page interlinked, problem/solution anchor text -->
+<footer class="mega-footer">
+  <div class="wrap">
+    <div class="mf-intro">
+      <p class="eyebrow">Explore</p>
+      <h2>Every system, one place</h2>
+      <p>Nine real systems, each solving a specific problem. Not sure which one fits? <a href="/score/" style="color:var(--paper);text-decoration:underline;">Start with the free diagnostic</a> instead.</p>
+    </div>
+    <nav class="mf-links" aria-label="All capability pages">
+      {featuredPages.map((f) => <a href={f.href}>{f.anchor}</a>)}
+    </nav>
+  </div>
+</footer>
 
 <!-- FOOTER -- matches Base.astro exactly -->
 <footer class="relative z-[1] border-t border-white/5 py-10" style="background:#0B0A09">

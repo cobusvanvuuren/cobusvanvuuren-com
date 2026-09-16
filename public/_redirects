@@ -1,2 +1,9 @@
 # Builds hub + all capability pages moved from /builds/ to /ai-automation/ (2026-09-15).
 /builds/*  /ai-automation/:splat  301
+
+# Capability pages renamed to keyword-rich slugs (2026-09-16).
+/ai-automation/okapi/  /ai-automation/okapi-ai-operating-system/  301
+/ai-automation/nightjar/  /ai-automation/nightjar-call-intelligence/  301
+/ai-automation/meerkat/  /ai-automation/meerkat-competitor-watch/  301
+/ai-automation/spoorsny/  /ai-automation/spoorsny-marketing-data-connector/  301
+/ai-automation/echo-engine/  /ai-automation/echo-engine-content-repurposing/  301
