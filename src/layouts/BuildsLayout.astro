@@ -12,7 +12,7 @@
 // scoped-CSS attribute is only applied to elements it compiles from the
 // template, never to elements created with document.createElement/innerHTML.
 import '../styles/global.css';
-import { featuredPages } from '../data/ai-automation-pages.js';
+import SiteFooter from '../components/SiteFooter.astro';
 interface Crumb { label: string; href?: string }
 interface Props {
   title: string;
@@ -368,17 +368,6 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 .builds-body .close-sec p{font-size:17px;line-height:1.7;max-width:46ch;margin:0 auto;color:#ffffffc0}
 .builds-body .close-sec .q{margin-top:30px;font-family:var(--display);font-size:22px;color:var(--paper)}
 
-/* ---------- mega footer (added 2026-09-16, sitewide interlinking pass) ---------- */
-.builds-body .mega-footer{background:var(--ink);color:var(--paper);padding:64px 0 48px}
-.builds-body .mega-footer .wrap{display:grid;grid-template-columns:1.1fr 2fr;gap:48px}
-@media(max-width:760px){.builds-body .mega-footer .wrap{grid-template-columns:1fr;gap:32px}}
-.builds-body .mega-footer .mf-intro p.eyebrow{color:#ffffff85}
-.builds-body .mega-footer .mf-intro h2{font-size:clamp(20px,2.4vw,26px);margin:14px 0 12px;color:var(--paper)}
-.builds-body .mega-footer .mf-intro p{font-size:14.5px;line-height:1.65;color:#ffffffb0;max-width:38ch}
-.builds-body .mf-links{display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
-@media(max-width:520px){.builds-body .mf-links{grid-template-columns:1fr}}
-.builds-body .mf-links a{display:block;font-size:14px;line-height:1.5;color:#ffffffc0;text-decoration:none;padding:9px 0;border-bottom:1px solid #ffffff14}
-.builds-body .mf-links a:hover,.builds-body .mf-links a:focus-visible{color:var(--accent)}
 
 .builds-body footer{padding:40px 0;border-top:1px solid var(--rule-soft)}
 .builds-body .foot-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;list-style:none;margin:0 0 18px;padding:0}
@@ -433,40 +422,7 @@ body.builds-body{margin:0;background:var(--paper);color:var(--ink);font-family:v
 
 <slot />
 
-<!-- MEGA FOOTER -- every capability page interlinked, problem/solution anchor text -->
-<footer class="mega-footer">
-  <div class="wrap">
-    <div class="mf-intro">
-      <p class="eyebrow">Explore</p>
-      <h2>Every system, one place</h2>
-      <p>Nine real systems, each solving a specific problem. Not sure which one fits? <a href="/score/" style="color:var(--paper);text-decoration:underline;">Start with the free diagnostic</a> instead.</p>
-    </div>
-    <nav class="mf-links" aria-label="All capability pages">
-      {featuredPages.map((f) => <a href={f.href}>{f.anchor}</a>)}
-    </nav>
-  </div>
-</footer>
-
-<!-- FOOTER -- matches Base.astro exactly -->
-<footer class="relative z-[1] border-t border-white/5 py-10" style="background:#0B0A09">
-  <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-    <div class="flex flex-col items-center md:items-start gap-1">
-      <p class="font-sans text-[13px] font-normal text-smoke">
-        &copy; 2026 Cobus van Vuuren. Business Automation Assessments for SA professional services firms.
-      </p>
-      <p class="font-sans text-[11px]" style="color:rgba(122,118,110,0.4);">
-        Powered by <a href="https://rhinoberry.co.za" target="_blank" rel="noopener" style="color:rgba(122,118,110,0.5);text-decoration:none;">RhinoBerry</a>
-      </p>
-    </div>
-    <div class="flex items-center gap-6">
-      <a href="/ai-automation/" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Builds</a>
-      <a href="/privacy/"  class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Privacy</a>
-      <a href="/terms/"    class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Terms</a>
-      <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">LinkedIn</a>
-      <a href="mailto:cobus@rhinoberry.com" class="font-sans text-[12px] font-normal text-smoke hover:text-ivory transition-colors duration-200">Email</a>
-    </div>
-  </div>
-</footer>
+<SiteFooter />
 
 </body>
 </html>

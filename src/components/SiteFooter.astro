@@ -1,0 +1,100 @@
+---
+// Sitewide footer -- single source of truth for both Base.astro (main site)
+// and BuildsLayout.astro (hub + capability pages). Two variants:
+//  - default: flagship capability links (first 3 of featuredPages, by design
+//    order in ai-automation-pages.js) + "see all" + legal row
+//  - lean: legal-only, no links off the page at all except Privacy/Terms --
+//    used on high-intent pages (/audit, /thank-you,
+//    /strategy-call-confirmed, /score) where sending traffic elsewhere on
+//    the site works against the page's one job
+import { featuredPages } from '../data/ai-automation-pages.js';
+
+interface Props { lean?: boolean }
+const { lean = false } = Astro.props;
+const flagship = featuredPages.slice(0, 3);
+---
+<footer class={lean ? 'site-footer site-footer--lean' : 'site-footer'}>
+  <div class="sf-wrap">
+    {!lean && (
+      <div class="sf-top">
+        <div class="sf-intro">
+          <p class="sf-eyebrow">Explore</p>
+          <h2>Every system, one place</h2>
+          <p>Nine real systems, each solving a specific problem. Not sure which one fits? <a href="/score/">Start with the free diagnostic</a> instead.</p>
+        </div>
+        <div class="sf-links">
+          {flagship.map((f) => (
+            <a href={f.href} class="sf-link-card">
+              <img src={f.icon} alt="" width="30" height="30" loading="lazy" />
+              <span>
+                <strong>{f.name}</strong>
+                <em>{f.anchor}</em>
+              </span>
+            </a>
+          ))}
+          <a href="/ai-automation/" class="sf-see-all">See all 9 systems &rarr;</a>
+        </div>
+      </div>
+    )}
+    <div class="sf-legal">
+      <div class="sf-legal-copy">
+        <p>&copy; 2026 Cobus van Vuuren. Business Automation Assessments for SA professional services firms.</p>
+        {!lean && (
+          <p class="sf-powered">Powered by <a href="https://rhinoberry.co.za" target="_blank" rel="noopener">RhinoBerry</a></p>
+        )}
+      </div>
+      <div class="sf-legal-links">
+        {lean ? (
+          <>
+            <a href="/privacy/">Privacy</a>
+            <a href="/terms/">Terms</a>
+          </>
+        ) : (
+          <>
+            <a href="/ai-automation/">Builds</a>
+            <a href="/privacy/">Privacy</a>
+            <a href="/terms/">Terms</a>
+            <a href="https://www.linkedin.com/in/cobusvanvuuren/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="mailto:cobus@rhinoberry.com">Email</a>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+.site-footer{background:var(--color-obsidian);border-top:1px solid rgba(255,255,255,.05)}
+.sf-wrap{max-width:64rem;margin:0 auto;padding:0 1.5rem}
+
+.sf-top{display:grid;grid-template-columns:1.1fr 2fr;gap:3rem;padding:3.5rem 0 2.25rem;border-bottom:1px solid rgba(255,255,255,.08)}
+@media(max-width:760px){.sf-top{grid-template-columns:1fr;gap:2rem;padding:2.5rem 0 2rem}}
+
+.sf-eyebrow{font-family:var(--font-serif);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--color-copper);margin:0 0 .75rem}
+.sf-intro h2{font-family:var(--font-serif);font-size:clamp(20px,2.4vw,26px);font-weight:700;color:var(--color-ivory);margin:0 0 .75rem}
+.sf-intro p{font-size:14px;line-height:1.65;color:var(--color-smoke);max-width:36ch;margin:0}
+.sf-intro p a{color:var(--color-ivory);text-decoration:underline;text-underline-offset:2px}
+
+.sf-links{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.08);align-content:start}
+@media(max-width:640px){.sf-links{grid-template-columns:1fr}}
+
+.sf-link-card{background:var(--color-obsidian);display:flex;align-items:center;gap:.7rem;padding:.9rem 1rem;text-decoration:none;transition:background-color .15s ease}
+.sf-link-card:hover,.sf-link-card:focus-visible{background:rgba(255,255,255,.05)}
+.sf-link-card img{width:28px;height:28px;flex-shrink:0}
+.sf-link-card strong{display:block;font-family:var(--font-serif);font-weight:700;font-size:13px;color:var(--color-ivory)}
+.sf-link-card em{display:block;font-style:normal;font-size:11px;line-height:1.4;color:var(--color-smoke);margin-top:2px}
+
+.sf-see-all{grid-column:1/-1;display:flex;align-items:center;justify-content:center;padding:.8rem;font-size:12px;font-weight:600;letter-spacing:.02em;color:var(--color-copper);text-decoration:none;background:var(--color-obsidian);transition:color .15s ease}
+.sf-see-all:hover{color:var(--color-crimson)}
+
+.sf-legal{display:flex;flex-direction:column;align-items:center;gap:1rem;padding:1.75rem 0;text-align:center}
+@media(min-width:640px){.sf-legal{flex-direction:row;justify-content:space-between;text-align:left}}
+.sf-legal-copy p{margin:0;font-size:13px;color:var(--color-smoke)}
+.sf-legal-copy .sf-powered{font-size:11px;color:rgba(160,156,148,.5);margin-top:.25rem}
+.sf-legal-copy .sf-powered a{color:rgba(160,156,148,.6);text-decoration:none}
+.sf-legal-links{display:flex;align-items:center;gap:1.5rem}
+.sf-legal-links a{font-size:12px;color:var(--color-smoke);text-decoration:none;transition:color .15s ease}
+.sf-legal-links a:hover{color:var(--color-ivory)}
+
+.site-footer--lean .sf-legal{padding:1.75rem 0}
+</style>
