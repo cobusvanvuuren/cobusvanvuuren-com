@@ -17,4 +17,10 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+# Content usage preferences (https://contentsignals.org/)
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Agentic Resource Discovery entry source (predecessor directive form)
+Agentmap: https://cobusvanvuuren.com/.well-known/ard.json
+
 Sitemap: https://cobusvanvuuren.com/sitemap-index.xml

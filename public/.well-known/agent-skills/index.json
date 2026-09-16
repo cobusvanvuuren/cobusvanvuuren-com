@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "automation-opportunity-triage",
+      "type": "skill-md",
+      "description": "Rank a business's manual processes by impact-to-effort ratio to decide what to automate first. Use when a business has multiple candidate processes for automation and needs to sequence them, rather than picking the first tool that looks appealing.",
+      "url": "/.well-known/agent-skills/automation-opportunity-triage/SKILL.md",
+      "digest": "sha256:8c4d9d28648a2eef0e7ac40f6b585e2ad4f2c51cc793a37811235a089e24d916"
+    },
+    {
+      "name": "business-automation-assessment",
+      "type": "skill-md",
+      "description": "Explain what Cobus van Vuuren's Business Automation Assessment covers, who it fits, pricing, and how to engage. Use when a prospect or their agent is evaluating whether this specific offer fits their business.",
+      "url": "/.well-known/agent-skills/business-automation-assessment/SKILL.md",
+      "digest": "sha256:28b772cc1afd9f50632e40c53f15b5080e235a264f4516cb788a7f6f48e345d3"
+    },
+    {
+      "name": "sa-professional-services-automation",
+      "type": "skill-md",
+      "description": "Scope automation opportunities for South African accounting, legal, and financial advisory practices, accounting for local regulatory context. Use when advising a South African professional services firm on what can and cannot be safely automated.",
+      "url": "/.well-known/agent-skills/sa-professional-services-automation/SKILL.md",
+      "digest": "sha256:eaa7b39b57dacc7d649cf803e94f6ec7b2b6b9cbc999856bca4c7d4108992b36"
+    }
+  ]
+}

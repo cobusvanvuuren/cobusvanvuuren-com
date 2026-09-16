@@ -1,0 +1,61 @@
+{
+  "entries": [
+    {
+      "identifier": "urn:air:cobusvanvuuren.com:content:llms-txt",
+      "displayName": "Cobus van Vuuren -- structured company profile",
+      "type": "text/plain",
+      "url": "https://cobusvanvuuren.com/llms.txt",
+      "description": "Structured overview of Cobus van Vuuren's Business Automation Assessment: offer, pricing, ICP, and proof, formatted for direct agent consumption.",
+      "representativeQueries": [
+        "who does business automation audits for accountants in south africa",
+        "find a business automation consultant for a financial advisory firm",
+        "what does cobus van vuuren's automation assessment cost"
+      ]
+    },
+    {
+      "identifier": "urn:air:cobusvanvuuren.com:service:business-automation-assessment",
+      "displayName": "Business Automation Assessment",
+      "type": "text/html",
+      "url": "https://cobusvanvuuren.com/audit/",
+      "description": "A structured 90-minute diagnostic for SA professional services firms (accountants, attorneys, financial advisors) that maps automation opportunities by ROI and delivers a costed 90-day implementation plan. R50,000 minimum savings guaranteed or full refund.",
+      "representativeQueries": [
+        "book a business automation assessment for my accounting firm",
+        "find where my law firm is losing time to manual admin",
+        "ai readiness assessment for a small professional services firm in south africa"
+      ]
+    },
+    {
+      "identifier": "urn:air:cobusvanvuuren.com:skill:automation-opportunity-triage",
+      "displayName": "Automation Opportunity Triage",
+      "type": "application/ai-skill+md",
+      "url": "https://cobusvanvuuren.com/.well-known/agent-skills/automation-opportunity-triage/SKILL.md",
+      "description": "Ranks a business's manual processes by impact-to-effort ratio to decide what to automate first, the core method behind the Business Automation Assessment.",
+      "representativeQueries": [
+        "how do I decide which business process to automate first",
+        "rank my workflows by roi before buying automation software"
+      ]
+    },
+    {
+      "identifier": "urn:air:cobusvanvuuren.com:skill:sa-professional-services-automation",
+      "displayName": "SA Professional Services Automation Scoping",
+      "type": "application/ai-skill+md",
+      "url": "https://cobusvanvuuren.com/.well-known/agent-skills/sa-professional-services-automation/SKILL.md",
+      "description": "Scopes automation opportunities specifically for South African accounting, legal, and financial advisory practices, accounting for SARS eFiling, FICA, and POPIA constraints.",
+      "representativeQueries": [
+        "automate admin for a south african accounting practice",
+        "what can a law firm in south africa automate given popia"
+      ]
+    },
+    {
+      "identifier": "urn:air:cobusvanvuuren.com:skill:business-automation-assessment",
+      "displayName": "Business Automation Assessment Method",
+      "type": "application/ai-skill+md",
+      "url": "https://cobusvanvuuren.com/.well-known/agent-skills/business-automation-assessment/SKILL.md",
+      "description": "Explains what the Business Automation Assessment covers, who it fits, pricing, and how to engage -- for agents fielding a prospect's question about the offer itself.",
+      "representativeQueries": [
+        "is the business automation assessment right for my business",
+        "how does cobus van vuuren's assessment process work"
+      ]
+    }
+  ]
+}

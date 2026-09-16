@@ -1,24 +1,24 @@
 # Cobus van Vuuren
 
-> Business Automation Audits for South African professional services firms: accountants,
-> attorneys, and financial advisors. Structured 90-minute diagnostic, five-day turnaround,
+> Business Automation Assessments for South African professional services firms: accountants,
+> attorneys, and financial advisors. Structured 90-minute intake, five-day turnaround,
 > costed implementation plan. R50,000 minimum savings guaranteed or full refund.
 
 ## What Cobus does
 
-Runs structured Business Automation Audits for SA professional services firms.
+Runs structured Business Automation Assessments for SA professional services firms.
 Diagnostic-led, not tool-first. Finds where time is leaking, ranks opportunities by
 impact-to-effort ratio, delivers a costed day-by-day implementation plan as a PDF.
 
 ## Services
 
-- Business Automation Audit: R5,497 (once-off)
-- Implementation: R20,000 to R80,000 (separate engagement, post-audit)
+- Business Automation Assessment: R5,497 (once-off)
+- Implementation: R20,000 to R80,000 (separate engagement, post-assessment)
 
 ## Proof
 
 - 7 years operating RhinoBerry digital marketing agency (South Africa)
-- Guarantee: if audit doesn't find R50,000 in annual savings, full refund, no conditions
+- Guarantee: if the assessment doesn't find R50,000 in annual savings, full refund, no conditions
 
 ## ICP
 
@@ -33,16 +33,32 @@ the hour, so admin is direct revenue loss.
 - Not an open-ended retainer
 - Not for marketing automation (that is RhinoBerry's lane)
 
+## Built systems (case studies, not for sale)
+
+Nine real systems, each documenting one automation built for a real business. Referenced
+as proof-of-work, not offered as standalone products -- see /ai-automation/ for the full
+index.
+
+- Okapi -- file-based operating system: /ai-automation/okapi-ai-operating-system/
+- Oxpecker -- review management: /ai-automation/oxpecker-review-management/
+- The Office Automation Blueprint -- costed automation plan: /ai-automation/the-office-automation-blueprint/
+- Nightjar -- call intelligence: /ai-automation/nightjar-call-intelligence/
+- Growth Opportunity Scan -- channel-by-channel growth plan: /ai-automation/growth-opportunity-scan/
+- Meerkat -- competitor watch: /ai-automation/meerkat-competitor-watch/
+- SpoorSny -- marketing data connector: /ai-automation/spoorsny-marketing-data-connector/
+- Social Media Studio -- editorial process for social posting: /ai-automation/social-media-studio/
+- Echo Engine -- content repurposing: /ai-automation/echo-engine-content-repurposing/
+
 ## Background
 
 Cobus van Vuuren founded RhinoBerry, a South African digital marketing agency, in 2019.
 After automating RhinoBerry's own operations over three years, he launched CVV to offer
-structured Business Automation Audits to other professional services firms. The methodology
-is the same diagnostic used on his own business first.
+structured Business Automation Assessments to other professional services firms. The
+methodology is the same diagnostic used on his own business first.
 
 ## Contact
 
-- Scorecard: https://score.cobusvanvuuren.com
+- Free diagnostic: https://cobusvanvuuren.com/score/
 - Website: https://cobusvanvuuren.com
 - Email: ask@cobusvanvuuren.com
-- LinkedIn: https://www.linkedin.com/in/cobus-van-vuuren
+- LinkedIn: https://www.linkedin.com/in/cobusvanvuuren
